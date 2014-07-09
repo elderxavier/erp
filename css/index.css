@@ -1,0 +1,17 @@
+.wdgts {
+	padding:10px;}
+
+.wdgts > div {
+	height:200px;}
+
+.wdg1 > div {
+	background-color:#77caf0;}
+
+.wdg2 > div {
+	background-color:#bde9ff;}
+	
+.wdg3 > div {
+	background-color:#ffc6a5;}
+	
+.wdg4 > div {
+	background-color:#fb8f73;}	

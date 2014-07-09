@@ -9,7 +9,7 @@ class LoginForm extends CFormModel
 {
 	public $username;
 	public $password;
-	public $rememberMe;
+//	public $remember_me;
 
 	private $_identity;
 
@@ -24,35 +24,30 @@ class LoginForm extends CFormModel
 			// username and password are required
 			array('username, password', 'required'),
 			// rememberMe needs to be a boolean
-			array('rememberMe', 'boolean'),
+//			array('remember_me', 'boolean'),
 			// password needs to be authenticated
 			array('password', 'authenticate'),
 		);
 	}
 
-	/**
-	 * Declares attribute labels.
-	 */
-	public function attributeLabels()
-	{
-		return array(
-			'rememberMe'=>'Remember me next time',
-		);
-	}
 
 	/**
 	 * Authenticates the password.
 	 * This is the 'authenticate' validator as declared in rules().
 	 */
-	public function authenticate($attribute,$params)
-	{
-		if(!$this->hasErrors())
-		{
-			$this->_identity=new UserIdentity($this->username,$this->password);
-			if(!$this->_identity->authenticate())
-				$this->addError('password','Incorrect username or password.');
-		}
-	}
+    public function authenticate($attribute,$params)
+    {
+        if(!$this->hasErrors())
+        {
+            $this->_identity=new UserIdentity($this->username,$this->password);
+            if(!$this->_identity->authenticate())
+            {
+                if($this->_identity->errorCode == UserIdentity::ERROR_PASSWORD_INVALID){$this->addError('password','Incorrect password');}
+                elseif($this->_identity->errorCode == UserIdentity::ERROR_USERNAME_INVALID){$this->addError('username','This user not exist');}
+                elseif($this->_identity->errorCode == UserIdentity::ERROR_UNKNOWN_IDENTITY){$this->addError('username','Unknown error. Authentication failed');}
+            }
+        }
+    }
 
 	/**
 	 * Logs in the user using the given username and password in the model.
@@ -67,11 +62,13 @@ class LoginForm extends CFormModel
 		}
 		if($this->_identity->errorCode===UserIdentity::ERROR_NONE)
 		{
-			$duration=$this->rememberMe ? 3600*24*30 : 0; // 30 days
-			Yii::app()->user->login($this->_identity,$duration);
+			Yii::app()->user->login($this->_identity);
 			return true;
 		}
 		else
-			return false;
+        {
+            return false;
+        }
+
 	}
 }

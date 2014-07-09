@@ -1,0 +1,316 @@
+
+body {
+	font-family: 'Open Sans', sans-serif;
+	font-weight:400}
+	
+	
+/* -- head navs -- */
+.head_navs {
+	height:40px;
+	background-color:#0a6a9a;}
+	
+.head_navs-holder, .main-nav-holder, .main-content-holder{
+	max-width:1200px;
+	margin: 0 auto;}	
+	
+.logo  a > span {
+	display:block;
+	font-size:18px;
+	font-weight:600;
+	text-transform:uppercase;	
+	color:white;}
+	
+.logo  a > span > span {
+	font-weight:400;
+	font-size:7px;
+	color:#72cefc;
+	display:block;}
+			
+.active_task > a {
+	color:white;
+	padding: 4px 15px;
+	display:block;
+	line-height:36px;
+	background-color:#fb8f73;
+	height:40px;} 
+	
+.active_task > a > span.badge {
+	background-color:#cc5c4e;}
+	
+.active_task > a:hover {
+	text-decoration:none;}
+
+/*--/ languagr selector --*/	
+	
+.lang_selector button {
+	font-weight:700;
+	color:white;
+	background-color:#77caf0;
+	padding:0 13px;
+	border:none;
+	line-height:40px;
+	border-radius:0;}
+	
+.lang_selector .dropdown-menu {
+	border:none;
+	border-radius:0px;
+	padding:0;
+	min-width:5px;}
+	
+.lang_selector .dropdown-menu li:first-child {
+	border-bottom:1px solid #1f7fae;}		
+	
+.lang_selector .dropdown-menu li > a {
+	color:#e3e3e3;
+	background-color:#4a8aad;
+	padding: 10px 12px;}
+	
+/*-- login ---*/	
+	
+.login button.btn {
+	border-radius:0;
+	border:0;
+	background-color:#0a6a9a;
+	padding:0;}
+	
+.login .open .btn {
+	background-color:#77caf0;}
+		
+.login button.btn > span {
+	padding: 0 10px;
+	color:white;}
+	
+.login .open button.btn > span {
+	color:#0a6a9a;}
+	
+.login .dropdown-menu {
+	background-color:#77caf0;
+	border-radius:0;
+	padding:0;
+	margin:0;
+	border:0;
+	min-width:154px;}
+	
+.login .dropdown-menu li > a  {
+	padding:0;
+	text-transform:uppercase;
+	color:white;}
+	
+.login .dropdown-menu li > a:hover {
+	color:#0a6a9a;
+	background-color:#0a6a9a;}
+	
+	
+.login .dropdown-menu li {
+	border-bottom:1px dotted #149fe4;}
+	
+.login .dropdown-menu li:first-child {
+	border-bottom:none;}
+	
+.login .dropdown-menu li > a > span {
+	height:40px;}
+	
+.login .dropdown-menu li > a > span.icon {
+	background-image:url(../images/sprite_login.png) ;
+	width:42px;
+	background-color:#0a6a9a;
+	border-bottom:1px dotted #149fe4}
+	
+.logout span.icon {
+	background-position: center top;}
+	
+.user-edit span.icon {
+	background-position:center center}
+	
+.user-options span.icon {
+	background-position:center bottom;}			
+	
+.login .dropdown-menu li > a > span.login-actions {
+	padding-left:15px;
+	line-height:40px;
+	display:block}
+	
+/* -- after top-menu --- */
+.after_head_navs {
+	position:relative;
+	background-color:#149fe4;}	
+	
+.after_head_navs .navbar {
+	border:none;
+	background-color:#149fe4;}
+	
+.after_head_navs .navbar-collapse {
+	max-height:none;}	
+	
+.after_head_navs .navbar-toggle {
+	border-radius:2px;
+	border:none;
+	float:left;
+	margin-left:15px;
+	background-color:#0a6a9a;}
+	
+.after_head_navs .navbar-toggle > span.icon-bar {
+	background-color:#149fe4;}
+	
+.after_head_navs .navbar-toggle:hover, .after_head_navs .navbar-toggle:focus {
+	background-color:#bee9ff;}
+	
+#main-menu {
+	border:none;
+	position:relative;
+	margin:0;
+	padding:0;}	
+	
+#main-menu .navbar-nav {
+	margin:0;
+	padding:20px;}
+	
+.navbar-default .navbar-nav li > a {
+	font-size:16px;
+	color:white;}
+	
+.navbar-default .navbar-nav li > a > span {
+	display:inline-block;}
+	
+.navbar-default .navbar-nav li > a > span:first-child {
+	width:30px;}
+	
+.navbar-default .navbar-nav li > a > span:last-child {
+	padding-left:20px;}
+	
+.navbar-default .navbar-nav li > a:hover, .navbar-default .navbar-nav li.active {
+	background-color:#149fe4;
+	color:white;} 	
+	
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+	background-color:#149fe4;
+	color:white;}
+		       
+#main-menu .nav {
+	background-color:#77caf0;
+	height:auto;}	
+	
+	
+/*--- main container ---*/
+.main_container > .container {
+	padding-top:20px;
+	padding-bottom:40px;}
+
+.main_container > .content-wrapper {
+	border:1px solid #c7c8cc;}
+	
+			
+	
+	
+/*-- sub-menu --- */
+.sub-menu {
+	list-style:none;}
+
+.sub-menu li {
+	padding-right:20px;
+	margin-bottom:10px;
+	float:left;}
+	
+.sub-menu li > a {
+	padding-left:34px;
+	display:block;
+	height:24px;
+	color:#968b8b;}
+	
+.sub-menu li > a.create-product {
+	background:url(../images/sprite_pluss_bg.png) top left no-repeat;}
+	
+.sub-menu li > a.list-products {
+	background:url(../images/sprite_list_bg.png) top left no-repeat;}
+	
+	
+.sub-menu li > a:hover {
+	background-position:bottom left;}	
+	
+	
+/*-- login form ----*/
+
+.main-form-wrapper {
+	max-width:360px;
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:100px;}
+
+.form-wrapper {
+	border:1px solid #c7c8cc;
+	padding:10px;
+	margin-top:-10px;}
+	
+	
+	
+.login-header-holder {}
+	
+	 
+.login-header-holder h1 {
+	background-color:#0a6a9a;
+	color:white;
+	line-height:48px;
+	text-align:center;
+	font-size:20px;}
+	
+#login-form label {
+	font-weight:400;
+	font-size:14px;
+	color:#968b8b;}	
+	
+#login-form input {
+	border:1px solid #968b8b;
+	border-radius:1px;}
+	
+#login-form button {
+	padding:0;
+	background-color:#fb8f73;}
+	
+#login-form button > span {
+	display:inline-block;}
+						
+#login-form button > span:first-child {
+	padding:0 15px;}
+	   	
+#login-form button span:last-child {
+	padding:0;
+	background-color:#cc5c4e;}
+	
+#login-form .error {
+	color:red;
+	font-size:12px;}	
+	
+/* ----- responsive - part -------*/
+@media (min-width: 471px) {
+	
+}
+
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width:768px){
+	#main-menu .nav { background-color:transparent;}
+	#main-menu .navbar-nav { padding:0 }
+	.navbar-default .navbar-nav li > a > span:first-child {height:40px;}
+	.navbar-default .navbar-nav li > a > span { display:table-row; text-align:center}
+	.navbar-default .navbar-nav li > a { padding-top:10px; padding-left:5px; padding-right:5px; border-left:1px dotted #65c1eb; border-right:1px dotted #118fce;}
+	.navbar-default .navbar-nav li > a:hover, .navbar-default .navbar-nav li.active > a { background-color:#0a6a9a;}
+	.navbar-default .navbar-nav li:first-child {border-left:1px dotted #116fce;}
+	.navbar-default .navbar-nav li:last-child {border-right:1px dotted #65c1eb;}
+	.after_head_navs .navbar { margin-bottom:0;}
+}
+
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width:992px) {
+	//.navbar-default .navbar-nav li > a > span { display:inline-block; text-align:center}
+}
+
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+	.navbar-default .navbar-nav li > a { padding:0;}
+	.navbar-default .navbar-nav li > a > span:first-child {height:50px;padding-right:15px;}
+	.navbar-default .navbar-nav li > a > span:last-child {padding-right:10px;}
+	.navbar-default .navbar-nav li > a > span { display:inline-block;padding-left:10px; height:50px;line-height:50px;}
+	.navbar-default .navbar-nav li > a > span > img {vertical-align:middle;}
+}

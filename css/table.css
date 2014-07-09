@@ -1,0 +1,67 @@
+
+/*-- filters --- */
+.filter > div > label {
+	font-weight:400;
+	color:#9e9494;}
+	
+.filter > div > input[type=text]{
+	height:36px;
+	width:200px;
+	border:1px solid #c7c8cc;}
+	
+.filters > .filter {
+	margin-bottom:20px;
+	padding-right:20px;
+	float:left;}	
+	
+.filter > div {
+	display:inline-block;
+	line-height:36px;}
+	
+.filter > div > button {
+	padding:0;
+	text-transform:uppercase;
+	border:none;
+	border-radius:0px;
+	color:white;
+	background-color:#fb8f73;
+	height:36px;}
+
+.filter > div > button > span {
+	display:inline-block;
+	height:36px;}
+	
+.filter > div > button > span:first-child {
+	padding: 0 15px;}
+	
+.filter > div > button > span:last-child {
+	background-color:#cc5c4e;}
+	
+/*--- table -holder ----*/
+.table-holder .table {
+	font-size:12px;}
+
+.table-holder .table thead {
+	background-color:#b6b7bb;}
+	
+.table-holder .table thead th {
+	font-weight:400;
+	color:white;
+	text-transform:uppercase;}
+	
+.table-holder .table tbody tr:hover td {
+	background-color:#e5f1cd;}
+	
+.table-holder .table thead th.count {
+	width:50px;}
+.table-holder .table thead th.status {
+	width:80px;}
+
+.table td.status  .btn {
+	border-radius:1px;
+	font-size:12px;
+	padding:3px;}
+	
+.table td.status .btn-primary {
+	background-color:#7db222;}
+	
