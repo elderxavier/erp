@@ -21,9 +21,10 @@ class Controller extends CController
 	 */
 	public $breadcrumbs=array();
 
-
+    //default titles of site pages
     public $site_title = "ERP";
     public $page_title = "default";
+
 
     //do before every action
     protected function beforeAction($action) {
@@ -38,6 +39,7 @@ class Controller extends CController
                 $this->redirect($this->createUrl('//main/login'));
             }
         }
+
         return parent::beforeAction($action);
     }
 }

@@ -62,10 +62,11 @@ return array(
             ),
         ),
 
-        /*'db'=>array(
-            'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
+        'labels'=>array(
+            'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/labels_en.db',
+            'class' => 'CDbConnection'
         ),
-        */
+
         // uncomment the following to use a MySQL database
 
         'db'=>array(

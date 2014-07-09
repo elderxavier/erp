@@ -148,3 +148,108 @@ Stack trace:
 REQUEST_URI=/employees
 HTTP_REFERER=http://erpgit.loc/main
 ---
+2014/07/09 16:48:37 [error] [exception.CException] exception 'CException' with message 'Object configuration must be an array containing a "class" element.' in C:\OpenServer\domains\_GIT\erp\framework\YiiBase.php:193
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\base\CModule.php(386): YiiBase::createComponent(Array)
+#1 C:\OpenServer\domains\_GIT\erp\framework\gii\generators\model\ModelGenerator.php(17): CModule->getComponent('labels')
+#2 [internal function]: ModelGenerator->actionGetTableNames('labels')
+#3 C:\OpenServer\domains\_GIT\erp\framework\web\actions\CAction.php(108): ReflectionMethod->invokeArgs(Object(ModelGenerator), Array)
+#4 C:\OpenServer\domains\_GIT\erp\framework\web\actions\CInlineAction.php(47): CAction->runWithParamsInternal(Object(ModelGenerator), Object(ReflectionMethod), Array)
+#5 C:\OpenServer\domains\_GIT\erp\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#6 C:\OpenServer\domains\_GIT\erp\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#7 C:\OpenServer\domains\_GIT\erp\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(282): CController->run('getTableNames')
+#9 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('gii/model/getTa...')
+#10 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#11 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#12 {main}
+REQUEST_URI=/gii/model/getTableNames?db=labels
+HTTP_REFERER=http://erpgit.loc/gii/model/index
+---
+2014/07/09 16:48:45 [error] [exception.CException] exception 'CException' with message 'Object configuration must be an array containing a "class" element.' in C:\OpenServer\domains\_GIT\erp\framework\YiiBase.php:193
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\base\CModule.php(386): YiiBase::createComponent(Array)
+#1 C:\OpenServer\domains\_GIT\erp\framework\gii\generators\model\ModelCode.php(428): CModule->getComponent('labels')
+#2 C:\OpenServer\domains\_GIT\erp\framework\validators\CInlineValidator.php(42): ModelCode->validateConnectionId('connectionId', Array)
+#3 C:\OpenServer\domains\_GIT\erp\framework\validators\CValidator.php(213): CInlineValidator->validateAttribute(Object(ModelCode), 'connectionId')
+#4 C:\OpenServer\domains\_GIT\erp\framework\base\CModel.php(159): CValidator->validate(Object(ModelCode), NULL)
+#5 C:\OpenServer\domains\_GIT\erp\framework\gii\CCodeGenerator.php(159): CModel->validate()
+#6 C:\OpenServer\domains\_GIT\erp\framework\gii\CCodeGenerator.php(63): CCodeGenerator->prepare()
+#7 C:\OpenServer\domains\_GIT\erp\framework\web\actions\CInlineAction.php(49): CCodeGenerator->actionIndex()
+#8 C:\OpenServer\domains\_GIT\erp\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#9 C:\OpenServer\domains\_GIT\erp\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#10 C:\OpenServer\domains\_GIT\erp\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(282): CController->run('index')
+#12 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('gii/model/index')
+#13 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#14 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#15 {main}
+REQUEST_URI=/gii/model/index
+HTTP_REFERER=http://erpgit.loc/gii/model/index
+---
+2014/07/09 16:51:38 [error] [exception.CException] exception 'CException' with message 'Object configuration must be an array containing a "class" element.' in C:\OpenServer\domains\_GIT\erp\framework\YiiBase.php:193
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\base\CModule.php(386): YiiBase::createComponent(Array)
+#1 C:\OpenServer\domains\_GIT\erp\framework\gii\generators\model\ModelGenerator.php(17): CModule->getComponent('labels')
+#2 [internal function]: ModelGenerator->actionGetTableNames('labels')
+#3 C:\OpenServer\domains\_GIT\erp\framework\web\actions\CAction.php(108): ReflectionMethod->invokeArgs(Object(ModelGenerator), Array)
+#4 C:\OpenServer\domains\_GIT\erp\framework\web\actions\CInlineAction.php(47): CAction->runWithParamsInternal(Object(ModelGenerator), Object(ReflectionMethod), Array)
+#5 C:\OpenServer\domains\_GIT\erp\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#6 C:\OpenServer\domains\_GIT\erp\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#7 C:\OpenServer\domains\_GIT\erp\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(282): CController->run('getTableNames')
+#9 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('gii/model/getTa...')
+#10 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#11 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#12 {main}
+REQUEST_URI=/gii/model/getTableNames?db=labels
+HTTP_REFERER=http://erpgit.loc/gii/model/index
+---
+2014/07/09 16:51:48 [error] [exception.CException] exception 'CException' with message 'Object configuration must be an array containing a "class" element.' in C:\OpenServer\domains\_GIT\erp\framework\YiiBase.php:193
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\base\CModule.php(386): YiiBase::createComponent(Array)
+#1 C:\OpenServer\domains\_GIT\erp\framework\gii\generators\model\ModelCode.php(428): CModule->getComponent('labels')
+#2 C:\OpenServer\domains\_GIT\erp\framework\validators\CInlineValidator.php(42): ModelCode->validateConnectionId('connectionId', Array)
+#3 C:\OpenServer\domains\_GIT\erp\framework\validators\CValidator.php(213): CInlineValidator->validateAttribute(Object(ModelCode), 'connectionId')
+#4 C:\OpenServer\domains\_GIT\erp\framework\base\CModel.php(159): CValidator->validate(Object(ModelCode), NULL)
+#5 C:\OpenServer\domains\_GIT\erp\framework\gii\CCodeGenerator.php(159): CModel->validate()
+#6 C:\OpenServer\domains\_GIT\erp\framework\gii\CCodeGenerator.php(63): CCodeGenerator->prepare()
+#7 C:\OpenServer\domains\_GIT\erp\framework\web\actions\CInlineAction.php(49): CCodeGenerator->actionIndex()
+#8 C:\OpenServer\domains\_GIT\erp\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#9 C:\OpenServer\domains\_GIT\erp\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#10 C:\OpenServer\domains\_GIT\erp\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(282): CController->run('index')
+#12 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('gii/model/index')
+#13 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#14 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#15 {main}
+REQUEST_URI=/gii/model/index
+HTTP_REFERER=http://erpgit.loc/gii/model/index
+---
+2014/07/09 16:59:23 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "favicon.ico".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+---
+2014/07/09 17:15:06 [error] [exception.CException] exception 'CException' with message 'Property "MainController.labels" is not defined.' in C:\OpenServer\domains\_GIT\erp\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\protected\views\main\login.php(8): CComponent->__get('labels')
+#1 C:\OpenServer\domains\_GIT\erp\framework\web\CBaseController.php(126): require('C:\OpenServer\d...')
+#2 C:\OpenServer\domains\_GIT\erp\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\OpenServer\d...', Array, true)
+#3 C:\OpenServer\domains\_GIT\erp\framework\web\CController.php(869): CBaseController->renderFile('C:\OpenServer\d...', Array, true)
+#4 C:\OpenServer\domains\_GIT\erp\framework\web\CController.php(782): CController->renderPartial('login', Array, true)
+#5 C:\OpenServer\domains\_GIT\erp\protected\controllers\MainController.php(54): CController->render('login', Array)
+#6 C:\OpenServer\domains\_GIT\erp\framework\web\actions\CInlineAction.php(49): MainController->actionLogin()
+#7 C:\OpenServer\domains\_GIT\erp\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#8 C:\OpenServer\domains\_GIT\erp\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#9 C:\OpenServer\domains\_GIT\erp\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#10 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(282): CController->run('login')
+#11 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('main/login')
+#12 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#13 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#14 {main}
+REQUEST_URI=/main/login
+---
