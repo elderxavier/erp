@@ -37,18 +37,18 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/table.css');
 
                             <td class="status">
                                 <div class="btn-group btn-toggle">
-                                    <button class="btn <?php if($category->status == true):?>active btn-primary<?php else: ?>btn-default<?php endif; ?>">ON</button>
-                                    <button class="btn <?php if($category->status == false):?>active btn-primary<?php else: ?>btn-default<?php endif; ?>">OFF</button>
+                                    <button class="btn <?php if($category->status == 1):?>active btn-primary<?php else: ?>btn-default<?php endif; ?>">ON</button>
+                                    <button class="btn <?php if($category->status == 0):?>active btn-primary<?php else: ?>btn-default<?php endif; ?>">OFF</button>
                                 </div>
                             </td>
 
                             <td>
-                                <?php $rights = Controller::GetUserRights(); ?>
+                                <?php $rights = Yii::app()->user->GetState('rights'); ?>
                                 <?php if($rights->products_categories_delete): ?>
-                                    <?php echo CHtml::link(Label::Get('delete'),Yii::app()->createUrl('products/deletecat',array('id' => $rights->id)),array('class' => 'action-lnk')); ?>
+                                    <?php echo CHtml::link(Label::Get('delete'),Yii::app()->createUrl('products/deletecat',array('id' => $category->id)),array('class' => 'action-lnk')); ?>
                                 <?php endif; ?>
                                 <?php if($rights->products_categories_edit): ?>
-                                    | <?php echo CHtml::link(Label::Get('edit'),Yii::app()->createUrl('products/editcat',array('id' => $rights->id)),array('class' => 'action-lnk')); ?>
+                                    | <?php echo CHtml::link(Label::Get('edit'),Yii::app()->createUrl('products/editcat',array('id' => $category->id)),array('class' => 'action-lnk')); ?>
                                 <?php endif; ?>
                             </td>
                         </tr>

@@ -7,7 +7,7 @@ class ProductsController extends Controller
     {
         /* @var $user_rights UserRights */
 
-        $user_rights = Controller::GetUserRights();
+        $user_rights = Yii::app()->user->GetState('rights');
 
         $arr = array(
             'Add category' => array('action' => 'addcat', 'visible' => $user_rights->products_categories_create, 'class' => 'create-product'),

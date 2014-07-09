@@ -26,13 +26,13 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/add_product.css');
                 <div class="form-group">
                     <label for="status"><?php echo Label::Get('Status'); ?></label>
                     <select id="status" class="form-control" name="status">
-                        <option <?php if($category->status == false): ?> selected <?php endif; ?> value="<?php echo false; ?>"><?php echo Label::Get('hidden'); ?></option>
-                        <option <?php if($category->status == true): ?> selected <?php endif;?> value="<?php echo true; ?>"><?php echo Label::Get('visible'); ?></option>
+                        <option <?php if($category->status == 0): ?> selected <?php endif; ?> value="<?php echo 0; ?>"><?php echo Label::Get('hidden'); ?></option>
+                        <option <?php if($category->status == 1): ?> selected <?php endif;?> value="<?php echo 1; ?>"><?php echo Label::Get('visible'); ?></option>
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label for="remark"><?php echo Label::Get('Remark'); ?></label>
+                    <label for="remark"><?php echo Label::Get('remark'); ?></label>
                     <textarea id="remark" class="form-control" style="margin: 0px 488px 0px 0px; height: 57px; width: 453px;"><?php echo $category->remark; ?></textarea>
                 </div>
 

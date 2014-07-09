@@ -25,14 +25,6 @@ class Controller extends CController
     public $site_title = "ERP";
     public $page_title = "default";
 
-    //returns user rights
-    public static function GetUserRights()
-    {
-        /* @var $user_rights UserRights */
-        $user_rights = Yii::app()->user->GetState('rights');
-        return $user_rights;
-    }
-
     //do before every action
     protected function beforeAction($action) {
 
