@@ -22,7 +22,7 @@
                         <?php if(isset($errors['password'])): ?><div class="error"><?php echo $this->labels['wrong password']; ?></div><?php endif; ?>
                     </div>
 
-                    <button class="btn btn-default pull-right"><span><?php echo Label::Get('login'); ?></span><span><img src="/images/filters_arrow.png" width="36" height="36" ></span></button>
+                    <button class="btn btn-default pull-right"><span><?php echo $this->labels['login']; ?></span><span><img src="/images/filters_arrow.png" width="36" height="36" ></span></button>
                 </form>
             </div><!--/form-wrapper -->
         </div><!--/form-holder -->

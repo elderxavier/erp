@@ -28,7 +28,15 @@ class Controller extends CController
     public $page_title = "default";
     
     public function init(){
-        $this->labels = Label::Get();
+        $this->labels = Labels::model()->getLabels();
+    }
+
+    //returns user rights
+    public static function GetUserRights()
+    {
+        /* @var $user_rights UserRights */
+        $user_rights = Yii::app()->user->GetState('rights');
+        return $user_rights;
     }
 
     //do before every action
