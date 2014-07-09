@@ -20,6 +20,7 @@
                 <a href="/"><img class="pull-left" src="/images/logo.png" width="25" height="25"><span>Olivia<span>version: 0000</small></span></a>
             </div><!--/LOGO -->
             <div class="actions col-xs-8 col-sm-8 col-md-7 pull-right">
+
                 <div class="login pull-right">
                     <div class="btn-group">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">

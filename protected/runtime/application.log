@@ -509,3 +509,1060 @@ Stack trace:
 REQUEST_URI=/fonts/glyphicons-halflings-regular.svg
 HTTP_REFERER=http://erpgit.loc/products/categories
 ---
+2014/07/09 18:24:31 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.woff".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.woff
+HTTP_REFERER=http://erpgit.loc/products/addcat
+---
+2014/07/09 18:24:31 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.ttf".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.ttf
+HTTP_REFERER=http://erpgit.loc/products/addcat
+---
+2014/07/09 18:24:31 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.svg".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.svg
+HTTP_REFERER=http://erpgit.loc/products/addcat
+---
+2014/07/09 18:25:04 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.woff".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.woff
+HTTP_REFERER=http://erpgit.loc/products/addcat
+---
+2014/07/09 18:25:04 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.ttf".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.ttf
+HTTP_REFERER=http://erpgit.loc/products/addcat
+---
+2014/07/09 18:25:04 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.svg".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.svg
+HTTP_REFERER=http://erpgit.loc/products/addcat
+---
+2014/07/09 18:25:10 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.woff".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.woff
+HTTP_REFERER=http://erpgit.loc/products/addcat
+---
+2014/07/09 18:25:10 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.ttf".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.ttf
+HTTP_REFERER=http://erpgit.loc/products/addcat
+---
+2014/07/09 18:25:10 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.svg".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.svg
+HTTP_REFERER=http://erpgit.loc/products/addcat
+---
+2014/07/09 18:37:15 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.woff".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.woff
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 18:37:15 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.ttf".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.ttf
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 18:37:15 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.svg".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.svg
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 18:37:19 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.woff".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.woff
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 18:37:19 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.ttf".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.ttf
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 18:37:19 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.svg".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.svg
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 18:37:25 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.woff".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.woff
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 18:37:25 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.ttf".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.ttf
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 18:37:25 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.svg".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.svg
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 18:52:49 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.min.map".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('js/jquery.min.m...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/js/jquery.min.map
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 18:53:25 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.min.map".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('js/jquery.min.m...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/js/jquery.min.map
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 18:53:28 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.woff".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.woff
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 18:53:29 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.ttf".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.ttf
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 18:53:29 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.svg".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.svg
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 18:53:33 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.woff".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.woff
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 18:53:33 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.ttf".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.ttf
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 18:53:34 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.svg".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.svg
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 18:57:50 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.woff".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.woff
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 18:57:50 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.ttf".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.ttf
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 18:57:50 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.svg".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.svg
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 18:58:00 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.min.map".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('js/jquery.min.m...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/js/jquery.min.map
+HTTP_REFERER=http://erpgit.loc/products/editcat/7
+---
+2014/07/09 18:58:35 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.min.map".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('js/jquery.min.m...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/js/jquery.min.map
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 18:58:38 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.woff".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.woff
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 18:58:38 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.min.map".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('js/jquery.min.m...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/js/jquery.min.map
+HTTP_REFERER=http://erpgit.loc/products/editcat/4
+---
+2014/07/09 18:58:38 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.ttf".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.ttf
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 18:58:38 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.svg".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.svg
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 18:58:57 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.min.map".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('js/jquery.min.m...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/js/jquery.min.map
+HTTP_REFERER=http://erpgit.loc/products/editcat/4
+---
+2014/07/09 18:58:59 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.min.map".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('js/jquery.min.m...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/js/jquery.min.map
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 18:59:01 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.woff".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.woff
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 18:59:01 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.ttf".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.ttf
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 18:59:01 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.min.map".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('js/jquery.min.m...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/js/jquery.min.map
+HTTP_REFERER=http://erpgit.loc/products/editcat/4
+---
+2014/07/09 18:59:01 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.svg".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.svg
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 18:59:04 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.min.map".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('js/jquery.min.m...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/js/jquery.min.map
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 18:59:06 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.woff".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.woff
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 18:59:07 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.min.map".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('js/jquery.min.m...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/js/jquery.min.map
+HTTP_REFERER=http://erpgit.loc/products/editcat/4
+---
+2014/07/09 18:59:07 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.ttf".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.ttf
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 18:59:07 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.svg".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.svg
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 18:59:09 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.min.map".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('js/jquery.min.m...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/js/jquery.min.map
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 19:07:20 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.min.map".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('js/jquery.min.m...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/js/jquery.min.map
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 19:07:35 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.min.map".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('js/jquery.min.m...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/js/jquery.min.map
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 19:07:45 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.min.map".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('js/jquery.min.m...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/js/jquery.min.map
+HTTP_REFERER=http://erpgit.loc/products/deletecat/4
+---
+2014/07/09 19:07:52 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.min.map".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('js/jquery.min.m...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/js/jquery.min.map
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 19:08:40 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.min.map".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('js/jquery.min.m...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/js/jquery.min.map
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 19:08:43 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.woff".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.woff
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 19:08:43 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.min.map".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('js/jquery.min.m...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/js/jquery.min.map
+HTTP_REFERER=http://erpgit.loc/products/editcat/4
+---
+2014/07/09 19:08:43 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.ttf".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.ttf
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 19:08:43 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.svg".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.svg
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 19:08:45 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.min.map".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('js/jquery.min.m...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/js/jquery.min.map
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 19:08:46 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.woff".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.woff
+HTTP_REFERER=http://erpgit.loc/products/editcat/5
+---
+2014/07/09 19:08:46 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.ttf".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.ttf
+HTTP_REFERER=http://erpgit.loc/products/editcat/5
+---
+2014/07/09 19:08:46 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.min.map".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('js/jquery.min.m...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/js/jquery.min.map
+HTTP_REFERER=http://erpgit.loc/products/editcat/5
+---
+2014/07/09 19:08:46 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.svg".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.svg
+HTTP_REFERER=http://erpgit.loc/products/editcat/5
+---
+2014/07/09 19:08:48 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.min.map".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('js/jquery.min.m...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/js/jquery.min.map
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 19:08:49 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.woff".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.woff
+HTTP_REFERER=http://erpgit.loc/products/editcat/5
+---
+2014/07/09 19:08:50 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.min.map".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('js/jquery.min.m...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/js/jquery.min.map
+HTTP_REFERER=http://erpgit.loc/products/editcat/5
+---
+2014/07/09 19:08:50 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.ttf".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.ttf
+HTTP_REFERER=http://erpgit.loc/products/editcat/5
+---
+2014/07/09 19:08:50 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.svg".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.svg
+HTTP_REFERER=http://erpgit.loc/products/editcat/5
+---
+2014/07/09 19:08:54 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.min.map".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('js/jquery.min.m...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/js/jquery.min.map
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 19:08:56 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.woff".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.woff
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 19:08:56 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.min.map".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('js/jquery.min.m...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/js/jquery.min.map
+HTTP_REFERER=http://erpgit.loc/products/editcat/5
+---
+2014/07/09 19:08:56 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.ttf".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.ttf
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 19:08:57 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.svg".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.svg
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 19:09:00 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.min.map".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('js/jquery.min.m...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/js/jquery.min.map
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 19:09:07 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.woff".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.woff
+HTTP_REFERER=http://erpgit.loc/products/addcat
+---
+2014/07/09 19:09:07 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.min.map".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('js/jquery.min.m...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/js/jquery.min.map
+HTTP_REFERER=http://erpgit.loc/products/addcat
+---
+2014/07/09 19:09:07 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.ttf".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.ttf
+HTTP_REFERER=http://erpgit.loc/products/addcat
+---
+2014/07/09 19:09:07 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.svg".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.svg
+HTTP_REFERER=http://erpgit.loc/products/addcat
+---
+2014/07/09 19:09:12 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.min.map".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('js/jquery.min.m...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/js/jquery.min.map
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 19:09:14 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.woff".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.woff
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 19:09:15 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.ttf".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.ttf
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 19:09:14 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.min.map".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('js/jquery.min.m...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/js/jquery.min.map
+HTTP_REFERER=http://erpgit.loc/products/editcat/8
+---
+2014/07/09 19:09:15 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.svg".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.svg
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 19:09:57 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.woff".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.woff
+HTTP_REFERER=http://erpgit.loc/products/editcat/8
+---
+2014/07/09 19:09:58 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.min.map".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('js/jquery.min.m...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/js/jquery.min.map
+HTTP_REFERER=http://erpgit.loc/products/editcat/8
+---
+2014/07/09 19:09:58 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.ttf".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.ttf
+HTTP_REFERER=http://erpgit.loc/products/editcat/8
+---
+2014/07/09 19:09:58 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.svg".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.svg
+HTTP_REFERER=http://erpgit.loc/products/editcat/8
+---
+2014/07/09 19:10:02 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.min.map".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('js/jquery.min.m...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/js/jquery.min.map
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 19:10:05 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.woff".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.woff
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 19:10:05 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.ttf".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.ttf
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 19:10:05 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.min.map".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('js/jquery.min.m...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/js/jquery.min.map
+HTTP_REFERER=http://erpgit.loc/products/editcat/8
+---
+2014/07/09 19:10:05 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.svg".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.svg
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 19:10:08 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.min.map".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('js/jquery.min.m...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/js/jquery.min.map
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 19:10:10 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.min.map".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('js/jquery.min.m...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/js/jquery.min.map
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 19:10:14 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.min.map".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('js/jquery.min.m...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/js/jquery.min.map
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 19:10:15 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.woff".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.woff
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 19:10:15 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.min.map".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('js/jquery.min.m...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/js/jquery.min.map
+HTTP_REFERER=http://erpgit.loc/products/addcat
+---
+2014/07/09 19:10:16 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.ttf".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.ttf
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 19:10:16 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.svg".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.svg
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 19:10:17 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.min.map".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('js/jquery.min.m...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/js/jquery.min.map
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 19:10:20 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.woff".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.woff
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 19:10:20 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.min.map".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('js/jquery.min.m...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/js/jquery.min.map
+HTTP_REFERER=http://erpgit.loc/products/addcat
+---
+2014/07/09 19:10:20 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.ttf".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.ttf
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 19:10:20 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.svg".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.svg
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 19:10:21 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.min.map".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('js/jquery.min.m...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/js/jquery.min.map
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 19:10:32 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.woff".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.woff
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 19:10:32 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.ttf".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.ttf
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 19:10:32 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.min.map".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('js/jquery.min.m...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/js/jquery.min.map
+HTTP_REFERER=http://erpgit.loc/products/addcat
+---
+2014/07/09 19:10:32 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.svg".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.svg
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 19:10:33 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.min.map".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('js/jquery.min.m...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/js/jquery.min.map
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 19:10:34 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.woff".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.woff
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 19:10:34 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.min.map".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('js/jquery.min.m...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/js/jquery.min.map
+HTTP_REFERER=http://erpgit.loc/products/addcat
+---
+2014/07/09 19:10:34 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.ttf".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.ttf
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 19:10:35 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.svg".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.svg
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 19:10:37 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.min.map".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('js/jquery.min.m...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/js/jquery.min.map
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 19:10:37 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "addcard".' in C:\OpenServer\domains\_GIT\erp\framework\web\CController.php:483
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CController.php(270): CController->missingAction('addcard')
+#1 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(282): CController->run('addcard')
+#2 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('products/addcar...')
+#3 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/products/addcard
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 19:10:39 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.min.map".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('js/jquery.min.m...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/js/jquery.min.map
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 19:10:41 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "cards".' in C:\OpenServer\domains\_GIT\erp\framework\web\CController.php:483
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CController.php(270): CController->missingAction('cards')
+#1 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(282): CController->run('cards')
+#2 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('products/cards')
+#3 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/products/cards
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/09 19:10:43 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.min.map".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('js/jquery.min.m...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/js/jquery.min.map
+HTTP_REFERER=http://erpgit.loc/products/categories
+---

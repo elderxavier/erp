@@ -21,7 +21,7 @@ class MainMenu extends CWidget {
             'Employees' => array('controller' => 'employees', 'image' => 'person.png', 'visible' => $rights->users_see)
         );
 
-        $this->render('_main_menu',array('links' => $main_menu, 'default_action' => $default_action));
+        $this->render('main_menu',array('links' => $main_menu, 'default_action' => $default_action));
     }
 }
 ?>
