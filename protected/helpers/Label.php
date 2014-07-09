@@ -2,24 +2,25 @@
 
 class Label
 {
-    public static function Get($label)
+    public static function Get($language=null)
     {
-        /* @var $labelObj Labels */
+        
 
-        //value is label by default
-        $value = $label;
-
-        //try find label in db
-        $labelObj = Labels::model()->findByAttributes(array('label' => $label));
-
-        //if found something
-        if(!empty($labelObj))
+        $labels = array();    
+        
+       
+        $connection = Yii::app()->labels;
+        $sql="SELECT label, value FROM labels";
+        $dataReader=$connection->createCommand($sql)->query();
+        $dataReader->bindColumn(1,$label);
+        // привязываем второе поле (email) к переменной $email
+        $dataReader->bindColumn(2,$value);
+        
+        while($dataReader->read()!==false)
         {
-            //get value from object
-            $value = $labelObj->value;
+            $labels[$label] = $value;   
         }
-
-        //return value
-        return $value;
+        
+        return $labels;
     }
 }

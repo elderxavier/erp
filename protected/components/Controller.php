@@ -20,10 +20,16 @@ class Controller extends CController
 	 * for more details on how to specify this property.
 	 */
 	public $breadcrumbs=array();
+    
+    public $labels;
 
     //default titles of site pages
     public $site_title = "ERP";
     public $page_title = "default";
+    
+    public function init(){
+        $this->labels = Label::Get();
+    }
 
     //do before every action
     protected function beforeAction($action) {
