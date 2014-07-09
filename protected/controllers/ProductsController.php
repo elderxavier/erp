@@ -16,7 +16,7 @@ class ProductsController extends Controller
             'Product cards' => array('action' => 'cards', 'visible' => $user_rights->products_see, 'class' => 'list-products'),
         );
 
-        return $user_rights;
+        return $arr;
     }
 
     //I N D E X
