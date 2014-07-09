@@ -6,7 +6,7 @@ class Label
     {
         /* @var $labelObj Labels */
 
-        //value
+        //value is label by default
         $value = $label;
 
         //try find label in db
