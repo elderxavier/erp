@@ -13,7 +13,8 @@ class MainController extends Controller
     public function actionLogout()
     {
         //delete user info from session
-        Yii::app()->user->logout(false);
+        Yii::app()->user->logout();
+        $this->redirect('/main/login');
     }
 
     //L O G  I N
