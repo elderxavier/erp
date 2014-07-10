@@ -13,10 +13,8 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/add_product.css');
         <div class="col-lg-12">
             <form id="add-product-form" action="<?php echo Yii::app()->createUrl(Yii::app()->controller->id.'/updatecat'); ?>" method="post" role="form">
 
-                <?php if($category != null): ?>
+                <?php if(!$category ->isNewRecord): ?>
                     <input type="hidden" name="id" value="<?php echo $category->id; ?>">
-                <?php else: ?>
-                    <?php $category = new ProductCardCategories(); ?>
                 <?php endif; ?>
 
                 <div class="form-group">

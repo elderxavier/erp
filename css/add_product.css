@@ -26,7 +26,12 @@
 #add-product-form textarea {
 	border-radius:0;
 	max-width:450px;}
-
+	
+#add-product-form select {
+	max-width:270px;
+	color:#9b9292;
+	border-radius:0;}
+	
 #add-product-form button {
 	padding:0;
 	border:0;
