@@ -1,11 +1,12 @@
 <?php /* @var $category ProductCardCategories */ ?>
+<?php /* @var $this ProductsController */ ?>
 
 <?php
 $cs = Yii::app()->clientScript;
 $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/add_product.css');
 ?>
 
-<?php $this->renderPartial('//partials/_list',array('links' => ProductsController::GetSubMenu(), 'params' => array())); ?>
+<?php $this->renderPartial('//partials/_list',array('links' => $this->GetSubMenu(), 'params' => array())); ?>
 
 <div class="container content-wrapper">
     <div class="row">
@@ -25,7 +26,7 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/add_product.css');
 
                 <div class="form-group">
                     <label for="remark"><?php echo Label::Get('remark'); ?></label>
-                    <textarea name="remark" id="remark" class="form-control" style="margin: 0px 488px 0px 0px; height: 57px; width: 453px;"><?php echo $category->remark; ?></textarea>
+                    <textarea name="remark" id="remark" class="form-control" style="margin: 0 488px 0 0; height: 57px; width: 453px;"><?php echo $category->remark; ?></textarea>
                 </div>
 
                 <button type="submit"><span><?php echo Label::Get('save'); ?></span><span class="glyphicon glyphicon-plus"></span></button>

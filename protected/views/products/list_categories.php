@@ -1,13 +1,14 @@
 <?php /* @var $categories array */ ?>
 <?php /* @var $category ProductCardCategories */ ?>
 <?php /* @var $rights UserRights */ ?>
+<?php /* @var $this ProductsController */ ?>
 
 <?php
 $cs = Yii::app()->clientScript;
 $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/table.css');
 ?>
 
-<?php $this->renderPartial('//partials/_list',array('links' => ProductsController::GetSubMenu(), 'params' => array())); ?>
+<?php $this->renderPartial('//partials/_list',array('links' => $this->GetSubMenu(), 'params' => array())); ?>
 
 <div class="container content-wrapper">
     <div class="row">

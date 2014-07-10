@@ -3,7 +3,7 @@
 class ProductsController extends Controller
 {
 
-    public static function GetSubMenu()
+    public function GetSubMenu()
     {
         /* @var $user_rights UserRights */
 
@@ -95,6 +95,7 @@ class ProductsController extends Controller
         }
     }
 
+
     //U P D A T E  C A T E G O R Y
     public function actionUpdateCat()
     {
@@ -133,7 +134,6 @@ class ProductsController extends Controller
 
         //redirect to list
         $this->redirect(Yii::app()->createUrl(Yii::app()->controller->id.'/categories'));
-
     }
 
 }
