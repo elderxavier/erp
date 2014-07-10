@@ -45,6 +45,7 @@ class UserIdentity extends CUserIdentity
                 $this->setState('role', $user_record->role);
                 $this->setState('status',$user_record->status);
                 $this->setState('rights',$user_record->rights);
+                $this->setState('avatar',$user_record->avatar);
 
                 //no errors
                 $this->errorCode=self::ERROR_NONE;

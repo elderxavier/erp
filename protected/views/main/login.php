@@ -1,5 +1,7 @@
 <?php /* @var $errors array */ ?>
+<?php /* @var $this Controller */ ?>
 
+<?php Debug::out($this->labels); ?>
 
 <div class="row">
 

@@ -11,7 +11,7 @@
                     <img src="<?php echo '/images/'.$params['image']; ?>">
                 </span>
                 <span>
-                    <?php echo $title; ?>
+                    <?php echo Label::Get($title); ?>
                 </span>
                 </a>
             </li>

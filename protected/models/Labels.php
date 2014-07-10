@@ -103,10 +103,10 @@ class Labels extends CActiveRecord
 	}
     
     
-    public function getLabels($langiage=null){
+    public function getLabels($language=null){
         
         
-         $labels = array();    
+        $labels = array();
                
         $connection = $this->getDbConnection();
         $sql="SELECT label, value FROM labels";

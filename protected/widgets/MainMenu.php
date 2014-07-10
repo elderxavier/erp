@@ -16,9 +16,9 @@ class MainMenu extends CWidget {
 
         //array of menu-links
         $main_menu = array(
-            'Products' => array('controller' => 'products','image' => 'stock.png','visible' => $rights->products_see),
-            'Contractors' => array('controller' => 'contractors', 'image' => 'kontragent.png', 'visible' => $rights->contractors_see),
-            'Employees' => array('controller' => 'employees', 'image' => 'person.png', 'visible' => $rights->users_see)
+            'products' => array('controller' => 'products','image' => 'stock.png','visible' => $rights->products_see),
+            'contractors' => array('controller' => 'contractors', 'image' => 'kontragent.png', 'visible' => $rights->contractors_see),
+            'employees' => array('controller' => 'employees', 'image' => 'person.png', 'visible' => $rights->users_see)
         );
 
         $this->render('main_menu',array('links' => $main_menu, 'default_action' => $default_action));

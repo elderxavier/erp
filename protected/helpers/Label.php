@@ -2,11 +2,14 @@
 
 class Label
 {
-    public static function Get($language=null)
+    public static function Get($label_name,$language=null)
     {
+
+        $labels = array();
+        $label = null;
+        $value = null;
         
-        $labels = array();    
-               
+
         $connection = Yii::app()->labels;
         $sql="SELECT label, value FROM labels";
         $dataReader=$connection->createCommand($sql)->query();
@@ -14,12 +17,19 @@ class Label
         $dataReader->bindColumn(1,$label);
         // привязываем второе поле (value) к переменной $value
         $dataReader->bindColumn(2,$value);
-        
+
         while($dataReader->read()!==false)
         {
-            $labels[$label] = $value;   
+            $labels[$label] = $value;
         }
-        
-        return $labels;
+
+        if(isset($labels[$label_name]))
+        {
+            return $labels[$label_name];
+        }
+        else
+        {
+            return $label_name;
+        }
     }
 }

@@ -9,7 +9,7 @@
                     <li>
                         <?php if($link_array['visible'] == 1): ?>
                         <a class="<?php echo $link_array['class']; ?> <?php if(Yii::app()->controller->action->id == $link_array['action']): ?>active-sub-menu-a<?php endif; ?>" href="<?php echo Yii::app()->createUrl(Yii::app()->controller->id.'/'.$link_array['action'],$params) ?>">
-                            <span><?php echo $name; ?></span>
+                            <span><?php echo Label::Get($name); ?></span>
                         </a>
                         <?php endif; ?>
                     </li>

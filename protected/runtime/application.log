@@ -1674,3 +1674,131 @@ Stack trace:
 REQUEST_URI=/js/jquery.min.map
 HTTP_REFERER=http://erpgit.loc/products/categories
 ---
+2014/07/10 11:45:01 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "favicon.ico".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+---
+2014/07/10 11:46:19 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.woff".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.woff
+HTTP_REFERER=http://erpgit.loc/main/login
+---
+2014/07/10 11:46:19 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.ttf".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.ttf
+HTTP_REFERER=http://erpgit.loc/main/login
+---
+2014/07/10 11:46:19 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fonts/glyphicons-halflings-regular.svg".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('fonts/glyphicon...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/fonts/glyphicons-halflings-regular.svg
+HTTP_REFERER=http://erpgit.loc/main/login
+---
+2014/07/10 12:30:45 [error] [php] include(PersonalSettings.php) [<a href='function.include'>function.include</a>]: failed to open stream: No such file or directory (C:\OpenServer\domains\_GIT\erp\framework\YiiBase.php:427)
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWidgetFactory.php(147): spl_autoload_call()
+#1 C:\OpenServer\domains\_GIT\erp\framework\web\CBaseController.php(146): CWidgetFactory->createWidget()
+#2 C:\OpenServer\domains\_GIT\erp\framework\web\CBaseController.php(172): ProductsController->createWidget()
+#3 C:\OpenServer\domains\_GIT\erp\protected\views\layouts\main_layout.php(24): ProductsController->widget()
+#4 C:\OpenServer\domains\_GIT\erp\framework\web\CBaseController.php(126): require()
+#5 C:\OpenServer\domains\_GIT\erp\framework\web\CBaseController.php(95): ProductsController->renderInternal()
+#6 C:\OpenServer\domains\_GIT\erp\framework\web\CController.php(784): ProductsController->renderFile()
+#7 C:\OpenServer\domains\_GIT\erp\protected\controllers\ProductsController.php(35): ProductsController->render()
+#8 C:\OpenServer\domains\_GIT\erp\framework\web\actions\CInlineAction.php(49): ProductsController->actionCategories()
+#9 C:\OpenServer\domains\_GIT\erp\framework\web\CController.php(308): CInlineAction->runWithParams()
+#10 C:\OpenServer\domains\_GIT\erp\framework\web\CController.php(286): ProductsController->runAction()
+#11 C:\OpenServer\domains\_GIT\erp\framework\web\CController.php(265): ProductsController->runActionWithFilters()
+#12 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(282): ProductsController->run()
+#13 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#14 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#15 C:\OpenServer\domains\_GIT\erp\index.php(13): CWebApplication->run()
+REQUEST_URI=/products/categories
+in C:\OpenServer\domains\_GIT\erp\protected\views\layouts\main_layout.php (24)
+in C:\OpenServer\domains\_GIT\erp\protected\controllers\ProductsController.php (35)
+in C:\OpenServer\domains\_GIT\erp\index.php (13)
+2014/07/10 12:32:12 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/user_thumbs".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('images/user_thu...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/images/user_thumbs/dmitrij_chitrov
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/10 12:32:19 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.min.map".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('js/jquery.min.m...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/js/jquery.min.map
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/10 12:32:53 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.min.map".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('js/jquery.min.m...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/js/jquery.min.map
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/10 12:34:15 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.min.map".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('js/jquery.min.m...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/js/jquery.min.map
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/10 12:34:22 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.min.map".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('js/jquery.min.m...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/js/jquery.min.map
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/10 12:35:18 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "logout/index".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('logout/index')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/logout
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/10 12:35:22 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.min.map".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('js/jquery.min.m...')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/js/jquery.min.map
+HTTP_REFERER=http://erpgit.loc/products/categories
+---
+2014/07/10 12:48:42 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "favicon.ico".' in C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\OpenServer\domains\_GIT\erp\framework\web\CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 C:\OpenServer\domains\_GIT\erp\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\OpenServer\domains\_GIT\erp\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+---

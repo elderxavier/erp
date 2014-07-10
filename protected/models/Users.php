@@ -20,6 +20,7 @@
  * @property integer $date_created
  * @property integer $date_changed
  * @property integer $user_modified_by
+ * @property string $avatar
  *
  * The followings are the available model relations:
  * @property UserRights $rights
@@ -43,10 +44,10 @@ class Users extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('role, status, rights_id, date_created, date_changed, user_modified_by', 'numerical', 'integerOnly'=>true),
-			array('username, password, email, name, surname, phone, address, remark, additional_params', 'safe'),
+			array('username, password, email, name, surname, phone, address, remark, additional_params, avatar', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, username, password, email, name, surname, phone, address, remark, additional_params, role, status, rights_id, date_created, date_changed, user_modified_by', 'safe', 'on'=>'search'),
+			array('id, username, password, email, name, surname, phone, address, remark, additional_params, role, status, rights_id, date_created, date_changed, user_modified_by, avatar', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -84,6 +85,7 @@ class Users extends CActiveRecord
 			'date_created' => 'Date Created',
 			'date_changed' => 'Date Changed',
 			'user_modified_by' => 'User Modified By',
+			'avatar' => 'Avatar',
 		);
 	}
 
@@ -121,6 +123,7 @@ class Users extends CActiveRecord
 		$criteria->compare('date_created',$this->date_created);
 		$criteria->compare('date_changed',$this->date_changed);
 		$criteria->compare('user_modified_by',$this->user_modified_by);
+		$criteria->compare('avatar',$this->avatar,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

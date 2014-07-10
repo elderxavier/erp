@@ -21,18 +21,7 @@
             </div><!--/LOGO -->
             <div class="actions col-xs-8 col-sm-8 col-md-7 pull-right">
 
-                <div class="login pull-right">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                            <span>Dmitrij Hitrov</span> <img src="/images/user_thumb.jpg" width="40" height="40">
-                        </button>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a class="logout" href="#"><span class="login-actions pull-left">Atsijungti</span><span class="icon pull-right"></span></a></li>
-                            <li><a class="user-edit" href="#"><span class="login-actions pull-left">duomenys</span><span class="icon pull-right"></span></a></li>
-                            <li><a class="user-options" href="#"><span class="login-actions pull-left">Parinktys</span><span class=" icon pull-right"></span></a></li>
-                        </ul>
-                    </div><!--/btn-group -->
-                </div><!--/login -->
+                <?php $this->widget('application.widgets.PersonalSettings');?>
 
                 <div class="lang_selector pull-right">
                     <div class="btn-group">
