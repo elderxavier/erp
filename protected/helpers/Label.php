@@ -5,12 +5,15 @@ class Label
     public static function Get($label_name,$language=null)
     {
 
+        /* @var $connection CDbConnection */
+        /* @var $dataReader CDbCommand */
+        /* @var $label string */
+        /* @var $value string */
+
         $labels = array();
-        $label = null;
-        $value = null;
-        
 
         $connection = Yii::app()->labels;
+
         $sql="SELECT label, value FROM labels";
         $dataReader=$connection->createCommand($sql)->query();
         // привязываем первое поле (label) к переменной $label

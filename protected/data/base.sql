@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50535
 File Encoding         : 65001
 
-Date: 2014-07-09 14:45:14
+Date: 2014-07-10 11:58:15
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -255,8 +255,8 @@ CREATE TABLE `product_card_categories` (
 -- ----------------------------
 -- Records of product_card_categories
 -- ----------------------------
-INSERT INTO `product_card_categories` VALUES ('4', 'Processors', 'remark', '1', '1404392037', '1404817346', '1');
-INSERT INTO `product_card_categories` VALUES ('5', 'Video cards', '', '1', '1404392268', '1404392268', '1');
+INSERT INTO `product_card_categories` VALUES ('4', 'Processors', '', '1', '1404392037', '1404917949', '1');
+INSERT INTO `product_card_categories` VALUES ('5', 'Video cards', '', '1', '1404392268', '1404918534', '1');
 INSERT INTO `product_card_categories` VALUES ('6', 'Monitors', 'just monitors', '1', '1404719915', '1404719915', '1');
 
 -- ----------------------------
@@ -376,6 +376,7 @@ CREATE TABLE `users` (
   `date_created` int(11) DEFAULT NULL,
   `date_changed` int(11) DEFAULT NULL,
   `user_modified_by` int(11) DEFAULT NULL,
+  `avatar` text,
   PRIMARY KEY (`id`),
   KEY `rights_id` (`rights_id`),
   CONSTRAINT `users_ibfk_1` FOREIGN KEY (`rights_id`) REFERENCES `user_rights` (`id`)
@@ -384,7 +385,7 @@ CREATE TABLE `users` (
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES ('1', 'admin', '81dc9bdb52d04dc20036dbd8313ed055', 'darkoffalex@yandex.ru', 'Valery', 'Gatalsky', null, null, null, null, '1', '1', '0', null, null, null);
+INSERT INTO `users` VALUES ('1', 'admin', '81dc9bdb52d04dc20036dbd8313ed055', 'darkoffalex@yandex.ru', 'Valery', 'Gatalsky', null, null, null, null, '1', '1', '0', null, null, null, 'dmitrij_chitrov.jpg');
 
 -- ----------------------------
 -- Table structure for `user_rights`
@@ -419,7 +420,7 @@ CREATE TABLE `user_rights` (
   `suppliers_delete` int(11) DEFAULT NULL,
   `suppliers_edit` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user_rights

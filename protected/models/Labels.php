@@ -102,7 +102,6 @@ class Labels extends CActiveRecord
 		return parent::model($className);
 	}
     
-    
     public function getLabels($language=null){
         
         
