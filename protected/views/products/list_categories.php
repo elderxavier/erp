@@ -2,6 +2,7 @@
 <?php /* @var $category ProductCardCategories */ ?>
 <?php /* @var $rights UserRights */ ?>
 <?php /* @var $this ProductsController */ ?>
+<?php /* @var $table_actions array */ ?>
 
 <?php
 $cs = Yii::app()->clientScript;
@@ -44,13 +45,7 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/table.css');
                             </td>
 
                             <td>
-                                <?php $rights = Yii::app()->user->GetState('rights'); ?>
-                                <?php if($rights->products_categories_delete): ?>
-                                    <?php echo CHtml::link($this->labels['delete'],Yii::app()->createUrl('products/deletecat',array('id' => $category->id)),array('class' => 'action-lnk')); ?>
-                                <?php endif; ?>
-                                <?php if($rights->products_categories_edit): ?>
-                                    | <?php echo CHtml::link($this->labels['edit'],Yii::app()->createUrl('products/editcat',array('id' => $category->id)),array('class' => 'action-lnk')); ?>
-                                <?php endif; ?>
+                                <?php $this->renderPartial('//partials/_table_actions',array('links' => $table_actions , 'params' => array('id' => $category->id), 'separator' => '|')); ?>
                             </td>
                         </tr>
                     <?php endforeach; ?>

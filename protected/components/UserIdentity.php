@@ -18,7 +18,7 @@ class UserIdentity extends CUserIdentity
         if($this->username != null && $this->password != null)
         {
             //find user by login
-            $user_record = Users::model()->findByAttributes(array('username' => $this->username));
+            $user_record = Users::model()->with('userRights')->findByAttributes(array('username' => $this->username));
             //if user not found by login
             if($user_record===null)
                 //error - user not found
@@ -44,8 +44,23 @@ class UserIdentity extends CUserIdentity
                 $this->setState('remark', $user_record->remark);
                 $this->setState('role', $user_record->role);
                 $this->setState('status',$user_record->status);
-                $this->setState('rights',$user_record->rights);
                 $this->setState('avatar',$user_record->avatar);
+
+                //get all rights
+                $rights = array();
+
+                /* @var $user_right UserRights */
+                /* @var $right Rights */
+
+                foreach($user_record->userRights as $user_right)
+                {
+                    $right = Rights::model()->findByPk($user_right->rights_id);
+                    $rights[$right->label] = 1;
+                }
+
+//                Debug::out($rights);
+
+                $this->setState('rights',$rights);
 
                 //no errors
                 $this->errorCode=self::ERROR_NONE;

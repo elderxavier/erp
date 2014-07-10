@@ -20,8 +20,12 @@ class Controller extends CController
 	 * for more details on how to specify this property.
 	 */
 	public $breadcrumbs=array();
-    
-    public $labels;
+
+    //array of labels for forms
+    public $labels = array();
+
+    //array of rights of current user
+    public $rights = array();
 
     //default titles of site pages
     public $site_title = "ERP";
@@ -55,5 +59,16 @@ class Controller extends CController
         }
 
         return parent::beforeAction($action);
+    }
+
+    //override constructor
+    public function __construct($id,$module=null)
+    {
+
+        //get rights from session
+        $this->rights = Yii::app()->user->GetState('rights');
+
+        //call parent constructor
+        parent::__construct($id, $module);
     }
 }

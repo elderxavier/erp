@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50535
 File Encoding         : 65001
 
-Date: 2014-07-10 11:58:15
+Date: 2014-07-10 15:10:39
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -282,6 +282,32 @@ CREATE TABLE `product_in_stock` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for `rights`
+-- ----------------------------
+DROP TABLE IF EXISTS `rights`;
+CREATE TABLE `rights` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` text,
+  `label` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of rights
+-- ----------------------------
+INSERT INTO `rights` VALUES ('1', 'can see products', 'products_see');
+INSERT INTO `rights` VALUES ('2', 'can see product categories', 'categories_see');
+INSERT INTO `rights` VALUES ('3', 'can edit prodcut categories', 'categories_edit');
+INSERT INTO `rights` VALUES ('4', 'can delete product categories', 'categories_delete');
+INSERT INTO `rights` VALUES ('5', 'can edit products', 'products_edit');
+INSERT INTO `rights` VALUES ('6', 'can delete products', 'products_delete');
+INSERT INTO `rights` VALUES ('7', 'can create categories', 'categories_add');
+INSERT INTO `rights` VALUES ('8', 'can create products', 'products_add');
+INSERT INTO `rights` VALUES ('9', 'access to products section', 'products_section_see');
+INSERT INTO `rights` VALUES ('10', 'can see contractors', 'contractors_section_see');
+INSERT INTO `rights` VALUES ('11', 'can see employees', 'employees_section_see');
+
+-- ----------------------------
 -- Table structure for `service_cards`
 -- ----------------------------
 DROP TABLE IF EXISTS `service_cards`;
@@ -378,8 +404,7 @@ CREATE TABLE `users` (
   `user_modified_by` int(11) DEFAULT NULL,
   `avatar` text,
   PRIMARY KEY (`id`),
-  KEY `rights_id` (`rights_id`),
-  CONSTRAINT `users_ibfk_1` FOREIGN KEY (`rights_id`) REFERENCES `user_rights` (`id`)
+  KEY `rights_id` (`rights_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -393,36 +418,27 @@ INSERT INTO `users` VALUES ('1', 'admin', '81dc9bdb52d04dc20036dbd8313ed055', 'd
 DROP TABLE IF EXISTS `user_rights`;
 CREATE TABLE `user_rights` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `users_see` int(11) DEFAULT NULL,
-  `users_create` int(11) DEFAULT NULL,
-  `users_delete` int(11) DEFAULT NULL,
-  `users_edit` int(11) DEFAULT NULL,
-  `invoices_in_see` int(11) DEFAULT NULL,
-  `invoices_in_make` int(11) DEFAULT NULL,
-  `invoices_out_see` int(11) DEFAULT NULL,
-  `invoices_out_make` int(11) DEFAULT NULL,
-  `products_see` int(11) DEFAULT NULL,
-  `products_cards_create` int(11) DEFAULT NULL,
-  `products_cards_edit` int(11) DEFAULT NULL,
-  `products_cards_delete` int(11) DEFAULT NULL,
-  `products_categories_create` int(11) DEFAULT NULL,
-  `products_categories_edit` int(11) DEFAULT NULL,
-  `products_categories_delete` int(11) DEFAULT NULL,
-  `stock_see` int(11) DEFAULT NULL,
-  `stock_operate` int(11) DEFAULT NULL,
-  `contractors_see` int(11) DEFAULT NULL,
-  `suppliers_see` int(11) DEFAULT NULL,
-  `clients_see` int(11) DEFAULT NULL,
-  `clients_create` int(11) DEFAULT NULL,
-  `clients_delete` int(11) DEFAULT NULL,
-  `clients_edit` int(11) DEFAULT NULL,
-  `suppliers_create` int(11) DEFAULT NULL,
-  `suppliers_delete` int(11) DEFAULT NULL,
-  `suppliers_edit` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `user_id` int(11) DEFAULT NULL,
+  `rights_id` int(11) DEFAULT NULL,
+  `right_value` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `rights_id` (`rights_id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `user_rights_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  CONSTRAINT `user_rights_ibfk_1` FOREIGN KEY (`rights_id`) REFERENCES `rights` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user_rights
 -- ----------------------------
-INSERT INTO `user_rights` VALUES ('0', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1');
+INSERT INTO `user_rights` VALUES ('1', '1', '1', '1');
+INSERT INTO `user_rights` VALUES ('2', '1', '2', '1');
+INSERT INTO `user_rights` VALUES ('3', '1', '3', '1');
+INSERT INTO `user_rights` VALUES ('4', '1', '4', '1');
+INSERT INTO `user_rights` VALUES ('6', '1', '5', '1');
+INSERT INTO `user_rights` VALUES ('7', '1', '6', '1');
+INSERT INTO `user_rights` VALUES ('8', '1', '7', '1');
+INSERT INTO `user_rights` VALUES ('9', '1', '8', '1');
+INSERT INTO `user_rights` VALUES ('10', '1', '9', '1');
+INSERT INTO `user_rights` VALUES ('11', '1', '10', '1');
+INSERT INTO `user_rights` VALUES ('12', '1', '11', '1');

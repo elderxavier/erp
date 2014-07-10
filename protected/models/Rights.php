@@ -1,26 +1,24 @@
 <?php
 
 /**
- * This is the model class for table "user_rights".
+ * This is the model class for table "rights".
  *
- * The followings are the available columns in table 'user_rights':
+ * The followings are the available columns in table 'rights':
  * @property integer $id
- * @property integer $user_id
- * @property integer $rights_id
- * @property integer $right_value
+ * @property string $name
+ * @property string $label
  *
  * The followings are the available model relations:
- * @property Users $user
- * @property Rights $rights
+ * @property UserRights[] $userRights
  */
-class UserRights extends CActiveRecord
+class Rights extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'user_rights';
+		return 'rights';
 	}
 
 	/**
@@ -31,10 +29,10 @@ class UserRights extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('user_id, rights_id, right_value', 'numerical', 'integerOnly'=>true),
+			array('name, label', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, user_id, rights_id, right_value', 'safe', 'on'=>'search'),
+			array('id, name, label', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -46,8 +44,7 @@ class UserRights extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'user' => array(self::BELONGS_TO, 'Users', 'user_id'),
-			'rights' => array(self::BELONGS_TO, 'Rights', 'rights_id'),
+			'userRights' => array(self::HAS_MANY, 'UserRights', 'rights_id'),
 		);
 	}
 
@@ -58,9 +55,8 @@ class UserRights extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'user_id' => 'User',
-			'rights_id' => 'Rights',
-			'right_value' => 'Right Value',
+			'name' => 'Name',
+			'label' => 'Label',
 		);
 	}
 
@@ -83,9 +79,8 @@ class UserRights extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('user_id',$this->user_id);
-		$criteria->compare('rights_id',$this->rights_id);
-		$criteria->compare('right_value',$this->right_value);
+		$criteria->compare('name',$this->name,true);
+		$criteria->compare('label',$this->label,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -96,7 +91,7 @@ class UserRights extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return UserRights the static model class
+	 * @return Rights the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

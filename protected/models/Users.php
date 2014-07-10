@@ -23,7 +23,7 @@
  * @property string $avatar
  *
  * The followings are the available model relations:
- * @property UserRights $rights
+ * @property UserRights[] $userRights
  */
 class Users extends CActiveRecord
 {
@@ -59,7 +59,7 @@ class Users extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'rights' => array(self::BELONGS_TO, 'UserRights', 'rights_id'),
+			'userRights' => array(self::HAS_MANY, 'UserRights', 'user_id'),
 		);
 	}
 

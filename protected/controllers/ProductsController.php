@@ -2,7 +2,7 @@
 
 class ProductsController extends Controller
 {
-
+    //R E T U R N S  S U B M E N U  F O R  T H I S  C O N T R O L L E R
     public function GetSubMenu()
     {
         /* @var $user_rights UserRights */
@@ -10,10 +10,10 @@ class ProductsController extends Controller
         $user_rights = Yii::app()->user->GetState('rights');
 
         $arr = array(
-            'add category' => array('action' => 'addcat', 'visible' => $user_rights->products_categories_create, 'class' => 'create-product'),
-            'categories' => array('action' => 'categories','visible' => $user_rights->products_see , 'class' => 'list-products'),
-            'add product card' => array('action' => 'addcard', 'visible' => $user_rights->products_cards_create, 'class' => 'create-product'),
-            'product cards' => array('action' => 'cards', 'visible' => $user_rights->products_see, 'class' => 'list-products'),
+            'add category' => array('action' => 'addcat', 'visible' => $this->rights['categories_add'] ? 1 : 0, 'class' => 'create-product'),
+            'categories' => array('action' => 'categories','visible' => $this->rights['categories_see'] ? 1 : 0 , 'class' => 'list-products'),
+            'add product card' => array('action' => 'addcard', 'visible' => $this->rights['products_add'] ? 1 : 0, 'class' => 'create-product'),
+            'product cards' => array('action' => 'cards', 'visible' => $this->rights['products_see'] ? 1 : 0, 'class' => 'list-products'),
         );
 
         return $arr;
@@ -31,8 +31,14 @@ class ProductsController extends Controller
         //get all categories from database
         $categories = ProductCardCategories::model()->findAll();
 
+        //actions for every record
+        $actions = array(
+            'delete' => array('controller' => Yii::app()->controller->id, 'action' => 'deletecat', 'class' => 'action-lnk' , 'visible' => $this->rights['categories_delete'] ? 1 : 0),
+            'edit' => array('controller' => Yii::app()->controller->id, 'action' => 'editcat', 'class' => 'action-lnk', 'visible' => $this->rights['categories_edit'] ? 1 : 0),
+        );
+
         //render list
-        $this->render('list_categories',array('categories' => $categories));
+        $this->render('list_categories',array('categories' => $categories, 'table_actions' => $actions));
     }
 
     //E D I T  C A T E G O R Y
