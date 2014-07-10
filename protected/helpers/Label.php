@@ -4,16 +4,12 @@ class Label
 {
     public static function Get($label_name,$language=null)
     {
+        $labels = array();
 
-        /* @var $connection CDbConnection */
-        /* @var $dataReader CDbCommand */
         /* @var $label string */
         /* @var $value string */
 
-        $labels = array();
-
         $connection = Yii::app()->labels;
-
         $sql="SELECT label, value FROM labels";
         $dataReader=$connection->createCommand($sql)->query();
         // привязываем первое поле (label) к переменной $label
@@ -26,13 +22,7 @@ class Label
             $labels[$label] = $value;
         }
 
-        if(isset($labels[$label_name]))
-        {
-            return $labels[$label_name];
-        }
-        else
-        {
-            return $label_name;
-        }
+        return $labels;
+
     }
 }

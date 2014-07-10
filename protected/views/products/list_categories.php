@@ -22,10 +22,10 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/table.css');
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th><?php echo Label::Get('name'); ?></th>
-                        <th><?php echo Label::Get('date'); ?></th>
-                        <th class="status"><?php echo Label::Get('status'); ?></th>
-                        <th><?php echo Label::Get('actions'); ?></th>
+                        <th><?php echo $this->labels['name']; ?></th>
+                        <th><?php echo $this->labels['date']; ?></th>
+                        <th class="status"><?php echo $this->labels['status']; ?></th>
+                        <th><?php echo $this->labels['actions'] ?></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -46,10 +46,10 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/table.css');
                             <td>
                                 <?php $rights = Yii::app()->user->GetState('rights'); ?>
                                 <?php if($rights->products_categories_delete): ?>
-                                    <?php echo CHtml::link(Label::Get('delete'),Yii::app()->createUrl('products/deletecat',array('id' => $category->id)),array('class' => 'action-lnk')); ?>
+                                    <?php echo CHtml::link($this->labels['delete'],Yii::app()->createUrl('products/deletecat',array('id' => $category->id)),array('class' => 'action-lnk')); ?>
                                 <?php endif; ?>
                                 <?php if($rights->products_categories_edit): ?>
-                                    | <?php echo CHtml::link(Label::Get('edit'),Yii::app()->createUrl('products/editcat',array('id' => $category->id)),array('class' => 'action-lnk')); ?>
+                                    | <?php echo CHtml::link($this->labels['edit'],Yii::app()->createUrl('products/editcat',array('id' => $category->id)),array('class' => 'action-lnk')); ?>
                                 <?php endif; ?>
                             </td>
                         </tr>

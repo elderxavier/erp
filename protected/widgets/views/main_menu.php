@@ -1,5 +1,6 @@
 <?php /* @var $links array */ ?>
 <?php /* @var $default_action string*/ ?>
+<?php /* @var $this MainMenu */ ?>
 
 <div class="collapse navbar-collapse clearfix" id="main-menu">
     <ul class="nav navbar-nav">
@@ -11,7 +12,7 @@
                     <img src="<?php echo '/images/'.$params['image']; ?>">
                 </span>
                 <span>
-                    <?php echo Label::Get($title); ?>
+                    <?php echo $this->labels[$title]; ?>
                 </span>
                 </a>
             </li>

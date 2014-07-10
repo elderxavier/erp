@@ -10,10 +10,10 @@ class ProductsController extends Controller
         $user_rights = Yii::app()->user->GetState('rights');
 
         $arr = array(
-            'Add category' => array('action' => 'addcat', 'visible' => $user_rights->products_categories_create, 'class' => 'create-product'),
-            'Categories' => array('action' => 'categories','visible' => $user_rights->products_see , 'class' => 'list-products'),
-            'Add product card' => array('action' => 'addcard', 'visible' => $user_rights->products_cards_create, 'class' => 'create-product'),
-            'Product cards' => array('action' => 'cards', 'visible' => $user_rights->products_see, 'class' => 'list-products'),
+            'add category' => array('action' => 'addcat', 'visible' => $user_rights->products_categories_create, 'class' => 'create-product'),
+            'categories' => array('action' => 'categories','visible' => $user_rights->products_see , 'class' => 'list-products'),
+            'add product card' => array('action' => 'addcard', 'visible' => $user_rights->products_cards_create, 'class' => 'create-product'),
+            'product cards' => array('action' => 'cards', 'visible' => $user_rights->products_see, 'class' => 'list-products'),
         );
 
         return $arr;

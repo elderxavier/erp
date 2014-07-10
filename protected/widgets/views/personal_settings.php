@@ -2,6 +2,7 @@
 <?php /* @var $name string */ ?>
 <?php /* @var $surname string */ ?>
 <?php /* @var $links */ ?>
+<?php /* @var $this PersonalSettings */ ?>
 
 <div class="login pull-right">
     <div class="btn-group">
@@ -12,7 +13,7 @@
             <?php foreach($links as $link_name => $params): ?>
                 <li>
                     <a class="<?php echo $params['class']; ?>" href="<?php echo Yii::app()->createUrl($params['controller'].'/'.$params['action']) ?>">
-                        <span class="login-actions pull-left"><?php echo Label::Get($link_name); ?></span>
+                        <span class="login-actions pull-left"><?php echo $this->labels[$link_name]; ?></span>
                         <span class="icon pull-right"></span>
                     </a>
                 </li>

@@ -1,7 +1,7 @@
 <?php
 
 
-class MainMenu extends CWidget {
+class MainMenu extends Widget {
 
 
     public function run(){

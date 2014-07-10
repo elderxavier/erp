@@ -1,5 +1,5 @@
 <?php
-class PersonalSettings extends CWidget {
+class PersonalSettings extends Widget {
 
     //default dir for user avatars
     public $avatar_dir = '/images/user_thumbs/';
