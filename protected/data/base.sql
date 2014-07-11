@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50535
 File Encoding         : 65001
 
-Date: 2014-07-10 15:10:39
+Date: 2014-07-11 15:40:42
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -230,12 +230,13 @@ CREATE TABLE `product_cards` (
   PRIMARY KEY (`id`),
   KEY `category_id` (`category_id`),
   CONSTRAINT `product_cards_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `product_card_categories` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of product_cards
 -- ----------------------------
-INSERT INTO `product_cards` VALUES ('2', '4', 'Intel Core i5', 'PR_385FHK', '2.5 Ghz, 4 core, 5MB cache', '30045', 'Units', null, '1', '1404469678', '1404817353', '1');
+INSERT INTO `product_cards` VALUES ('2', '4', 'Intel Core i5', 'PR_385FHK', '2.5 Ghz, 4 core, 5MB cache', '30045', 'units', null, '1', '1404469678', '1405067124', '1');
+INSERT INTO `product_cards` VALUES ('3', '6', 'Philips 234 E', 'PRODSKK', 'Monitor', null, 'units', null, '1', '1405065425', '1405070018', null);
 
 -- ----------------------------
 -- Table structure for `product_card_categories`
@@ -250,12 +251,12 @@ CREATE TABLE `product_card_categories` (
   `date_changed` int(11) DEFAULT NULL,
   `user_modified_by` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of product_card_categories
 -- ----------------------------
-INSERT INTO `product_card_categories` VALUES ('4', 'Processors', '', '1', '1404392037', '1404917949', '1');
+INSERT INTO `product_card_categories` VALUES ('4', 'Processors', '', '1', '1404392037', '1405070875', '1');
 INSERT INTO `product_card_categories` VALUES ('5', 'Video cards', '', '1', '1404392268', '1404918534', '1');
 INSERT INTO `product_card_categories` VALUES ('6', 'Monitors', 'just monitors', '1', '1404719915', '1404719915', '1');
 
@@ -290,7 +291,7 @@ CREATE TABLE `rights` (
   `name` text,
   `label` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of rights
@@ -306,6 +307,14 @@ INSERT INTO `rights` VALUES ('8', 'can create products', 'products_add');
 INSERT INTO `rights` VALUES ('9', 'access to products section', 'products_section_see');
 INSERT INTO `rights` VALUES ('10', 'can see contractors', 'contractors_section_see');
 INSERT INTO `rights` VALUES ('11', 'can see employees', 'employees_section_see');
+INSERT INTO `rights` VALUES ('13', 'can see clients', 'clients_see');
+INSERT INTO `rights` VALUES ('14', 'can edit clients', 'clients_edit');
+INSERT INTO `rights` VALUES ('15', 'can delete clients', 'clients_delete');
+INSERT INTO `rights` VALUES ('16', 'can add clients', 'clients_add');
+INSERT INTO `rights` VALUES ('17', 'can see suppliers', 'suppliers_see');
+INSERT INTO `rights` VALUES ('18', 'can edit suppliers', 'suppliers_edit');
+INSERT INTO `rights` VALUES ('19', 'can add suppliers', 'suppliers_add');
+INSERT INTO `rights` VALUES ('20', 'can delete suppliers', 'suppliers_delete');
 
 -- ----------------------------
 -- Table structure for `service_cards`
@@ -424,9 +433,9 @@ CREATE TABLE `user_rights` (
   PRIMARY KEY (`id`),
   KEY `rights_id` (`rights_id`),
   KEY `user_id` (`user_id`),
-  CONSTRAINT `user_rights_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
-  CONSTRAINT `user_rights_ibfk_1` FOREIGN KEY (`rights_id`) REFERENCES `rights` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+  CONSTRAINT `user_rights_ibfk_1` FOREIGN KEY (`rights_id`) REFERENCES `rights` (`id`),
+  CONSTRAINT `user_rights_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user_rights
@@ -442,3 +451,11 @@ INSERT INTO `user_rights` VALUES ('9', '1', '8', '1');
 INSERT INTO `user_rights` VALUES ('10', '1', '9', '1');
 INSERT INTO `user_rights` VALUES ('11', '1', '10', '1');
 INSERT INTO `user_rights` VALUES ('12', '1', '11', '1');
+INSERT INTO `user_rights` VALUES ('13', '1', '13', '1');
+INSERT INTO `user_rights` VALUES ('14', '1', '14', '1');
+INSERT INTO `user_rights` VALUES ('15', '1', '15', '1');
+INSERT INTO `user_rights` VALUES ('16', '1', '16', '1');
+INSERT INTO `user_rights` VALUES ('17', '1', '17', '1');
+INSERT INTO `user_rights` VALUES ('18', '1', '18', '1');
+INSERT INTO `user_rights` VALUES ('19', '1', '19', '1');
+INSERT INTO `user_rights` VALUES ('20', '1', '20', '1');
