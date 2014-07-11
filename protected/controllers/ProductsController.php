@@ -270,9 +270,6 @@ class ProductsController extends Controller
     {
         /* @var $card ProductCards */
 
-        //array of errors
-        $errors = array();
-
         //get id form request
         $id = Yii::app()->request->getParam('id',null);
         $product_code = Yii::app()->request->getParam('code','');
@@ -281,18 +278,25 @@ class ProductsController extends Controller
         $dimension_units = Yii::app()->request->getParam('dim_units','units');
         $description = Yii::app()->request->getParam('description','');
 
+        //try find from db
+        $card = ProductCards::model()->findByPk($id);
+        //if not found - create new object
+        if(empty($card)){$card = new ProductCards();}
+
+        //create form validation object
+        $validation = new ProductCardForm();
+        //set params from form
+        $validation->attributes = $_POST;
+        //if we update - set current id to validation obj
+        if(!$card->isNewRecord){$validation->current_card_id = $card->id;}
         //validate
-        /* TODO: validate */
+        $validation->validate();
+        //get errors
+        $errors = $validation->getErrors();
 
         //if no errors
         if(empty($errors))
         {
-            //try find from db
-            $card = ProductCards::model()->findByPk($id);
-
-            //if not found - create new object
-            if(empty($card)){$card = new ProductCards();}
-
             //set main params
             $card->product_code = $product_code;
             $card->product_name = $product_name;
