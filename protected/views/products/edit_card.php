@@ -15,7 +15,7 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/add_product.css');
         <div class="col-lg-12">
             <form id="add-product-form" action="<?php echo Yii::app()->createUrl(Yii::app()->controller->id.'/updatecard') ?>" method="post">
 
-                <?php if($card->isNewRecord): ?>
+                <?php if(!$card->isNewRecord): ?>
                     <input name="id" type="hidden" value="<?php echo $card->id; ?>">
                 <?php endif;?>
 

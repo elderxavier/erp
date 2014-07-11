@@ -49,7 +49,7 @@ class ProductsController extends Controller
         $category = ProductCardCategories::model()->findByPk($id);
 
         //if not found - 404 error
-        if(empty($category)){throw new CHttpException(404,Label::Get('item not found in base'));}
+        if(empty($category)){throw new CHttpException(404,$this->labels['item not found in base']);}
 
         //render form
         $this->render('edit_category',array('category' => $category));
@@ -76,10 +76,10 @@ class ProductsController extends Controller
         $category = ProductCardCategories::model()->findByPk($id);
 
         //if not found - 404 error
-        if(empty($category)){throw new CHttpException(404,Label::Get('item not found in base'));}
+        if(empty($category)){throw new CHttpException(404,$this->labels['item not found in base']);}
 
         //check if this category used in product cards
-        if(count($category->productCards) > 0){array_push($restricts,Label::Get('this item used in').' '.Label::Get('product cards')); }
+        if(count($category->productCards) > 0){array_push($restricts,$this->labels['this item used in'].' '.$this->labels['product cards']);}
 
         //if have no restricts
         if(empty($restricts))
@@ -102,6 +102,9 @@ class ProductsController extends Controller
     //U P D A T E  C A T E G O R Y
     public function actionUpdateCat()
     {
+        //array of errors
+        $errors = array();
+
         //get id from request
         $id = Yii::app()->request->getParam('id',null);
         $name = Yii::app()->request->getParam('category_name','');
@@ -113,30 +116,43 @@ class ProductsController extends Controller
         //if found nothing - create new
         if(empty($category)){$category = new ProductCardCategories();}
 
-        //set main params
-        $category->name = $name;
-        $category->remark = $remark;
-        $category->status = 1;
-        $category->date_changed = time();
+        //TODO: validate
 
-        //if created new object
-        if($category->isNewRecord)
+        //if have errors
+        if(empty($errors))
         {
-            //creation time
-            $category->date_created = time();
+            //set main params
+            $category->name = $name;
+            $category->remark = $remark;
+            $category->status = 1;
+            $category->date_changed = time();
 
-            //save
-            $category->save();
+            //if created new object
+            if($category->isNewRecord)
+            {
+                //creation time
+                $category->date_created = time();
+
+                //save
+                $category->save();
+            }
+            //if update old object
+            else
+            {
+                //update
+                $category->update();
+            }
+
+            //redirect to list
+            $this->redirect(Yii::app()->createUrl(Yii::app()->controller->id.'/categories'));
         }
-        //if update old object
+        //if have som errors
         else
         {
-            //update
-            $category->update();
+            //render form with errors
+            $this->render('edit_category',array('category' => $category, 'errors' => $errors));
         }
 
-        //redirect to list
-        $this->redirect(Yii::app()->createUrl(Yii::app()->controller->id.'/categories'));
     }
 
 
@@ -175,7 +191,7 @@ class ProductsController extends Controller
         );
 
         //render list
-        $this->render('list_cards',array('cards' => $cards, 'table_actions' => $actions));
+        $this->render('list_cards',array('cards' => $cards, 'table_actions' => $actions, 'categories' => $categories));
     }
 
 
@@ -193,10 +209,59 @@ class ProductsController extends Controller
         $card = ProductCards::model()->findByPk($id);
 
         //if not found - exception
-        if(empty($card)){throw new CHttpException(404,Label::Get('item not found in base'));}
+        if(empty($card)){throw new CHttpException(404,$this->labels['item not found in base']);}
 
         //render form
         $this->render('edit_card',array('categories' => $categories, 'card' => $card));
+
+    }
+
+    // C R E A T E
+    public function actionAddCard()
+    {
+        //get all categories
+        $categories = ProductCardCategories::model()->findAll();
+
+        //render form
+        $this->render('edit_card',array('categories' => $categories, 'card' => new ProductCards()));
+    }
+
+    // D E L E T E
+    public function actionDeleteCard($id = null)
+    {
+        /* @var $card ProductCards */
+        $id = (int)$id;
+
+        //array of restrict-reasons
+        $restricts = array();
+
+        //try find in base
+        $card = ProductCards::model()->with('operationsIns','operationsOuts','productInStocks')->findByPk($id);
+
+        //if not found - exception
+        if(empty($card)){throw new CHttpException(404,$this->labels['item not found in base']);}
+
+        //check for usages
+        if(count($card->operationsIns) > 0){array_push($restricts,$this->labels['this item used in'].' '.$this->labels['incoming operations']);}
+        if(count($card->operationsOuts) > 0){array_push($restricts,$this->labels['this item used in'].' '.$this->labels['outgoing operations']);}
+        if(count($card->productInStocks) > 0){array_push($restricts,$this->labels['this item used in'].' '.$this->labels['stock products']);}
+
+        //if not used anywhere
+        if(empty($restricts))
+        {
+            //delete card
+            $card->delete();
+
+            //redirect to list
+            $this->redirect(Yii::app()->createUrl(Yii::app()->controller->id.'/cards'));
+        }
+        //if used somewhere
+        else
+        {
+            //render restricts reasons
+            $this->render('restricts',array('restricts' => $restricts));
+        }
+
 
     }
 
@@ -250,6 +315,18 @@ class ProductsController extends Controller
                 //update time
                 $card->update();
             }
+
+            //redirect to list
+            $this->redirect(Yii::app()->createUrl(Yii::app()->controller->id.'/cards'));
+        }
+        //if have som errors
+        else
+        {
+            //get all categories
+            $categories = ProductCardCategories::model()->findAll();
+
+            //render with errors
+            $this->render('edit_card',array('categories' => $categories, 'card' => $card, 'errors' => $errors));
         }
 
     }
