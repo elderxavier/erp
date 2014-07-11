@@ -1,10 +1,13 @@
 <?php /* @var $category ProductCardCategories */ ?>
 <?php /* @var $this ProductsController */ ?>
+<?php /* @var $errors array */ ?>
 
 <?php
 $cs = Yii::app()->clientScript;
 $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/add_product.css');
 ?>
+
+<?php if($errors): ?><?php Debug::out($errors); ?><?php endif;?>
 
 <?php $this->renderPartial('//partials/_sub_menu',array('links' => $this->GetSubMenu(), 'params' => array())); ?>
 

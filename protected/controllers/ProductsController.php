@@ -102,9 +102,6 @@ class ProductsController extends Controller
     //U P D A T E  C A T E G O R Y
     public function actionUpdateCat()
     {
-        //array of errors
-        $errors = array();
-
         //get id from request
         $id = Yii::app()->request->getParam('id',null);
         $name = Yii::app()->request->getParam('category_name','');
@@ -116,7 +113,14 @@ class ProductsController extends Controller
         //if found nothing - create new
         if(empty($category)){$category = new ProductCardCategories();}
 
-        //TODO: validate
+        //form-validation object
+        $validation = new ProductCategoryForm();
+        //set attributes
+        $validation->attributes = $_POST;
+        //validate
+        $validation->validate();
+        //get errors
+        $errors = $validation->getErrors();
 
         //if have errors
         if(empty($errors))
@@ -261,8 +265,6 @@ class ProductsController extends Controller
             //render restricts reasons
             $this->render('restricts',array('restricts' => $restricts));
         }
-
-
     }
 
     //U P D A T E  C A R D
@@ -287,7 +289,7 @@ class ProductsController extends Controller
         $validation = new ProductCardForm();
         //set params from form
         $validation->attributes = $_POST;
-        //if we update - set current id to validation obj
+        //if we update old card - set current card id to validation obj
         if(!$card->isNewRecord){$validation->current_card_id = $card->id;}
         //validate
         $validation->validate();
