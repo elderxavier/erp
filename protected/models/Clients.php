@@ -11,6 +11,7 @@
  * @property string $personal_code
  * @property string $company_code
  * @property string $vat_code
+ * @property integer $first_invoice_id
  * @property integer $last_invoice_id
  * @property string $phones
  * @property string $phone1
@@ -32,8 +33,10 @@
  * @property integer $status
  *
  * The followings are the available model relations:
+ * @property InvoicesOut $lastInvoice
  * @property ServiceCards $lastService
  * @property ServiceCards $nextService
+ * @property InvoicesOut $firstInvoice
  * @property InvoicesOut[] $invoicesOuts
  */
 class Clients extends CActiveRecord
@@ -54,11 +57,11 @@ class Clients extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('last_invoice_id, last_service_id, next_service_id, last_service_date, next_service_date, type, date_created, date_changed, user_modified_by, priority, status', 'numerical', 'integerOnly'=>true),
+			array('first_invoice_id, last_invoice_id, last_service_id, next_service_id, last_service_date, next_service_date, type, date_created, date_changed, user_modified_by, priority, status', 'numerical', 'integerOnly'=>true),
 			array('name, company_name, surname, personal_code, company_code, vat_code, phones, phone1, phone2, emails, email1, email2, remark, remark_for_service', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, name, company_name, surname, personal_code, company_code, vat_code, last_invoice_id, phones, phone1, phone2, emails, email1, email2, remark, remark_for_service, last_service_id, next_service_id, last_service_date, next_service_date, type, date_created, date_changed, user_modified_by, priority, status', 'safe', 'on'=>'search'),
+			array('id, name, company_name, surname, personal_code, company_code, vat_code, first_invoice_id, last_invoice_id, phones, phone1, phone2, emails, email1, email2, remark, remark_for_service, last_service_id, next_service_id, last_service_date, next_service_date, type, date_created, date_changed, user_modified_by, priority, status', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -70,8 +73,10 @@ class Clients extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'lastInvoice' => array(self::BELONGS_TO, 'InvoicesOut', 'last_invoice_id'),
 			'lastService' => array(self::BELONGS_TO, 'ServiceCards', 'last_service_id'),
 			'nextService' => array(self::BELONGS_TO, 'ServiceCards', 'next_service_id'),
+			'firstInvoice' => array(self::BELONGS_TO, 'InvoicesOut', 'first_invoice_id'),
 			'invoicesOuts' => array(self::HAS_MANY, 'InvoicesOut', 'client_id'),
 		);
 	}
@@ -89,6 +94,7 @@ class Clients extends CActiveRecord
 			'personal_code' => 'Personal Code',
 			'company_code' => 'Company Code',
 			'vat_code' => 'Vat Code',
+			'first_invoice_id' => 'First Invoice',
 			'last_invoice_id' => 'Last Invoice',
 			'phones' => 'Phones',
 			'phone1' => 'Phone1',
@@ -136,6 +142,7 @@ class Clients extends CActiveRecord
 		$criteria->compare('personal_code',$this->personal_code,true);
 		$criteria->compare('company_code',$this->company_code,true);
 		$criteria->compare('vat_code',$this->vat_code,true);
+		$criteria->compare('first_invoice_id',$this->first_invoice_id);
 		$criteria->compare('last_invoice_id',$this->last_invoice_id);
 		$criteria->compare('phones',$this->phones,true);
 		$criteria->compare('phone1',$this->phone1,true);

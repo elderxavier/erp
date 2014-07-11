@@ -18,6 +18,8 @@
  * @property integer $user_modified_by
  *
  * The followings are the available model relations:
+ * @property Clients[] $clients
+ * @property Clients[] $clients1
  * @property Clients $client
  * @property PaymentMethods $paymentMethod
  * @property OperationsOut[] $operationsOuts
@@ -57,6 +59,8 @@ class InvoicesOut extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'clients' => array(self::HAS_MANY, 'Clients', 'last_invoice_id'),
+			'clients1' => array(self::HAS_MANY, 'Clients', 'first_invoice_id'),
 			'client' => array(self::BELONGS_TO, 'Clients', 'client_id'),
 			'paymentMethod' => array(self::BELONGS_TO, 'PaymentMethods', 'payment_method_id'),
 			'operationsOuts' => array(self::HAS_MANY, 'OperationsOut', 'invoice_id'),

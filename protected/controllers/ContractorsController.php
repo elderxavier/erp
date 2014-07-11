@@ -25,10 +25,11 @@ class ContractorsController extends Controller
      *********************************************** C L I E N T S **************************************************
      ***************************************************************************************************************/
 
+    //L I S T
     public function actionClients()
     {
         //get all clients and service which client waits
-        $clients = Clients::model()->with('nextService')->findAll();
+        $clients = Clients::model()->with('nextService','firstInvoice')->findAll();
 
         //actions for every record
         $actions = array(
@@ -38,5 +39,11 @@ class ContractorsController extends Controller
 
         //render
         $this->render('list_clients', array('clients' => $clients, 'table_actions' => $actions));
+    }
+
+    //A D D
+    public function actionAddCli()
+    {
+        $this->render('create_client');
     }
 }
