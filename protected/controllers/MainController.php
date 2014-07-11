@@ -59,21 +59,21 @@ class MainController extends Controller
 
     /**
      * Ajax action go change status of different objects
-     * @param $model_class string Class of model to get from base object
+     * @param $model string Class of model to get from base object
      * @param $id  int id of object
      * @param $status int Status value
      */
 
-    public function actionChangeStatus($model_class,$id,$status)
+    public function actionChangeStatus($model,$id,$status)
     {
-        /* @var $model_class CActiveRecord */
+        /* @var $model CActiveRecord */
         /* @var $object ProductCards */
 
         //if this is ajax
-//        if(Yii::app()->request->isAjaxRequest)
-//        {
+        if(Yii::app()->request->isAjaxRequest)
+        {
             //try find
-            $object = $model_class::model()->findByPk($id);
+            $object = $model::model()->findByPk($id);
 
             //if found
             if($object)
@@ -93,7 +93,7 @@ class MainController extends Controller
                 //out fail message
                 exit('FAILED');
             }
-//        }
+        }
 
     }
 }

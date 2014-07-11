@@ -1,16 +1,27 @@
 $(document).ready(function(e) {
 
     $('.btn-toggle').click(function(e) {
+
+        var id = jQuery(this).attr('prod_id');
+
+        if(jQuery(this).attr('state') == 1)
+        {
+            ChangeStatus('ProductCards','http://erpgit.loc/main/changestatus',id,0);
+            jQuery(this).attr('state', 0);
+        }
+        else
+        {
+            ChangeStatus('ProductCards','http://erpgit.loc/main/changestatus',id,1);
+            jQuery(this).attr('state', 1);
+        }
+
         $(this).find('.btn').toggleClass('active');
 		if($(this).find('.btn-primary').size() > 0)
         {
 			$(this).find('.btn').toggleClass('btn-primary');
-//            alert('on');
 		}
 		 $(this).find('.btn').toggleClass('btn-default');
     });
-
-	
 });
 
 
@@ -20,12 +31,8 @@ $(document).ready(function(e) {
 
 var ChangeStatus = function(model_class,url_path,id,status)
 {
-    //http://erpgit.loc/main/changestatus/model_class/ProductCards/id/2/status/1
-
-    var url_string = 'http://erpgit.loc/main/changestatus/';
-
     //ajax load data
-    jQuery.ajax({ url: url_path+'/id/'+id+'/status/'+status,beforeSend: function(){/*TODO: pre-loader*/}}).done(function(data)
+    jQuery.ajax({ url: url_path+'/model/'+model_class+'/id/'+id+'/status/'+status,beforeSend: function(){/*TODO: pre-loader*/}}).done(function(data)
     {
 
     });
