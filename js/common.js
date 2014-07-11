@@ -2,14 +2,34 @@ $(document).ready(function(e) {
 
     $('.btn-toggle').click(function(e) {
         $(this).find('.btn').toggleClass('active');
-		if($(this).find('.btn-primary').size() > 0){
-			$(this).find('.btn').toggleClass('btn-primary');		
+		if($(this).find('.btn-primary').size() > 0)
+        {
+			$(this).find('.btn').toggleClass('btn-primary');
+//            alert('on');
 		}
 		 $(this).find('.btn').toggleClass('btn-default');
     });
 
 	
 });
+
+
+
+
+
+
+var ChangeStatus = function(model_class,url_path,id,status)
+{
+    //http://erpgit.loc/main/changestatus/model_class/ProductCards/id/2/status/1
+
+    var url_string = 'http://erpgit.loc/main/changestatus/';
+
+    //ajax load data
+    jQuery.ajax({ url: url_path+'/id/'+id+'/status/'+status,beforeSend: function(){/*TODO: pre-loader*/}}).done(function(data)
+    {
+
+    });
+};
 
 const VALIDATE_EMPTY = 0;
 const VALIDATE_MAX_LEN = 1;

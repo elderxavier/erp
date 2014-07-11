@@ -79,7 +79,7 @@ class ProductsController extends Controller
         if(empty($category)){throw new CHttpException(404,$this->labels['item not found in base']);}
 
         //check if this category used in product cards
-        if(count($category->productCards) > 0){array_push($restricts,$this->labels['this item used in'].' '.$this->labels['product cards']);}
+        if(count($category->productCards) > 0){$restricts[]=$this->labels['this item used in'].' '.$this->labels['product cards'];}
 
         //if have no restricts
         if(empty($restricts))
@@ -246,9 +246,9 @@ class ProductsController extends Controller
         if(empty($card)){throw new CHttpException(404,$this->labels['item not found in base']);}
 
         //check for usages
-        if(count($card->operationsIns) > 0){array_push($restricts,$this->labels['this item used in'].' '.$this->labels['incoming operations']);}
-        if(count($card->operationsOuts) > 0){array_push($restricts,$this->labels['this item used in'].' '.$this->labels['outgoing operations']);}
-        if(count($card->productInStocks) > 0){array_push($restricts,$this->labels['this item used in'].' '.$this->labels['stock products']);}
+        if(count($card->operationsIns) > 0){$restricts[]=$this->labels['this item used in'].' '.$this->labels['incoming operations'];}
+        if(count($card->operationsOuts) > 0){$restricts[]=$this->labels['this item used in'].' '.$this->labels['outgoing operations'];}
+        if(count($card->productInStocks) > 0){$restricts[]=$this->labels['this item used in'].' '.$this->labels['stock products'];}
 
         //if not used anywhere
         if(empty($restricts))

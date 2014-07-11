@@ -13,6 +13,11 @@ class Debug
     );
 
     //debugs variable
+
+    /**
+     * @param $var
+     * @param string $title
+     */
     public static function out($var, $title = '')
     {
         //if current ip exist in available ips array
@@ -28,6 +33,7 @@ class Debug
             echo htmlentities($out);
             echo "</pre>";
         }
+
     }
     
     
