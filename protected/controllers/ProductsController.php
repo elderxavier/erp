@@ -203,7 +203,6 @@ class ProductsController extends Controller
     //U P D A T E  C A R D
     public function actionUpdateCard()
     {
-
         /* @var $card ProductCards */
 
         //array of errors
@@ -236,20 +235,22 @@ class ProductsController extends Controller
             $card->description = $description;
             $card->units = $dimension_units;
             $card->date_changed = time();
+            $card->category_id = $category_id;
 
             //if new object
             if($card->isNewRecord)
             {
+                //creation time
                 $card->date_created = time();
                 $card->save();
             }
             //if update old object
             else
             {
+                //update time
                 $card->update();
             }
         }
-
 
     }
 
