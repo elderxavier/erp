@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50535
 File Encoding         : 65001
 
-Date: 2014-07-11 15:40:42
+Date: 2014-07-11 18:08:06
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -27,6 +27,7 @@ CREATE TABLE `clients` (
   `personal_code` text,
   `company_code` text,
   `vat_code` text,
+  `first_invoice_id` int(11) DEFAULT NULL,
   `last_invoice_id` int(11) DEFAULT NULL,
   `phones` text,
   `phone1` text,
@@ -49,8 +50,12 @@ CREATE TABLE `clients` (
   PRIMARY KEY (`id`),
   KEY `last_service_id` (`last_service_id`),
   KEY `next_service_id` (`next_service_id`),
+  KEY `first_invoice_id` (`first_invoice_id`),
+  KEY `last_invoice_id` (`last_invoice_id`),
+  CONSTRAINT `clients_ibfk_4` FOREIGN KEY (`last_invoice_id`) REFERENCES `invoices_out` (`id`),
   CONSTRAINT `clients_ibfk_1` FOREIGN KEY (`last_service_id`) REFERENCES `service_cards` (`id`),
-  CONSTRAINT `clients_ibfk_2` FOREIGN KEY (`next_service_id`) REFERENCES `service_cards` (`id`)
+  CONSTRAINT `clients_ibfk_2` FOREIGN KEY (`next_service_id`) REFERENCES `service_cards` (`id`),
+  CONSTRAINT `clients_ibfk_3` FOREIGN KEY (`first_invoice_id`) REFERENCES `invoices_out` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
