@@ -47,6 +47,20 @@ class ContractorsController extends Controller
         $this->render('create_clients');
     }
 
+    //E D I T
+    public function actionEditClient($id = null)
+    {
+        //try find by pk
+        $client = Clients::model()->findByPk($id);
+
+        //if not found - throw 404 exception
+        if(empty($client)){throw new CHttpException(404,$this->labels['item not found in base']);}
+
+        //render form
+        $this->render('edit_clients',array('client' => $client));
+    }
+
+
     //U P D A T E
     public function actionUpdateClient()
     {
@@ -73,6 +87,10 @@ class ContractorsController extends Controller
 
         //create validator
         $validator = new ClientForm();
+        //set company or not
+        $company != false ? $validator->company = true : $validator->company = false;
+        //set current client id to validator, to avoid unique-check error when updating
+        if(!$client->isNewRecord){$validator->current_client_id = $client->id;}
 
         //set attributes and validate
         $validator->attributes = $_POST;

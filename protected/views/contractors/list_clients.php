@@ -37,8 +37,9 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/table.css');
                     <?php foreach($clients as $client): ?>
                         <tr>
                             <td><?php echo $client->id; ?></td>
-                            <td><?php echo $client->type = 1 ? $client->company_code : $client->personal_code; ?></td>
-                            <td><?php echo $client->type = 1 ? $this->labels['yes'] : $this->labels['no']; ?></td>
+                            <td><?php echo $client->type == 1 ? $client->company_code : $client->personal_code; ?></td>
+                            <td><?php echo $client->type == 1 ? $this->labels['yes'] : $this->labels['no']; ?></td>
+                            <td><?php echo $client->type == 1 ? $client->company_name : $client->name.' '.$client->surname; ?></td>
                             <td><?php echo $client->firstInvoice ? date('Y.m.d',$client->firstInvoice->date_created) : '-'; ?></td>
                             <td><?php echo $client->firstInvoice ? $client->firstInvoice->signer_name : '-'; ?></td>
                             <td><?php echo $client->phone1; ?></td>

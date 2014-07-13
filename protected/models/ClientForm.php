@@ -11,7 +11,7 @@ class ClientForm extends CFormModel
     public $surname;
     public $phone_1;
     public $email_1;
-    public $company = false;
+    public $company;
     public $company_name;
     public $company_code;
 
@@ -23,11 +23,11 @@ class ClientForm extends CFormModel
 	{
         //main rules
         $rules = array(
-            array('vat_code, phone_1, email_1', 'required')
+            array('vat_code, phone_1, email_1', 'required'),
         );
 
         //for company
-        if($this->company != false)
+        if($this->company)
         {
             $rules[]=array('company_name, company_code', 'required');
             $rules[]=array('company_code', 'unique_cc');
