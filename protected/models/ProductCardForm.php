@@ -1,9 +1,7 @@
 <?php
 
 /**
- * LoginForm class.
- * LoginForm is the data structure for keeping
- * user login form data. It is used by the 'login' action of 'SiteController'.
+ * Class ProductCardForm
  */
 class ProductCardForm extends CFormModel
 {
@@ -26,10 +24,10 @@ class ProductCardForm extends CFormModel
 		);
 	}
 
-	/**
-	 * Authenticates the password.
-	 * This is the 'authenticate' validator as declared in rules().
-	 */
+
+    /**
+     * checks for uniqueness
+     */
     public function unique()
     {
         //if no errors (all fields not empty)

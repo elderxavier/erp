@@ -13,7 +13,7 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/add_product.css');
 <div class="container content-wrapper">
     <div class="row">
         <div class="col-lg-12">
-            <form id="add-product-form" action="<?php echo Yii::app()->createUrl(Yii::app()->controller->id.'/updatecard') ?>" method="post">
+            <form id="add-product-form" action="<?php echo Yii::app()->createUrl($this->id.'/updateclient') ?>" method="post">
 
                 <div class="form-group">
                     <label for="personal_code"><?php echo $this->labels['personal code']; ?></label>
@@ -45,7 +45,6 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/add_product.css');
                     <input name="phone_2" value="" class="form-control" id="phone_2" type="text" />
                 </div>
 
-
                 <div class="form-group">
                     <label for="email_1"><?php echo $this->labels['email'].' 1'; ?></label>
                     <input name="email_1" value="" class="form-control" id="email_1" type="text" />
@@ -55,7 +54,6 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/add_product.css');
                     <label for="email_2"><?php echo $this->labels['email'].' 2'; ?></label>
                     <input name="email_2" value="" class="form-control" id="email_2" type="text" />
                 </div>
-
 
                 <div class="form-group">
                     <label><?php echo $this->labels['remark']; ?></label>
@@ -67,13 +65,14 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/add_product.css');
                     <textarea name="remark_service" class="form-control"></textarea>
                 </div>
 
-
-
-
-
                 <div class="form-group">
                     <label for="company"><?php echo $this->labels['company']; ?></label>
                     <input id="company" name="company" type="checkbox">
+                </div>
+
+                <div class="form-group">
+                    <label for="company_name"><?php echo $this->labels['company name']; ?></label>
+                    <input name="company_name" value="" class="form-control" id="company_name" type="text" />
                 </div>
 
                 <div class="form-group">
@@ -81,11 +80,6 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/add_product.css');
                     <input name="company_code" value="" class="form-control" id="company_code" type="text" />
                 </div>
 
-
-                <div class="form-group">
-                    <label><?php echo $this->labels['description']; ?></label>
-                    <textarea name="description" class="form-control"><?php echo $card->description; ?></textarea>
-                </div>
                 <button type="submit"><span><?php echo $this->labels['save']; ?></span><span class="glyphicon glyphicon-plus"></span></button>
             </form>
         </div>

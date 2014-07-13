@@ -24,6 +24,14 @@ $(document).ready(function(e) {
     });
 });
 
+/**
+ * Function sends ajax request to controller, to change status of some records in database
+ * @param model_class string class of model
+ * @param url_path string path to controller
+ * @param id int id of record
+ * @param status int active or not
+ * @constructor
+ */
 var ChangeStatus = function(model_class,url_path,id,status)
 {
     //ajax load data
