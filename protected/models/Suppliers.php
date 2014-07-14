@@ -28,6 +28,7 @@
  *
  * The followings are the available model relations:
  * @property InvoicesIn[] $invoicesIns
+ * @property InvoicesIn $lastInvoice
  */
 class Suppliers extends CActiveRecord
 {
@@ -64,6 +65,7 @@ class Suppliers extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'invoicesIns' => array(self::HAS_MANY, 'InvoicesIn', 'supplier_id'),
+			'lastInvoice' => array(self::BELONGS_TO, 'InvoicesIn', 'last_invoice_id'),
 		);
 	}
 

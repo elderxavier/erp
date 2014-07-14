@@ -5,16 +5,25 @@
  * LoginForm is the data structure for keeping
  * user login form data. It is used by the 'login' action of 'SiteController'.
  */
-class ProductCategoryForm extends CFormModel
+class ProductCategoryForm extends CBaseForm
 {
-	public $category_name;
+	public $name;
+    public $remark;
 
     //declare rules
 	public function rules()
 	{
 		return array(
 			// username and password are required
-			array('category_name', 'required'),
+			array('name', 'required','message'=> $this->messages['fill the field'].' "{attribute}"'),
 		);
 	}
+
+    public function attributeLabels()
+    {
+        return array(
+            'name' => $this->labels['category name'],
+            'remark' => $this->labels['remark'],
+        );
+    }
 }

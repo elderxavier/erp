@@ -5,7 +5,7 @@
  * LoginForm is the data structure for keeping
  * user login form data. It is used by the 'login' action of 'SiteController'.
  */
-class LoginForm extends CFormModel
+class LoginForm extends CBaseForm
 {
 	public $username;
 	public $password;
@@ -20,15 +20,24 @@ class LoginForm extends CFormModel
 	 */
 	public function rules()
 	{
-		return array(
-			// username and password are required
-			array('username, password', 'required'),
-			// rememberMe needs to be a boolean
+        return array(
+            // username and password are required
+            array('username, password', 'required','message'=> $this->messages['fill the field'].' "{attribute}"'),
+            // rememberMe needs to be a boolean
 //			array('remember_me', 'boolean'),
-			// password needs to be authenticated
-			array('password', 'authenticate'),
-		);
+            // password needs to be authenticated
+            array('password', 'authenticate'),
+        );
 	}
+
+
+    public function attributeLabels()
+    {
+        return array(
+            'username' => $this->labels['login'],
+            'password' => $this->labels['password']
+        );
+    }
 
 
 	/**

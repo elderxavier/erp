@@ -26,7 +26,9 @@ class ProductsController extends Controller
      ***************************************************************************************************************/
 
 
-    //L I S T  C A T E G O R I E S
+    /**
+     * List all categories
+     */
     public function actionCategories()
     {
         //get all categories from database
@@ -39,30 +41,98 @@ class ProductsController extends Controller
         );
 
         //render list
-        $this->render('list_categories',array('categories' => $categories, 'table_actions' => $actions));
+        $this->render('category_list',array('categories' => $categories, 'table_actions' => $actions));
     }
 
-    //E D I T  C A T E G O R Y
+
+    /**
+     * Add category
+     */
+    public function actionAddCat()
+    {
+        //create form-validator object
+        $form = new ProductCategoryForm();
+        $category = new ProductCardCategories();
+
+        //if isset right post param
+        if($_POST['ProductCategoryForm'])
+        {
+            //form model
+            $form -> attributes = $_POST['ProductCategoryForm'];
+            $form -> validate();
+
+            //if has errors
+            if(!$form->hasErrors())
+            {
+                //set attributes
+                $category -> attributes = $_POST['ProductCategoryForm'];
+                $category -> date_created = time();
+                $category -> date_changed = time();
+                $category -> user_modified_by = Yii::app()->user->id;
+
+                //save
+                $category -> save();
+
+                //redirect to list
+                $this->redirect('/'.$this->id.'/categories');
+            }
+        }
+
+        //render form
+        $this->render('category_create', array('category' => $category, 'form_mdl' => $form));
+    }
+
+
+    /**
+     * Edit category
+     * @param null $id
+     * @throws CHttpException
+     */
     public function actionEditCat($id = null)
     {
+        /* @var $category ProductCardCategories */
+
         //find in base
         $category = ProductCardCategories::model()->findByPk($id);
 
         //if not found - 404 error
         if(empty($category)){throw new CHttpException(404,$this->labels['item not found in base']);}
 
+        //create form-validator object
+        $form = new ProductCategoryForm();
+
+        //if isset right post param
+        if($_POST['ProductCategoryForm'])
+        {
+            //form model
+            $form -> attributes = $_POST['ProductCategoryForm'];
+            $form -> validate();
+
+            //if has errors
+            if(!$form->hasErrors())
+            {
+                //set attributes
+                $category -> attributes = $_POST['ProductCategoryForm'];
+                $category -> date_changed = time();
+                $category -> user_modified_by = Yii::app()->user->id;
+
+                //update
+                $category -> update();
+
+                //redirect to list
+                $this->redirect('/'.$this->id.'/categories');
+            }
+        }
+
         //render form
-        $this->render('edit_category',array('category' => $category));
+        $this->render('category_edit', array('category' => $category, 'form_mdl' => $form));
     }
 
-    //A D D  C A T E G O R Y
-    public function actionAddCat()
-    {
-        //render form
-        $this->render('edit_category', array('category' => new ProductCardCategories()));
-    }
-
-    //D E L E T E  C A T E G O R Y
+    /**
+     * Delete category
+     * @param null $id
+     * @throws CHttpException
+     */
     public function actionDeleteCat($id = null)
     {
         $id = (int)$id;
@@ -98,73 +168,13 @@ class ProductsController extends Controller
         }
     }
 
-
-    //U P D A T E  C A T E G O R Y
-    public function actionUpdateCat()
-    {
-        //get id from request
-        $id = Yii::app()->request->getParam('id',null);
-        $name = Yii::app()->request->getParam('category_name','');
-        $remark = Yii::app()->request->getParam('remark','');
-
-        //find category
-        $category = ProductCardCategories::model()->findByPk($id);
-
-        //if found nothing - create new
-        if(empty($category)){$category = new ProductCardCategories();}
-
-        //form-validation object
-        $validation = new ProductCategoryForm();
-        //set attributes
-        $validation->attributes = $_POST;
-        //validate
-        $validation->validate();
-        //get errors
-        $errors = $validation->getErrors();
-
-        //if have errors
-        if(empty($errors))
-        {
-            //set main params
-            $category->name = $name;
-            $category->remark = $remark;
-            $category->status = 1;
-            $category->date_changed = time();
-
-            //if created new object
-            if($category->isNewRecord)
-            {
-                //creation time
-                $category->date_created = time();
-
-                //save
-                $category->save();
-            }
-            //if update old object
-            else
-            {
-                //update
-                $category->update();
-            }
-
-            //redirect to list
-            $this->redirect(Yii::app()->createUrl(Yii::app()->controller->id.'/categories'));
-        }
-        //if have som errors
-        else
-        {
-            //render form with errors
-            $this->render('edit_category',array('category' => $category, 'errors' => $errors));
-        }
-
-    }
-
-
     /****************************************************************************************************************
      ****************************************** P R O D U C T  C A R D S ********************************************
      ***************************************************************************************************************/
 
-    // L I S T  C A R D S
+    /**
+     * List cards
+     */
     public function actionCards()
     {
 
@@ -195,19 +205,59 @@ class ProductsController extends Controller
         );
 
         //render list
-        $this->render('list_cards',array('cards' => $cards, 'table_actions' => $actions, 'categories' => $categories));
+        $this->render('card_list',array('cards' => $cards, 'table_actions' => $actions, 'categories' => $categories));
     }
 
 
-    // E D I T
-    public function actionEditCard($id = null)
+    /**
+     * Add card
+     */
+    public function actionAddCard()
     {
-        $id = (int)$id;
+        //create form-validator-object and card object
+        $form = new ProductCardForm();
+        $card = new ProductCards();
 
-        /* @var $card ProductCards */
+        //if set post form params
+        if(isset($_POST['ProductCardForm']))
+        {
+            //validate all attributes
+            $form->attributes = $_POST['ProductCardForm'];
+            $form->validate();
+
+            //if no errors
+            if(!$form->hasErrors())
+            {
+                //set params
+                $card->attributes = $_POST['ProductCardForm'];
+                $card->date_changed = time();
+                $card->date_created = time();
+                $card->user_modified_by = Yii::app()->user->id;
+
+                //save to db
+                $card->save();
+
+                //redirect to list
+                $this->redirect('/'.$this->id.'/cards');
+            }
+        }
 
         //get all categories
-        $categories = ProductCardCategories::model()->findAll();
+        $categories_arr = ProductCardCategories::getAllAsArray();
+
+        //render form
+        $this->render('card_create',array('categories_arr' => $categories_arr, 'card' => $card, 'form_mdl' => $form));
+    }
+
+
+    /**
+     * Edit card
+     * @param null $id
+     * @throws CHttpException
+     */
+    public function actionEditCard($id = null)
+    {
+        /* @var $card ProductCards */
 
         //try find in base
         $card = ProductCards::model()->findByPk($id);
@@ -215,22 +265,50 @@ class ProductsController extends Controller
         //if not found - exception
         if(empty($card)){throw new CHttpException(404,$this->labels['item not found in base']);}
 
-        //render form
-        $this->render('edit_card',array('categories' => $categories, 'card' => $card));
+        //create form-validator-object and card object
+        $form = new ProductCardForm();
 
-    }
+        //set current card product-id to validator, to avoid unique-check-error when updating
+        $form -> current_card_id = $card->id;
 
-    // C R E A T E
-    public function actionAddCard()
-    {
+        //if set post form params
+        if(isset($_POST['ProductCardForm']))
+        {
+            //validate all attributes
+            $form->attributes = $_POST['ProductCardForm'];
+            $form->validate();
+
+            //if no errors
+            if(!$form->hasErrors())
+            {
+                //set params
+                $card->attributes = $_POST['ProductCardForm'];
+                $card->date_changed = time();
+                $card->date_created = time();
+                $card->user_modified_by = Yii::app()->user->id;
+
+                //save to db
+                $card->save();
+
+                //redirect to list
+                $this->redirect('/'.$this->id.'/cards');
+            }
+        }
+
         //get all categories
-        $categories = ProductCardCategories::model()->findAll();
+        $categories_arr = ProductCardCategories::getAllAsArray();
 
         //render form
-        $this->render('edit_card',array('categories' => $categories, 'card' => new ProductCards()));
+        $this->render('card_edit',array('categories_arr' => $categories_arr, 'card' => $card, 'form_mdl' => $form));
+
     }
 
-    // D E L E T E
+
+    /**
+     * Delete card
+     * @param null $id
+     * @throws CHttpException
+     */
     public function actionDeleteCard($id = null)
     {
         /* @var $card ProductCards */
@@ -257,7 +335,7 @@ class ProductsController extends Controller
             $card->delete();
 
             //redirect to list
-            $this->redirect(Yii::app()->createUrl(Yii::app()->controller->id.'/cards'));
+            $this->redirect('/'.$this->id.'/cards');
         }
         //if used somewhere
         else
@@ -265,76 +343,6 @@ class ProductsController extends Controller
             //render restricts reasons
             $this->render('restricts',array('restricts' => $restricts));
         }
-    }
-
-    //U P D A T E  C A R D
-    public function actionUpdateCard()
-    {
-        /* @var $card ProductCards */
-
-        //get id form request
-        $id = Yii::app()->request->getParam('id',null);
-        $product_code = Yii::app()->request->getParam('code','');
-        $product_name = Yii::app()->request->getParam('name','');
-        $category_id = Yii::app()->request->getParam('category_id','');
-        $dimension_units = Yii::app()->request->getParam('dim_units','units');
-        $description = Yii::app()->request->getParam('description','');
-
-        //try find from db
-        $card = ProductCards::model()->findByPk($id);
-        //if not found - create new object
-        if(empty($card)){$card = new ProductCards();}
-
-        //create form validation object
-        $validation = new ProductCardForm();
-        //set params from form
-        $validation->attributes = $_POST;
-        //if we update old card - set current card id to validation obj
-        if(!$card->isNewRecord){$validation->current_card_id = $card->id;}
-        //validate
-        $validation->validate();
-        //get errors
-        $errors = $validation->getErrors();
-
-        //if no errors
-        if(empty($errors))
-        {
-            //set main params
-            $card->product_code = $product_code;
-            $card->product_name = $product_name;
-            $card->status = 1;
-            $card->description = $description;
-            $card->units = $dimension_units;
-            $card->date_changed = time();
-            $card->category_id = $category_id;
-
-            //if new object
-            if($card->isNewRecord)
-            {
-                //creation time
-                $card->date_created = time();
-                $card->save();
-            }
-            //if update old object
-            else
-            {
-                //update time
-                $card->update();
-            }
-
-            //redirect to list
-            $this->redirect(Yii::app()->createUrl(Yii::app()->controller->id.'/cards'));
-        }
-        //if have som errors
-        else
-        {
-            //get all categories
-            $categories = ProductCardCategories::model()->findAll();
-
-            //render with errors
-            $this->render('edit_card',array('categories' => $categories, 'card' => $card, 'errors' => $errors));
-        }
-
     }
 
 }

@@ -1,28 +1,21 @@
 <?php
 
 /**
- * This is the model class for table "product_card_categories".
+ * This is the model class for table "form_messages".
  *
- * The followings are the available columns in table 'product_card_categories':
+ * The followings are the available columns in table 'form_messages':
  * @property integer $id
- * @property string $name
- * @property string $remark
- * @property integer $status
- * @property integer $date_created
- * @property integer $date_changed
- * @property integer $user_modified_by
- *
- * The followings are the available model relations:
- * @property ProductCards[] $productCards
+ * @property string $label
+ * @property string $value
  */
-class ProductCardCategories extends CActiveRecord
+class FormMessages extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'product_card_categories';
+		return 'form_messages';
 	}
 
 	/**
@@ -33,11 +26,10 @@ class ProductCardCategories extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('status, date_created, date_changed, user_modified_by', 'numerical', 'integerOnly'=>true),
-			array('name, remark', 'safe'),
+			array('label, value', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, name, remark, status, date_created, date_changed, user_modified_by', 'safe', 'on'=>'search'),
+			array('id, label, value', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -49,7 +41,6 @@ class ProductCardCategories extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'productCards' => array(self::HAS_MANY, 'ProductCards', 'category_id'),
 		);
 	}
 
@@ -60,12 +51,8 @@ class ProductCardCategories extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Name',
-			'remark' => 'Remark',
-			'status' => 'Status',
-			'date_created' => 'Date Created',
-			'date_changed' => 'Date Changed',
-			'user_modified_by' => 'User Modified By',
+			'label' => 'Label',
+			'value' => 'Value',
 		);
 	}
 
@@ -88,12 +75,8 @@ class ProductCardCategories extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('name',$this->name,true);
-		$criteria->compare('remark',$this->remark,true);
-		$criteria->compare('status',$this->status);
-		$criteria->compare('date_created',$this->date_created);
-		$criteria->compare('date_changed',$this->date_changed);
-		$criteria->compare('user_modified_by',$this->user_modified_by);
+		$criteria->compare('label',$this->label,true);
+		$criteria->compare('value',$this->value,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -101,39 +84,47 @@ class ProductCardCategories extends CActiveRecord
 	}
 
 	/**
+	 * @return CDbConnection the database connection used for this class
+	 */
+	public function getDbConnection()
+	{
+		return Yii::app()->labels;
+	}
+
+	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return ProductCardCategories the static model class
+	 * @return FormMessages the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
 	}
-
-
+    
     /**
-     * Gets all categories from database and returns pairs 'id' => 'name' array
-     * @return array
+     * Returns array of labbels
+     * @param int - current language id
+     * @return array - array('label name'=> 'label value')) 
      */
-    public static function getAllAsArray()
-    {
-        /* @var $category ProductCardCategories */
-
-        //empty array
-        $arr = array();
-
-        //get all from base
-        $all = self::model()->findAll();
-
-        //pass through all
-        foreach($all as $category)
+    public function getLabels($language=null){
+        
+        
+         $labels = array();    
+               
+        $connection = $this->getDbConnection();
+        $sql="SELECT label, value FROM ".$this->tableName();
+        $dataReader=$connection->createCommand($sql)->query();
+        // привязываем первое поле (label) к переменной $label
+        $dataReader->bindColumn(1,$label);
+        // привязываем второе поле (value) к переменной $value
+        $dataReader->bindColumn(2,$value);
+        
+        while($dataReader->read()!==false)
         {
-            //set to array
-            $arr[$category->id] = $category->name;
+            $labels[$label] = $value;   
         }
-
-        //return array
-        return $arr;
+        
+        return $labels;
     }
 }

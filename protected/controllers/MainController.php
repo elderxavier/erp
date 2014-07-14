@@ -31,29 +31,23 @@ class MainController extends Controller
         //if logged in - redirect to index
         if(!Yii::app()->user->isGuest){$this->redirect($this->createUrl('main/index'));}
 
-        //if post request
-        if(Yii::app()->request->isPostRequest)
-        {
-            //create validation from-model object
-            $validation=new LoginForm();
+        //create validation from-model object
+        $validation=new LoginForm();
 
+        //if post request
+        if($_POST['LoginForm'])
+        {
             //set all parameters from post
-            $validation->attributes = $_POST;
+            $validation->attributes = $_POST['LoginForm'];
 
             // validate user input and redirect to the previous page if valid
             if($validation->validate() && $validation->login())
             {
-                $this->redirect(Yii::app()->createUrl('main/index'));
+                $this->redirect('index');
             }
+        }
 
-            // render form and errors
-            $this->render('login',array('errors'=>$validation->getErrors()));
-        }
-        else
-        {
-            //render form
-            $this->render('login',array('errors'=>array()));
-        }
+        $this->render('login',array('model'=>$validation));
     }
 
 

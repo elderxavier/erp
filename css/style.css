@@ -276,7 +276,7 @@ body {
 	padding:0;
 	background-color:#cc5c4e;}
 	
-#login-form .error {
+#login-form .errorMessage {
 	color:red;
 	font-size:12px;}	
 	
