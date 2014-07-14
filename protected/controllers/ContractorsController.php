@@ -25,7 +25,9 @@ class ContractorsController extends Controller
      *********************************************** C L I E N T S **************************************************
      ***************************************************************************************************************/
 
-    //L I S T
+    /**
+     * List clients
+     */
     public function actionClients()
     {
         //get all clients and service which client waits
@@ -38,13 +40,35 @@ class ContractorsController extends Controller
         );
 
         //render
-        $this->render('list_clients', array('clients' => $clients, 'table_actions' => $actions));
+        $this->render('client_list', array('clients' => $clients, 'table_actions' => $actions));
     }
 
-    //A D D
+    /**
+     *
+     */
     public function actionAddCli()
     {
-        $this->render('create_clients');
+        //empty client
+        $client = new Clients();
+
+        //form-validate object
+        $form = new ClientForm();
+
+        //if got post
+        if(isset($_POST['ClientForm']))
+        {
+            //set attributes and validate
+            $form->attributes = $_POST['ClientForm'];
+            $form->validate();
+
+            //if no errors
+            if(!$form->hasErrors())
+            {
+
+            }
+        }
+
+        $this->render('client_create');
     }
 
     //E D I T
