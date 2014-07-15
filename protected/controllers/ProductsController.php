@@ -58,10 +58,9 @@ class ProductsController extends Controller
         {
             //form model
             $form -> attributes = $_POST['ProductCategoryForm'];
-            $form -> validate();
 
             //if has errors
-            if(!$form->hasErrors())
+            if($form -> validate())
             {
                 //set attributes
                 $category -> attributes = $_POST['ProductCategoryForm'];
@@ -105,10 +104,9 @@ class ProductsController extends Controller
             {
                 //form model
                 $form -> attributes = $_POST['ProductCategoryForm'];
-                $form -> validate();
 
                 //if has errors
-                if(!$form->hasErrors())
+                if(!$form -> validate())
                 {
                     //set attributes
                     $category -> attributes = $_POST['ProductCategoryForm'];
@@ -204,10 +202,9 @@ class ProductsController extends Controller
         {
             //validate all attributes
             $form->attributes = $_POST['ProductCardForm'];
-            $form->validate();
 
             //if no errors
-            if(!$form->hasErrors())
+            if($form->validate())
             {
                 //set params
                 $card->attributes = $_POST['ProductCardForm'];
@@ -260,7 +257,7 @@ class ProductsController extends Controller
                 $form->validate();
 
                 //if no errors
-                if(!$form->hasErrors())
+                if($form->validate())
                 {
                     //set params
                     $card->attributes = $_POST['ProductCardForm'];

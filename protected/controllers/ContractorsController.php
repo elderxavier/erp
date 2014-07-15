@@ -68,10 +68,9 @@ class ContractorsController extends Controller
             //set attributes and validate
             $form->attributes = $_POST['ClientForm'];
             $client->attributes = $_POST['ClientForm'];
-            $form->validate();
 
             //if no errors
-            if(!$form->hasErrors())
+            if($form->validate())
             {
                 //set creation parameters
                 $client->date_created = time();
