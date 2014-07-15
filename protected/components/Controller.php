@@ -23,6 +23,7 @@ class Controller extends CController
 
     //array of labels for forms
     public $labels = array();
+    public $messages = array();
 
     //array of rights of current user
     public $rights = array();
@@ -34,6 +35,7 @@ class Controller extends CController
     public function init(){
 
         $this->labels = Labels::model()->getLabels();
+        $this->messages = FormMessages::model()->getLabels();
     }
 
     //returns user rights

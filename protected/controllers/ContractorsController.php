@@ -38,14 +38,8 @@ class ContractorsController extends Controller
         //get all clients and service which client waits
         $clients = Clients::model()->with('nextService','firstInvoice')->findAll();
 
-        //actions for every record
-        $actions = array(
-            'edit' => array('controller' => Yii::app()->controller->id, 'action' => 'editclient', 'class' => 'actions action-edit', 'visible' => $this->rights['clients_edit'] ? 1 : 0),
-            'delete' => array('controller' => Yii::app()->controller->id, 'action' => 'deleteclient', 'class' => 'actions action-delete' , 'visible' => $this->rights['clients_delete'] ? 1 : 0),
-        );
-
         //render
-        $this->render('client_list', array('clients' => $clients, 'table_actions' => $actions));
+        $this->render('client_list', array('clients' => $clients));
     }
 
     /**
@@ -108,7 +102,7 @@ class ContractorsController extends Controller
         //try find by pk
         $client = Clients::model()->findByPk($id);
 
-        //if not found - throw 404 exception
+        //if found
         if(!empty($client))
         {
             //form-validate object
@@ -151,8 +145,10 @@ class ContractorsController extends Controller
 
             $this->render('client_edit', array('client' => $client, 'form_mdl' => $form));
         }
+        //if not found
         else
         {
+            //exception
             throw new CHttpException(404,$this->labels['item not found in base']);
         }
     }
@@ -165,31 +161,33 @@ class ContractorsController extends Controller
     public function actionDeleteClient($id = null)
     {
         /* @var $client Clients */
-        $restricts = array();
 
         //try find by pk
         $client = Clients::model()->with('invoicesOuts','lastService','nextService')->findByPk($id);
 
-        //if not found - throw 404 exception
-        if(empty($client)){throw new CHttpException(404,$this->labels['item not found in base']);}
-
-        //if exist some invoices related with this client
-        if(count($client->invoicesOuts) > 0){$restricts[]=$this->labels['this item used in'].' '.$this->labels['outgoing invoices'];}
-
-        //if no restricts
-        if(empty($restricts))
+        //if found
+        if(!empty($client))
         {
-            //delete
-            $client->delete();
+            //if exist some invoices related with this client
+            if(count($client->invoicesOuts) > 0)
+            {
+                $this->render('restricts');
+            }
+            //if no usages
+            else
+            {
+                //delete
+                $client->delete();
 
-            //redirect to list
-            $this->redirect(Yii::app()->createUrl($this->id.'/clients'));
+                //redirect to list
+                $this->redirect(Yii::app()->createUrl('/'.$this->id.'/clients'));
+            }
         }
-        //if some restricts
+        //if not found
         else
         {
-            //render restrict pages
-            $this->render('restricts',array('restricts' => $restricts));
+            //exception
+            throw new CHttpException(404,$this->labels['item not found in base']);
         }
 
     }
@@ -199,130 +197,177 @@ class ContractorsController extends Controller
      ******************************************* S U P P L I E R S **************************************************
      ***************************************************************************************************************/
 
-    //L I S T
+    /**
+     * List all suppliers
+     */
     public function actionSuppliers()
     {
         //get all clients and service which client waits
         $suppliers = Suppliers::model()->findAll();
 
-        //actions for every record
-        $actions = array(
-            'edit' => array('controller' => Yii::app()->controller->id, 'action' => 'editsupp', 'class' => 'actions action-edit', 'visible' => $this->rights['suppliers_edit'] ? 1 : 0),
-            'delete' => array('controller' => Yii::app()->controller->id, 'action' => 'deletesupp', 'class' => 'actions action-delete' , 'visible' => $this->rights['suppliers_delete'] ? 1 : 0),
-        );
-
         //render
-        $this->render('list_suppliers', array('suppliers' => $suppliers, 'table_actions' => $actions));
+        $this->render('supplier_list', array('suppliers' => $suppliers));
     }
 
-    //E D I T
+    /**
+     * @param null $id
+     * @throws CHttpException
+     */
     public function actionEditSupp($id = null)
     {
-        //try find by pk
-        $supplier = Suppliers::model()->findByPk($id);
-
-        //if not found - throw 404 exception
-        if(empty($supplier)){throw new CHttpException(404,$this->labels['item not found in base']);}
-
-        //render form
-        $this->render('edit_suppliers',array('supplier' => $supplier));
-    }
-
-    //C R E A T E
-    public function actionAddSup()
-    {
-        $this->render('create_suppliers');
-    }
-
-    //U P D A T E
-    public function actionUpdateSupplier()
-    {
-        //get main params from request
-        $id = Yii::app()->request->getParam('id','');
-        $personal_code = Yii::app()->request->getParam('personal_code','');
-        $vat_code = Yii::app()->request->getParam('vat_code','');
-        $name = Yii::app()->request->getParam('name','');
-        $surname = Yii::app()->request->getParam('surname','');
-        $phone_1 = Yii::app()->request->getParam('phone_1','');
-        $phone_2 = Yii::app()->request->getParam('phone_2','');
-        $email_1 = Yii::app()->request->getParam('email_1','');
-        $email_2 = Yii::app()->request->getParam('email_2','');
-        $remark = Yii::app()->request->getParam('remark','');
-        $company = Yii::app()->request->getParam('company',false);
-        $company_name = Yii::app()->request->getParam('company_name','');
-        $company_code = Yii::app()->request->getParam('company_code','');
+        /* @var $supplier Clients */
 
         //try find by pk
         $supplier = Suppliers::model()->findByPk($id);
 
-        //if not found - create new
-        if(empty($supplier)){$supplier = new Suppliers();}
-
-        //create validator
-        $validator = new SupplierForm();
-        //company or not
-        $company != false ? $validator->company = true : $validator->company = false;
-        //set current client id to validator, to avoid unique-check-error when updating
-        if(!$supplier->isNewRecord){$validator->current_supplier_id = $supplier->id;}
-
-        //set attributes and validate
-        $validator->attributes = $_POST;
-        $validator->validate();
-
-        //get validation errors
-        $errors = $validator->getErrors();
-
-        //if no errors
-        if(empty($errors))
+        //if found
+        if(!empty($supplier))
         {
-            //set main params
-            $supplier->personal_code = $personal_code;
-            $supplier->vat_code = $vat_code;
-            $supplier->name = $name;
-            $supplier->surname = $surname;
-            $supplier->phone1 = $phone_1;
-            $supplier->phone2 = $phone_2;
-            $supplier->email1 = $email_1;
-            $supplier->email2 = $email_2;
-            $supplier->remark = $remark;
-            if($company!=false){$supplier->type = 1;}else{$supplier->type = 0;}
-            $supplier->company_name = $company_name;
-            $supplier->company_code = $company_code;
-            $supplier->date_changed = time();
-            $supplier->user_modified_by = Yii::app()->user->id;
+            //form-validate object
+            $form = new SupplierForm();
 
-            //if new client
-            if($supplier->isNewRecord)
+            //set current client-id to validator, to avoid unique-check-error when updating
+            $form->current_supplier_id = $supplier->id;
+
+            //if got post
+            if(isset($_POST['SupplierForm']))
             {
-                //save new
-                $supplier->date_created = time();
-                $supplier->save();
-            }
-            //if old
-            else
-            {
-                //update
-                $supplier->update();
+                //if company
+                if($_POST['SupplierForm']['company'])
+                {
+                    //validate as company (company code required)
+                    $form->company = 1;
+                    //set type to client (1 = company)
+                    $supplier->type = 1;
+                }
+
+                //set attributes and validate
+                $form->attributes = $_POST['SupplierForm'];
+                $supplier->attributes = $_POST['SupplierForm'];
+
+                //if no errors
+                if($form->validate())
+                {
+                    //set creation parameters
+                    $supplier->date_created = time();
+                    $supplier->date_changed = time();
+                    $supplier->user_modified_by = Yii::app()->user->id;
+
+                    //save to db
+                    $supplier->save();
+
+                    //redirect to list
+                    $this->redirect('/'.$this->id.'/suppliers');
+                }
             }
 
-            //redirect to list
-            $this->redirect(Yii::app()->createUrl($this->id.'/suppliers'));
+            $this->render('supplier_edit', array('supplier' => $supplier, 'form_mdl' => $form));
         }
-        //if some errors
+        //if not found
         else
         {
-            //if this was creating attempt
-            if($supplier->isNewRecord)
+            //exception
+            throw new CHttpException(404,$this->labels['item not found in base']);
+        }
+    }
+
+    /**
+     * Create supplier
+     * @throws CHttpException
+     */
+    public function actionAddSup()
+    {
+        /* @var $supplier Clients */
+
+        //try find by pk
+        $supplier = new Suppliers();
+
+        //if found
+        if(!empty($supplier))
+        {
+            //form-validate object
+            $form = new SupplierForm();
+
+            //set current client-id to validator, to avoid unique-check-error when updating
+            $form->current_supplier_id = $supplier->id;
+
+            //if got post
+            if(isset($_POST['SupplierForm']))
             {
-                //render creating form with errors
-                $this->render('create_suppliers',array('errors' => $errors));
+                //if company
+                if($_POST['SupplierForm']['company'])
+                {
+                    //validate as company (company code required)
+                    $form->company = 1;
+                    //set type to client (1 = company)
+                    $supplier->type = 1;
+                }
+
+                //set attributes and validate
+                $form->attributes = $_POST['SupplierForm'];
+                $supplier->attributes = $_POST['SupplierForm'];
+
+                //if no errors
+                if($form->validate())
+                {
+                    //set creation parameters
+                    $supplier->date_created = time();
+                    $supplier->date_changed = time();
+                    $supplier->user_modified_by = Yii::app()->user->id;
+
+                    //save to db
+                    $supplier->save();
+
+                    //redirect to list
+                    $this->redirect('/'.$this->id.'/suppliers');
+                }
             }
-            //if this was updating attempt
+
+            $this->render('supplier_create', array('supplier' => $supplier, 'form_mdl' => $form));
+        }
+        //if not found
+        else
+        {
+            //exception
+            throw new CHttpException(404,$this->labels['item not found in base']);
+        }
+    }
+
+    /**
+     * @param null $id
+     * @throws CHttpException
+     */
+    public function actionDeleteSupp($id = null)
+    {
+        /* @var $supplier Suppliers */
+
+        //try find by pk
+        $supplier = Suppliers::model()->with('invoicesIns','lastService','nextService')->findByPk($id);
+
+        //if found
+        if(!empty($supplier))
+        {
+            //if exist some invoices related with this client
+            if(count($supplier->invoicesIns) > 0)
+            {
+                $this->render('restricts');
+            }
+            //if no usages
             else
             {
-                //render updating form with errors
-                $this->render('edit_suppliers',array('client' => $supplier, 'errors' => $errors));
+                //delete
+                $supplier->delete();
+
+                //redirect to list
+                $this->redirect(Yii::app()->createUrl('/'.$this->id.'/suppliers'));
             }
         }
+        //if not found
+        else
+        {
+            //exception
+            throw new CHttpException(404,$this->labels['item not found in base']);
+        }
+
     }
 }

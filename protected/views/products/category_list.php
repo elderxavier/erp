@@ -34,10 +34,10 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/table.css');
 
                             <td>
                                 <?php if($this->rights['products_edit']): ?>
-                                    <?php echo CHtml::link($this->labels['edit'],'/products/editcat/id/'.$category->id,array('class' => 'actions action-edit')); ?>
+                                    <?php echo CHtml::link($this->labels['edit'],'/'.$this->id.'/editcat/id/'.$category->id,array('class' => 'actions action-edit')); ?>
                                 <?php endif; ?>
                                 <?php if($this->rights['products_delete']): ?>
-                                    <?php echo CHtml::link($this->labels['delete'],'/products/deletecat/id/'.$category->id,array('class' => 'actions action-delete')); ?>
+                                    <?php echo CHtml::link($this->labels['delete'],'/'.$this->id.'/deletecat/id/'.$category->id,array('class' => 'actions action-delete')); ?>
                                 <?php endif; ?>
                             </td>
                         </tr>

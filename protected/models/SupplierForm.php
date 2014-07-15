@@ -3,45 +3,72 @@
 /**
  * Class ClientForm
  */
-class SupplierForm extends CFormModel
+class SupplierForm extends CBaseForm
 {
-    public $personal_code;
-    public $vat_code;
     public $name;
-    public $surname;
-    public $phone_1;
-    public $email_1;
-    public $company;
     public $company_name;
+    public $surname;
+    public $personal_code;
     public $company_code;
+    public $vat_code;
+    public $phone1;
+    public $phone2;
+    public $email1;
+    public $email2;
+    public $remark;
 
+    public $company;
     public $current_supplier_id = null;
 
 
-    //declare rules
-	public function rules()
-	{
+    /**
+     * Declares rules for fields
+     * @return array
+     */
+    public function rules()
+    {
         //main rules
         $rules = array(
-            array('vat_code, phone_1, email_1', 'required'),
+            array('vat_code, phone1, email1', 'required', 'message'=> $this->messages['fill the field'].' "{attribute}"'),
         );
 
         //for company
         if($this->company)
         {
-            $rules[]=array('company_name, company_code', 'required');
+            $rules[]=array('company_name, company_code', 'required', 'message' => $this->messages['fill the field'].' "{attribute}"');
             $rules[]=array('company_code', 'unique_cc');
         }
         //for single person
         else
         {
-            $rules[]=array('personal_code, name, surname','required');
+            $rules[]=array('personal_code, name, surname','required', 'message'=> $this->messages['fill the field'].' "{attribute}"');
             $rules[]=array('personal_code', 'unique_pc');
         }
 
         return $rules;
-	}
+    }
 
+    /**
+     * Labels for fields
+     * @return array
+     */
+    public function attributeLabels()
+    {
+        return array(
+            'name' => $this->labels['name'],
+            'company_name' => $this->labels['company name'],
+            'surname' => $this->labels['surname'],
+            'personal_code' => $this->labels['personal code'],
+            'company_code' => $this->labels['company code'],
+            'vat_code' => $this->labels['vat code'],
+            'phone1' => $this->labels['phone 1'],
+            'phone2' => $this->labels['phone 2'],
+            'email1' => $this->labels['email 1'],
+            'email2' => $this->labels['email 2'],
+            'remark' => $this->labels['remark'],
+            'company' => $this->labels['company'],
+        );
+    }
 
     /**
      * this function checks some field in some table for uniqueness
@@ -85,7 +112,7 @@ class SupplierForm extends CFormModel
     {
         if($this->base_unique_err('Suppliers','company_code',$this->company_code,$this->current_supplier_id))
         {
-            $this->addError('company_code','company code already used');
+            $this->addError('company_code',$this->messages['company code already used']);
         }
     }
 
@@ -96,7 +123,7 @@ class SupplierForm extends CFormModel
     {
         if($this->base_unique_err('Suppliers','personal_code',$this->personal_code,$this->current_supplier_id))
         {
-            $this->addError('personal_code','personal code already used');
+            $this->addError('personal_code',$this->messages['personal code already used']);
         }
     }
 }

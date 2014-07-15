@@ -2,7 +2,6 @@
 <?php /* @var $client Clients */ ?>
 <?php /* @var $rights UserRights */ ?>
 <?php /* @var $this ContractorsController */ ?>
-<?php /* @var $table_actions array */ ?>
 
 <?php
 $cs = Yii::app()->clientScript;
@@ -47,7 +46,12 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/table.css');
                             <td><?php echo $client->firstInvoice ? $client->firstInvoice->paymentMethod->name : '-'; ?></td>
                             <td><?php echo $client->nextService ? $client->next_service_date : '-'; ?></td>
                             <td>
-                                <?php $this->renderPartial('//partials/_table_actions',array('links' => $table_actions , 'params' => array('id' => $client->id), 'separator' => '')); ?>
+                                <?php if($this->rights['clients_edit']): ?>
+                                    <?php echo CHtml::link($this->labels['edit'],'/'.$this->id.'/editclient/id/'.$client->id,array('class' => 'actions action-edit')); ?>
+                                <?php endif; ?>
+                                <?php if($this->rights['clients_delete']): ?>
+                                    <?php echo CHtml::link($this->labels['delete'],'/'.$this->id.'/deleteclient/id/'.$client->id,array('class' => 'actions action-delete')); ?>
+                                <?php endif; ?>
                             </td>
                         </tr>
                     <?php endforeach; ?>

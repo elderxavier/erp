@@ -45,7 +45,12 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/table.css');
                             <td><?php echo $supplier->email1; ?></td>
                             <td><?php echo $supplier->lastInvoice ? $supplier->lastInvoice->paymentMethod->name : '-'; ?></td>
                             <td>
-                                <?php $this->renderPartial('//partials/_table_actions',array('links' => $table_actions , 'params' => array('id' => $supplier->id), 'separator' => '')); ?>
+                                <?php if($this->rights['suppliers_edit']): ?>
+                                    <?php echo CHtml::link($this->labels['edit'],'/'.$this->id.'/editsupp/id/'.$supplier->id,array('class' => 'actions action-edit')); ?>
+                                <?php endif; ?>
+                                <?php if($this->rights['suppliers_delete']): ?>
+                                    <?php echo CHtml::link($this->labels['delete'],'/'.$this->id.'/deletesupp/id/'.$supplier->id,array('class' => 'actions action-delete')); ?>
+                                <?php endif; ?>
                             </td>
                         </tr>
                     <?php endforeach; ?>
