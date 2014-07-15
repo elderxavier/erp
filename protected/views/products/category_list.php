@@ -33,11 +33,11 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/table.css');
                             <td><?php echo date('Y.m.d',$category->date_created); ?></td>
 
                             <td>
-                                <?php if($this->rights['categories_edit']): ?>
-                                    <?php echo CHtml::link($this->labels['delete'],Yii::app()->createUrl('products/deletecat',array('id' => $category->id)),array('class' => 'action-lnk')); ?>
+                                <?php if($this->rights['products_edit']): ?>
+                                    <?php echo CHtml::link($this->labels['edit'],'/products/editcat/id/'.$category->id,array('class' => 'actions action-edit')); ?>
                                 <?php endif; ?>
-                                <?php if($rights->rights['categories_delete']): ?>
-                                    | <?php echo CHtml::link($this->labels['edit'],Yii::app()->createUrl('products/editcat',array('id' => $category->id)),array('class' => 'action-lnk')); ?>
+                                <?php if($this->rights['products_delete']): ?>
+                                    <?php echo CHtml::link($this->labels['delete'],'/products/deletecat/id/'.$category->id,array('class' => 'actions action-delete')); ?>
                                 <?php endif; ?>
                             </td>
                         </tr>

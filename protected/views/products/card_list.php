@@ -75,10 +75,10 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/table.css');
 
                             <td>
                                 <?php if($this->rights['products_edit']): ?>
-                                    <?php echo CHtml::link($this->labels['delete'],Yii::app()->createUrl('products/deletecard',array('id' => $category->id)),array('class' => 'action-lnk')); ?>
+                                    <?php echo CHtml::link($this->labels['edit'],'/products/editcard/id/'.$card->id,array('class' => 'actions action-edit')); ?>
                                 <?php endif; ?>
-                                <?php if($rights->rights['products_delete']): ?>
-                                    | <?php echo CHtml::link($this->labels['edit'],Yii::app()->createUrl('products/editcard',array('id' => $category->id)),array('class' => 'action-lnk')); ?>
+                                <?php if($this->rights['products_delete']): ?>
+                                    <?php echo CHtml::link($this->labels['delete'],'/products/deletecard/id/'.$card->id,array('class' => 'actions action-delete')); ?>
                                 <?php endif; ?>
                             </td>
                         </tr>
