@@ -1,0 +1,58 @@
+#add-user-form label {
+	font-size:12px;
+	font-weight:400;
+	color:#9b9292;
+	text-transform:uppercase;}
+	
+#add-user-form input[type=text], #add-user-form input[type=password] {
+	border-radius:0;
+	max-width:270px;}
+	
+#add-user-form fieldset {
+	max-width:270px;
+	padding:0 10px;
+	border:1px solid #c7c8cc}
+		
+
+#add-user-form fieldset > legend {
+	border:none;
+	margin:0;
+	width:auto;
+	font-size:12px;
+	font-weight:400;
+	color:#9b9292;
+	text-transform:uppercase;}		
+	
+#add-user-form textarea {
+	border-radius:0;
+	max-width:450px;}
+	
+#add-user-form select {
+	max-width:270px;
+	color:#9b9292;
+	border-radius:0;}
+	
+#add-user-form button {
+	padding:0;
+	border:0;
+	margin-top:20px;
+	height:34px;
+	background-color:#fb8f73;
+	color:white;
+	font-size:12px;
+	text-transform:uppercase;}
+	
+#add-user-form button > span {
+	line-height:34px;
+	display:inline-block;}
+	
+#add-user-form button > span:first-child {
+	padding: 0 10px;} 
+	
+#add-user-form button > span:last-child {
+	padding:0;
+	background-position:center center;
+	background-color:#cc5c4e;
+	height:33px;
+	width:33px}
+	

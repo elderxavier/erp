@@ -15,7 +15,7 @@ class MainMenu extends Widget {
         $main_menu = array(
             'products' => array('controller' => 'products','image' => 'product.png','visible' => $this->rights['products_section_see'] ? 1 : 0 ),
             'contractors' => array('controller' => 'contractors', 'image' => 'kontragent.png', 'visible' => $this->rights['contractors_section_see'] ? 1 : 0),
-            'employees' => array('controller' => 'employees', 'image' => 'person.png', 'visible' => $this->rights['employees_section_see'] ? 1 : 0)
+            'employees' => array('controller' => 'users', 'image' => 'person.png', 'visible' => $this->rights['employees_section_see'] ? 1 : 0)
         );
 
         $this->render('main_menu',array('links' => $main_menu, 'curr_controller' => $curr_controller));
