@@ -2,7 +2,10 @@
 
 class ProductsController extends Controller
 {
-    //R E T U R N S  S U B M E N U  F O R  T H I S  C O N T R O L L E R
+    /**
+     * Returns sub-menu settings
+     * @return array
+     */
     public function GetSubMenu()
     {
         $arr = array(
@@ -15,7 +18,9 @@ class ProductsController extends Controller
         return $arr;
     }
 
-    //I N D E X
+    /**
+     * Entry point
+     */
     public function actionIndex()
     {
         $this->actionCategories();
@@ -34,14 +39,8 @@ class ProductsController extends Controller
         //get all categories from database
         $categories = ProductCardCategories::model()->findAll();
 
-        //actions for every record
-        $actions = array(
-            'edit' => array('controller' => Yii::app()->controller->id, 'action' => 'editcat', 'class' => 'actions action-edit', 'visible' => $this->rights['categories_edit'] ? 1 : 0),
-            'delete' => array('controller' => Yii::app()->controller->id, 'action' => 'deletecat', 'class' => 'actions action-delete' , 'visible' => $this->rights['categories_delete'] ? 1 : 0),
-        );
-
         //render list
-        $this->render('category_list',array('categories' => $categories, 'table_actions' => $actions));
+        $this->render('category_list',array('categories' => $categories));
     }
 
 
@@ -186,14 +185,8 @@ class ProductsController extends Controller
         $cards = ProductCards::model()->with('category')->findAll($c);
         $categories = ProductCardCategories::model()->findAll();
 
-        //actions for every record
-        $actions = array(
-            'edit' => array('controller' => Yii::app()->controller->id, 'action' => 'editcard', 'class' => 'actions action-edit', 'visible' => $this->rights['categories_edit'] ? 1 : 0),
-            'delete' => array('controller' => Yii::app()->controller->id, 'action' => 'deletecard', 'class' => 'actions action-delete' , 'visible' => $this->rights['categories_delete'] ? 1 : 0),
-        );
-
         //render list
-        $this->render('card_list',array('cards' => $cards, 'table_actions' => $actions, 'categories' => $categories));
+        $this->render('card_list',array('cards' => $cards, 'categories' => $categories));
     }
 
 

@@ -2,7 +2,6 @@
 <?php /* @var $category ProductCardCategories */ ?>
 <?php /* @var $rights UserRights */ ?>
 <?php /* @var $this ProductsController */ ?>
-<?php /* @var $table_actions array */ ?>
 <?php /* @var $cards array */?>
 <?php /* @var $card ProductCards */ ?>
 
@@ -75,7 +74,12 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/table.css');
                             </td>
 
                             <td>
-                                <?php $this->renderPartial('//partials/_table_actions',array('links' => $table_actions , 'params' => array('id' => $card->id), 'separator' => '')); ?>
+                                <?php if($this->rights['products_edit']): ?>
+                                    <?php echo CHtml::link($this->labels['delete'],Yii::app()->createUrl('products/deletecard',array('id' => $category->id)),array('class' => 'action-lnk')); ?>
+                                <?php endif; ?>
+                                <?php if($rights->rights['products_delete']): ?>
+                                    | <?php echo CHtml::link($this->labels['edit'],Yii::app()->createUrl('products/editcard',array('id' => $category->id)),array('class' => 'action-lnk')); ?>
+                                <?php endif; ?>
                             </td>
                         </tr>
                     <?php endforeach; ?>
