@@ -163,7 +163,7 @@ class ContractorsController extends Controller
         /* @var $client Clients */
 
         //try find by pk
-        $client = Clients::model()->with('invoicesOuts','lastService','nextService')->findByPk($id);
+        $client = Clients::model()->with('invoicesOuts')->findByPk($id);
 
         //if found
         if(!empty($client))
@@ -275,7 +275,7 @@ class ContractorsController extends Controller
      * Create supplier
      * @throws CHttpException
      */
-    public function actionAddSup()
+    public function actionAddSupp()
     {
         /* @var $supplier Clients */
 
@@ -342,7 +342,7 @@ class ContractorsController extends Controller
         /* @var $supplier Suppliers */
 
         //try find by pk
-        $supplier = Suppliers::model()->with('invoicesIns','lastService','nextService')->findByPk($id);
+        $supplier = Suppliers::model()->with('invoicesIns')->findByPk($id);
 
         //if found
         if(!empty($supplier))
