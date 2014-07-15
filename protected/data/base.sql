@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50535
 File Encoding         : 65001
 
-Date: 2014-07-15 15:14:01
+Date: 2014-07-15 18:02:22
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -217,6 +217,23 @@ CREATE TABLE `payment_methods` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for `positions`
+-- ----------------------------
+DROP TABLE IF EXISTS `positions`;
+CREATE TABLE `positions` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` text,
+  `remark` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of positions
+-- ----------------------------
+INSERT INTO `positions` VALUES ('1', 'Manager', 'test');
+INSERT INTO `positions` VALUES ('2', 'Worker', 'test');
+
+-- ----------------------------
 -- Table structure for `product_cards`
 -- ----------------------------
 DROP TABLE IF EXISTS `product_cards`;
@@ -236,14 +253,13 @@ CREATE TABLE `product_cards` (
   PRIMARY KEY (`id`),
   KEY `category_id` (`category_id`),
   CONSTRAINT `product_cards_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `product_card_categories` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of product_cards
 -- ----------------------------
-INSERT INTO `product_cards` VALUES ('2', '4', 'Intel Core i5', 'PR_385FHK', '2.5 Ghz, 4 core, 5MB cache', '30045', 'units', null, '1', '1404469678', '1405067124', '1');
-INSERT INTO `product_cards` VALUES ('3', '6', 'Philips 234 E', 'PRODSKK', 'Monitors', null, 'units', null, '1', '1405349223', '1405349223', '1');
-INSERT INTO `product_cards` VALUES ('4', '6', 'Водка столичная', 'CDSFSDF', 'ппппп', null, 'litres', null, null, null, null, null);
+INSERT INTO `product_cards` VALUES ('2', '4', 'Intel Core i5', 'PR_385FHK', '2.5 Ghz, 4 core, 5MB cache', '30045', 'units', null, '1', '1405427276', '1405427276', '1');
+INSERT INTO `product_cards` VALUES ('3', '6', 'Philips 234 E', 'PRODSKK', 'Monitors', null, 'units', null, '1', '1405426995', '1405426995', '1');
 
 -- ----------------------------
 -- Table structure for `product_card_categories`
@@ -298,7 +314,7 @@ CREATE TABLE `rights` (
   `name` text,
   `label` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of rights
@@ -322,6 +338,11 @@ INSERT INTO `rights` VALUES ('17', 'can see suppliers', 'suppliers_see');
 INSERT INTO `rights` VALUES ('18', 'can edit suppliers', 'suppliers_edit');
 INSERT INTO `rights` VALUES ('19', 'can add suppliers', 'suppliers_add');
 INSERT INTO `rights` VALUES ('20', 'can delete suppliers', 'suppliers_delete');
+INSERT INTO `rights` VALUES ('21', 'can see users', 'users_see');
+INSERT INTO `rights` VALUES ('22', 'can add users', 'users_add');
+INSERT INTO `rights` VALUES ('23', 'can suspend users', 'users_suspend');
+INSERT INTO `rights` VALUES ('24', 'can change users', 'users_edit');
+INSERT INTO `rights` VALUES ('25', 'can delete users', 'users_delete');
 
 -- ----------------------------
 -- Table structure for `service_cards`
@@ -421,14 +442,17 @@ CREATE TABLE `users` (
   `date_changed` int(11) DEFAULT NULL,
   `user_modified_by` int(11) DEFAULT NULL,
   `avatar` text,
+  `position_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `rights_id` (`rights_id`)
+  KEY `rights_id` (`rights_id`),
+  KEY `position_id` (`position_id`),
+  CONSTRAINT `users_ibfk_1` FOREIGN KEY (`position_id`) REFERENCES `positions` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES ('1', 'admin', '81dc9bdb52d04dc20036dbd8313ed055', 'darkoffalex@yandex.ru', 'Valery', 'Gatalsky', null, null, null, null, '1', '1', '0', null, null, null, 'dmitrij_chitrov.jpg');
+INSERT INTO `users` VALUES ('1', 'admin', '81dc9bdb52d04dc20036dbd8313ed055', 'darkoffalex@yandex.ru', 'Valery', 'Gatalsky', null, null, null, null, '1', '1', '0', null, null, null, 'dmitrij_chitrov.jpg', '1');
 
 -- ----------------------------
 -- Table structure for `user_rights`
@@ -444,7 +468,7 @@ CREATE TABLE `user_rights` (
   KEY `user_id` (`user_id`),
   CONSTRAINT `user_rights_ibfk_1` FOREIGN KEY (`rights_id`) REFERENCES `rights` (`id`),
   CONSTRAINT `user_rights_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user_rights
@@ -468,3 +492,8 @@ INSERT INTO `user_rights` VALUES ('17', '1', '17', '1');
 INSERT INTO `user_rights` VALUES ('18', '1', '18', '1');
 INSERT INTO `user_rights` VALUES ('19', '1', '19', '1');
 INSERT INTO `user_rights` VALUES ('20', '1', '20', '1');
+INSERT INTO `user_rights` VALUES ('21', '1', '21', '1');
+INSERT INTO `user_rights` VALUES ('22', '1', '22', '1');
+INSERT INTO `user_rights` VALUES ('23', '1', '23', '1');
+INSERT INTO `user_rights` VALUES ('24', '1', '24', '1');
+INSERT INTO `user_rights` VALUES ('25', '1', '25', '1');
