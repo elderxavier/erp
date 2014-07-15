@@ -21,9 +21,11 @@
  * @property integer $date_changed
  * @property integer $user_modified_by
  * @property string $avatar
+ * @property integer $position_id
  *
  * The followings are the available model relations:
  * @property UserRights[] $userRights
+ * @property Positions $position
  */
 class Users extends CActiveRecord
 {
@@ -43,11 +45,11 @@ class Users extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('role, status, rights_id, date_created, date_changed, user_modified_by', 'numerical', 'integerOnly'=>true),
+			array('role, status, rights_id, date_created, date_changed, user_modified_by, position_id', 'numerical', 'integerOnly'=>true),
 			array('username, password, email, name, surname, phone, address, remark, additional_params, avatar', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, username, password, email, name, surname, phone, address, remark, additional_params, role, status, rights_id, date_created, date_changed, user_modified_by, avatar', 'safe', 'on'=>'search'),
+			array('id, username, password, email, name, surname, phone, address, remark, additional_params, role, status, rights_id, date_created, date_changed, user_modified_by, avatar, position_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -60,6 +62,7 @@ class Users extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'userRights' => array(self::HAS_MANY, 'UserRights', 'user_id'),
+			'position' => array(self::BELONGS_TO, 'Positions', 'position_id'),
 		);
 	}
 
@@ -86,6 +89,7 @@ class Users extends CActiveRecord
 			'date_changed' => 'Date Changed',
 			'user_modified_by' => 'User Modified By',
 			'avatar' => 'Avatar',
+			'position_id' => 'Position',
 		);
 	}
 
@@ -124,6 +128,7 @@ class Users extends CActiveRecord
 		$criteria->compare('date_changed',$this->date_changed);
 		$criteria->compare('user_modified_by',$this->user_modified_by);
 		$criteria->compare('avatar',$this->avatar,true);
+		$criteria->compare('position_id',$this->position_id);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

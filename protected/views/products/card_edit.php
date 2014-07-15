@@ -40,22 +40,19 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/add_product.css');
                 <div class="form-group">
                     <div class="radio">
                         <label>
-                            <input type="radio" name="ProductCardForm[units]" value="units" <?php if($card->units == 'units'): ?>checked<?php endif; ?>>
-<!--                            --><?php //echo $form->radioButton($form_mdl,'units',array('value' => 'units', 'checked' => 'checked')); ?>
+                            <?php echo $form->radioButton($form_mdl,'units',array('value'=>'units','uncheckValue'=>null,'checked'=>($card->units == 'units')));?>
                             <?php echo $this->labels['units']; ?>
                         </label>
                     </div>
                     <div class="radio">
                         <label>
-                            <input type="radio" name="ProductCardForm[units]" value="kg" <?php if($card->units == 'kg'): ?>checked<?php endif; ?>>
-<!--                            --><?php //echo $form->radioButton($form_mdl,'units',array('value' => 'kg')); ?>
+                            <?php echo $form->radioButton($form_mdl,'units',array('value'=>'kg','uncheckValue'=>null,'checked'=> ($card->units == 'kg')));?>
                             <?php echo $this->labels['kg']; ?>
                         </label>
                     </div>
                     <div class="radio">
                         <label>
-                            <input type="radio" name="ProductCardForm[units]" value="liters" <?php if($card->units == 'liters'): ?>checked<?php endif; ?>>
-<!--                            --><?php //echo $form->radioButton($form_mdl,'units',array('value' => 'liters')); ?>
+                            <?php echo $form->radioButton($form_mdl,'units',array('value'=>'liters','uncheckValue'=>null,'checked'=>($card->units == 'liters')));?>
                             <?php echo $this->labels['liters']; ?>
                         </label>
                     </div>

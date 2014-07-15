@@ -1,9 +1,7 @@
 <?php
 
 /**
- * LoginForm class.
- * LoginForm is the data structure for keeping
- * user login form data. It is used by the 'login' action of 'SiteController'.
+ * Class ProductCategoryForm
  */
 class ProductCategoryForm extends CBaseForm
 {
@@ -14,7 +12,6 @@ class ProductCategoryForm extends CBaseForm
 	public function rules()
 	{
 		return array(
-			// username and password are required
 			array('name', 'required','message'=> $this->messages['fill the field'].' "{attribute}"'),
 		);
 	}
