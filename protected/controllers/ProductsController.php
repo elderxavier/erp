@@ -179,22 +179,8 @@ class ProductsController extends Controller
      */
     public function actionCards()
     {
-
-        //get filter params
-        $category_id = Yii::app()->request->getParam('cat','');
-        $product_code = Yii::app()->request->getParam('cod','');
-        $name = Yii::app()->request->getParam('nam','');
-
-        //get page
-        $page = Yii::app()->request->getParam('page',1);
-
         //criteria
         $c = new CDbCriteria();
-
-        //if have filter params - add conditions to criteria
-        if($category_id != ''){$c -> addInCondition('category_id',array($category_id));}
-        if($product_code != ''){$c -> addInCondition('product_code',array($product_code));}
-        if($name != ''){$c -> addInCondition('product_name',array($name));}
 
         //get all cards
         $cards = ProductCards::model()->with('category')->findAll($c);
