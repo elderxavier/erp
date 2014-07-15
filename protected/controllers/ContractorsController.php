@@ -358,7 +358,7 @@ class ContractorsController extends Controller
                 $supplier->delete();
 
                 //redirect to list
-                $this->redirect(Yii::app()->createUrl('/'.$this->id.'/suppliers'));
+                $this->redirect('/'.$this->id.'/suppliers');
             }
         }
         //if not found

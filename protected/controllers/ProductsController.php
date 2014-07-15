@@ -254,7 +254,6 @@ class ProductsController extends Controller
             {
                 //validate all attributes
                 $form->attributes = $_POST['ProductCardForm'];
-                $form->validate();
 
                 //if no errors
                 if($form->validate())
