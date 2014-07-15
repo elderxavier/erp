@@ -80,10 +80,10 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/add_product.css');
                 <?php echo $form->label($form_mdl,'company'); ?>
                 <?php if($client->type == 1): ?>
                     <input type="checkbox" name="ClientForm[company]" checked>
-                    <!--                    --><?php //echo $form->checkBox($form_mdl,'company', array('checked')); ?>
+<!--                    --><?php //echo $form->checkBox($form_mdl,'company', array('checked')); ?>
                 <?php else: ?>
                     <input type="checkbox" name="ClientForm[company]">
-                    <!--                    --><?php //echo $form->checkBox($form_mdl,'company'); ?>
+<!--                    --><?php //echo $form->checkBox($form_mdl,'company'); ?>
                 <?php endif; ?>
             </div>
 

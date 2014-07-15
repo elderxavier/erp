@@ -11,10 +11,10 @@ class ClientForm extends CBaseForm
     public $personal_code;
     public $company_code;
     public $vat_code;
-    public $phone_1;
-    public $phone_2;
-    public $email_1;
-    public $email_2;
+    public $phone1;
+    public $phone2;
+    public $email1;
+    public $email2;
     public $remark;
     public $remark_for_service;
 
@@ -30,7 +30,7 @@ class ClientForm extends CBaseForm
 	{
         //main rules
         $rules = array(
-            array('vat_code, phone_1, email_1', 'required', 'message'=> $this->messages['fill the field'].' "{attribute}"'),
+            array('vat_code, phone1, email1', 'required', 'message'=> $this->messages['fill the field'].' "{attribute}"'),
         );
 
         //for company
@@ -62,12 +62,13 @@ class ClientForm extends CBaseForm
             'personal_code' => $this->labels['personal code'],
             'company_code' => $this->labels['company code'],
             'vat_code' => $this->labels['vat code'],
-            'phone_1' => $this->labels['phone 1'],
-            'phone_2' => $this->labels['phone 2'],
-            'email_1' => $this->labels['email 1'],
-            'email_2' => $this->labels['email 2'],
+            'phone1' => $this->labels['phone 1'],
+            'phone2' => $this->labels['phone 2'],
+            'email1' => $this->labels['email 1'],
+            'email2' => $this->labels['email 2'],
             'remark' => $this->labels['remark'],
             'remark_for_service' => $this->labels['remark for service'],
+            'company' => $this->labels['company'],
         );
     }
 

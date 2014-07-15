@@ -2,7 +2,10 @@
 
 class ContractorsController extends Controller
 {
-    //R E T U R N S  S U B M E N U  F O R  T H I S  C O N T R O L L E R
+    /**
+     * Returns sub-menu for controller
+     * @return array
+     */
     public function GetSubMenu()
     {
         $arr = array(
@@ -15,7 +18,9 @@ class ContractorsController extends Controller
         return $arr;
     }
 
-    //I N D E X
+    /**
+     * Entry point
+     */
     public function actionIndex()
     {
         $this->actionClients();
@@ -44,7 +49,7 @@ class ContractorsController extends Controller
     }
 
     /**
-     *
+     *Add client
      */
     public function actionAddCli()
     {
@@ -57,34 +62,106 @@ class ContractorsController extends Controller
         //if got post
         if(isset($_POST['ClientForm']))
         {
+            //if company
+            if($_POST['ClientForm']['company'])
+            {
+                //validate as company (company code required)
+                $form->company = 1;
+                //set type to client (1 = company)
+                $client->type = 1;
+            }
+
             //set attributes and validate
             $form->attributes = $_POST['ClientForm'];
+            $client->attributes = $_POST['ClientForm'];
             $form->validate();
 
             //if no errors
             if(!$form->hasErrors())
             {
+                //set creation parameters
+                $client->date_created = time();
+                $client->date_changed = time();
+                $client->user_modified_by = Yii::app()->user->id;
 
+                //save to db
+                $client->save();
+
+                //redirect to list
+                $this->redirect('/'.$this->id.'/clients');
             }
         }
 
-        $this->render('client_create');
+        $this->render('client_create', array('client' => $client, 'form_mdl' => $form));
     }
 
-    //E D I T
+
+    /**
+     * Edit client
+     * @param null $id
+     * @throws CHttpException
+     */
     public function actionEditClient($id = null)
     {
+        /* @var $client Clients */
+
         //try find by pk
         $client = Clients::model()->findByPk($id);
 
         //if not found - throw 404 exception
-        if(empty($client)){throw new CHttpException(404,$this->labels['item not found in base']);}
+        if(!empty($client))
+        {
+            //form-validate object
+            $form = new ClientForm();
 
-        //render form
-        $this->render('edit_clients',array('client' => $client));
+            //set current client-id to validator, to avoid unique-check-error when updating
+            $form->current_client_id = $client->id;
+
+            //if got post
+            if(isset($_POST['ClientForm']))
+            {
+                //if company
+                if($_POST['ClientForm']['company'])
+                {
+                    //validate as company (company code required)
+                    $form->company = 1;
+                    //set type to client (1 = company)
+                    $client->type = 1;
+                }
+
+                //set attributes and validate
+                $form->attributes = $_POST['ClientForm'];
+                $client->attributes = $_POST['ClientForm'];
+
+                //if no errors
+                if($form->validate())
+                {
+                    //set creation parameters
+                    $client->date_created = time();
+                    $client->date_changed = time();
+                    $client->user_modified_by = Yii::app()->user->id;
+
+                    //save to db
+                    $client->save();
+
+                    //redirect to list
+                    $this->redirect('/'.$this->id.'/clients');
+                }
+            }
+
+            $this->render('client_edit', array('client' => $client, 'form_mdl' => $form));
+        }
+        else
+        {
+            throw new CHttpException(404,$this->labels['item not found in base']);
+        }
     }
 
-    //D E L E T E
+    /**
+     * Delete client
+     * @param null $id
+     * @throws CHttpException
+     */
     public function actionDeleteClient($id = null)
     {
         /* @var $client Clients */
@@ -115,100 +192,6 @@ class ContractorsController extends Controller
             $this->render('restricts',array('restricts' => $restricts));
         }
 
-    }
-
-    //U P D A T E
-    public function actionUpdateClient()
-    {
-        //get main params from request
-        $id = Yii::app()->request->getParam('id','');
-        $personal_code = Yii::app()->request->getParam('personal_code','');
-        $vat_code = Yii::app()->request->getParam('vat_code','');
-        $name = Yii::app()->request->getParam('name','');
-        $surname = Yii::app()->request->getParam('surname','');
-        $phone_1 = Yii::app()->request->getParam('phone_1','');
-        $phone_2 = Yii::app()->request->getParam('phone_2','');
-        $email_1 = Yii::app()->request->getParam('email_1','');
-        $email_2 = Yii::app()->request->getParam('email_2','');
-        $remark = Yii::app()->request->getParam('remark','');
-        $remark_service = Yii::app()->request->getParam('remark_service','');
-        $company = Yii::app()->request->getParam('company',false);
-        $company_name = Yii::app()->request->getParam('company_name','');
-        $company_code = Yii::app()->request->getParam('company_code','');
-
-        //try find by pk
-        $client = Clients::model()->findByPk($id);
-
-        //if not found - create new
-        if(empty($client)){$client = new Clients();}
-
-        //create validator
-        $validator = new ClientForm();
-        //company or not
-        $company != false ? $validator->company = true : $validator->company = false;
-        //set current client id to validator, to avoid unique-check-error when updating
-        if(!$client->isNewRecord){$validator->current_client_id = $client->id;}
-
-        //set attributes and validate
-        $validator->attributes = $_POST;
-        $validator->validate();
-
-        //get validation errors
-        $errors = $validator->getErrors();
-
-        //if no errors
-        if(empty($errors))
-        {
-            //set main params
-            $client->personal_code = $personal_code;
-            $client->vat_code = $vat_code;
-            $client->name = $name;
-            $client->surname = $surname;
-            $client->phone1 = $phone_1;
-            $client->phone2 = $phone_2;
-            $client->email1 = $email_1;
-            $client->email2 = $email_2;
-            $client->remark = $remark;
-            $client->remark_for_service = $remark_service;
-            if($company!=false){$client->type = 1;}else{$client->type = 0;}
-            $client->company_name = $company_name;
-            $client->company_code = $company_code;
-            $client->date_changed = time();
-            $client->user_modified_by = Yii::app()->user->id;
-
-            //if new client
-            if($client->isNewRecord)
-            {
-                //save new
-                $client->date_created = time();
-                $client->save();
-            }
-            //if old
-            else
-            {
-                //update
-                $client->update();
-            }
-
-            //redirect to list
-            $this->redirect(Yii::app()->createUrl($this->id.'/clients'));
-        }
-        //if some errors
-        else
-        {
-            //if this was creating attempt
-            if($client->isNewRecord)
-            {
-                //render creating form with errors
-                $this->render('create_clients',array('errors' => $errors));
-            }
-            //if this was updating attempt
-            else
-            {
-                //render updating form with errors
-                $this->render('edit_clients',array('client' => $client, 'errors' => $errors));
-            }
-        }
     }
 
 
