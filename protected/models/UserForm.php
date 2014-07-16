@@ -27,10 +27,26 @@ class UserForm extends CBaseForm
      */
     public function rules()
     {
-        return array(
-            array('username, password, email', 'required','message'=> $this->messages['fill the field'].' "{attribute}"'),
-            array('username, email','unique','model_class' => 'Users', 'current_id' => $this->current_user_id)
+        //main rules
+        $rules = array(
+            array('username, email','unique','model_class' => 'Users', 'current_id' => $this->current_user_id),
+            array('name, surname, phone, email, address, remark, role, position_id','safe')
         );
+
+        //if new user created
+        if($this->current_user_id == null)
+        {
+            //password, username and email cannot be empty
+            $rules[] = array('username, password, email', 'required','message'=> $this->messages['fill the field'].' "{attribute}"');
+        }
+        //if old user updating
+        else
+        {
+            //password can be empty
+            $rules[] = array('username, email', 'required','message'=> $this->messages['fill the field'].' "{attribute}"');
+        }
+
+        return $rules;
     }
 
     /**

@@ -26,15 +26,10 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/add_user.css');
                 </div>
 
                 <div class="form-group">
-                    <?php echo $form->label($form_mdl,'password');?>
-                    <?php echo $form->textField($form_mdl,'password',array('class'=>'form-control', 'value' => $user->password, 'type' => 'password'));?>
-                    <?php echo $form->error($form_mdl,'password'); ?>
-                </div>
-
-                <div class="form-group">
-                    <?php echo $form->label($form_mdl,'repeat_password');?>
-                    <?php echo $form->textField($form_mdl,'repeat_password',array('class'=>'form-control', 'value' => $user->password, 'type' => 'password'));?>
-                    <?php echo $form->error($form_mdl,'repeat_password'); ?>
+                    <button user_id="<?php echo $user->id; ?>" class="reset-pass-button" type="button">
+                        <span><?php echo $this->labels['reset password'] ?></span>
+                        <span class="glyphicon glyphicon-minus"></span>
+                    </button>
                 </div>
 
                 <div class="form-group">
@@ -86,8 +81,6 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/add_user.css');
                 <div class="form-group">
                     <label><?php echo $form->label($form_mdl,'rights');?></label>
                 </div>
-
-
 
                 <fieldset>
                     <legend><?php echo $this->labels['product cards']; ?></legend>
@@ -172,7 +165,6 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/add_user.css');
                         </label>
                     </div><!--/form-group -->
                 </fieldset>
-
 
                 <button type="submit"><span><?php echo $this->labels['save'] ?></span><span class="glyphicon glyphicon-plus"></span></button>
             <?php $this->endWidget(); ?>

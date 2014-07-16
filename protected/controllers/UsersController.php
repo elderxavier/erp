@@ -56,9 +56,6 @@ class UsersController extends Controller
      */
     public function actionAdd()
     {
-        //new user
-        $user = new Users();
-
         //get all positions as array of pairs
         $positions = Positions::getAllAsArray();
         //array of possible roles
@@ -72,11 +69,13 @@ class UsersController extends Controller
         {
             //set attributes to form model and user
             $form->attributes = $_POST['UserForm'];
-            $user->attributes = $_POST['UserForm'];
 
             //if validation passed
             if($form->validate())
             {
+                //new user
+                $user = new Users();
+
                 //set dates
                 $user->date_changed = time();
                 $user->date_created = time();
@@ -99,7 +98,7 @@ class UsersController extends Controller
         }
 
         //render
-        $this->render('user_create', array('form_mdl' => $form, 'user' => $user, 'positions' => $positions, 'roles' => $roles));
+        $this->render('user_create', array('form_mdl' => $form, 'positions' => $positions, 'roles' => $roles));
     }
 
 
@@ -147,6 +146,9 @@ class UsersController extends Controller
 
                     //who modified
                     $user->user_modified_by = Yii::app()->user->id;
+
+                    //convert password to md5
+                    $user->password = md5($user->password);
 
                     //save user
                     $user->update();

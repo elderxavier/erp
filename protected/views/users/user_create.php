@@ -21,66 +21,66 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/add_user.css');
 
                 <div class="form-group">
                     <?php echo $form->label($form_mdl,'username');?>
-                    <?php echo $form->textField($form_mdl,'username',array('class'=>'form-control', 'value' => $user->username));?>
+                    <?php echo $form->textField($form_mdl,'username',array('class'=>'form-control'));?>
                     <?php echo $form->error($form_mdl,'username'); ?>
                 </div>
 
                 <div class="form-group">
                     <?php echo $form->label($form_mdl,'password');?>
-                    <?php echo $form->textField($form_mdl,'password',array('class'=>'form-control', 'value' => $user->password, 'type' => 'password'));?>
+                    <?php echo $form->textField($form_mdl,'password',array('class'=>'form-control', 'type' => 'password'));?>
                     <?php echo $form->error($form_mdl,'password'); ?>
                 </div>
 
                 <div class="form-group">
                     <?php echo $form->label($form_mdl,'repeat_password');?>
-                    <?php echo $form->textField($form_mdl,'repeat_password',array('class'=>'form-control', 'value' => $user->password, 'type' => 'password'));?>
+                    <?php echo $form->textField($form_mdl,'repeat_password',array('class'=>'form-control', 'type' => 'password'));?>
                     <?php echo $form->error($form_mdl,'repeat_password'); ?>
                 </div>
 
                 <div class="form-group">
                     <?php echo $form->label($form_mdl,'email');?>
-                    <?php echo $form->textField($form_mdl,'email',array('class'=>'form-control', 'value' => $user->email));?>
+                    <?php echo $form->textField($form_mdl,'email',array('class'=>'form-control'));?>
                     <?php echo $form->error($form_mdl,'email'); ?>
                 </div>
 
                 <div class="form-group">
                     <?php echo $form->label($form_mdl,'name');?>
-                    <?php echo $form->textField($form_mdl,'name',array('class'=>'form-control', 'value' => $user->name));?>
+                    <?php echo $form->textField($form_mdl,'name',array('class'=>'form-control'));?>
                     <?php echo $form->error($form_mdl,'name'); ?>
                 </div>
 
                 <div class="form-group">
                     <?php echo $form->label($form_mdl,'surname');?>
-                    <?php echo $form->textField($form_mdl,'surname',array('class'=>'form-control', 'value' => $user->surname));?>
+                    <?php echo $form->textField($form_mdl,'surname',array('class'=>'form-control'));?>
                     <?php echo $form->error($form_mdl,'surname'); ?>
                 </div>
 
                 <div class="form-group">
                     <?php echo $form->label($form_mdl,'position');?>
-                    <?php echo $form->dropDownList($form_mdl,'position_id',$positions,array('class'=>'form-control','options' => array($user->position_id =>array('selected'=>true))));?>
+                    <?php echo $form->dropDownList($form_mdl,'position_id',$positions,array('class'=>'form-control'));?>
                 </div>
 
                 <div class="form-group">
                     <?php echo $form->label($form_mdl,'phone');?>
-                    <?php echo $form->textField($form_mdl,'phone',array('class'=>'form-control', 'value' => $user->phone));?>
+                    <?php echo $form->textField($form_mdl,'phone',array('class'=>'form-control'));?>
                     <?php echo $form->error($form_mdl,'phone'); ?>
                 </div>
 
                 <div class="form-group">
                     <?php echo $form->label($form_mdl,'address');?>
-                    <?php echo $form->textArea($form_mdl, 'address',array('class'=>'form-control', 'value' => $user->address)); ?>
+                    <?php echo $form->textArea($form_mdl, 'address',array('class'=>'form-control')); ?>
                     <?php echo $form->error($form_mdl,'address'); ?>
                 </div>
 
                 <div class="form-group">
                     <?php echo $form->label($form_mdl,'remark');?>
-                    <?php echo $form->textArea($form_mdl, 'remark',array('class'=>'form-control', 'value' => $user->remark)); ?>
+                    <?php echo $form->textArea($form_mdl, 'remark',array('class'=>'form-control')); ?>
                     <?php echo $form->error($form_mdl,'remark'); ?>
                 </div>
 
                 <div class="form-group">
                     <?php echo $form->label($form_mdl,'role');?>
-                    <?php echo $form->dropDownList($form_mdl,'role',$roles,array('class'=>'form-control','options' => array($user->role =>array('selected'=>true))));?>
+                    <?php echo $form->dropDownList($form_mdl,'role',$roles,array('class'=>'form-control'));?>
                 </div>
 
                 <div class="form-group">
