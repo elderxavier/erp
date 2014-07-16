@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50535
 File Encoding         : 65001
 
-Date: 2014-07-15 18:02:22
+Date: 2014-07-16 13:24:40
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -56,7 +56,7 @@ CREATE TABLE `clients` (
   CONSTRAINT `clients_ibfk_2` FOREIGN KEY (`next_service_id`) REFERENCES `service_cards` (`id`),
   CONSTRAINT `clients_ibfk_3` FOREIGN KEY (`first_invoice_id`) REFERENCES `invoices_out` (`id`),
   CONSTRAINT `clients_ibfk_4` FOREIGN KEY (`last_invoice_id`) REFERENCES `invoices_out` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of clients
@@ -253,7 +253,7 @@ CREATE TABLE `product_cards` (
   PRIMARY KEY (`id`),
   KEY `category_id` (`category_id`),
   CONSTRAINT `product_cards_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `product_card_categories` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of product_cards
@@ -413,7 +413,7 @@ CREATE TABLE `suppliers` (
   PRIMARY KEY (`id`),
   KEY `last_invoice_id` (`last_invoice_id`),
   CONSTRAINT `suppliers_ibfk_1` FOREIGN KEY (`last_invoice_id`) REFERENCES `invoices_in` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of suppliers
@@ -437,22 +437,21 @@ CREATE TABLE `users` (
   `additional_params` text,
   `role` int(11) DEFAULT NULL,
   `status` int(11) DEFAULT NULL,
-  `rights_id` int(11) DEFAULT NULL,
   `date_created` int(11) DEFAULT NULL,
   `date_changed` int(11) DEFAULT NULL,
   `user_modified_by` int(11) DEFAULT NULL,
   `avatar` text,
   `position_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `rights_id` (`rights_id`),
   KEY `position_id` (`position_id`),
   CONSTRAINT `users_ibfk_1` FOREIGN KEY (`position_id`) REFERENCES `positions` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES ('1', 'admin', '81dc9bdb52d04dc20036dbd8313ed055', 'darkoffalex@yandex.ru', 'Valery', 'Gatalsky', null, null, null, null, '1', '1', '0', null, null, null, 'dmitrij_chitrov.jpg', '1');
+INSERT INTO `users` VALUES ('1', 'admin', '81dc9bdb52d04dc20036dbd8313ed055', 'darkoffalex@yandex.ru', 'Valery', 'Gatalsky', null, null, null, null, '1', '1', null, null, null, 'dmitrij_chitrov.jpg', '1');
+INSERT INTO `users` VALUES ('2', 'Valery', '1234', 'test@test.com', 'test', 'test', '123456', 'test', 'test', null, '0', null, '1405504608', '1405505977', '1', null, '2');
 
 -- ----------------------------
 -- Table structure for `user_rights`
@@ -468,7 +467,7 @@ CREATE TABLE `user_rights` (
   KEY `user_id` (`user_id`),
   CONSTRAINT `user_rights_ibfk_1` FOREIGN KEY (`rights_id`) REFERENCES `rights` (`id`),
   CONSTRAINT `user_rights_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user_rights
@@ -497,3 +496,11 @@ INSERT INTO `user_rights` VALUES ('22', '1', '22', '1');
 INSERT INTO `user_rights` VALUES ('23', '1', '23', '1');
 INSERT INTO `user_rights` VALUES ('24', '1', '24', '1');
 INSERT INTO `user_rights` VALUES ('25', '1', '25', '1');
+INSERT INTO `user_rights` VALUES ('43', '2', '8', '1');
+INSERT INTO `user_rights` VALUES ('44', '2', '1', '1');
+INSERT INTO `user_rights` VALUES ('45', '2', '7', '1');
+INSERT INTO `user_rights` VALUES ('46', '2', '2', '1');
+INSERT INTO `user_rights` VALUES ('47', '2', '16', '1');
+INSERT INTO `user_rights` VALUES ('48', '2', '13', '1');
+INSERT INTO `user_rights` VALUES ('49', '2', '19', '1');
+INSERT INTO `user_rights` VALUES ('50', '2', '17', '1');
