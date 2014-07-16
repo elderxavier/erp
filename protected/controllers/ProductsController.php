@@ -41,7 +41,6 @@ class ProductsController extends Controller
 
         //render list
         $this->render('category_list',array('categories' => $categories));
-        
     }
 
 
@@ -177,11 +176,8 @@ class ProductsController extends Controller
      */
     public function actionCards()
     {
-        //criteria
-        $c = new CDbCriteria();
-
         //get all cards
-        $cards = ProductCards::model()->with('category')->findAll($c);
+        $cards = ProductCards::model()->with('category')->findAll();
         $categories = ProductCardCategories::model()->findAll();
 
         //render list

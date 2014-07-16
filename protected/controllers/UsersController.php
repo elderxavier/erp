@@ -103,15 +103,24 @@ class UsersController extends Controller
     }
 
 
+    /**
+     * Edit user
+     * @param null $id
+     * @throws CHttpException
+     */
     public function actionEdit($id = null)
     {
-        /* @var  */
+        /* @var $user Users */
 
         //new user
         $user = Users::model()->findByPk($id);
 
+        //if found
         if(!empty($user))
         {
+            //get rights of user
+            $rights = $this->UserGetRights($user->id);
+
             //get all positions as array of pairs
             $positions = Positions::getAllAsArray();
             //array of possible roles
@@ -119,6 +128,9 @@ class UsersController extends Controller
 
             //create form-validator and model
             $form = new UserForm();
+
+            //set current user id to form-validator, to avoid unique-check-error when updating
+            $form->current_user_id = $user->id;
 
             //if got post from form
             if($_POST['UserForm'])
@@ -132,13 +144,12 @@ class UsersController extends Controller
                 {
                     //set dates
                     $user->date_changed = time();
-                    $user->date_created = time();
 
                     //who modified
                     $user->user_modified_by = Yii::app()->user->id;
 
                     //save user
-                    $user->save();
+                    $user->update();
 
                     //get rights array
                     $rights_from_checkboxes = $_POST['UserForm']['rights'];
@@ -152,8 +163,9 @@ class UsersController extends Controller
             }
 
             //render
-            $this->render('user_create', array('form_mdl' => $form, 'user' => $user, 'positions' => $positions, 'roles' => $roles));
+            $this->render('user_edit', array('form_mdl' => $form, 'user' => $user, 'positions' => $positions, 'roles' => $roles, 'rights' => $rights));
         }
+        //if user not found
         else
         {
             //exception
@@ -184,7 +196,7 @@ class UsersController extends Controller
         foreach($user->userRights as $user_right)
         {
             $right = Rights::model()->findByPk($user_right->rights_id);
-            $rights[] = $right->label;
+            $rights[$right->label] = 1;
         }
 
         return $rights;

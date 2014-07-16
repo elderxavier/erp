@@ -58,8 +58,6 @@ class UserIdentity extends CUserIdentity
                     $rights[$right->label] = 1;
                 }
 
-//                Debug::out($rights);
-
                 $this->setState('rights',$rights);
 
                 //no errors
