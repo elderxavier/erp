@@ -81,7 +81,7 @@ class UsersController extends Controller
 
                 //password must be in md5
                 $user->password = md5($user->password);
-                
+
                 //set dates
                 $user->date_changed = time();
                 $user->date_created = time();
@@ -179,6 +179,46 @@ class UsersController extends Controller
 
     }
 
+    /**
+     * Delete user
+     * @param null $id
+     * @throws CHttpException
+     */
+    public function actionDelete($id = null)
+    {
+        /* @var $user Users */
+
+        //new user
+        $user = Users::model()->with('operationsSrvs')->findByPk($id);
+
+        //if user found
+        if($user)
+        {
+            //if found usages in other tables
+            if(count($user->operationsSrvs) > 0)
+            {
+                //render restrict message
+                $this->render('restricts');
+            }
+            //if no usages
+            else
+            {
+                //delete all right-relations
+                UserRights::model()->deleteAllByAttributes(array('user_id' => $user->id));
+
+                //delete user
+                $user->delete();
+
+                //redirect to list
+                $this->redirect('/'.$this->id.'/list');
+            }
+        }
+        else
+        {
+            //exception
+            throw new CHttpException(404,$this->labels['item not found in base']);
+        }
+    }
 
     /**
      * Returns array of rights for user

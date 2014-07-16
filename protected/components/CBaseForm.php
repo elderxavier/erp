@@ -64,4 +64,18 @@ class CBaseForm extends CFormModel
             $this->addError($attribute,$this->labels[$attribute].' '.$this->messages['already used']);
         }
     }
+
+    /**
+     * Compares attribute with another value and adds error if the not equal
+     * @param $attribute
+     * @param $param
+     */
+    public function equal($attribute,$param)
+    {
+        $value_to_equal = $param['to'];
+        if($this->$attribute != $this->$value_to_equal)
+        {
+            $this->addError($attribute, $this->messages['fields'].' "'.$this->labels[$attribute].'" and "'.$this->labels[$value_to_equal].'" '.$this->messages['must be equal']);
+        }
+    }
 }

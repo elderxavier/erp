@@ -15,6 +15,7 @@
  * @property integer $client_id
  *
  * The followings are the available model relations:
+ * @property Users $employeeUser
  * @property InvoicesOut $invoice
  * @property ServiceCards $service
  */
@@ -51,6 +52,7 @@ class OperationsSrv extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'employeeUser' => array(self::BELONGS_TO, 'Users', 'employee_user_id'),
 			'invoice' => array(self::BELONGS_TO, 'InvoicesOut', 'invoice_id'),
 			'service' => array(self::BELONGS_TO, 'ServiceCards', 'service_id'),
 		);

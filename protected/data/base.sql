@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50535
 File Encoding         : 65001
 
-Date: 2014-07-16 13:24:40
+Date: 2014-07-16 15:00:51
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -189,6 +189,8 @@ CREATE TABLE `operations_srv` (
   PRIMARY KEY (`id`),
   KEY `invoice_id` (`invoice_id`),
   KEY `service_id` (`service_id`),
+  KEY `employee_user_id` (`employee_user_id`),
+  CONSTRAINT `operations_srv_ibfk_3` FOREIGN KEY (`employee_user_id`) REFERENCES `users` (`id`),
   CONSTRAINT `operations_srv_ibfk_1` FOREIGN KEY (`invoice_id`) REFERENCES `invoices_out` (`id`),
   CONSTRAINT `operations_srv_ibfk_2` FOREIGN KEY (`service_id`) REFERENCES `service_cards` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -445,13 +447,13 @@ CREATE TABLE `users` (
   PRIMARY KEY (`id`),
   KEY `position_id` (`position_id`),
   CONSTRAINT `users_ibfk_1` FOREIGN KEY (`position_id`) REFERENCES `positions` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of users
 -- ----------------------------
 INSERT INTO `users` VALUES ('1', 'admin', '81dc9bdb52d04dc20036dbd8313ed055', 'darkoffalex@yandex.ru', 'Valery', 'Gatalsky', null, null, null, null, '1', '1', null, null, null, 'dmitrij_chitrov.jpg', '1');
-INSERT INTO `users` VALUES ('2', 'Valery', '1234', 'test@test.com', 'test', 'test', '123456', 'test', 'test', null, '0', null, '1405504608', '1405505977', '1', null, '2');
+INSERT INTO `users` VALUES ('3', 'test', '81dc9bdb52d04dc20036dbd8313ed055', 'email@test.com', 'Vasia', 'Pupkin', '5468514', 'Test', 'Remark', null, '0', null, '1405511917', '1405511917', '1', null, '2');
 
 -- ----------------------------
 -- Table structure for `user_rights`
@@ -467,7 +469,7 @@ CREATE TABLE `user_rights` (
   KEY `user_id` (`user_id`),
   CONSTRAINT `user_rights_ibfk_1` FOREIGN KEY (`rights_id`) REFERENCES `rights` (`id`),
   CONSTRAINT `user_rights_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user_rights
@@ -496,11 +498,7 @@ INSERT INTO `user_rights` VALUES ('22', '1', '22', '1');
 INSERT INTO `user_rights` VALUES ('23', '1', '23', '1');
 INSERT INTO `user_rights` VALUES ('24', '1', '24', '1');
 INSERT INTO `user_rights` VALUES ('25', '1', '25', '1');
-INSERT INTO `user_rights` VALUES ('43', '2', '8', '1');
-INSERT INTO `user_rights` VALUES ('44', '2', '1', '1');
-INSERT INTO `user_rights` VALUES ('45', '2', '7', '1');
-INSERT INTO `user_rights` VALUES ('46', '2', '2', '1');
-INSERT INTO `user_rights` VALUES ('47', '2', '16', '1');
-INSERT INTO `user_rights` VALUES ('48', '2', '13', '1');
-INSERT INTO `user_rights` VALUES ('49', '2', '19', '1');
-INSERT INTO `user_rights` VALUES ('50', '2', '17', '1');
+INSERT INTO `user_rights` VALUES ('51', '3', '1', '1');
+INSERT INTO `user_rights` VALUES ('52', '3', '2', '1');
+INSERT INTO `user_rights` VALUES ('53', '3', '13', '1');
+INSERT INTO `user_rights` VALUES ('54', '3', '17', '1');

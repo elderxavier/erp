@@ -37,7 +37,8 @@ class UserForm extends CBaseForm
         if($this->current_user_id == null)
         {
             //password, username and email cannot be empty
-            $rules[] = array('username, password, email', 'required','message'=> $this->messages['fill the field'].' "{attribute}"');
+            $rules[] = array('username, password, repeat_password, email', 'required','message'=> $this->messages['fill the field'].' "{attribute}"');
+            $rules[] = array('repeat_password', 'equal', 'to' => 'password');
         }
         //if old user updating
         else

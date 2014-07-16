@@ -23,6 +23,7 @@
  * @property integer $position_id
  *
  * The followings are the available model relations:
+ * @property OperationsSrv[] $operationsSrvs
  * @property UserRights[] $userRights
  * @property Positions $position
  */
@@ -60,6 +61,7 @@ class Users extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'operationsSrvs' => array(self::HAS_MANY, 'OperationsSrv', 'employee_user_id'),
 			'userRights' => array(self::HAS_MANY, 'UserRights', 'user_id'),
 			'position' => array(self::BELONGS_TO, 'Positions', 'position_id'),
 		);
