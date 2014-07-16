@@ -176,13 +176,15 @@ class UsersController extends Controller
             //if got post from form
             if($_POST['UserForm'])
             {
+                //old avatar
+                $old_ava = $user->avatar;
 
                 //set attributes to form model and user
                 $form->attributes = $_POST['UserForm'];
                 $user->attributes = $_POST['UserForm'];
 
                 //if validation passed
-                if($form->validate() && $form->validateFile('avatar'))
+                if($form->validate() && $form->validateFile('UserForm','avatar'))
                 {
                     //set dates
                     $user->date_changed = time();
@@ -193,18 +195,20 @@ class UsersController extends Controller
                     //if have avatar
                     if($form->file_size > 0)
                     {
+                        //new filename
+                        $new_filename = $this->generateRandomString().'.'.$form->file_extension;
 
                         //if file copied
-                        if(copy($form->file_temp_name, 'images/user_thumbs/'.$form->file_name))
+                        if(copy($form->file_temp_name, 'images/user_thumbs/'.$new_filename))
                         {
                             //delete old avatar if exist
-                            if($user->avatar != '' && (file_exists('images/user_thumbs/'.$user->avatar)))
+                            if($old_ava != '' && file_exists('images/user_thumbs/'.$old_ava))
                             {
-                                unlink('images/user_thumbs/'.$user->avatar);
+                                unlink('images/user_thumbs/'.$old_ava);
                             }
 
                             //set new avatar
-                            $user->avatar = $form->file_name;
+                            $user->avatar = $new_filename;
                         }
                     }
 
@@ -219,10 +223,6 @@ class UsersController extends Controller
 
                     //redirect to list
                     $this->redirect('/'.$this->id.'/list');
-                }
-                else
-                {
-                    Debug::out($form->errors);
                 }
             }
 

@@ -8,13 +8,13 @@ class CBaseForm extends CFormModel
     protected $labels = array();
     protected $messages = array();
 
-    public $form_name = "";
-    public $max_validation_file_size = 50000;
+    public $max_validation_file_size = 1000000;
     public $file_name = "";
     public $file_temp_name = "";
     public $file_mime_type = "";
     public $file_size = "";
     public $file_error = "";
+    public $file_extension = "";
 
 
     public function __construct($scenario='')
@@ -89,10 +89,12 @@ class CBaseForm extends CFormModel
 
 
     /**
+     * Validates file and stores parameters of file in model
+     * @param $form_name
      * @param $field_name
      * @return bool
      */
-    public function validateFile($field_name)
+    public function validateFile($form_name,$field_name)
     {
         //available types for images
         $arrTypesImages = array
@@ -106,11 +108,16 @@ class CBaseForm extends CFormModel
         );
 
         //get main parameters and set them to model
-        $this->file_name = $name = $_FILES[$this->form_name]['name'][$field_name];
-        $this->file_mime_type = $type = $_FILES[$this->form_name]['type'][$field_name];
-        $this->file_temp_name = $tmp_name = $_FILES[$this->form_name]['tmp_name'][$field_name];
-        $this->file_error = $error = $_FILES[$this->form_name]['error'][$field_name];
-        $this->file_size = $size = $_FILES[$this->form_name]['error'][$field_name];
+        $this->file_name = $name = $_FILES[$form_name]['name'][$field_name];
+        $this->file_mime_type = $type = $_FILES[$form_name]['type'][$field_name];
+        $this->file_temp_name = $tmp_name = $_FILES[$form_name]['tmp_name'][$field_name];
+        $this->file_error = $error = $_FILES[$form_name]['error'][$field_name];
+        $this->file_size = $size = $_FILES[$form_name]['size'][$field_name];
+
+        //get extension
+        $name_parts = explode(".",$name);
+        $this->file_extension = $name_parts[count($name_parts)-1];
+
 
         //if type not found in array
         if(!in_array($type,$arrTypesImages) && $this->file_size > 0)

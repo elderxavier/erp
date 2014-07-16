@@ -31,22 +31,44 @@ class Controller extends CController
     //default titles of site pages
     public $site_title = "ERP";
     public $page_title = "default";
-    
+
+    /**
+     * Initialization of controller
+     */
     public function init(){
 
         $this->labels = Labels::model()->getLabels();
         $this->messages = FormMessages::model()->getLabels();
     }
 
-    //returns user rights
-    public static function GetUserRights()
+
+    /**
+     * Generates random string (used for file-name generation and e.g.)
+     * @param int $length
+     * @param bool $uppercase
+     * @return string
+     */
+    public function generateRandomString($length = 8, $uppercase = false)
     {
-        /* @var $user_rights UserRights */
-        $user_rights = Yii::app()->user->GetState('rights');
-        return $user_rights;
+        //string of chars
+        $chars = 'abdefhiknrstyzABDEFGHKNQRSTYZ23456789';
+        //count of chars
+        $numChars = strlen($chars);
+        //empty string
+        $string = '';
+        //collect random chars from char-string
+        for ($i = 0; $i < $length; $i++) {
+            $string .= substr($chars, rand(1, $numChars) - 1, 1);
+        }
+        //returns string (can be in uppercase if uppercase set to true)
+        return $uppercase ? strtoupper($string) : $string;
     }
 
-    //do before every action
+    /**
+     * Performs before every action
+     * @param CAction $action
+     * @return bool
+     */
     protected function beforeAction($action) {
 
         //if current action - not login
@@ -63,10 +85,13 @@ class Controller extends CController
         return parent::beforeAction($action);
     }
 
-    //override constructor
+    /**
+     * Constructor override
+     * @param string $id
+     * @param null $module
+     */
     public function __construct($id,$module=null)
     {
-
         //get rights from session
         $this->rights = Yii::app()->user->GetState('rights');
 
