@@ -73,4 +73,11 @@ class UserForm extends CBaseForm
             'position' => $this->labels['position'],
         );
     }
+
+    public function __construct($scenario='')
+    {
+        $this->form_name = 'UserForm';
+
+        parent::__construct($scenario);
+    }
 }

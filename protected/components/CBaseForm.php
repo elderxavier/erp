@@ -8,6 +8,14 @@ class CBaseForm extends CFormModel
     protected $labels = array();
     protected $messages = array();
 
+    public $form_name = "";
+    public $max_validation_file_size = 50000;
+    public $file_name = "";
+    public $file_temp_name = "";
+    public $file_mime_type = "";
+    public $file_size = "";
+    public $file_error = "";
+
 
     public function __construct($scenario='')
     {
@@ -77,5 +85,48 @@ class CBaseForm extends CFormModel
         {
             $this->addError($attribute, $this->messages['fields'].' "'.$this->labels[$attribute].'" and "'.$this->labels[$value_to_equal].'" '.$this->messages['must be equal']);
         }
+    }
+
+
+    /**
+     * @param $field_name
+     * @return bool
+     */
+    public function validateFile($field_name)
+    {
+        //available types for images
+        $arrTypesImages = array
+        (
+            'png' => 'image/png',
+            'jpe' => 'image/jpeg',
+            'jpeg' => 'image/jpeg',
+            'jpg' => 'image/jpeg',
+            'gif' => 'image/gif',
+            'bmp' => 'image/bmp'
+        );
+
+        //get main parameters and set them to model
+        $this->file_name = $name = $_FILES[$this->form_name]['name'][$field_name];
+        $this->file_mime_type = $type = $_FILES[$this->form_name]['type'][$field_name];
+        $this->file_temp_name = $tmp_name = $_FILES[$this->form_name]['tmp_name'][$field_name];
+        $this->file_error = $error = $_FILES[$this->form_name]['error'][$field_name];
+        $this->file_size = $size = $_FILES[$this->form_name]['error'][$field_name];
+
+        //if type not found in array
+        if(!in_array($type,$arrTypesImages) && $this->file_size > 0)
+        {
+            //add error
+            $this->addError($field_name,$this->messages['wrong image type']);
+        }
+
+        //if size bigger than maximum validation size
+        if($size > $this->max_validation_file_size)
+        {
+            //add error
+            $this->addError($field_name,$this->messages['image is too big']);
+        }
+
+        //if correct type and size not bigger than max and not zero - return true
+        return !$this->hasErrors();
     }
 }

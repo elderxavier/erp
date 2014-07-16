@@ -176,18 +176,37 @@ class UsersController extends Controller
             //if got post from form
             if($_POST['UserForm'])
             {
+
                 //set attributes to form model and user
                 $form->attributes = $_POST['UserForm'];
                 $user->attributes = $_POST['UserForm'];
 
                 //if validation passed
-                if($form->validate())
+                if($form->validate() && $form->validateFile('avatar'))
                 {
                     //set dates
                     $user->date_changed = time();
 
                     //who modified
                     $user->user_modified_by = Yii::app()->user->id;
+
+                    //if have avatar
+                    if($form->file_size > 0)
+                    {
+
+                        //if file copied
+                        if(copy($form->file_temp_name, 'images/user_thumbs/'.$form->file_name))
+                        {
+                            //delete old avatar if exist
+                            if($user->avatar != '' && (file_exists('images/user_thumbs/'.$user->avatar)))
+                            {
+                                unlink('images/user_thumbs/'.$user->avatar);
+                            }
+
+                            //set new avatar
+                            $user->avatar = $form->file_name;
+                        }
+                    }
 
                     //save user
                     $user->update();
@@ -201,7 +220,13 @@ class UsersController extends Controller
                     //redirect to list
                     $this->redirect('/'.$this->id.'/list');
                 }
+                else
+                {
+                    Debug::out($form->errors);
+                }
             }
+
+
 
             //render
             $this->render('user_edit', array('form_mdl' => $form, 'user' => $user, 'positions' => $positions, 'roles' => $roles, 'rights' => $rights));
