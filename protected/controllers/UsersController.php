@@ -17,6 +17,42 @@ class UsersController extends Controller
     }
 
     /**
+     * Returns array of all possible rights which can be edited
+     * @return array
+     */
+    public function GetRightsSettings()
+    {
+        $arr = array(
+            $this->labels['product cards'] => array(
+                array('name' => $this->labels['delete'], 'right' => 'products_delete'),
+                array('name' => $this->labels['edit'], 'right' => 'products_edit'),
+                array('name' => $this->labels['create'], 'right' => 'products_add'),
+                array('name' => $this->labels['see'], 'right' => 'products_see')
+            ),
+            $this->labels['product categories'] => array(
+                array('name' => $this->labels['delete'], 'right' => 'categories_delete'),
+                array('name' => $this->labels['edit'], 'right' => 'categories_edit'),
+                array('name' => $this->labels['create'], 'right' => 'categories_add'),
+                array('name' => $this->labels['see'], 'right' => 'categories_see')
+            ),
+            $this->labels['clients'] => array(
+                array('name' => $this->labels['delete'], 'right' => 'clients_delete'),
+                array('name' => $this->labels['edit'], 'right' => 'clients_edit'),
+                array('name' => $this->labels['create'], 'right' => 'clients_add'),
+                array('name' => $this->labels['see'], 'right' => 'clients_see')
+            ),
+            $this->labels['suppliers'] => array(
+                array('name' => $this->labels['delete'], 'right' => 'suppliers_delete'),
+                array('name' => $this->labels['edit'], 'right' => 'suppliers_edit'),
+                array('name' => $this->labels['create'], 'right' => 'suppliers_add'),
+                array('name' => $this->labels['see'], 'right' => 'suppliers_see')
+            ),
+        );
+
+        return $arr;
+    }
+
+    /**
      * Entry point
      */
     public function actionIndex()
@@ -219,6 +255,7 @@ class UsersController extends Controller
             throw new CHttpException(404,$this->labels['item not found in base']);
         }
     }
+
 
     /**
      * Returns array of rights for user
