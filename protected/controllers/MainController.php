@@ -2,14 +2,18 @@
 
 class MainController extends Controller
 {
-    //I N D E X
+    /**
+     * Entry point
+     */
     public function actionIndex()
     {
-        //redirect to ERP module
+        //render welcome screen
         $this->render('welcome');
     }
 
-    //L O G  O U T
+    /**
+     * Logout
+     */
     public function actionLogout()
     {
         //delete user info from session
@@ -17,7 +21,9 @@ class MainController extends Controller
         $this->redirect('/main/login');
     }
 
-    //L O G  I N
+    /**
+     * Login
+     */
     public function actionLogin()
     {
 
@@ -52,29 +58,25 @@ class MainController extends Controller
 
 
     /**
-     * Ajax action go change status of different objects
-     * @param $model string Class of model to get from base object
-     * @param $id  int id of object
-     * @param $status int Status value
+     * Changes status of object by ajax
+     * @param null $id
      */
-
-    public function actionChangeStatus($model,$id,$status)
+    public function actionChangeProductStatus($id = null)
     {
-        /* @var $model CActiveRecord */
-        /* @var $object ProductCards */
-
         //if this is ajax
         if(Yii::app()->request->isAjaxRequest)
         {
             //try find
-            $object = $model::model()->findByPk($id);
+            $object =  ProductCards::model()->findByPk($id);
 
             //if found
             if($object)
             {
-                //set status
-                $object->setAttribute('status',$status);
-
+                if($object->status == 1){
+                    $object->status = 0;
+                }else{
+                    $object->status = 1;
+                }
                 //update
                 $object->update();
 
@@ -88,6 +90,5 @@ class MainController extends Controller
                 exit('FAILED');
             }
         }
-
     }
 }

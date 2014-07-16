@@ -16,7 +16,6 @@
  * @property string $additional_params
  * @property integer $role
  * @property integer $status
- * @property integer $rights_id
  * @property integer $date_created
  * @property integer $date_changed
  * @property integer $user_modified_by
@@ -45,11 +44,11 @@ class Users extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('role, status, rights_id, date_created, date_changed, user_modified_by, position_id', 'numerical', 'integerOnly'=>true),
+			array('role, status, date_created, date_changed, user_modified_by, position_id', 'numerical', 'integerOnly'=>true),
 			array('username, password, email, name, surname, phone, address, remark, additional_params, avatar', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, username, password, email, name, surname, phone, address, remark, additional_params, role, status, rights_id, date_created, date_changed, user_modified_by, avatar, position_id', 'safe', 'on'=>'search'),
+			array('id, username, password, email, name, surname, phone, address, remark, additional_params, role, status, date_created, date_changed, user_modified_by, avatar, position_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -84,7 +83,6 @@ class Users extends CActiveRecord
 			'additional_params' => 'Additional Params',
 			'role' => 'Role',
 			'status' => 'Status',
-			'rights_id' => 'Rights',
 			'date_created' => 'Date Created',
 			'date_changed' => 'Date Changed',
 			'user_modified_by' => 'User Modified By',
@@ -123,7 +121,6 @@ class Users extends CActiveRecord
 		$criteria->compare('additional_params',$this->additional_params,true);
 		$criteria->compare('role',$this->role);
 		$criteria->compare('status',$this->status);
-		$criteria->compare('rights_id',$this->rights_id);
 		$criteria->compare('date_created',$this->date_created);
 		$criteria->compare('date_changed',$this->date_changed);
 		$criteria->compare('user_modified_by',$this->user_modified_by);

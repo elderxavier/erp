@@ -129,8 +129,7 @@ class ContractorsController extends Controller
                 //if no errors
                 if($form->validate())
                 {
-                    //set creation parameters
-                    $client->date_created = time();
+                    //set updating parameters
                     $client->date_changed = time();
                     $client->user_modified_by = Yii::app()->user->id;
 
@@ -247,8 +246,7 @@ class ContractorsController extends Controller
                 //if no errors
                 if($form->validate())
                 {
-                    //set creation parameters
-                    $supplier->date_created = time();
+                    //set updating parameters
                     $supplier->date_changed = time();
                     $supplier->user_modified_by = Yii::app()->user->id;
 

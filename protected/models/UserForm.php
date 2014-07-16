@@ -19,6 +19,8 @@ class UserForm extends CBaseForm
     public $avatar;
     public $position_id;
 
+    public $current_user_id = null;
+
     /**
      * Returns array of rules
      * @return array
@@ -26,7 +28,8 @@ class UserForm extends CBaseForm
     public function rules()
     {
         return array(
-            array('username, password, email, function', 'required','message'=> $this->messages['fill the field'].' "{attribute}"'),
+            array('username, password, email', 'required','message'=> $this->messages['fill the field'].' "{attribute}"'),
+            array('username, email','unique','model_class' => 'Users', 'current_id' => $this->current_user_id)
         );
     }
 

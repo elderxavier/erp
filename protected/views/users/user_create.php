@@ -93,19 +93,19 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/add_user.css');
                     <legend><?php echo $this->labels['product cards']; ?></legend>
                     <div class="form-group">
                         <label class="checkbox-inline">
-                            <input type="checkbox" name="products_delete"><?php echo $this->labels['delete'] ?>
+                            <input type="checkbox" name="UserForm[rights][products_delete]"><?php echo $this->labels['delete'] ?>
                         </label>
 
                         <label class="checkbox-inline">
-                            <input type="checkbox" name="products_edit"><?php echo $this->labels['edit'] ?>
+                            <input type="checkbox" name="UserForm[rights][products_edit]"><?php echo $this->labels['edit'] ?>
                         </label>
 
                         <label class="checkbox-inline">
-                            <input type="checkbox" name="products_add"><?php echo $this->labels['create'] ?>
+                            <input type="checkbox" name="UserForm[rights][products_add]"><?php echo $this->labels['create'] ?>
                         </label>
 
                         <label class="checkbox-inline">
-                            <input type="checkbox" name="products_see"><?php echo $this->labels['see'] ?>
+                            <input type="checkbox" name="UserForm[rights][products_see]"><?php echo $this->labels['see'] ?>
                         </label>
                     </div><!--/form-group -->
                 </fieldset>
@@ -114,15 +114,19 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/add_user.css');
                     <legend><?php echo $this->labels['product categories']; ?></legend>
                     <div class="form-group">
                         <label class="checkbox-inline">
-                            <input type="checkbox" name="del">Delete
+                            <input type="checkbox" name="UserForm[rights][categories_delete]"><?php echo $this->labels['delete'] ?>
                         </label>
 
                         <label class="checkbox-inline">
-                            <input type="checkbox" name="del">Edit
+                            <input type="checkbox" name="UserForm[rights][categories_edit]"><?php echo $this->labels['edit'] ?>
                         </label>
 
                         <label class="checkbox-inline">
-                            <input type="checkbox" name="del">Create
+                            <input type="checkbox" name="UserForm[rights][categories_add]"><?php echo $this->labels['create'] ?>
+                        </label>
+
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="UserForm[rights][categories_see]"><?php echo $this->labels['see'] ?>
                         </label>
                     </div><!--/form-group -->
                 </fieldset>
@@ -131,15 +135,19 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/add_user.css');
                     <legend><?php echo $this->labels['clients']; ?></legend>
                     <div class="form-group">
                         <label class="checkbox-inline">
-                            <input type="checkbox" name="del">Delete
+                            <input type="checkbox" name="UserForm[rights][clients_delete]"><?php echo $this->labels['delete'] ?>
                         </label>
 
                         <label class="checkbox-inline">
-                            <input type="checkbox" name="del">Edit
+                            <input type="checkbox" name="UserForm[rights][clients_edit]"><?php echo $this->labels['edit'] ?>
                         </label>
 
                         <label class="checkbox-inline">
-                            <input type="checkbox" name="del">Create
+                            <input type="checkbox" name="UserForm[rights][clients_add]"><?php echo $this->labels['create'] ?>
+                        </label>
+
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="UserForm[rights][clients_see]"><?php echo $this->labels['see'] ?>
                         </label>
                     </div><!--/form-group -->
                 </fieldset>
@@ -148,21 +156,26 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/add_user.css');
                     <legend><?php echo $this->labels['suppliers']; ?></legend>
                     <div class="form-group">
                         <label class="checkbox-inline">
-                            <input type="checkbox" name="del">Delete
+                            <input type="checkbox" name="UserForm[rights][suppliers_delete]"><?php echo $this->labels['delete'] ?>
                         </label>
 
                         <label class="checkbox-inline">
-                            <input type="checkbox" name="del">Edit
+                            <input type="checkbox" name="UserForm[rights][suppliers_edit]"><?php echo $this->labels['edit'] ?>
                         </label>
 
                         <label class="checkbox-inline">
-                            <input type="checkbox" name="del">Create
+                            <input type="checkbox" name="UserForm[rights][suppliers_add]"><?php echo $this->labels['create'] ?>
+                        </label>
+
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="UserForm[rights][suppliers_see]"><?php echo $this->labels['see'] ?>
                         </label>
                     </div><!--/form-group -->
                 </fieldset>
 
-                <button type="submit"><span>save</span><span class="glyphicon glyphicon-plus"></span></button>
-                <?php $this->endWidget(); ?>
+
+                <button type="submit"><span><?php echo $this->labels['save'] ?></span><span class="glyphicon glyphicon-plus"></span></button>
+            <?php $this->endWidget(); ?>
         </div>
     </div>
 </div>

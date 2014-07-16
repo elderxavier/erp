@@ -41,6 +41,7 @@ class ProductsController extends Controller
 
         //render list
         $this->render('category_list',array('categories' => $categories));
+        
     }
 
 
@@ -261,7 +262,6 @@ class ProductsController extends Controller
                     //set params
                     $card->attributes = $_POST['ProductCardForm'];
                     $card->date_changed = time();
-                    $card->date_created = time();
                     $card->user_modified_by = Yii::app()->user->id;
 
                     //save to db

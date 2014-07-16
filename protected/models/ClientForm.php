@@ -37,13 +37,13 @@ class ClientForm extends CBaseForm
         if($this->company)
         {
             $rules[]=array('company_name, company_code', 'required', 'message' => $this->messages['fill the field'].' "{attribute}"');
-            $rules[]=array('company_code', 'unique_cc');
+            $rules[]=array('company_code', 'unique', 'model_class' => 'Clients', 'current_id' => $this->current_client_id);
         }
         //for single person
         else
         {
             $rules[]=array('personal_code, name, surname','required', 'message'=> $this->messages['fill the field'].' "{attribute}"');
-            $rules[]=array('personal_code', 'unique_pc');
+            $rules[]=array('personal_code', 'unique', 'model_class' => 'Clients', 'current_id' => $this->current_client_id);
         }
 
         return $rules;
@@ -72,60 +72,4 @@ class ClientForm extends CBaseForm
         );
     }
 
-    /**
-     * this function checks some field in some table for uniqueness
-     * @param $MODEL_NAME string name of model
-     * @param $param_name string name of unique parameter
-     * @param $param_value string value for check
-     * @param $cur_id int id of current object if update
-     * @return bool error or not
-     */
-    public function base_unique_err($MODEL_NAME,$param_name,$param_value,$cur_id)
-    {
-        /* @var $MODEL_NAME CActiveRecord */
-        /* @var $obj CActiveRecord */
-
-        //if no errors (all required fields not empty)
-        if(!$this->hasErrors())
-        {
-            //try find object by search value
-            $obj = $MODEL_NAME::model()->findByAttributes(array($param_name => $param_value));
-
-            //if found
-            if($obj)
-            {
-                //if found object is not same as object that we need update (in that case unique fields can be the same)
-                if(!($cur_id != null && $cur_id == $obj->getAttribute('id')))
-                {
-                    //error
-                    return true;
-                }
-            }
-        }
-
-        //no errors
-        return false;
-    }
-
-    /**
-     * validator to check company code uniqueness
-     */
-    public function unique_cc()
-    {
-        if($this->base_unique_err('Clients','company_code',$this->company_code,$this->current_client_id))
-        {
-            $this->addError('company_code',$this->messages['company code already used']);
-        }
-    }
-
-    /**
-     * validator to check personal code uniqueness
-     */
-    public function unique_pc()
-    {
-        if($this->base_unique_err('Clients','personal_code',$this->personal_code,$this->current_client_id))
-        {
-            $this->addError('personal_code',$this->messages['personal code already used']);
-        }
-    }
 }

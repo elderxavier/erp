@@ -2,18 +2,8 @@ $(document).ready(function(e) {
 
     $('.btn-toggle').click(function(e) {
 
-        var id = jQuery(this).attr('prod_id');
-
-        if(jQuery(this).attr('state') == 1)
-        {
-            ChangeStatus('ProductCards','http://erpgit.loc/main/changestatus',id,0);
-            jQuery(this).attr('state', 0);
-        }
-        else
-        {
-            ChangeStatus('ProductCards','http://erpgit.loc/main/changestatus',id,1);
-            jQuery(this).attr('state', 1);
-        }
+        //change status by ajax
+        ChangeStatus($(this));
 
         $(this).find('.btn').toggleClass('active');
 		if($(this).find('.btn-primary').size() > 0)
@@ -25,18 +15,13 @@ $(document).ready(function(e) {
 });
 
 /**
- * Function sends ajax request to controller, to change status of some records in database
- * @param model_class string class of model
- * @param url_path string path to controller
- * @param id int id of record
- * @param status int active or not
+ * Changes status of product
+ * @param obj
  * @constructor
  */
-var ChangeStatus = function(model_class,url_path,id,status)
+var ChangeStatus = function(obj)
 {
+    var url_path = '/main/changeproductstatus/'+ (obj).attr('prod_id');
     //ajax load data
-    jQuery.ajax({ url: url_path+'/model/'+model_class+'/id/'+id+'/status/'+status,beforeSend: function(){/*TODO: pre-loader*/}}).done(function(data)
-    {
-
-    });
+    jQuery.ajax({ url: url_path,beforeSend: function(){/*TODO: pre-loader*/}}).done(function(data){});
 };

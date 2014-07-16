@@ -51,16 +51,184 @@ class UsersController extends Controller
     }
 
 
+    /**
+     * Create new user
+     */
     public function actionAdd()
     {
+        //new user
+        $user = new Users();
+
         //get all positions as array of pairs
         $positions = Positions::getAllAsArray();
+        //array of possible roles
         $roles = array(0 => $this->labels['regular user'], 1 => $this->labels['root']);
 
         //create form-validator and model
         $form = new UserForm();
-        $user = new Users();
 
+        //if got post from form
+        if($_POST['UserForm'])
+        {
+            //set attributes to form model and user
+            $form->attributes = $_POST['UserForm'];
+            $user->attributes = $_POST['UserForm'];
+
+            //if validation passed
+            if($form->validate())
+            {
+                //set dates
+                $user->date_changed = time();
+                $user->date_created = time();
+
+                //who modified
+                $user->user_modified_by = Yii::app()->user->id;
+
+                //save user
+                $user->save();
+
+                //get rights array
+                $rights_from_checkboxes = $_POST['UserForm']['rights'];
+
+                //set user rights
+                $this->UserSetRights($rights_from_checkboxes,$user->id);
+
+                //redirect to list
+                $this->redirect('/'.$this->id.'/list');
+            }
+        }
+
+        //render
         $this->render('user_create', array('form_mdl' => $form, 'user' => $user, 'positions' => $positions, 'roles' => $roles));
     }
+
+
+    public function actionEdit($id = null)
+    {
+        /* @var  */
+
+        //new user
+        $user = Users::model()->findByPk($id);
+
+        if(!empty($user))
+        {
+            //get all positions as array of pairs
+            $positions = Positions::getAllAsArray();
+            //array of possible roles
+            $roles = array(0 => $this->labels['regular user'], 1 => $this->labels['root']);
+
+            //create form-validator and model
+            $form = new UserForm();
+
+            //if got post from form
+            if($_POST['UserForm'])
+            {
+                //set attributes to form model and user
+                $form->attributes = $_POST['UserForm'];
+                $user->attributes = $_POST['UserForm'];
+
+                //if validation passed
+                if($form->validate())
+                {
+                    //set dates
+                    $user->date_changed = time();
+                    $user->date_created = time();
+
+                    //who modified
+                    $user->user_modified_by = Yii::app()->user->id;
+
+                    //save user
+                    $user->save();
+
+                    //get rights array
+                    $rights_from_checkboxes = $_POST['UserForm']['rights'];
+
+                    //set user rights
+                    $this->UserSetRights($rights_from_checkboxes,$user->id);
+
+                    //redirect to list
+                    $this->redirect('/'.$this->id.'/list');
+                }
+            }
+
+            //render
+            $this->render('user_create', array('form_mdl' => $form, 'user' => $user, 'positions' => $positions, 'roles' => $roles));
+        }
+        else
+        {
+            //exception
+            throw new CHttpException(404,$this->labels['item not found in base']);
+        }
+
+    }
+
+
+    /**
+     * Returns array of rights for user
+     * @param $user_id int id of user
+     * @return array
+     */
+    public function UserGetRights($user_id)
+    {
+        /* @var $user Users */
+        /* @var $user_right UserRights */
+        /* @var $right Rights */
+
+        //get user
+        $user = Users::model()->with('userRights')->findByPk($user_id);
+
+        //array of rights
+        $rights = array();
+
+        //create array of rights
+        foreach($user->userRights as $user_right)
+        {
+            $right = Rights::model()->findByPk($user_right->rights_id);
+            $rights[] = $right->label;
+        }
+
+        return $rights;
+    }
+
+    /**
+     * Creates right relations with user in database
+     * @param $rights_array mixed array of rights from checkboxes
+     * @param $user_id int id of existing user
+     */
+    public function UserSetRights($rights_array,$user_id)
+    {
+        //delete all rights related with this user (clean all rights)
+        UserRights::model()->deleteAllByAttributes(array('user_id' => $user_id));
+
+        //pass through each right in array
+        foreach($rights_array as $right_label => $state)
+        {
+            /* @var $right Rights */
+
+            //get right by it's name
+            $right = Rights::model()->findByAttributes(array('label' => $right_label));
+
+            //if right found
+            if(!empty($right))
+            {
+                /* @var $user_right_relation UserRights */
+
+                //create new user-right relation record
+                $user_right_relation = new UserRights();
+
+                //set user id
+                $user_right_relation -> user_id = $user_id;
+
+                //set right id
+                $user_right_relation -> rights_id = $right->id;
+
+                //set value (useless, this field should be deleted)
+                $user_right_relation -> right_value = 1;
+
+                //save
+                $user_right_relation -> save();
+            }
+        }
+    }
+
 }
