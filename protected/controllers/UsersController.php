@@ -76,6 +76,12 @@ class UsersController extends Controller
                 //new user
                 $user = new Users();
 
+                //get attributes
+                $user->attributes = $_POST['UserForm'];
+
+                //password must be in md5
+                $user->password = md5($user->password);
+                
                 //set dates
                 $user->date_changed = time();
                 $user->date_created = time();
@@ -121,7 +127,7 @@ class UsersController extends Controller
             $rights = $this->UserGetRights($user->id);
 
             //get all positions as array of pairs
-            $positions = Positions::getAllAsArray();
+            $positions = Positions::model()->getAllAsArray();
             //array of possible roles
             $roles = array(0 => $this->labels['regular user'], 1 => $this->labels['root']);
 
@@ -146,9 +152,6 @@ class UsersController extends Controller
 
                     //who modified
                     $user->user_modified_by = Yii::app()->user->id;
-
-                    //convert password to md5
-                    $user->password = md5($user->password);
 
                     //save user
                     $user->update();
