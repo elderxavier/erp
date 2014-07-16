@@ -116,7 +116,7 @@ class ProductCardCategories extends CActiveRecord
      * Gets all categories from database and returns pairs 'id' => 'name' array
      * @return array
      */
-    public static function getAllAsArray()
+    public function getAllAsArray()
     {
         /* @var $category ProductCardCategories */
 

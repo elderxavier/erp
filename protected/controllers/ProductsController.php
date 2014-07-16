@@ -178,8 +178,7 @@ class ProductsController extends Controller
     {
         //get all cards
         $cards = ProductCards::model()->with('category')->findAll();
-        $categories = ProductCardCategories::model()->findAll();
-
+        $categories = ProductCardCategories::model()->getAllAsArray();
         //render list
         $this->render('card_list',array('cards' => $cards, 'categories' => $categories));
     }
@@ -218,7 +217,7 @@ class ProductsController extends Controller
         }
 
         //get all categories
-        $categories_arr = ProductCardCategories::getAllAsArray();
+        $categories_arr = ProductCardCategories::model()->getAllAsArray();
 
         //render form
         $this->render('card_create',array('categories_arr' => $categories_arr, 'card' => $card, 'form_mdl' => $form));
@@ -269,7 +268,7 @@ class ProductsController extends Controller
             }
 
             //get all categories
-            $categories_arr = ProductCardCategories::getAllAsArray();
+            $categories_arr = ProductCardCategories::model()->getAllAsArray();
 
             //render form
             $this->render('card_edit',array('categories_arr' => $categories_arr, 'card' => $card, 'form_mdl' => $form));

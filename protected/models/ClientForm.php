@@ -31,6 +31,7 @@ class ClientForm extends CBaseForm
         //main rules
         $rules = array(
             array('vat_code, phone1, email1', 'required', 'message'=> $this->messages['fill the field'].' "{attribute}"'),
+            array('name, company_name, surname, personal_code, company_code, vat_code, phone1, phone2, email1, email2, remark, remark_for_service', 'safe')
         );
 
         //for company

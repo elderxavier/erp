@@ -47,31 +47,33 @@ class ContractorsController extends Controller
      */
     public function actionAddCli()
     {
-        //empty client
-        $client = new Clients();
-
         //form-validate object
         $form = new ClientForm();
 
         //if got post
         if(isset($_POST['ClientForm']))
         {
-            //if company
-            if($_POST['ClientForm']['company'])
-            {
-                //validate as company (company code required)
-                $form->company = 1;
-                //set type to client (1 = company)
-                $client->type = 1;
-            }
-
             //set attributes and validate
             $form->attributes = $_POST['ClientForm'];
-            $client->attributes = $_POST['ClientForm'];
 
             //if no errors
             if($form->validate())
             {
+                //empty client
+                $client = new Clients();
+
+                //set attributes
+                $client->attributes = $_POST['ClientForm'];
+
+                //if company
+                if($_POST['ClientForm']['company'])
+                {
+                    //validate as company (company code required)
+                    $form->company = 1;
+                    //set type to client (1 = company)
+                    $client->type = 1;
+                }
+
                 //set creation parameters
                 $client->date_created = time();
                 $client->date_changed = time();
@@ -85,7 +87,8 @@ class ContractorsController extends Controller
             }
         }
 
-        $this->render('client_create', array('client' => $client, 'form_mdl' => $form));
+        //render form
+        $this->render('client_create', array('form_mdl' => $form));
     }
 
 
@@ -276,9 +279,6 @@ class ContractorsController extends Controller
     {
         /* @var $supplier Clients */
 
-        //try find by pk
-        $supplier = new Suppliers();
-
         //if found
         if(!empty($supplier))
         {
@@ -302,11 +302,15 @@ class ContractorsController extends Controller
 
                 //set attributes and validate
                 $form->attributes = $_POST['SupplierForm'];
-                $supplier->attributes = $_POST['SupplierForm'];
+
 
                 //if no errors
                 if($form->validate())
                 {
+                    //create new supplier and set params
+                    $supplier = new Suppliers();
+                    $supplier->attributes = $_POST['SupplierForm'];
+
                     //set creation parameters
                     $supplier->date_created = time();
                     $supplier->date_changed = time();
@@ -320,7 +324,7 @@ class ContractorsController extends Controller
                 }
             }
 
-            $this->render('supplier_create', array('supplier' => $supplier, 'form_mdl' => $form));
+            $this->render('supplier_create', array('form_mdl' => $form));
         }
         //if not found
         else
