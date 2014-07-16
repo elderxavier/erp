@@ -102,7 +102,7 @@ class Positions extends CActiveRecord
      * Returns all elements as array of pairs (id - name)
      * @return array
      */
-    public static function getAllAsArray()
+    public function getAllAsArray()
     {
         /* @var $position Positions */
 

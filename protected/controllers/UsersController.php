@@ -57,7 +57,7 @@ class UsersController extends Controller
     public function actionAdd()
     {
         //get all positions as array of pairs
-        $positions = Positions::getAllAsArray();
+        $positions = Positions::model()->getAllAsArray();
         //array of possible roles
         $roles = array(0 => $this->labels['regular user'], 1 => $this->labels['root']);
 
