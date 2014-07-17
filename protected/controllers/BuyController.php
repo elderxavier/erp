@@ -21,19 +21,20 @@ class BuyController extends Controller
      */
     public function actionIndex()
     {
-        $this->actionCreate();
+        //do listing
+        $this->actionInvoices();
     }
 
     /**
      * List all invoices
      */
-    public function actionList()
+    public function actionInvoices()
     {
         //get all invoices
-        $invoices = InvoicesIn::model()->findAll();
+        $invoices = InvoicesIn::model()->with('supplier')->findAll();
 
         //render table
-        $this->render('sales_list');
+        $this->render('sales_list', array('invoices' => $invoices));
     }
 
 

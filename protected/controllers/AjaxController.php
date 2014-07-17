@@ -12,8 +12,7 @@ class AjaxController extends Controller {
                 
                 $table = $this->renderPartial('_table',array('objProds'=>$objProds),true);
             } 
-            
-            
+
             echo $table;
         }else{
             throw new CHttpException(404);

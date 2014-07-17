@@ -17,7 +17,7 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/table.css');
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th><?php echo $this->labels['code']; ?></th>
+                        <th><?php echo $this->labels['invoice code']; ?></th>
                         <th><?php echo $this->labels['supplier']; ?></th>
                         <th><?php echo $this->labels['date']; ?></th>
                         <th><?php echo $this->labels['actions'] ?></th>
@@ -32,9 +32,9 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/table.css');
                             <td><?php echo date('Y.m.d',$invoice->date_created); ?></td>
 
                             <td>
-<!--                                --><?php //if($this->rights['products_edit']): ?>
-<!--                                    --><?php //echo CHtml::link($this->labels['edit'],'/'.$this->id.'/editcat/id/'.$category->id,array('class' => 'actions action-edit')); ?>
-<!--                                --><?php //endif; ?>
+                                <?php if($this->rights['purchases_see']): ?>
+                                    <?php echo CHtml::link($this->labels['edit'],'/'.$this->id.'/editcat/id/'.$invoice->id,array('class' => 'actions action-edit')); ?>
+                                <?php endif; ?>
                             </td>
                         </tr>
                     <?php endforeach; ?>
