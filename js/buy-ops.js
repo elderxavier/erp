@@ -105,9 +105,10 @@ $(document).ready(function() {
             if(sourceElement_id == 'client-table' && current_element_id == 'inputClient')
             {
                 //add to field name of client
-                $(this).attr('value',client_name);
+                $(this).val(client_name);
                 //add client id to hidden field
-                $(".cli-id").attr('value',client_id);
+                $(".cli-id").val(client_id);
+
             }
         }
     });
