@@ -28,7 +28,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/buy-ops.js',CClientScript::POS_
                     </tr>
                     </thead>
                     <?php foreach($suppliers as $supplier): ?>
-                        <tr><td><p  class="glyphicon glyphicon-hand-down"></p></td><td><?php echo $supplier->type ? $supplier->company_name : $supplier->name.' '.$supplier->surname; ?></td></tr>
+                        <tr client_id = "<?php echo $supplier->id; ?>"><td><p  class="glyphicon glyphicon-hand-down"></p></td><td><?php echo $supplier->type ? $supplier->company_name : $supplier->name.' '.$supplier->surname; ?></td></tr>
                     <?php endforeach;?>
                 </table>
             </div><!--client-table-wrapper-->
@@ -47,10 +47,10 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/buy-ops.js',CClientScript::POS_
                     </thead>
                     <tbody>
                     <?php foreach($products as $product): ?>
-                        <tr>
+                        <tr product_id = "<?php echo $product->id; ?>">
                             <td><p  class="glyphicon glyphicon-hand-down"></p></td>
-                            <td><?php echo $product->product_code; ?></td>
-                            <td><?php echo $product->product_name; ?></td>
+                            <td class="prod_code"><?php echo $product->product_code; ?></td>
+                            <td class="prod_name"><?php echo $product->product_name; ?></td>
                         </tr>
                     <?php endforeach;?>
                     </tbody>
@@ -69,11 +69,23 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/buy-ops.js',CClientScript::POS_
                             <input type="text" class="form-control droppable" id="inputClient" placeholder="<?php echo $this->labels['supplier']; ?>">
                         </div>
                     </div>
+                    <hr>
                     <div class="form-group">
-                        <label for="inputProduct" class="col-lg-2 col-md-2 control-label"><?php echo $this->labels['product']; ?></label>
-                        <div class="col-lg-10 col-md-10 col-sm-12">
-                            <input type="text" class="form-control droppable" id="inputProduct" placeholder="<?php echo $this->labels['product']; ?>">
+
+                        <label class="col-lg-2 col-md-2 control-label">Products</label>
+                        <div class="col-lg-10 col-md-10 col-sm-12 droppable" id="inputProduct">
+                        <table class="table-prods">
+                            <tr>
+                                <th style="width: 80%"><?php echo "Product"; ?></th>
+                                <th><?php echo "Qnt";?></th>
+                            </tr>
+                        </table>
                         </div>
+
+<!--                        <label for="inputProduct" class="col-lg-2 col-md-2 control-label">--><?php //echo $this->labels['product']; ?><!--</label>-->
+<!--                        <div class="col-lg-10 col-md-10 col-sm-12">-->
+<!--                            <input type="text" class="form-control droppable" id="inputProduct" placeholder="--><?php //echo $this->labels['product']; ?><!--">-->
+<!--                        </div>-->
                     </div>
                 </form><!--input-form-->
 <!--                <hr>-->
