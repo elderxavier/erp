@@ -87,7 +87,7 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/add_user.css');
                 <div class="form-group">
                     <?php echo $form->label($form_mdl,'avatar');?>
                     <br>
-                    <?php if($user->avatar != ''): ?>
+                    <?php if($user->avatar != '' && file_exists('images/user_thumbs/'.$user->avatar)): ?>
                         <?php echo CHtml::image('/images/user_thumbs/'.$user->avatar,'avatar',array('style' => 'width:100px;')); ?>
                     <?php endif; ?>
 

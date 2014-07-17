@@ -53,6 +53,13 @@ class ContractorsController extends Controller
         //if got post
         if(isset($_POST['ClientForm']))
         {
+            //if company
+            if($_POST['ClientForm']['company'])
+            {
+                //validate as company (company code required)
+                $form->company = 1;
+            }
+
             //set attributes and validate
             $form->attributes = $_POST['ClientForm'];
 
@@ -65,14 +72,8 @@ class ContractorsController extends Controller
                 //set attributes
                 $client->attributes = $_POST['ClientForm'];
 
-                //if company
-                if($_POST['ClientForm']['company'])
-                {
-                    //validate as company (company code required)
-                    $form->company = 1;
-                    //set type to client (1 = company)
-                    $client->type = 1;
-                }
+                //set company or not
+                $client->type = $form->company;
 
                 //set creation parameters
                 $client->date_created = time();
@@ -277,61 +278,47 @@ class ContractorsController extends Controller
      */
     public function actionAddSupp()
     {
-        /* @var $supplier Clients */
+        //form-validate object
+        $form = new SupplierForm();
 
-        //if found
-        if(!empty($supplier))
+        //if got post
+        if(isset($_POST['SupplierForm']))
         {
-            //form-validate object
-            $form = new SupplierForm();
-
-            //set current client-id to validator, to avoid unique-check-error when updating
-            $form->current_supplier_id = $supplier->id;
-
-            //if got post
-            if(isset($_POST['SupplierForm']))
+            //if company
+            if($_POST['SupplierForm']['company'])
             {
-                //if company
-                if($_POST['SupplierForm']['company'])
-                {
-                    //validate as company (company code required)
-                    $form->company = 1;
-                    //set type to client (1 = company)
-                    $supplier->type = 1;
-                }
-
-                //set attributes and validate
-                $form->attributes = $_POST['SupplierForm'];
-
-
-                //if no errors
-                if($form->validate())
-                {
-                    //create new supplier and set params
-                    $supplier = new Suppliers();
-                    $supplier->attributes = $_POST['SupplierForm'];
-
-                    //set creation parameters
-                    $supplier->date_created = time();
-                    $supplier->date_changed = time();
-                    $supplier->user_modified_by = Yii::app()->user->id;
-
-                    //save to db
-                    $supplier->save();
-
-                    //redirect to list
-                    $this->redirect('/'.$this->id.'/suppliers');
-                }
+                //validate as company (company code required)
+                $form->company = 1;
             }
 
-            $this->render('supplier_create', array('form_mdl' => $form));
+            //set attributes and validate
+            $form->attributes = $_POST['SupplierForm'];
+
+
+            //if no errors
+            if($form->validate())
+            {
+                //create new supplier and set params
+                $supplier = new Suppliers();
+                $supplier->attributes = $_POST['SupplierForm'];
+
+                //set company or not
+                $supplier->type = $form->company;
+
+                //set creation parameters
+                $supplier->date_created = time();
+                $supplier->date_changed = time();
+                $supplier->user_modified_by = Yii::app()->user->id;
+
+                //save to db
+                $supplier->save();
+
+                //redirect to list
+                $this->redirect('/'.$this->id.'/suppliers');
+            }
         }
-        //if not found
-        else
-        {
-            //exception
-            throw new CHttpException(404,$this->labels['item not found in base']);
-        }
+
+        $this->render('supplier_create', array('form_mdl' => $form));
     }
 
     /**

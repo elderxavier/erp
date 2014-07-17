@@ -72,8 +72,6 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/add_product.css');
 
             <div class="form-group">
                 <?php echo $form->label($form_mdl,'company'); ?>
-                    <input type="checkbox" name="SupplierForm[company]" checked>
-                    <!-- --><?php //echo $form->checkBox($form_mdl,'company', array('checked')); ?>
                     <input type="checkbox" name="SupplierForm[company]">
                     <!-- --><?php //echo $form->checkBox($form_mdl,'company'); ?>
             </div>

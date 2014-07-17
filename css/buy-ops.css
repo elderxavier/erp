@@ -1,0 +1,97 @@
+/* 
+    Created on : Jul 14, 2014, 8:56:36 PM
+    Author     : Linas Martusevicius
+*/
+/*--widgets--*/
+
+.widget-container{
+    margin-left: 0px;
+    display: inline-block;
+    z-index: 900;
+}
+.widgets{
+    margin-top: 5px;
+    padding: 1px;
+    z-index: 1000;
+}
+
+.widgets > input{
+    width: 100%;
+    height:36px;
+}
+
+.widgets>div>table{
+    width: 100%;
+    margin-top: 1px;
+    word-wrap: break-word;
+    table-layout: fixed;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    z-index: 1050;
+}
+td>p{
+    text-align: center;
+}
+th:first-child{
+    width: 36px;
+}
+
+#product-table tr:hover > td , #client-table tr:hover > td {
+    background-color: #fb8f73
+}
+
+.table-wrapper{
+    overflow-y: auto;
+    height: 202px;
+}
+
+.widget1{
+    background-color:#77caf0;
+    height: 240px;
+    width: 100%;
+    margin-left:0px;
+    margin-bottom: 20px;
+}
+.widget2{
+    background-color:#bde9ff;
+    height: 240px;
+    width: 100%;
+    margin:0px;
+}
+.form-widget{
+    background-color: #118fce;
+    height: 500px;
+    margin-left: 0px;
+    margin-top:15px;
+    z-index: 1000;
+}
+
+.form-widget-container{
+    height:500px;
+    display: inline-block;
+}
+
+.results{
+    display: inline-block;
+}
+
+.glyphicon{
+    font-size: 15pt;
+    text-align: center;
+}
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width:768px){
+    .widgets {display:inline-block;	width:49%;}
+}
+
+@media (min-width:992px) {
+    .widgets {display:block;width:100%;}
+}
+
+@media (min-width:1200px) {
+    .widgets {display:block;width:100%;}
+}

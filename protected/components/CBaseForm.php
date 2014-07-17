@@ -133,7 +133,7 @@ class CBaseForm extends CFormModel
             $this->addError($field_name,$this->messages['image is too big']);
         }
 
-        //if correct type and size not bigger than max and not zero - return true
+        //returns true if no errors
         return !$this->hasErrors();
     }
 }
