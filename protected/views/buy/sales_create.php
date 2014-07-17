@@ -67,6 +67,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/buy-ops.js',CClientScript::POS_
                         <label for="inputClient" class="col-lg-2 col-md-2 control-label"><?php echo $this->labels['supplier']; ?></label>
                         <div class="col-lg-10 col-md-10 col-sm-12">
                             <input type="text" class="form-control droppable" id="inputClient" placeholder="<?php echo $this->labels['supplier']; ?>">
+                            <input type="hidden" name="client_id" value="" class="cli-id">
                         </div>
                     </div>
                     <hr>
