@@ -47,6 +47,10 @@ class UsersController extends Controller
                 array('name' => $this->labels['create'], 'right' => 'suppliers_add'),
                 array('name' => $this->labels['see'], 'right' => 'suppliers_see')
             ),
+            $this->labels['purchases'] => array(
+                array('name' => $this->labels['create'], 'right' => 'purchases_add'),
+                array('name' => $this->labels['see'],  'right' => 'purchases_see')
+            )
         );
 
         return $arr;
