@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50535
 File Encoding         : 65001
 
-Date: 2014-07-16 15:00:51
+Date: 2014-07-17 13:31:22
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -56,12 +56,14 @@ CREATE TABLE `clients` (
   CONSTRAINT `clients_ibfk_2` FOREIGN KEY (`next_service_id`) REFERENCES `service_cards` (`id`),
   CONSTRAINT `clients_ibfk_3` FOREIGN KEY (`first_invoice_id`) REFERENCES `invoices_out` (`id`),
   CONSTRAINT `clients_ibfk_4` FOREIGN KEY (`last_invoice_id`) REFERENCES `invoices_out` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of clients
 -- ----------------------------
-INSERT INTO `clients` VALUES ('2', 'NAM', 'cpname', 'MA', 'GGG', 'CODE', '456SDF', null, null, null, '123456', '123456', null, 'em@i.l', 'em@i.l', 'remark', 'remark', null, null, null, null, '1', '1405423057', '1405423057', '1', null, null);
+INSERT INTO `clients` VALUES ('3', 'Vasia', '', 'Pupkin', 'COD5646854', '', 'COD998564', null, null, null, '123456', '123456', null, 'test@test.tst', 'test@test.tst', 'remark', 'remark', null, null, null, null, null, '1405585981', '1405585981', '1', null, null);
+INSERT INTO `clients` VALUES ('4', 'Viqtor', '', 'Creed', 'CDHTR56', '', 'DF874654', null, null, null, '123456', '123456', null, 'em@i.l', 'em@i.l', 'remark', 'remark', null, null, null, null, null, '1405586036', '1405586036', '1', null, null);
+INSERT INTO `clients` VALUES ('6', '', 'Philips', '', '', 'PFG465', 'VATDF5465', null, null, null, '123456', '123456', null, 'em@ail.com', 'em@ail.com', 'remark', 'remark', null, null, null, null, '1', '1405588123', '1405588123', '1', null, null);
 
 -- ----------------------------
 -- Table structure for `invoices_in`
@@ -190,9 +192,9 @@ CREATE TABLE `operations_srv` (
   KEY `invoice_id` (`invoice_id`),
   KEY `service_id` (`service_id`),
   KEY `employee_user_id` (`employee_user_id`),
-  CONSTRAINT `operations_srv_ibfk_3` FOREIGN KEY (`employee_user_id`) REFERENCES `users` (`id`),
   CONSTRAINT `operations_srv_ibfk_1` FOREIGN KEY (`invoice_id`) REFERENCES `invoices_out` (`id`),
-  CONSTRAINT `operations_srv_ibfk_2` FOREIGN KEY (`service_id`) REFERENCES `service_cards` (`id`)
+  CONSTRAINT `operations_srv_ibfk_2` FOREIGN KEY (`service_id`) REFERENCES `service_cards` (`id`),
+  CONSTRAINT `operations_srv_ibfk_3` FOREIGN KEY (`employee_user_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -316,7 +318,7 @@ CREATE TABLE `rights` (
   `name` text,
   `label` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of rights
@@ -345,6 +347,10 @@ INSERT INTO `rights` VALUES ('22', 'can add users', 'users_add');
 INSERT INTO `rights` VALUES ('23', 'can suspend users', 'users_suspend');
 INSERT INTO `rights` VALUES ('24', 'can change users', 'users_edit');
 INSERT INTO `rights` VALUES ('25', 'can delete users', 'users_delete');
+INSERT INTO `rights` VALUES ('26', 'can sell products', 'sales_add');
+INSERT INTO `rights` VALUES ('27', 'can see all outgoing invoices', 'sales_see');
+INSERT INTO `rights` VALUES ('28', 'call see all incoming invoices', 'purchases_see');
+INSERT INTO `rights` VALUES ('29', 'can buy products', 'purchases_add');
 
 -- ----------------------------
 -- Table structure for `service_cards`
@@ -415,12 +421,14 @@ CREATE TABLE `suppliers` (
   PRIMARY KEY (`id`),
   KEY `last_invoice_id` (`last_invoice_id`),
   CONSTRAINT `suppliers_ibfk_1` FOREIGN KEY (`last_invoice_id`) REFERENCES `invoices_in` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of suppliers
 -- ----------------------------
-INSERT INTO `suppliers` VALUES ('1', 'Zhora', 'Pupkin', 'PERS', 'Philips', 'P7SDF85', '1456465', null, null, '852725514', '', null, 'phil@em.ail', '', '1', 'sdfsdf', '1405423095', '1405423095', '1', '1', '1');
+INSERT INTO `suppliers` VALUES ('2', 'Mentalll', 'Alllment', 'PCODE4DSF', '', '', 'DS8F546', null, null, '15654', '6546546', null, 'em@ail.com', 'em@ail.com', null, 'remark', '1405589395', '1405589395', '1', null, null);
+INSERT INTO `suppliers` VALUES ('3', '', '', '', 'AMD', '787SDF', 'VATDF7678', null, null, '123456', '12346', null, 'emai@em.com', 'emai@em.com', '1', 'remark', '1405589468', '1405589468', '1', null, null);
+INSERT INTO `suppliers` VALUES ('4', '', '', '', 'Intel', 'ISDF8789', 'DDSF879', null, null, '12346', '12346', null, 'emai@em.com', 'emai@em.com', '1', 'remark', '1405589531', '1405589531', '1', null, null);
 
 -- ----------------------------
 -- Table structure for `users`
@@ -447,13 +455,13 @@ CREATE TABLE `users` (
   PRIMARY KEY (`id`),
   KEY `position_id` (`position_id`),
   CONSTRAINT `users_ibfk_1` FOREIGN KEY (`position_id`) REFERENCES `positions` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of users
 -- ----------------------------
 INSERT INTO `users` VALUES ('1', 'admin', '81dc9bdb52d04dc20036dbd8313ed055', 'darkoffalex@yandex.ru', 'Valery', 'Gatalsky', null, null, null, null, '1', '1', null, null, null, 'dmitrij_chitrov.jpg', '1');
-INSERT INTO `users` VALUES ('3', 'test', '81dc9bdb52d04dc20036dbd8313ed055', 'email@test.com', 'Vasia', 'Pupkin', '5468514', 'Test', 'Remark', null, '0', null, '1405511917', '1405511917', '1', null, '2');
+INSERT INTO `users` VALUES ('3', 'test', '81dc9bdb52d04dc20036dbd8313ed055', 'email@test.com', 'Vasia', 'Pupkin', '5468514', 'Test', 'Remark', null, '0', null, '1405511917', '1405582338', '1', '4hET78fZ.png', '2');
 
 -- ----------------------------
 -- Table structure for `user_rights`
@@ -469,7 +477,7 @@ CREATE TABLE `user_rights` (
   KEY `user_id` (`user_id`),
   CONSTRAINT `user_rights_ibfk_1` FOREIGN KEY (`rights_id`) REFERENCES `rights` (`id`),
   CONSTRAINT `user_rights_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=133 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user_rights
@@ -498,7 +506,12 @@ INSERT INTO `user_rights` VALUES ('22', '1', '22', '1');
 INSERT INTO `user_rights` VALUES ('23', '1', '23', '1');
 INSERT INTO `user_rights` VALUES ('24', '1', '24', '1');
 INSERT INTO `user_rights` VALUES ('25', '1', '25', '1');
-INSERT INTO `user_rights` VALUES ('51', '3', '1', '1');
-INSERT INTO `user_rights` VALUES ('52', '3', '2', '1');
-INSERT INTO `user_rights` VALUES ('53', '3', '13', '1');
-INSERT INTO `user_rights` VALUES ('54', '3', '17', '1');
+INSERT INTO `user_rights` VALUES ('109', '3', '1', '1');
+INSERT INTO `user_rights` VALUES ('110', '3', '7', '1');
+INSERT INTO `user_rights` VALUES ('111', '3', '2', '1');
+INSERT INTO `user_rights` VALUES ('112', '3', '13', '1');
+INSERT INTO `user_rights` VALUES ('113', '3', '17', '1');
+INSERT INTO `user_rights` VALUES ('114', '1', '26', '1');
+INSERT INTO `user_rights` VALUES ('115', '1', '27', '1');
+INSERT INTO `user_rights` VALUES ('116', '1', '28', '1');
+INSERT INTO `user_rights` VALUES ('117', '1', '29', '1');

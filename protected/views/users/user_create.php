@@ -17,7 +17,7 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/add_user.css');
 <div class="container content-wrapper">
     <div class="row">
         <div class="col-lg-12">
-                <?php $form=$this->beginWidget('CActiveForm', array('id' =>'add-user-form','enableAjaxValidation'=>false,'htmlOptions'=>array('class'=>'clearfix'))); ?>
+                <?php $form=$this->beginWidget('CActiveForm', array('id' =>'add-user-form','enableAjaxValidation'=>false,'htmlOptions'=>array('class'=>'clearfix', 'enctype'=>'multipart/form-data'))); ?>
 
                 <div class="form-group">
                     <?php echo $form->label($form_mdl,'username');?>
@@ -88,6 +88,12 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/add_user.css');
                 </div>
 
                 <?php $this->renderPartial('//partials/_right_edit_list',array('all_rights' => $this->GetRightsSettings(),'current_rights' => array(),'form_name' => 'UserForm')); ?>
+
+                <div class="form-group">
+                    <?php echo $form->label($form_mdl,'avatar');?>
+                    <?php echo $form->fileField($form_mdl,'avatar', array('class' => 'form-control')); ?>
+                    <?php echo $form->error($form_mdl,'avatar'); ?>
+                </div>
 
                 <button type="submit"><span><?php echo $this->labels['save'] ?></span><span class="glyphicon glyphicon-plus"></span></button>
             <?php $this->endWidget(); ?>

@@ -107,7 +107,7 @@ class UsersController extends Controller
             $form->attributes = $_POST['UserForm'];
 
             //if validation passed
-            if($form->validate())
+            if($form->validate() && $form->validateFile('UserForm','avatar'))
             {
                 //new user
                 $user = new Users();
@@ -124,6 +124,22 @@ class UsersController extends Controller
 
                 //who modified
                 $user->user_modified_by = Yii::app()->user->id;
+
+
+                //if have avatar
+                if($form->file_size > 0)
+                {
+                    //new filename
+                    $new_filename = $this->generateRandomString().'.'.$form->file_extension;
+
+                    //if file copied
+                    if(copy($form->file_temp_name, 'images/user_thumbs/'.$new_filename))
+                    {
+                        //set new avatar
+                        $user->avatar = $new_filename;
+                    }
+                }
+
 
                 //save user
                 $user->save();
@@ -266,6 +282,14 @@ class UsersController extends Controller
             {
                 //delete all right-relations
                 UserRights::model()->deleteAllByAttributes(array('user_id' => $user->id));
+
+                //if user avatar not empty and file exist
+                if($user->avatar != '' && file_exists('images/user_thumbs/'.$user->avatar))
+                {
+                    //delete avatar file
+                    unlink('images/user_thumbs/'.$user->avatar);
+                }
+
 
                 //delete user
                 $user->delete();
