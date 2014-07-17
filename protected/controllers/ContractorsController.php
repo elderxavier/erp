@@ -357,4 +357,6 @@ class ContractorsController extends Controller
             throw new CHttpException(404,$this->labels['item not found in base']);
         }
     }
+
+
 }

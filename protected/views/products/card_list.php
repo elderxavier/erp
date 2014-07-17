@@ -16,42 +16,34 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/table.css');
     <div class="row">
         <div class="col-lg-12">
 
-
             <div class="filters clearfix">
                 <form class="form-inline clearfix" action="#" method="post">
                     <div class="filter filter1">
                         <div>
-                            <label>Filter1 :</label>
-                            <input type="text" placeholder="product code">
+                            <label><?php echo $this->labels['product code']; ?> :</label>
+                            <input name="cod" type="text" />
+                        </div>
+                    </div><!--/filter1 -->
+
+                    <div class="filter filter1">
+                        <div>
+
+                            <?php echo CHtml::dropDownList('category','',$categories,array('class'=> 'form-control','id'=>'filter-select'))?>
                         </div>
                     </div><!--/filter1 -->
 
 
                     <div class="filter filter2">
-                        <div class="form-group">
-                            <select class="form-control">
-                                <option selected="" value="">Choose category</option>
-                                <option value="cat1">category 1</option>
-                                <option value="cat2">category 2</option>
-                            </select>
-                        </div>
-                    </div><!--/filter1 -->
-
-                    <div class="filter filter3">
                         <div>
-                            <label>Filter3 :</label>
-                            <input type="text" placeholder="product name">
+                            <label><?php echo $this->labels['name']; ?> :</label>
+                            <input name="nam" type="text" />
                         </div>
-                    </div><!--/filter1 -->
-
-
-                    <div class="filter filter4">
                         <div>
-                            <button type="submit"><span>Filtruoti</span><span><img src="/images/filters_arrow.png" height="36" width="36"></span></button>
+                            <button type="submit"><span class="hidden-xs"><?php echo $this->labels['filter']; ?></span><span><img src="/images/filters_arrow.png" height="36" width="36" /></span></button>
                         </div>
                     </div><!--/filter1 -->
                 </form>
-            </div>
+            </div><!--/filters -->
 
 
             <div class="table-holder">

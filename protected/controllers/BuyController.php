@@ -25,6 +25,19 @@ class BuyController extends Controller
     }
 
     /**
+     * List all invoices
+     */
+    public function actionList()
+    {
+        //get all invoices
+        $invoices = InvoicesIn::model()->findAll();
+
+        //render table
+        $this->render('sales_list');
+    }
+
+
+    /**
      * Make new purchase invoice
      */
     public function actionCreate()

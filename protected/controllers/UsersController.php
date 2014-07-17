@@ -17,7 +17,7 @@ class UsersController extends Controller
     }
 
     /**
-     * Returns array of all possible rights which can be edited
+     * Returns array of all possible rights which can be edited. These settings used in 'edit' and 'create' templates
      * @return array
      */
     public function GetRightsSettings()
