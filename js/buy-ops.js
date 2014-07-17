@@ -38,6 +38,7 @@ $(document).ready(function() {
     $(".droppable").droppable({
         drop: function (event, ui) {
 
+            //declare main properties
             var product_id = '';
             var client_id = '';
             var product_code = '';
@@ -81,8 +82,8 @@ $(document).ready(function() {
                     {
                         //just increase quantity
                         var parent_td = jQuery(this).parent();
-                        var old_qnt = jQuery(parent_td).find('input:first').attr('value');
-                        jQuery(parent_td).find("input:first").attr('value',parseInt(old_qnt)+1);
+                        var old_qnt = jQuery(parent_td).find('input:first').val();
+                        jQuery(parent_td).find("input:first").val(parseInt(old_qnt)+1);
 
                         //now we increased quantity
                         increased_qnt = true;
