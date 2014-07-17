@@ -24,7 +24,7 @@ class ProductCardForm extends CBaseForm
 			array('product_code, product_name, category_id', 'required', 'message'=> $this->messages['fill the field'].' "{attribute}"'),
 
 			// password needs to be authenticated
-			array('code', 'unique', 'model_class' => 'ProductCards', 'current_id' => $this->current_card_id),
+			array('product_code', 'unique', 'model_class' => 'ProductCards', 'current_id' => $this->current_card_id),
 		);
 	}
 

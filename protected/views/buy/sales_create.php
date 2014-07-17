@@ -2,6 +2,8 @@
 <?php /* @var $product ProductCards */ ?>
 <?php /* @var $suppliers Array */ ?>
 <?php /* @var $products Array */ ?>
+<?php /* @var $stocks Array */ ?>
+<?php /* @var $stock Stocks */ ?>
 <?php /* @var $this BuyController */ ?>
 
 <?php
@@ -77,8 +79,8 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/buy-ops.js',CClientScript::POS_
                         <div class="col-lg-10 col-md-10 col-sm-12 droppable" id="inputProduct">
                         <table class="table-prods">
                             <tr>
-                                <th style="width: 80%"><?php echo "Product"; ?></th>
-                                <th><?php echo "Qnt";?></th>
+                                <th style="width: 80%"><?php echo $this->labels['product']; ?></th>
+                                <th><?php echo $this->labels['quantity'];?></th>
                             </tr>
                         </table>
                         </div>
@@ -87,6 +89,18 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/buy-ops.js',CClientScript::POS_
 <!--                        <div class="col-lg-10 col-md-10 col-sm-12">-->
 <!--                            <input type="text" class="form-control droppable" id="inputProduct" placeholder="--><?php //echo $this->labels['product']; ?><!--">-->
 <!--                        </div>-->
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <label for="inputClient" class="col-lg-2 col-md-2 control-label"><?php echo $this->labels['stock']; ?></label>
+                        <div class="col-lg-10 col-md-10 col-sm-12">
+                            <select class="form-control">
+                                <option value="">select</option>
+                                <?php foreach($stocks as $stock): ?>
+                                    <option value="<?php echo $stock->id; ?>"><?php echo $stock->name; ?></option>
+                                <?php endforeach;?>
+                            </select>
+                        </div>
                     </div>
                 </form><!--input-form-->
 <!--                <hr>-->

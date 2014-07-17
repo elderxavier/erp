@@ -45,7 +45,8 @@ class BuyController extends Controller
     {
         $suppliers = Suppliers::model()->findAll();
         $products = ProductCards::model()->findAllByAttributes(array('status' => 1));
+        $stocks = Stocks::model()->findAll();
 
-        $this->render('sales_create',array('suppliers' => $suppliers, 'products' => $products));
+        $this->render('sales_create',array('suppliers' => $suppliers, 'products' => $products, 'stocks' => $stocks));
     }
 }
