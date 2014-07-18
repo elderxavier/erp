@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50535
 File Encoding         : 65001
 
-Date: 2014-07-17 13:31:22
+Date: 2014-07-18 17:22:17
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -86,11 +86,12 @@ CREATE TABLE `invoices_in` (
   KEY `payment_method_id` (`payment_method_id`),
   CONSTRAINT `invoices_in_ibfk_1` FOREIGN KEY (`supplier_id`) REFERENCES `suppliers` (`id`),
   CONSTRAINT `invoices_in_ibfk_2` FOREIGN KEY (`payment_method_id`) REFERENCES `payment_methods` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of invoices_in
 -- ----------------------------
+INSERT INTO `invoices_in` VALUES ('1', '2', 'INVCDE546', null, null, null, null, 'Vasia Pupkin', '1405692680', '1405692680', null);
 
 -- ----------------------------
 -- Table structure for `invoices_out`
@@ -141,11 +142,14 @@ CREATE TABLE `operations_in` (
   CONSTRAINT `operations_in_ibfk_1` FOREIGN KEY (`invoice_id`) REFERENCES `invoices_in` (`id`),
   CONSTRAINT `operations_in_ibfk_2` FOREIGN KEY (`product_card_id`) REFERENCES `product_cards` (`id`),
   CONSTRAINT `operations_in_ibfk_3` FOREIGN KEY (`stock_id`) REFERENCES `stocks` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of operations_in
 -- ----------------------------
+INSERT INTO `operations_in` VALUES ('1', '2', '1', '1', '1405692681', '20000', '1', '1', '2');
+INSERT INTO `operations_in` VALUES ('2', '3', '1', '3', '1405692681', '15000', '1', '3', '2');
+INSERT INTO `operations_in` VALUES ('3', '4', '1', '2', '1405692681', '23000', '1', '2', '2');
 
 -- ----------------------------
 -- Table structure for `operations_out`
@@ -257,13 +261,14 @@ CREATE TABLE `product_cards` (
   PRIMARY KEY (`id`),
   KEY `category_id` (`category_id`),
   CONSTRAINT `product_cards_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `product_card_categories` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of product_cards
 -- ----------------------------
 INSERT INTO `product_cards` VALUES ('2', '4', 'Intel Core i5', 'PR_385FHK', '2.5 Ghz, 4 core, 5MB cache', '30045', 'units', null, '1', '1405427276', '1405427276', '1');
 INSERT INTO `product_cards` VALUES ('3', '6', 'Philips 234 E', 'PRODSKK', 'Monitors', null, 'units', null, '1', '1405426995', '1405426995', '1');
+INSERT INTO `product_cards` VALUES ('4', '4', 'Intel Core i7', 'CORDSF87', '20 kilograms of precessors', null, 'kg', null, '1', '1405607100', '1405607100', '1');
 
 -- ----------------------------
 -- Table structure for `product_card_categories`
@@ -278,14 +283,13 @@ CREATE TABLE `product_card_categories` (
   `date_changed` int(11) DEFAULT NULL,
   `user_modified_by` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of product_card_categories
 -- ----------------------------
 INSERT INTO `product_card_categories` VALUES ('4', 'Processors', '', '1', '1404392037', '1405345673', '1');
 INSERT INTO `product_card_categories` VALUES ('6', 'Monitors', 'just monitors', '1', '1404719915', '1404719915', '1');
-INSERT INTO `product_card_categories` VALUES ('7', 'test', 'test', null, '1405419368', '1405419368', '1');
 
 -- ----------------------------
 -- Table structure for `product_in_stock`
@@ -303,11 +307,14 @@ CREATE TABLE `product_in_stock` (
   KEY `stock_id` (`stock_id`),
   CONSTRAINT `product_in_stock_ibfk_1` FOREIGN KEY (`product_card_id`) REFERENCES `product_cards` (`id`),
   CONSTRAINT `product_in_stock_ibfk_2` FOREIGN KEY (`stock_id`) REFERENCES `stocks` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of product_in_stock
 -- ----------------------------
+INSERT INTO `product_in_stock` VALUES ('1', '1', '2', '1', '1405692681', '1405692681');
+INSERT INTO `product_in_stock` VALUES ('2', '1', '3', '3', '1405692681', '1405692681');
+INSERT INTO `product_in_stock` VALUES ('3', '1', '4', '2', '1405692681', '1405692681');
 
 -- ----------------------------
 -- Table structure for `rights`
@@ -318,7 +325,7 @@ CREATE TABLE `rights` (
   `name` text,
   `label` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of rights
@@ -386,11 +393,12 @@ CREATE TABLE `stocks` (
   `date_changed` int(11) DEFAULT NULL,
   `user_modified_by` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of stocks
 -- ----------------------------
+INSERT INTO `stocks` VALUES ('1', 'Vilnius', 'Vilnius', 'Stock in vilnius', '0', '0', '1');
 
 -- ----------------------------
 -- Table structure for `suppliers`
@@ -455,13 +463,13 @@ CREATE TABLE `users` (
   PRIMARY KEY (`id`),
   KEY `position_id` (`position_id`),
   CONSTRAINT `users_ibfk_1` FOREIGN KEY (`position_id`) REFERENCES `positions` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of users
 -- ----------------------------
 INSERT INTO `users` VALUES ('1', 'admin', '81dc9bdb52d04dc20036dbd8313ed055', 'darkoffalex@yandex.ru', 'Valery', 'Gatalsky', null, null, null, null, '1', '1', null, null, null, 'dmitrij_chitrov.jpg', '1');
-INSERT INTO `users` VALUES ('3', 'test', '81dc9bdb52d04dc20036dbd8313ed055', 'email@test.com', 'Vasia', 'Pupkin', '5468514', 'Test', 'Remark', null, '0', null, '1405511917', '1405582338', '1', '4hET78fZ.png', '2');
+INSERT INTO `users` VALUES ('3', 'test', '81dc9bdb52d04dc20036dbd8313ed055', 'email@test.com', 'Vasia', 'Pupkin', '5468514', 'Test', 'Remark', null, '0', null, '1405511917', '1405593544', '1', '', '2');
 
 -- ----------------------------
 -- Table structure for `user_rights`
@@ -477,7 +485,7 @@ CREATE TABLE `user_rights` (
   KEY `user_id` (`user_id`),
   CONSTRAINT `user_rights_ibfk_1` FOREIGN KEY (`rights_id`) REFERENCES `rights` (`id`),
   CONSTRAINT `user_rights_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=133 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=145 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user_rights
@@ -506,12 +514,12 @@ INSERT INTO `user_rights` VALUES ('22', '1', '22', '1');
 INSERT INTO `user_rights` VALUES ('23', '1', '23', '1');
 INSERT INTO `user_rights` VALUES ('24', '1', '24', '1');
 INSERT INTO `user_rights` VALUES ('25', '1', '25', '1');
-INSERT INTO `user_rights` VALUES ('109', '3', '1', '1');
-INSERT INTO `user_rights` VALUES ('110', '3', '7', '1');
-INSERT INTO `user_rights` VALUES ('111', '3', '2', '1');
-INSERT INTO `user_rights` VALUES ('112', '3', '13', '1');
-INSERT INTO `user_rights` VALUES ('113', '3', '17', '1');
 INSERT INTO `user_rights` VALUES ('114', '1', '26', '1');
 INSERT INTO `user_rights` VALUES ('115', '1', '27', '1');
 INSERT INTO `user_rights` VALUES ('116', '1', '28', '1');
 INSERT INTO `user_rights` VALUES ('117', '1', '29', '1');
+INSERT INTO `user_rights` VALUES ('140', '3', '1', '1');
+INSERT INTO `user_rights` VALUES ('141', '3', '7', '1');
+INSERT INTO `user_rights` VALUES ('142', '3', '2', '1');
+INSERT INTO `user_rights` VALUES ('143', '3', '13', '1');
+INSERT INTO `user_rights` VALUES ('144', '3', '17', '1');
