@@ -47,4 +47,4 @@ var ajaxFilter = function(category){
         function(data){}
     );
     return false;
-}
+};

@@ -68,7 +68,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/buy-ops.js',CClientScript::POS_
                     <div class="form-group">
                         <label for="inputClient" class="col-lg-2 col-md-2 control-label"><?php echo $this->labels['supplier']; ?></label>
                         <div class="col-lg-10 col-md-10 col-sm-12">
-                            <input type="text" class="form-control droppable" id="inputClient" placeholder="<?php echo $this->labels['supplier']; ?>">
+                            <input disabled type="text" class="form-control droppable" id="inputClient" placeholder="<?php echo $this->labels['supplier']; ?>">
                             <input type="hidden" name="client_id" value="" class="cli-id">
                         </div>
                     </div>
@@ -79,8 +79,9 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/buy-ops.js',CClientScript::POS_
                         <div class="col-lg-10 col-md-10 col-sm-12 droppable" id="inputProduct">
                         <table class="table-prods">
                             <tr>
-                                <th style="width: 80%"><?php echo $this->labels['product']; ?></th>
+                                <th style="width: 60%"><?php echo $this->labels['product']; ?></th>
                                 <th><?php echo $this->labels['quantity'];?></th>
+                                <th><?php echo $this->labels['price'];?></th>
                             </tr>
                         </table>
                         </div>
@@ -94,17 +95,38 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/buy-ops.js',CClientScript::POS_
                     <div class="form-group">
                         <label for="inputClient" class="col-lg-2 col-md-2 control-label"><?php echo $this->labels['stock']; ?></label>
                         <div class="col-lg-10 col-md-10 col-sm-12">
-                            <select class="form-control">
-                                <option value="">select</option>
+                            <select class="form-control stock-id">
+                                <option value="select">select</option>
                                 <?php foreach($stocks as $stock): ?>
                                     <option value="<?php echo $stock->id; ?>"><?php echo $stock->name; ?></option>
                                 <?php endforeach;?>
                             </select>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label for="inputClient" class="col-lg-2 col-md-2 control-label"><?php echo $this->labels['invoice code']; ?></label>
+                        <div class="col-lg-10 col-md-10 col-sm-12">
+                            <input type="text" class="form-control" id="invoice_code_input" placeholder="<?php echo $this->labels['invoice code']; ?>">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputClient" class="col-lg-2 col-md-2 control-label"><?php echo $this->labels['signer name']; ?></label>
+                        <div class="col-lg-10 col-md-10 col-sm-12">
+                            <input type="text" class="form-control" id="signer_name_input" placeholder="<?php echo $this->labels['signer name']; ?>">
+                        </div>
+                    </div>
+                    <hr>
+
+                    <a href="#" class="invoice-make"><button><?php echo $this->labels['create invoice']; ?></button></a>
+
                 </form><!--input-form-->
 <!--                <hr>-->
             </div><!--/form-wrapper-->
         </div><!--/form-widget-->
     </div><!--/form-widget-container -->
 </div><!--/content-holder-->
+
+
+<input type="hidden" id="error_message" value="<?php echo "message"; ?>">
+<input type="hidden" id="error_window_title" value="<?php echo $this->labels['error']; ?>">
+<input type="hidden" id="modal_window_title" value="<?php echo $this->labels['create invoice']; ?>">

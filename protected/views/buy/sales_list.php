@@ -28,12 +28,13 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/table.css');
                     <?php foreach($invoices as $invoice): ?>
                         <tr>
                             <td><?php echo $invoice->id; ?></td>
+                            <td><?php echo $invoice->invoice_code; ?></td>
                             <td><?php echo $invoice->supplier->name; ?></td>
                             <td><?php echo date('Y.m.d',$invoice->date_created); ?></td>
 
                             <td>
                                 <?php if($this->rights['purchases_see']): ?>
-                                    <?php echo CHtml::link($this->labels['edit'],'/'.$this->id.'/editcat/id/'.$invoice->id,array('class' => 'actions action-edit')); ?>
+                                    <?php echo CHtml::link('view','/buy/view/id/'.$invoice->id,array('class' => 'actions action-edit')); ?>
                                 <?php endif; ?>
                             </td>
                         </tr>

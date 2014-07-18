@@ -64,6 +64,61 @@ class Controller extends CController
         return $uppercase ? strtoupper($string) : $string;
     }
 
+
+    /**
+     * Converts entered by user price to cents-format for storing in database
+     * @param string $str_price
+     * @return int|mixed|string
+     */
+    public function priceStrToCents($str_price)
+    {
+        //replace comma with dot
+        $value = str_replace(',','.',$str_price);
+
+        //delete empty spaces
+        $value = str_replace(' ','',$value);
+
+        //if this is number
+        if(is_numeric($value))
+        {
+            //multiply by 100
+            $value = $value * 100;
+        }
+
+        return $value;
+    }
+
+
+    /**
+     * Converts cent-format price to user readable price-value
+     * @param int $value
+     * @param string $currency_prefix
+     * @param string $currency_postfix
+     * @return float|string
+     */
+    public function centsToPriceStr($value, $currency_prefix = '', $currency_postfix = '')
+    {
+        //if this is number
+        if(is_numeric($value))
+        {
+            //divide by 100
+            $price = $value / 100;
+
+            //price
+            $price = number_format($price,2,',','');
+
+            //add prefix and postfix
+            $price = $currency_prefix.$price.$currency_postfix;
+        }
+        //if not number
+        else
+        {
+            $price = $currency_prefix.$value.$currency_postfix;
+        }
+
+        return $price;
+    }
+
     /**
      * Performs before every action
      * @param CAction $action

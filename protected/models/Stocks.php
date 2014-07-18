@@ -114,4 +114,48 @@ class Stocks extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+
+    /**
+     * Adds 'product_is_stock' record to table, or just increases quantity if product already in stock
+     * @param int $card_id
+     * @param int $qnt
+     * @param int $stock_id
+     * @return int
+     */
+    public function addToStockAndGetCount($card_id,$qnt,$stock_id)
+    {
+        /* @var $product_in_stock ProductInStock */
+
+        //if stock found
+        if(Stocks::model()->findByPk($stock_id))
+        {
+            //try find product in stock by card_id and stock_id
+            $product_in_stock = ProductInStock::model()->findByAttributes(array('stock_id' => $stock_id, 'product_card_id' => $card_id));
+
+            //if found
+            if($product_in_stock)
+            {
+                $product_in_stock->qnt += $qnt;
+                $product_in_stock->date_changed = time();
+                $product_in_stock->update();
+            }
+            else
+            {
+                $product_in_stock = new ProductInStock();
+                $product_in_stock -> product_card_id = $card_id;
+                $product_in_stock -> qnt = $qnt;
+                $product_in_stock -> stock_id = $stock_id;
+                $product_in_stock -> date_changed = time();
+                $product_in_stock -> date_created = time();
+                $product_in_stock -> save();
+            }
+
+            return $product_in_stock->qnt;
+        }
+        else
+        {
+            return 0;
+        }
+    }
 }

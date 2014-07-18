@@ -9,6 +9,7 @@
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,600' rel='stylesheet' type='text/css'>
     <link href="<?php echo Yii::app()->request->baseUrl; ?>/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="<?php echo Yii::app()->request->baseUrl; ?>/css/style.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo Yii::app()->request->baseUrl; ?>/css/ui-lightness/jquery-ui-1.10.4.custom.css" rel="stylesheet" type="text/css">
     <title><?php echo $this->site_title." - ".$this->page_title ?></title>
 </head>
 
@@ -66,6 +67,8 @@
 <div class="main_container">
     <?php echo $content; ?>
 </div><!--/ main-container -->
+
+<div class="dialog"></div>
 
 <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-1.9.0.min.js"></script>
 <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-ui-1.9.2.min.js"></script>
