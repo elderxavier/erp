@@ -34,7 +34,7 @@ class BuyController extends Controller
         $invoices = InvoicesIn::model()->with('supplier')->findAll();
 
         //render table
-        $this->render('sales_list', array('invoices' => $invoices));
+        $this->render('purchases_list', array('invoices' => $invoices));
     }
 
 
@@ -118,7 +118,7 @@ class BuyController extends Controller
             $products = ProductCards::model()->findAllByAttributes(array('status' => 1));
             $stocks = Stocks::model()->findAll();
 
-            $this->render('sales_create',array('suppliers' => $suppliers, 'products' => $products, 'stocks' => $stocks));
+            $this->render('purchases_create',array('suppliers' => $suppliers, 'products' => $products, 'stocks' => $stocks));
         }
 
     }

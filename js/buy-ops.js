@@ -192,6 +192,22 @@ $(document).ready(function() {
         return false;
     });
 
+    //when clicked on 'view invoice' link
+    jQuery(".modal-link-opener").click(function(){
+
+        //get href
+        var href = jQuery(this).attr('href');
+
+        //load to modal window
+        jQuery.ajax({ url: href,beforeSend: function(){/*TODO: pre-loader*/}}).done(function(data)
+        {
+            modal('test',data);
+        });
+
+        //stop click event
+        return false;
+
+    });
 
 });
 

@@ -4,6 +4,7 @@
 <?php
 $cs = Yii::app()->clientScript;
 $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/table.css');
+$cs->registerScriptFile(Yii::app()->baseUrl.'/js/buy-ops.js',CClientScript::POS_END);
 ?>
 
 <?php $this->renderPartial('//partials/_sub_menu',array('links' => $this->GetSubMenu(), 'params' => array())); ?>
@@ -29,12 +30,12 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/table.css');
                         <tr>
                             <td><?php echo $invoice->id; ?></td>
                             <td><?php echo $invoice->invoice_code; ?></td>
-                            <td><?php echo $invoice->supplier->name; ?></td>
+                            <td><?php echo $invoice->supplier->type == 1 ? $invoice->supplier->company_name : $invoice->supplier->name.' '.$invoice->supplier->surname; ?></td>
                             <td><?php echo date('Y.m.d',$invoice->date_created); ?></td>
 
                             <td>
                                 <?php if($this->rights['purchases_see']): ?>
-                                    <?php echo CHtml::link('view','/buy/view/id/'.$invoice->id,array('class' => 'actions action-edit')); ?>
+                                    <?php echo CHtml::link('view','/ajax/viewinvoicein/id/'.$invoice->id,array('class' => 'actions action-edit modal-link-opener')); ?>
                                 <?php endif; ?>
                             </td>
                         </tr>
