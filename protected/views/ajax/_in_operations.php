@@ -4,11 +4,11 @@
 
 <table border="1" style="width: 100%;">
     <tr>
-        <th>Product</th>
-        <th>Quantity</th>
-        <th>Price</th>
-        <th>Stock</th>
-        <th>Date</th>
+        <th><?php echo $this->labels['products']; ?></th>
+        <th><?php echo $this->labels['quantity'];?></th>
+        <th><?php echo $this->labels['price'];?></th>
+        <th><?php echo $this->labels['stock'];?></th>
+        <th><?php echo $this->labels['date'];?></th>
     </tr>
     <?php foreach($ops as $operation): ?>
         <tr>

@@ -55,40 +55,4 @@ class MainController extends Controller
 
         $this->render('login',array('model'=>$validation));
     }
-
-
-    /**
-     * Changes status of object by ajax
-     * @param null $id
-     */
-    public function actionChangeProductStatus($id = null)
-    {
-        //if this is ajax
-        if(Yii::app()->request->isAjaxRequest)
-        {
-            //try find
-            $object =  ProductCards::model()->findByPk($id);
-
-            //if found
-            if($object)
-            {
-                if($object->status == 1){
-                    $object->status = 0;
-                }else{
-                    $object->status = 1;
-                }
-                //update
-                $object->update();
-
-                //out success message
-                exit('SUCCESS');
-            }
-            //if not found
-            else
-            {
-                //out fail message
-                exit('FAILED');
-            }
-        }
-    }
 }

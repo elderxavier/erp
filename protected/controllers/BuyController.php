@@ -39,7 +39,7 @@ class BuyController extends Controller
 
 
     /**
-     * Make new purchase invoice
+     * Make new purchase-invoice
      */
     public function actionCreate()
     {
@@ -77,7 +77,7 @@ class BuyController extends Controller
                 //save invoice in db
                 $invoice->save();
 
-                //for each param block
+                //for each product-param block
                 foreach($products_params as $param_block)
                 {
                     //create incoming operation
@@ -114,10 +114,16 @@ class BuyController extends Controller
         //if not given POST
         else
         {
+            //get all suppliers
             $suppliers = Suppliers::model()->findAll();
+
+            //get all active products
             $products = ProductCards::model()->findAllByAttributes(array('status' => 1));
+
+            //get all stocks
             $stocks = Stocks::model()->findAll();
 
+            //render buy-form
             $this->render('purchases_create',array('suppliers' => $suppliers, 'products' => $products, 'stocks' => $stocks));
         }
 
