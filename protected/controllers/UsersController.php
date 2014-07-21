@@ -50,6 +50,10 @@ class UsersController extends Controller
             $this->labels['purchases'] => array(
                 array('name' => $this->labels['create'], 'right' => 'purchases_add'),
                 array('name' => $this->labels['see'],  'right' => 'purchases_see')
+            ),
+            $this->labels['sales'] => array(
+                array('name' => $this->labels['create'], 'right' => 'sales_add'),
+                array('name' => $this->labels['see'], 'right' => 'sales_see')
             )
         );
 
@@ -230,6 +234,11 @@ class UsersController extends Controller
                             //set new avatar
                             $user->avatar = $new_filename;
                         }
+                    }
+                    //leave od avatar
+                    else
+                    {
+                        $user->avatar = $old_ava;
                     }
 
                     //save user

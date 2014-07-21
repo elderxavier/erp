@@ -63,7 +63,8 @@ th:first-child{
 }
 .form-widget{
     background-color: #118fce;
-    height: 500px;
+    /*height: 500px;*/
+    min-height: 500px;
     margin-left: 0px;
     margin-top:15px;
     z-index: 1000;

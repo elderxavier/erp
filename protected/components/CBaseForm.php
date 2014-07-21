@@ -12,7 +12,7 @@ class CBaseForm extends CFormModel
     public $file_name = "";
     public $file_temp_name = "";
     public $file_mime_type = "";
-    public $file_size = "";
+    public $file_size = 0;
     public $file_error = "";
     public $file_extension = "";
 
