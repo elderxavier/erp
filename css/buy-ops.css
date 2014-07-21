@@ -95,3 +95,21 @@ th:first-child{
 @media (min-width:1200px) {
     .widgets {display:block;width:100%;}
 }
+
+
+.table-prods
+{
+    background-color: rgb(81, 141, 206);
+    border-radius: 10px;
+    padding: 5px;
+}
+.inactive-tbl
+{
+    width: 100%;
+    min-height: 100px;
+}
+
+.inactive-tbl td, .inactive-tbl th
+{
+    display: none;
+}

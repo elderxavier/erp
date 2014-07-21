@@ -63,6 +63,9 @@ $(document).ready(function() {
             //if we drag product to product table
             if(sourceElement_id == 'product-table' && current_element_id == 'inputProduct')
             {
+                //make table content visible
+                jQuery(".table-prods").removeClass("inactive-tbl");
+
                 //quantity not increased
                 var increased_qnt = false;
 
@@ -114,7 +117,9 @@ $(document).ready(function() {
     });
 
 
-    //when clicked on 'make invoice'
+    /**
+     * When clicked on 'make-invoice' button
+     */
     jQuery(".invoice-make").click(function(){
 
         //get supplier id, stock_id, array of product, invoice code, signer-name
@@ -187,7 +192,6 @@ $(document).ready(function() {
             });
 
         }
-
         //stop click event
         return false;
     });

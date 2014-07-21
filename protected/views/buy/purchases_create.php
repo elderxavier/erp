@@ -77,7 +77,8 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/buy-ops.js',CClientScript::POS_
 
                         <label class="col-lg-2 col-md-2 control-label">Products</label>
                         <div class="col-lg-10 col-md-10 col-sm-12 droppable" id="inputProduct">
-                        <table class="table-prods">
+
+                        <table class="table-prods inactive-tbl">
                             <tr>
                                 <th style="width: 60%"><?php echo $this->labels['product']; ?></th>
                                 <th><?php echo $this->labels['quantity'];?></th>
@@ -85,11 +86,6 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/buy-ops.js',CClientScript::POS_
                             </tr>
                         </table>
                         </div>
-
-<!--                        <label for="inputProduct" class="col-lg-2 col-md-2 control-label">--><?php //echo $this->labels['product']; ?><!--</label>-->
-<!--                        <div class="col-lg-10 col-md-10 col-sm-12">-->
-<!--                            <input type="text" class="form-control droppable" id="inputProduct" placeholder="--><?php //echo $this->labels['product']; ?><!--">-->
-<!--                        </div>-->
                     </div>
                     <hr>
                     <div class="form-group">
@@ -127,6 +123,6 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/buy-ops.js',CClientScript::POS_
 </div><!--/content-holder-->
 
 
-<input type="hidden" id="error_message" value="<?php echo "message"; ?>">
+<input type="hidden" id="error_message" value="<?php echo $this->messages['fill all fields and try again']; ?>">
 <input type="hidden" id="error_window_title" value="<?php echo $this->labels['error']; ?>">
 <input type="hidden" id="modal_window_title" value="<?php echo $this->labels['create invoice']; ?>">
