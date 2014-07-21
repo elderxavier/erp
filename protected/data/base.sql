@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50535
 File Encoding         : 65001
 
-Date: 2014-07-18 17:22:17
+Date: 2014-07-21 14:39:55
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -52,8 +52,6 @@ CREATE TABLE `clients` (
   KEY `next_service_id` (`next_service_id`),
   KEY `first_invoice_id` (`first_invoice_id`),
   KEY `last_invoice_id` (`last_invoice_id`),
-  CONSTRAINT `clients_ibfk_1` FOREIGN KEY (`last_service_id`) REFERENCES `service_cards` (`id`),
-  CONSTRAINT `clients_ibfk_2` FOREIGN KEY (`next_service_id`) REFERENCES `service_cards` (`id`),
   CONSTRAINT `clients_ibfk_3` FOREIGN KEY (`first_invoice_id`) REFERENCES `invoices_out` (`id`),
   CONSTRAINT `clients_ibfk_4` FOREIGN KEY (`last_invoice_id`) REFERENCES `invoices_out` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
@@ -86,12 +84,16 @@ CREATE TABLE `invoices_in` (
   KEY `payment_method_id` (`payment_method_id`),
   CONSTRAINT `invoices_in_ibfk_1` FOREIGN KEY (`supplier_id`) REFERENCES `suppliers` (`id`),
   CONSTRAINT `invoices_in_ibfk_2` FOREIGN KEY (`payment_method_id`) REFERENCES `payment_methods` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of invoices_in
 -- ----------------------------
 INSERT INTO `invoices_in` VALUES ('1', '2', 'INVCDE546', null, null, null, null, 'Vasia Pupkin', '1405692680', '1405692680', null);
+INSERT INTO `invoices_in` VALUES ('2', '2', 'INV6858SDF', null, null, null, null, 'Tester', '1405693624', '1405693624', null);
+INSERT INTO `invoices_in` VALUES ('3', '4', 'IN48964', null, null, null, null, 'Intel Guy', '1405693717', '1405693717', null);
+INSERT INTO `invoices_in` VALUES ('4', '4', 'test', null, null, null, null, 'test', '1405693777', '1405693777', null);
+INSERT INTO `invoices_in` VALUES ('5', '4', 'CBRANG', null, null, null, null, 'Name', '1405933286', '1405933286', null);
 
 -- ----------------------------
 -- Table structure for `invoices_out`
@@ -142,7 +144,7 @@ CREATE TABLE `operations_in` (
   CONSTRAINT `operations_in_ibfk_1` FOREIGN KEY (`invoice_id`) REFERENCES `invoices_in` (`id`),
   CONSTRAINT `operations_in_ibfk_2` FOREIGN KEY (`product_card_id`) REFERENCES `product_cards` (`id`),
   CONSTRAINT `operations_in_ibfk_3` FOREIGN KEY (`stock_id`) REFERENCES `stocks` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of operations_in
@@ -150,6 +152,17 @@ CREATE TABLE `operations_in` (
 INSERT INTO `operations_in` VALUES ('1', '2', '1', '1', '1405692681', '20000', '1', '1', '2');
 INSERT INTO `operations_in` VALUES ('2', '3', '1', '3', '1405692681', '15000', '1', '3', '2');
 INSERT INTO `operations_in` VALUES ('3', '4', '1', '2', '1405692681', '23000', '1', '2', '2');
+INSERT INTO `operations_in` VALUES ('4', '2', '2', '2', '1405693624', '5400', '1', '3', '2');
+INSERT INTO `operations_in` VALUES ('5', '3', '2', '1', '1405693624', '18000', '1', '4', '2');
+INSERT INTO `operations_in` VALUES ('6', '4', '2', '1', '1405693624', '3600', '1', '3', '2');
+INSERT INTO `operations_in` VALUES ('7', '2', '3', '1', '1405693717', '3000', '1', '4', '4');
+INSERT INTO `operations_in` VALUES ('8', '4', '3', '3', '1405693717', '8000', '1', '6', '4');
+INSERT INTO `operations_in` VALUES ('9', '3', '3', '2', '1405693717', '2600', '1', '6', '4');
+INSERT INTO `operations_in` VALUES ('10', '2', '4', '1', '1405693777', '5000', '1', '5', '4');
+INSERT INTO `operations_in` VALUES ('11', '3', '4', '1', '1405693777', '3000', '1', '7', '4');
+INSERT INTO `operations_in` VALUES ('12', '2', '5', '1', '1405933286', '5000', '1', '6', '4');
+INSERT INTO `operations_in` VALUES ('13', '3', '5', '3', '1405933286', '2000', '1', '10', '4');
+INSERT INTO `operations_in` VALUES ('14', '4', '5', '2', '1405933286', '3000', '1', '8', '4');
 
 -- ----------------------------
 -- Table structure for `operations_out`
@@ -185,20 +198,15 @@ DROP TABLE IF EXISTS `operations_srv`;
 CREATE TABLE `operations_srv` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `invoice_id` int(11) DEFAULT NULL,
-  `service_id` int(11) DEFAULT NULL,
-  `service_price` int(11) DEFAULT NULL,
-  `ordered_date` int(11) DEFAULT NULL,
-  `planned_date` int(11) DEFAULT NULL,
-  `completed_date` int(11) DEFAULT NULL,
-  `employee_user_id` int(11) DEFAULT NULL,
-  `client_id` int(11) DEFAULT NULL,
+  `service_process_id` int(11) DEFAULT NULL,
+  `price` int(11) DEFAULT NULL,
+  `under_warranty` int(11) DEFAULT NULL,
+  `date` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
+  KEY `service_process_id` (`service_process_id`),
   KEY `invoice_id` (`invoice_id`),
-  KEY `service_id` (`service_id`),
-  KEY `employee_user_id` (`employee_user_id`),
-  CONSTRAINT `operations_srv_ibfk_1` FOREIGN KEY (`invoice_id`) REFERENCES `invoices_out` (`id`),
-  CONSTRAINT `operations_srv_ibfk_2` FOREIGN KEY (`service_id`) REFERENCES `service_cards` (`id`),
-  CONSTRAINT `operations_srv_ibfk_3` FOREIGN KEY (`employee_user_id`) REFERENCES `users` (`id`)
+  CONSTRAINT `operations_srv_ibfk_4` FOREIGN KEY (`invoice_id`) REFERENCES `invoices_out` (`id`),
+  CONSTRAINT `operations_srv_ibfk_3` FOREIGN KEY (`service_process_id`) REFERENCES `service_processes` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -312,9 +320,9 @@ CREATE TABLE `product_in_stock` (
 -- ----------------------------
 -- Records of product_in_stock
 -- ----------------------------
-INSERT INTO `product_in_stock` VALUES ('1', '1', '2', '1', '1405692681', '1405692681');
-INSERT INTO `product_in_stock` VALUES ('2', '1', '3', '3', '1405692681', '1405692681');
-INSERT INTO `product_in_stock` VALUES ('3', '1', '4', '2', '1405692681', '1405692681');
+INSERT INTO `product_in_stock` VALUES ('1', '1', '2', '6', '1405933286', '1405692681');
+INSERT INTO `product_in_stock` VALUES ('2', '1', '3', '10', '1405933286', '1405692681');
+INSERT INTO `product_in_stock` VALUES ('3', '1', '4', '8', '1405933286', '1405692681');
 
 -- ----------------------------
 -- Table structure for `rights`
@@ -360,24 +368,75 @@ INSERT INTO `rights` VALUES ('28', 'call see all incoming invoices', 'purchases_
 INSERT INTO `rights` VALUES ('29', 'can buy products', 'purchases_add');
 
 -- ----------------------------
--- Table structure for `service_cards`
+-- Table structure for `service_problem_types`
 -- ----------------------------
-DROP TABLE IF EXISTS `service_cards`;
-CREATE TABLE `service_cards` (
+DROP TABLE IF EXISTS `service_problem_types`;
+CREATE TABLE `service_problem_types` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `service_name` text,
-  `service_description` text,
-  `default_price` int(11) DEFAULT NULL,
-  `additional_params` text,
-  `status` int(11) DEFAULT NULL,
-  `date_created` int(11) DEFAULT NULL,
-  `date_changed` int(11) DEFAULT NULL,
-  `user_modified_by` int(11) DEFAULT NULL,
+  `label` text,
+  `description` text,
+  `problem_code` text,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of service_cards
+-- Records of service_problem_types
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `service_processes`
+-- ----------------------------
+DROP TABLE IF EXISTS `service_processes`;
+CREATE TABLE `service_processes` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `label` text,
+  `remark` text,
+  `start_date` int(11) DEFAULT NULL,
+  `close_date` int(11) DEFAULT NULL,
+  `client_id` int(11) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `operation_id` int(11) DEFAULT NULL,
+  `problem_type_id` int(11) DEFAULT NULL,
+  `date_created` int(11) DEFAULT NULL,
+  `date_changed` int(11) DEFAULT NULL,
+  `user_modified_by` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `client_id` (`client_id`),
+  KEY `problem_type_id` (`problem_type_id`),
+  KEY `service_processes_ibfk_2` (`operation_id`),
+  CONSTRAINT `service_processes_ibfk_2` FOREIGN KEY (`operation_id`) REFERENCES `operations_out` (`id`),
+  CONSTRAINT `service_processes_ibfk_1` FOREIGN KEY (`client_id`) REFERENCES `clients` (`id`),
+  CONSTRAINT `service_processes_ibfk_3` FOREIGN KEY (`problem_type_id`) REFERENCES `service_problem_types` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of service_processes
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `service_resolutions`
+-- ----------------------------
+DROP TABLE IF EXISTS `service_resolutions`;
+CREATE TABLE `service_resolutions` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `service_process_id` int(11) DEFAULT NULL,
+  `by_employee_id` int(11) DEFAULT NULL,
+  `remark_for_employee` text,
+  `remark_by_employee` text,
+  `process_current_status` int(11) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `date_created` int(11) DEFAULT NULL,
+  `date_changed` int(11) DEFAULT NULL,
+  `user_modified_by` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `service_process_id` (`service_process_id`),
+  KEY `by_employee_id` (`by_employee_id`),
+  CONSTRAINT `service_resolutions_ibfk_2` FOREIGN KEY (`by_employee_id`) REFERENCES `users` (`id`),
+  CONSTRAINT `service_resolutions_ibfk_1` FOREIGN KEY (`service_process_id`) REFERENCES `service_processes` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of service_resolutions
 -- ----------------------------
 
 -- ----------------------------
@@ -468,8 +527,8 @@ CREATE TABLE `users` (
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES ('1', 'admin', '81dc9bdb52d04dc20036dbd8313ed055', 'darkoffalex@yandex.ru', 'Valery', 'Gatalsky', null, null, null, null, '1', '1', null, null, null, 'dmitrij_chitrov.jpg', '1');
-INSERT INTO `users` VALUES ('3', 'test', '81dc9bdb52d04dc20036dbd8313ed055', 'email@test.com', 'Vasia', 'Pupkin', '5468514', 'Test', 'Remark', null, '0', null, '1405511917', '1405593544', '1', '', '2');
+INSERT INTO `users` VALUES ('1', 'admin', '81dc9bdb52d04dc20036dbd8313ed055', 'darkoffalex@yandex.ru', 'Valery', 'Gatalsky', '123456', '', '', null, '1', '1', null, '1405931570', '1', '4eyKD9En.jpg', '1');
+INSERT INTO `users` VALUES ('3', 'test', '81dc9bdb52d04dc20036dbd8313ed055', 'email@test.com', 'Vasia', 'Pupkin', '5468514', 'Test', 'Remark', null, '0', null, '1405511917', '1405931601', '1', 'HBTbtBrY.jpg', '2');
 
 -- ----------------------------
 -- Table structure for `user_rights`
@@ -485,41 +544,35 @@ CREATE TABLE `user_rights` (
   KEY `user_id` (`user_id`),
   CONSTRAINT `user_rights_ibfk_1` FOREIGN KEY (`rights_id`) REFERENCES `rights` (`id`),
   CONSTRAINT `user_rights_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=145 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=212 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user_rights
 -- ----------------------------
-INSERT INTO `user_rights` VALUES ('1', '1', '1', '1');
-INSERT INTO `user_rights` VALUES ('2', '1', '2', '1');
-INSERT INTO `user_rights` VALUES ('3', '1', '3', '1');
-INSERT INTO `user_rights` VALUES ('4', '1', '4', '1');
-INSERT INTO `user_rights` VALUES ('6', '1', '5', '1');
-INSERT INTO `user_rights` VALUES ('7', '1', '6', '1');
-INSERT INTO `user_rights` VALUES ('8', '1', '7', '1');
-INSERT INTO `user_rights` VALUES ('9', '1', '8', '1');
-INSERT INTO `user_rights` VALUES ('10', '1', '9', '1');
-INSERT INTO `user_rights` VALUES ('11', '1', '10', '1');
-INSERT INTO `user_rights` VALUES ('12', '1', '11', '1');
-INSERT INTO `user_rights` VALUES ('13', '1', '13', '1');
-INSERT INTO `user_rights` VALUES ('14', '1', '14', '1');
-INSERT INTO `user_rights` VALUES ('15', '1', '15', '1');
-INSERT INTO `user_rights` VALUES ('16', '1', '16', '1');
-INSERT INTO `user_rights` VALUES ('17', '1', '17', '1');
-INSERT INTO `user_rights` VALUES ('18', '1', '18', '1');
-INSERT INTO `user_rights` VALUES ('19', '1', '19', '1');
-INSERT INTO `user_rights` VALUES ('20', '1', '20', '1');
-INSERT INTO `user_rights` VALUES ('21', '1', '21', '1');
-INSERT INTO `user_rights` VALUES ('22', '1', '22', '1');
-INSERT INTO `user_rights` VALUES ('23', '1', '23', '1');
-INSERT INTO `user_rights` VALUES ('24', '1', '24', '1');
-INSERT INTO `user_rights` VALUES ('25', '1', '25', '1');
-INSERT INTO `user_rights` VALUES ('114', '1', '26', '1');
-INSERT INTO `user_rights` VALUES ('115', '1', '27', '1');
-INSERT INTO `user_rights` VALUES ('116', '1', '28', '1');
-INSERT INTO `user_rights` VALUES ('117', '1', '29', '1');
-INSERT INTO `user_rights` VALUES ('140', '3', '1', '1');
-INSERT INTO `user_rights` VALUES ('141', '3', '7', '1');
-INSERT INTO `user_rights` VALUES ('142', '3', '2', '1');
-INSERT INTO `user_rights` VALUES ('143', '3', '13', '1');
-INSERT INTO `user_rights` VALUES ('144', '3', '17', '1');
+INSERT INTO `user_rights` VALUES ('185', '1', '6', '1');
+INSERT INTO `user_rights` VALUES ('186', '1', '5', '1');
+INSERT INTO `user_rights` VALUES ('187', '1', '8', '1');
+INSERT INTO `user_rights` VALUES ('188', '1', '1', '1');
+INSERT INTO `user_rights` VALUES ('189', '1', '4', '1');
+INSERT INTO `user_rights` VALUES ('190', '1', '3', '1');
+INSERT INTO `user_rights` VALUES ('191', '1', '7', '1');
+INSERT INTO `user_rights` VALUES ('192', '1', '2', '1');
+INSERT INTO `user_rights` VALUES ('193', '1', '15', '1');
+INSERT INTO `user_rights` VALUES ('194', '1', '14', '1');
+INSERT INTO `user_rights` VALUES ('195', '1', '16', '1');
+INSERT INTO `user_rights` VALUES ('196', '1', '13', '1');
+INSERT INTO `user_rights` VALUES ('197', '1', '20', '1');
+INSERT INTO `user_rights` VALUES ('198', '1', '18', '1');
+INSERT INTO `user_rights` VALUES ('199', '1', '19', '1');
+INSERT INTO `user_rights` VALUES ('200', '1', '17', '1');
+INSERT INTO `user_rights` VALUES ('201', '1', '29', '1');
+INSERT INTO `user_rights` VALUES ('202', '1', '28', '1');
+INSERT INTO `user_rights` VALUES ('203', '1', '26', '1');
+INSERT INTO `user_rights` VALUES ('204', '1', '27', '1');
+INSERT INTO `user_rights` VALUES ('205', '3', '1', '1');
+INSERT INTO `user_rights` VALUES ('206', '3', '7', '1');
+INSERT INTO `user_rights` VALUES ('207', '3', '2', '1');
+INSERT INTO `user_rights` VALUES ('208', '3', '13', '1');
+INSERT INTO `user_rights` VALUES ('209', '3', '17', '1');
+INSERT INTO `user_rights` VALUES ('210', '3', '28', '1');
+INSERT INTO `user_rights` VALUES ('211', '3', '27', '1');

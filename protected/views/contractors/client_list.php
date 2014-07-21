@@ -27,7 +27,6 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/table.css');
                         <th><?php echo $this->labels['phone']; ?></th>
                         <th><?php echo $this->labels['email']; ?></th>
                         <th><?php echo $this->labels['payment method']; ?></th>
-                        <th><?php echo $this->labels['next service date']; ?></th>
                         <th><?php echo $this->labels['actions']; ?></th>
                     </tr>
                     </thead>
@@ -44,7 +43,6 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/table.css');
                             <td><?php echo $client->phone1; ?></td>
                             <td><?php echo $client->email1; ?></td>
                             <td><?php echo $client->firstInvoice ? $client->firstInvoice->paymentMethod->name : '-'; ?></td>
-                            <td><?php echo $client->nextService ? $client->next_service_date : '-'; ?></td>
                             <td>
                                 <?php if($this->rights['clients_edit']): ?>
                                     <?php echo CHtml::link($this->labels['edit'],'/'.$this->id.'/editclient/id/'.$client->id,array('class' => 'actions action-edit')); ?>

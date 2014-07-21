@@ -33,11 +33,10 @@
  * @property integer $status
  *
  * The followings are the available model relations:
- * @property InvoicesOut $lastInvoice
- * @property ServiceCards $lastService
- * @property ServiceCards $nextService
  * @property InvoicesOut $firstInvoice
+ * @property InvoicesOut $lastInvoice
  * @property InvoicesOut[] $invoicesOuts
+ * @property ServiceProcesses[] $serviceProcesses
  */
 class Clients extends CActiveRecord
 {
@@ -73,11 +72,10 @@ class Clients extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'lastInvoice' => array(self::BELONGS_TO, 'InvoicesOut', 'last_invoice_id'),
-			'lastService' => array(self::BELONGS_TO, 'ServiceCards', 'last_service_id'),
-			'nextService' => array(self::BELONGS_TO, 'ServiceCards', 'next_service_id'),
 			'firstInvoice' => array(self::BELONGS_TO, 'InvoicesOut', 'first_invoice_id'),
+			'lastInvoice' => array(self::BELONGS_TO, 'InvoicesOut', 'last_invoice_id'),
 			'invoicesOuts' => array(self::HAS_MANY, 'InvoicesOut', 'client_id'),
+			'serviceProcesses' => array(self::HAS_MANY, 'ServiceProcesses', 'client_id'),
 		);
 	}
 

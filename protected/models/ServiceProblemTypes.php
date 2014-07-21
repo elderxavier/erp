@@ -1,33 +1,25 @@
 <?php
 
 /**
- * This is the model class for table "operations_out".
+ * This is the model class for table "service_problem_types".
  *
- * The followings are the available columns in table 'operations_out':
+ * The followings are the available columns in table 'service_problem_types':
  * @property integer $id
- * @property integer $product_card_id
- * @property integer $invoice_id
- * @property integer $qnt
- * @property integer $date
- * @property integer $price
- * @property integer $stock_id
- * @property integer $stock_qnt_after_op
- * @property integer $client_id
+ * @property string $label
+ * @property string $description
+ * @property string $problem_code
  *
  * The followings are the available model relations:
- * @property InvoicesOut $invoice
- * @property ProductCards $productCard
- * @property Stocks $stock
  * @property ServiceProcesses[] $serviceProcesses
  */
-class OperationsOut extends CActiveRecord
+class ServiceProblemTypes extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'operations_out';
+		return 'service_problem_types';
 	}
 
 	/**
@@ -38,10 +30,10 @@ class OperationsOut extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('product_card_id, invoice_id, qnt, date, price, stock_id, stock_qnt_after_op, client_id', 'numerical', 'integerOnly'=>true),
+			array('label, description, problem_code', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, product_card_id, invoice_id, qnt, date, price, stock_id, stock_qnt_after_op, client_id', 'safe', 'on'=>'search'),
+			array('id, label, description, problem_code', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -53,10 +45,7 @@ class OperationsOut extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'invoice' => array(self::BELONGS_TO, 'InvoicesOut', 'invoice_id'),
-			'productCard' => array(self::BELONGS_TO, 'ProductCards', 'product_card_id'),
-			'stock' => array(self::BELONGS_TO, 'Stocks', 'stock_id'),
-			'serviceProcesses' => array(self::HAS_MANY, 'ServiceProcesses', 'operation_id'),
+			'serviceProcesses' => array(self::HAS_MANY, 'ServiceProcesses', 'problem_type_id'),
 		);
 	}
 
@@ -67,14 +56,9 @@ class OperationsOut extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'product_card_id' => 'Product Card',
-			'invoice_id' => 'Invoice',
-			'qnt' => 'Qnt',
-			'date' => 'Date',
-			'price' => 'Price',
-			'stock_id' => 'Stock',
-			'stock_qnt_after_op' => 'Stock Qnt After Op',
-			'client_id' => 'Client',
+			'label' => 'Label',
+			'description' => 'Description',
+			'problem_code' => 'Problem Code',
 		);
 	}
 
@@ -97,14 +81,9 @@ class OperationsOut extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('product_card_id',$this->product_card_id);
-		$criteria->compare('invoice_id',$this->invoice_id);
-		$criteria->compare('qnt',$this->qnt);
-		$criteria->compare('date',$this->date);
-		$criteria->compare('price',$this->price);
-		$criteria->compare('stock_id',$this->stock_id);
-		$criteria->compare('stock_qnt_after_op',$this->stock_qnt_after_op);
-		$criteria->compare('client_id',$this->client_id);
+		$criteria->compare('label',$this->label,true);
+		$criteria->compare('description',$this->description,true);
+		$criteria->compare('problem_code',$this->problem_code,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -115,7 +94,7 @@ class OperationsOut extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return OperationsOut the static model class
+	 * @return ServiceProblemTypes the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

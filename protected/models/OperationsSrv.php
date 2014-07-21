@@ -6,18 +6,14 @@
  * The followings are the available columns in table 'operations_srv':
  * @property integer $id
  * @property integer $invoice_id
- * @property integer $service_id
- * @property integer $service_price
- * @property integer $ordered_date
- * @property integer $planned_date
- * @property integer $completed_date
- * @property integer $employee_user_id
- * @property integer $client_id
+ * @property integer $service_process_id
+ * @property integer $price
+ * @property integer $under_warranty
+ * @property integer $date
  *
  * The followings are the available model relations:
- * @property Users $employeeUser
  * @property InvoicesOut $invoice
- * @property ServiceCards $service
+ * @property ServiceProcesses $serviceProcess
  */
 class OperationsSrv extends CActiveRecord
 {
@@ -37,10 +33,10 @@ class OperationsSrv extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('invoice_id, service_id, service_price, ordered_date, planned_date, completed_date, employee_user_id, client_id', 'numerical', 'integerOnly'=>true),
+			array('invoice_id, service_process_id, price, under_warranty, date', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, invoice_id, service_id, service_price, ordered_date, planned_date, completed_date, employee_user_id, client_id', 'safe', 'on'=>'search'),
+			array('id, invoice_id, service_process_id, price, under_warranty, date', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -52,9 +48,8 @@ class OperationsSrv extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'employeeUser' => array(self::BELONGS_TO, 'Users', 'employee_user_id'),
 			'invoice' => array(self::BELONGS_TO, 'InvoicesOut', 'invoice_id'),
-			'service' => array(self::BELONGS_TO, 'ServiceCards', 'service_id'),
+			'serviceProcess' => array(self::BELONGS_TO, 'ServiceProcesses', 'service_process_id'),
 		);
 	}
 
@@ -66,13 +61,10 @@ class OperationsSrv extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'invoice_id' => 'Invoice',
-			'service_id' => 'Service',
-			'service_price' => 'Service Price',
-			'ordered_date' => 'Ordered Date',
-			'planned_date' => 'Planned Date',
-			'completed_date' => 'Completed Date',
-			'employee_user_id' => 'Employee User',
-			'client_id' => 'Client',
+			'service_process_id' => 'Service Process',
+			'price' => 'Price',
+			'under_warranty' => 'Under Warranty',
+			'date' => 'Date',
 		);
 	}
 
@@ -96,13 +88,10 @@ class OperationsSrv extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('invoice_id',$this->invoice_id);
-		$criteria->compare('service_id',$this->service_id);
-		$criteria->compare('service_price',$this->service_price);
-		$criteria->compare('ordered_date',$this->ordered_date);
-		$criteria->compare('planned_date',$this->planned_date);
-		$criteria->compare('completed_date',$this->completed_date);
-		$criteria->compare('employee_user_id',$this->employee_user_id);
-		$criteria->compare('client_id',$this->client_id);
+		$criteria->compare('service_process_id',$this->service_process_id);
+		$criteria->compare('price',$this->price);
+		$criteria->compare('under_warranty',$this->under_warranty);
+		$criteria->compare('date',$this->date);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

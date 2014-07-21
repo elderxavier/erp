@@ -36,7 +36,7 @@ class ContractorsController extends Controller
     public function actionClients()
     {
         //get all clients and service which client waits
-        $clients = Clients::model()->with('nextService','firstInvoice')->findAll();
+        $clients = Clients::model()->with('firstInvoice')->findAll();
 
         //render
         $this->render('client_list', array('clients' => $clients));
