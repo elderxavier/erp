@@ -1,6 +1,6 @@
 <?php
 
-class SellController extends Controller
+class ServicesController extends Controller
 {
     /**
      * @return array
@@ -21,6 +21,6 @@ class SellController extends Controller
     public function actionIndex()
     {
         //do listing
-        $this->renderText('empty controller');
+        $this->renderText('Controller for services');
     }
 }

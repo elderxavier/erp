@@ -52,11 +52,29 @@ class UserIdentity extends CUserIdentity
                 /* @var $user_right UserRights */
                 /* @var $right Rights */
 
-                foreach($user_record->userRights as $user_right)
+                //if user has no root rights
+                if($user_record -> role == 0)
                 {
-                    $right = Rights::model()->findByPk($user_right->rights_id);
-                    $rights[$right->label] = 1;
+                    foreach($user_record->userRights as $user_right)
+                    {
+                        $right = Rights::model()->findByPk($user_right->rights_id);
+                        $rights[$right->label] = 1;
+                    }
                 }
+                //if user has root rights
+                else
+                {
+                    //get all rights
+                    $all_rights = Rights::model()->findAll();
+
+                    //pass through array of rights
+                    foreach($all_rights as $right)
+                    {
+                        //set right
+                        $rights[$right->label] = 1;
+                    }
+                }
+
 
                 $this->setState('rights',$rights);
 

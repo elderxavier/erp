@@ -54,6 +54,18 @@ class UsersController extends Controller
             $this->labels['sales'] => array(
                 array('name' => $this->labels['create'], 'right' => 'sales_add'),
                 array('name' => $this->labels['see'], 'right' => 'sales_see')
+            ),
+            $this->labels['services'] => array(
+                array('name' => $this->labels['delete'], 'right' => 'services_delete'),
+                array('name' => $this->labels['edit'], 'right' => 'services_edit'),
+                array('name' => $this->labels['create'], 'right' => 'services_add'),
+                array('name' => $this->labels['see'], 'right' => 'services_see')
+            ),
+            $this->labels['users'] => array(
+                array('name' => $this->labels['delete'], 'right' => 'users_delete'),
+                array('name' => $this->labels['edit'], 'right' => 'users_edit'),
+                array('name' => $this->labels['create'], 'right' => 'users_add'),
+                array('name' => $this->labels['see'], 'right' => 'users_see')
             )
         );
 
