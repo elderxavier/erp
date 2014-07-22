@@ -176,4 +176,28 @@ class Clients extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+
+    /**
+     * Returns all clients as pairs 'id'=>'name'
+     * @return array
+     */
+    public function findAllAsArray()
+    {
+        /* @var $client Clients */
+
+        //declare empty array
+        $arr = array();
+
+        //get all
+        $all = Clients::model()->findAll();
+
+        //make array
+        foreach($all as $client)
+        {
+            $arr[$client->id] = ($client->type == 1 ? $client->company_name : $client->name.' '.$client->surname);
+        }
+
+        return $arr;
+    }
 }

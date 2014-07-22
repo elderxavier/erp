@@ -21,6 +21,11 @@
  */
 class ServiceResolutions extends CActiveRecord
 {
+
+    const ST_NEW = 1;
+    const ST_IN_PROGRESS = 2;
+    const ST_DONE = 3;
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -121,4 +126,18 @@ class ServiceResolutions extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+
+    /**
+     * Returns current status as text label
+     * @return string
+     */
+    public function statusLabel()
+    {
+        $arr[self::ST_DONE] = 'finished';
+        $arr[self::ST_IN_PROGRESS] = 'in progress';
+        $arr[self::ST_NEW] = 'assigned';
+
+        return (string)$arr[$this->status];
+    }
 }

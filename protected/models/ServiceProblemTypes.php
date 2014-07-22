@@ -100,4 +100,28 @@ class ServiceProblemTypes extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+
+    /**
+     * Returns all clients as pairs 'id'=>'name'
+     * @return array
+     */
+    public function findAllAsArray()
+    {
+        /* @var $type ServiceProblemTypes */
+
+        //declare empty array
+        $arr = array();
+
+        //get all
+        $all = ServiceProblemTypes::model()->findAll();
+
+        //make array
+        foreach($all as $type)
+        {
+            $arr[$type->id] = $type->label.' ('.$type->problem_code.')' ;
+        }
+
+        return $arr;
+    }
 }

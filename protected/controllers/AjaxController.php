@@ -143,5 +143,80 @@ class AjaxController extends Controller {
         }
     }
 
+
+    /**
+     * Prints json-converted array of client-ids and client-names
+     * @param string $start
+     * @throws CHttpException
+     */
+    public function actionClients($start = '')
+    {
+        if(Yii::app()->request->isAjaxRequest)
+        {
+            //declare empty array
+            $result = array();
+
+            //sql statement
+            $sql = "SELECT * FROM clients WHERE company_name LIKE '".$start."%' OR `name` LIKE '".$start."%'";
+
+            //connection
+            $con = Yii::app()->db;
+
+            //get all data by query
+            $data=$con->createCommand($sql)->queryAll();
+
+            //foreach row
+            foreach($data as $row)
+            {
+                //add to result array
+                $result[] = array('label' => $row['type'] == 1 ? $row['company_name'] : $row['name'].' '.$row['surname']);
+            }
+
+            //print encoded to json array
+            echo json_encode($result);
+        }
+        else
+        {
+            throw new CHttpException(404);
+        }
+
+    }
+
+
+    /**
+     * Finds client-id by name or company name, and prints if found
+     * @param string $name
+     * @throws CHttpException
+     */
+    public function actionCliFi($name = '')
+    {
+        if(Yii::app()->request->isAjaxRequest)
+        {
+            //not found by default
+            $result = 'NOT_FOUND';
+
+            //sql statement
+            $sql = "SELECT * FROM clients WHERE company_name = '".$name."' OR `name` = '".$name."%'";
+
+            //connection
+            $con = Yii::app()->db;
+
+            //get all data by query
+            $data=$con->createCommand($sql)->queryAll();
+
+            //if find something
+            if(!empty($data))
+            {
+                $result = $data[0]['id'];
+            }
+
+            echo $result;
+        }
+        else
+        {
+            throw new CHttpException(404);
+        }
+    }
+
 }
 ?>
