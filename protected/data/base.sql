@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50535
 File Encoding         : 65001
 
-Date: 2014-07-21 14:39:55
+Date: 2014-07-22 14:37:50
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -205,8 +205,8 @@ CREATE TABLE `operations_srv` (
   PRIMARY KEY (`id`),
   KEY `service_process_id` (`service_process_id`),
   KEY `invoice_id` (`invoice_id`),
-  CONSTRAINT `operations_srv_ibfk_4` FOREIGN KEY (`invoice_id`) REFERENCES `invoices_out` (`id`),
-  CONSTRAINT `operations_srv_ibfk_3` FOREIGN KEY (`service_process_id`) REFERENCES `service_processes` (`id`)
+  CONSTRAINT `operations_srv_ibfk_3` FOREIGN KEY (`service_process_id`) REFERENCES `service_processes` (`id`),
+  CONSTRAINT `operations_srv_ibfk_4` FOREIGN KEY (`invoice_id`) REFERENCES `invoices_out` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -333,7 +333,7 @@ CREATE TABLE `rights` (
   `name` text,
   `label` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of rights
@@ -366,6 +366,10 @@ INSERT INTO `rights` VALUES ('26', 'can sell products', 'sales_add');
 INSERT INTO `rights` VALUES ('27', 'can see all outgoing invoices', 'sales_see');
 INSERT INTO `rights` VALUES ('28', 'call see all incoming invoices', 'purchases_see');
 INSERT INTO `rights` VALUES ('29', 'can buy products', 'purchases_add');
+INSERT INTO `rights` VALUES ('30', 'can see services', 'services_see');
+INSERT INTO `rights` VALUES ('31', 'can edit serives', 'services_edit');
+INSERT INTO `rights` VALUES ('32', 'can add services', 'services_add');
+INSERT INTO `rights` VALUES ('33', 'can delete services', 'services_delete');
 
 -- ----------------------------
 -- Table structure for `service_problem_types`
@@ -377,11 +381,13 @@ CREATE TABLE `service_problem_types` (
   `description` text,
   `problem_code` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of service_problem_types
 -- ----------------------------
+INSERT INTO `service_problem_types` VALUES ('1', 'Голова застряла в мясорубке', 'Серьезная проблема', 'GOLMIAS846');
+INSERT INTO `service_problem_types` VALUES ('2', 'Фильтр избивает человека', 'Страшно и опасно', 'FILTIZB4874D');
 
 -- ----------------------------
 -- Table structure for `service_processes`
@@ -404,8 +410,8 @@ CREATE TABLE `service_processes` (
   KEY `client_id` (`client_id`),
   KEY `problem_type_id` (`problem_type_id`),
   KEY `service_processes_ibfk_2` (`operation_id`),
-  CONSTRAINT `service_processes_ibfk_2` FOREIGN KEY (`operation_id`) REFERENCES `operations_out` (`id`),
   CONSTRAINT `service_processes_ibfk_1` FOREIGN KEY (`client_id`) REFERENCES `clients` (`id`),
+  CONSTRAINT `service_processes_ibfk_2` FOREIGN KEY (`operation_id`) REFERENCES `operations_out` (`id`),
   CONSTRAINT `service_processes_ibfk_3` FOREIGN KEY (`problem_type_id`) REFERENCES `service_problem_types` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -431,8 +437,8 @@ CREATE TABLE `service_resolutions` (
   PRIMARY KEY (`id`),
   KEY `service_process_id` (`service_process_id`),
   KEY `by_employee_id` (`by_employee_id`),
-  CONSTRAINT `service_resolutions_ibfk_2` FOREIGN KEY (`by_employee_id`) REFERENCES `users` (`id`),
-  CONSTRAINT `service_resolutions_ibfk_1` FOREIGN KEY (`service_process_id`) REFERENCES `service_processes` (`id`)
+  CONSTRAINT `service_resolutions_ibfk_1` FOREIGN KEY (`service_process_id`) REFERENCES `service_processes` (`id`),
+  CONSTRAINT `service_resolutions_ibfk_2` FOREIGN KEY (`by_employee_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -527,7 +533,7 @@ CREATE TABLE `users` (
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES ('1', 'admin', '81dc9bdb52d04dc20036dbd8313ed055', 'darkoffalex@yandex.ru', 'Valery', 'Gatalsky', '123456', '', '', null, '1', '1', null, '1405931570', '1', '4eyKD9En.jpg', '1');
+INSERT INTO `users` VALUES ('1', 'admin', '81dc9bdb52d04dc20036dbd8313ed055', 'darkoffalex@yandex.ru', 'Valery', 'Gatalsky', '123456', '', '', null, '1', '1', null, '1405944551', '1', '4eyKD9En.jpg', '1');
 INSERT INTO `users` VALUES ('3', 'test', '81dc9bdb52d04dc20036dbd8313ed055', 'email@test.com', 'Vasia', 'Pupkin', '5468514', 'Test', 'Remark', null, '0', null, '1405511917', '1405931601', '1', 'HBTbtBrY.jpg', '2');
 
 -- ----------------------------
@@ -544,31 +550,11 @@ CREATE TABLE `user_rights` (
   KEY `user_id` (`user_id`),
   CONSTRAINT `user_rights_ibfk_1` FOREIGN KEY (`rights_id`) REFERENCES `rights` (`id`),
   CONSTRAINT `user_rights_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=212 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=264 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user_rights
 -- ----------------------------
-INSERT INTO `user_rights` VALUES ('185', '1', '6', '1');
-INSERT INTO `user_rights` VALUES ('186', '1', '5', '1');
-INSERT INTO `user_rights` VALUES ('187', '1', '8', '1');
-INSERT INTO `user_rights` VALUES ('188', '1', '1', '1');
-INSERT INTO `user_rights` VALUES ('189', '1', '4', '1');
-INSERT INTO `user_rights` VALUES ('190', '1', '3', '1');
-INSERT INTO `user_rights` VALUES ('191', '1', '7', '1');
-INSERT INTO `user_rights` VALUES ('192', '1', '2', '1');
-INSERT INTO `user_rights` VALUES ('193', '1', '15', '1');
-INSERT INTO `user_rights` VALUES ('194', '1', '14', '1');
-INSERT INTO `user_rights` VALUES ('195', '1', '16', '1');
-INSERT INTO `user_rights` VALUES ('196', '1', '13', '1');
-INSERT INTO `user_rights` VALUES ('197', '1', '20', '1');
-INSERT INTO `user_rights` VALUES ('198', '1', '18', '1');
-INSERT INTO `user_rights` VALUES ('199', '1', '19', '1');
-INSERT INTO `user_rights` VALUES ('200', '1', '17', '1');
-INSERT INTO `user_rights` VALUES ('201', '1', '29', '1');
-INSERT INTO `user_rights` VALUES ('202', '1', '28', '1');
-INSERT INTO `user_rights` VALUES ('203', '1', '26', '1');
-INSERT INTO `user_rights` VALUES ('204', '1', '27', '1');
 INSERT INTO `user_rights` VALUES ('205', '3', '1', '1');
 INSERT INTO `user_rights` VALUES ('206', '3', '7', '1');
 INSERT INTO `user_rights` VALUES ('207', '3', '2', '1');
@@ -576,3 +562,31 @@ INSERT INTO `user_rights` VALUES ('208', '3', '13', '1');
 INSERT INTO `user_rights` VALUES ('209', '3', '17', '1');
 INSERT INTO `user_rights` VALUES ('210', '3', '28', '1');
 INSERT INTO `user_rights` VALUES ('211', '3', '27', '1');
+INSERT INTO `user_rights` VALUES ('236', '1', '6', '1');
+INSERT INTO `user_rights` VALUES ('237', '1', '5', '1');
+INSERT INTO `user_rights` VALUES ('238', '1', '8', '1');
+INSERT INTO `user_rights` VALUES ('239', '1', '1', '1');
+INSERT INTO `user_rights` VALUES ('240', '1', '4', '1');
+INSERT INTO `user_rights` VALUES ('241', '1', '3', '1');
+INSERT INTO `user_rights` VALUES ('242', '1', '7', '1');
+INSERT INTO `user_rights` VALUES ('243', '1', '2', '1');
+INSERT INTO `user_rights` VALUES ('244', '1', '15', '1');
+INSERT INTO `user_rights` VALUES ('245', '1', '14', '1');
+INSERT INTO `user_rights` VALUES ('246', '1', '16', '1');
+INSERT INTO `user_rights` VALUES ('247', '1', '13', '1');
+INSERT INTO `user_rights` VALUES ('248', '1', '20', '1');
+INSERT INTO `user_rights` VALUES ('249', '1', '18', '1');
+INSERT INTO `user_rights` VALUES ('250', '1', '19', '1');
+INSERT INTO `user_rights` VALUES ('251', '1', '17', '1');
+INSERT INTO `user_rights` VALUES ('252', '1', '29', '1');
+INSERT INTO `user_rights` VALUES ('253', '1', '28', '1');
+INSERT INTO `user_rights` VALUES ('254', '1', '26', '1');
+INSERT INTO `user_rights` VALUES ('255', '1', '27', '1');
+INSERT INTO `user_rights` VALUES ('256', '1', '33', '1');
+INSERT INTO `user_rights` VALUES ('257', '1', '31', '1');
+INSERT INTO `user_rights` VALUES ('258', '1', '32', '1');
+INSERT INTO `user_rights` VALUES ('259', '1', '30', '1');
+INSERT INTO `user_rights` VALUES ('260', '1', '25', '1');
+INSERT INTO `user_rights` VALUES ('261', '1', '24', '1');
+INSERT INTO `user_rights` VALUES ('262', '1', '22', '1');
+INSERT INTO `user_rights` VALUES ('263', '1', '21', '1');

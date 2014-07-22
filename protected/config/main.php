@@ -70,9 +70,9 @@ return array(
         // uncomment the following to use a MySQL database
 
         'db'=>array(
-            'connectionString' => 'mysql:host=localhost;dbname=alex_erp_2',
+            'connectionString' => 'mysql:host=localhost;dbname=alex_erp2',
             'emulatePrepare' => true,
-            'username' => 'alex_erp',
+            'username' => 'alex_erp2',
             'password' => 'bsv5rPLa',
             'charset' => 'utf8',
         ),
