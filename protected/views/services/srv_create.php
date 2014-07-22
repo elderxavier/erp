@@ -8,6 +8,8 @@
 <?php /* @var $form CActiveForm */ ?>
 <?php /* @var $clients array */ ?>
 <?php /* @var $problems array */ ?>
+<?php /* @var $cities array */ ?>
+<?php /* @var $workers array */ ?>
 
 <?php
 $cs = Yii::app()->clientScript;
@@ -61,6 +63,22 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/service.js',CClientScript::POS_
                 <?php echo $form->label($form_mdl,'operation_id');?>
                 <?php echo $form->textArea($form_mdl,'operation_id',array('class'=>'form-control srv-product-picker'));?>
                 <?php echo $form->error($form_mdl,'operation_id'); ?>
+            </div>
+
+            <div class="form-group">
+                <?php echo $form->label($form_mdl,'operation_id');?>
+                <?php echo $form->textArea($form_mdl,'operation_id',array('class'=>'form-control srv-product-picker'));?>
+                <?php echo $form->error($form_mdl,'operation_id'); ?>
+            </div>
+
+            <div class="form-group">
+                <?php echo $form->label($form_mdl,'city_id');?>
+                <?php echo $form->dropDownList($form_mdl,'city_id',$cities,array('class'=>'form-control ajax-filter-city'));?>
+            </div>
+
+            <div class="form-group">
+                <?php echo $form->label($form_mdl,'worker_id');?>
+                <?php echo $form->dropDownList($form_mdl,'worker_id',$workers,array('class'=>'form-control filtered-users'));?>
             </div>
 
             <button type="submit"><span><?php echo $this->labels['save']; ?></span><span class="glyphicon glyphicon-plus"></span></button>

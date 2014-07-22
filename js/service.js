@@ -2,15 +2,18 @@
  * Created by Wolfdark on 21.07.14.
  */
 
-
 var CLIENT_NAME_FILED_CLASS = "auto-complete-clients";
 var CLIENT_ID_FIELD_ID = "cli_id";
 
+var FILTER_SELECT_BOX_CLASS = "ajax-filter-city";
+var FILTER_USERS_LIST_CLASS = "filtered-users";
 
 jQuery(document).ready(function(){
 
     var hidden_id = jQuery("#"+CLIENT_ID_FIELD_ID);
     var client_field = jQuery("."+CLIENT_NAME_FILED_CLASS);
+    var city_filter_select = jQuery("."+FILTER_SELECT_BOX_CLASS);
+    var user_list_select = jQuery("."+FILTER_USERS_LIST_CLASS);
 
     //add auto-complete feature
     client_field.autocomplete({
@@ -68,6 +71,12 @@ jQuery(document).ready(function(){
                 }
             });
         }
+    });
+
+    city_filter_select.change(function(){
+        jQuery.ajax({ url: '/ajax/workers/city/'+jQuery(this).val(), beforeSend: function(){/*TODO: pre-loader*/}}).done(function(data){
+            //TODO:do filtering
+        });
     });
 
 });

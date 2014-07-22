@@ -21,10 +21,12 @@
  * @property integer $user_modified_by
  * @property string $avatar
  * @property integer $position_id
+ * @property integer $city_id
  *
  * The followings are the available model relations:
  * @property ServiceResolutions[] $serviceResolutions
  * @property UserRights[] $userRights
+ * @property UserCities $city
  * @property Positions $position
  */
 class Users extends CActiveRecord
@@ -45,11 +47,11 @@ class Users extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('role, status, date_created, date_changed, user_modified_by, position_id', 'numerical', 'integerOnly'=>true),
+			array('role, status, date_created, date_changed, user_modified_by, position_id, city_id', 'numerical', 'integerOnly'=>true),
 			array('username, password, email, name, surname, phone, address, remark, additional_params, avatar', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, username, password, email, name, surname, phone, address, remark, additional_params, role, status, date_created, date_changed, user_modified_by, avatar, position_id', 'safe', 'on'=>'search'),
+			array('id, username, password, email, name, surname, phone, address, remark, additional_params, role, status, date_created, date_changed, user_modified_by, avatar, position_id, city_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -63,6 +65,7 @@ class Users extends CActiveRecord
 		return array(
 			'serviceResolutions' => array(self::HAS_MANY, 'ServiceResolutions', 'by_employee_id'),
 			'userRights' => array(self::HAS_MANY, 'UserRights', 'user_id'),
+			'city' => array(self::BELONGS_TO, 'UserCities', 'city_id'),
 			'position' => array(self::BELONGS_TO, 'Positions', 'position_id'),
 		);
 	}
@@ -90,6 +93,7 @@ class Users extends CActiveRecord
 			'user_modified_by' => 'User Modified By',
 			'avatar' => 'Avatar',
 			'position_id' => 'Position',
+			'city_id' => 'City',
 		);
 	}
 
@@ -128,6 +132,7 @@ class Users extends CActiveRecord
 		$criteria->compare('user_modified_by',$this->user_modified_by);
 		$criteria->compare('avatar',$this->avatar,true);
 		$criteria->compare('position_id',$this->position_id);
+		$criteria->compare('city_id',$this->city_id);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

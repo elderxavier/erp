@@ -11,6 +11,8 @@ class ServiceForm extends CBaseForm
     public $problem_type_id;
     public $resolutions_arr;
     public $client_name;
+    public $city_id;
+    public $worker_id;
 
     public function rules()
     {
@@ -30,6 +32,8 @@ class ServiceForm extends CBaseForm
             'client_id' => $this->labels['client'],
             'operation_id' => $this->labels['product info'],
             'problem_type_id' => $this->labels['problem type'],
+            'city_id' => $this->labels['city'],
+            'worker_id' => $this->labels['worker'],
         );
     }
 }

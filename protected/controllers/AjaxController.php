@@ -235,5 +235,17 @@ class AjaxController extends Controller {
         }
     }
 
+
+    public function actionWorkers($city = 0)
+    {
+        /* @var $worker_position Positions */
+        /* @var $user Users */
+
+        $worker_position = Positions::model()->findByAttributes(array('name' => 'Worker'));
+        $users = Users::model()->findAllByAttributes(array('city_id' => $city, 'position_id' => $worker_position->id));
+
+        //TODO:render partial
+    }
+
 }
 ?>

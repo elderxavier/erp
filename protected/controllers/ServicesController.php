@@ -41,6 +41,8 @@ class ServicesController extends Controller
      */
     public function actionCreate()
     {
+        /* @var $worker_position Positions */
+
         //create new form-validator-model
         $form = new ServiceForm();
 
@@ -50,6 +52,15 @@ class ServicesController extends Controller
         //get all problem types as array of pairs
         $problems = ServiceProblemTypes::model()->findAllAsArray();
 
+        //get worker position
+        $worker_position = Positions::model()->findByAttributes(array('name' => 'Worker'));
+
+        //get all workers
+        $workers = $worker_position->getAllUsersAsArray();
+
+        //cities
+        $cities = UserCities::model()->findAllAsArray();
+
         //if got post
         if($_POST['ServiceForm'])
         {
@@ -58,6 +69,6 @@ class ServicesController extends Controller
         }
 
         //render form
-        $this->render('srv_create',array('form_mdl' => $form, 'clients' => $clients, 'problems' => $problems));
+        $this->render('srv_create',array('form_mdl' => $form, 'clients' => $clients, 'problems' => $problems, 'cities' => $cities, 'workers' => $workers));
     }
 }
