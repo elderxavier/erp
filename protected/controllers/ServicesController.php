@@ -54,6 +54,7 @@ class ServicesController extends Controller
         if($_POST['ServiceForm'])
         {
             Debug::out($_POST);
+            exit('test');
         }
 
         //render form

@@ -44,12 +44,13 @@ jQuery(document).ready(function(){
     //when focus out
     client_field.focusout(function()
     {
-        //if value entered by hands
-        if(hidden_id.attr('txt') != client_field.val()){
-
+        //if new value entered by hands
+        if(hidden_id.attr('txt') != client_field.val())
+        {
             //try find in database by name
             jQuery.ajax({ url: '/ajax/clifi/name/'+client_field.val(), beforeSend: function(){/*TODO: pre-loader*/}}).done(function(data)
             {
+
                 //if found id
                 if(data != 'NOT_FOUND')
                 {

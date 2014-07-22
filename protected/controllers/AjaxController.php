@@ -169,7 +169,7 @@ class AjaxController extends Controller {
             foreach($data as $row)
             {
                 //add to result array
-                $result[] = array('label' => $row['type'] == 1 ? $row['company_name'] : $row['name'].' '.$row['surname']);
+                $result[] = array('label' => $row['type'] == 1 ? $row['company_name'] : $row['name'].' '.$row['surname'], 'id' => $row['id']);
             }
 
             //print encoded to json array
@@ -195,8 +195,25 @@ class AjaxController extends Controller {
             //not found by default
             $result = 'NOT_FOUND';
 
-            //sql statement
-            $sql = "SELECT * FROM clients WHERE company_name = '".$name."' OR `name` = '".$name."%'";
+            //remove all connecting symbols, replace them with spaces
+            $name = str_replace("%20"," ",$name);
+            $name = str_replace("+"," ",$name);
+
+            //get array of separated-by-spaces words
+            $words = explode(" ",$name);
+
+            //if complex name (name and surname expecting)
+            if(count($words) > 1)
+            {
+                //sql statement
+                $sql = "SELECT * FROM clients WHERE company_name = '".$name."' OR ((name LIKE '".$words[0]."') AND (surname LIKE '".$words[1]."'))";
+            }
+            //if simple name (one word)
+            else
+            {
+                $sql = "SELECT * FROM clients WHERE company_name = '".$name."' OR name LIKE '".$name."%'";
+            }
+
 
             //connection
             $con = Yii::app()->db;
