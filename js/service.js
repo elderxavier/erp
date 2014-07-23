@@ -75,7 +75,7 @@ jQuery(document).ready(function(){
 
     city_filter_select.change(function(){
         jQuery.ajax({ url: '/ajax/workers/city/'+jQuery(this).val(), beforeSend: function(){/*TODO: pre-loader*/}}).done(function(data){
-            //TODO:do filtering
+            user_list_select.html(data);
         });
     });
 

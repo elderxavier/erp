@@ -59,7 +59,7 @@ class ServicesController extends Controller
         $workers = $worker_position->getAllUsersAsArray();
 
         //cities
-        $cities = UserCities::model()->findAllAsArray();
+        $cities = array('ALL' => $this->labels['all']) + UserCities::model()->findAllAsArray();
 
         //if got post
         if($_POST['ServiceForm'])

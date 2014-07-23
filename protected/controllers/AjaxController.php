@@ -20,8 +20,47 @@ class AjaxController extends Controller {
         
     }
 
+
     /**
-     * Renders form by JSON settings
+     * Changes status of product by ajax
+     * @param null $id
+     */
+    public function actionChangeProductStatus($id = null)
+    {
+        /* @var $object ProductCards */
+
+        //if this is ajax
+        if(Yii::app()->request->isAjaxRequest)
+        {
+            //try find
+            $object =  ProductCards::model()->findByPk($id);
+
+            //if found
+            if($object)
+            {
+                if($object->status == 1){
+                    $object->status = 0;
+                }else{
+                    $object->status = 1;
+                }
+                //update
+                $object->update();
+
+                //out success message
+                exit('SUCCESS');
+            }
+            //if not found
+            else
+            {
+                //out fail message
+                exit('FAILED');
+            }
+        }
+    }
+
+
+    /**
+     * Renders form by JSON settings (used in purchase_create.php)
      * @param null $data
      * @throws CHttpException
      */
@@ -86,44 +125,8 @@ class AjaxController extends Controller {
         }
     }
 
-
     /**
-     * Changes status of product by ajax
-     * @param null $id
-     */
-    public function actionChangeProductStatus($id = null)
-    {
-        //if this is ajax
-        if(Yii::app()->request->isAjaxRequest)
-        {
-            //try find
-            $object =  ProductCards::model()->findByPk($id);
-
-            //if found
-            if($object)
-            {
-                if($object->status == 1){
-                    $object->status = 0;
-                }else{
-                    $object->status = 1;
-                }
-                //update
-                $object->update();
-
-                //out success message
-                exit('SUCCESS');
-            }
-            //if not found
-            else
-            {
-                //out fail message
-                exit('FAILED');
-            }
-        }
-    }
-
-    /**
-     * Renders partial-table of operations done in invoice
+     * Renders partial-table of operations done in invoice (used in purchase_create.php)
      * @param null $id
      */
     public function actionViewInvoiceIn($id = null)
@@ -145,7 +148,7 @@ class AjaxController extends Controller {
 
 
     /**
-     * Prints json-converted array of client-ids and client-names
+     * Prints json-converted array of client-ids and client-names (used in srv_create.php)
      * @param string $start
      * @throws CHttpException
      */
@@ -184,7 +187,7 @@ class AjaxController extends Controller {
 
 
     /**
-     * Finds client-id by name or company name, and prints if found
+     * Finds client by name or company name, and prints his ID if found (used in srv_create.php)
      * @param string $name
      * @throws CHttpException
      */
@@ -236,15 +239,41 @@ class AjaxController extends Controller {
     }
 
 
+    /**
+     * Renders option items of workers found by city for select-box (used in srv_create.php)
+     * @param int $city
+     * @throws CHttpException
+     */
     public function actionWorkers($city = 0)
     {
         /* @var $worker_position Positions */
         /* @var $user Users */
 
-        $worker_position = Positions::model()->findByAttributes(array('name' => 'Worker'));
-        $users = Users::model()->findAllByAttributes(array('city_id' => $city, 'position_id' => $worker_position->id));
+        if(Yii::app()->request->isAjaxRequest)
+        {
+            //get worker position
+            $worker_position = Positions::model()->with('users')->findByAttributes(array('name' => 'Worker'));
 
-        //TODO:render partial
+            //if city selected
+            if($city != 'ALL')
+            {
+                //users by city and position
+                $users = Users::model()->findAllByAttributes(array('city_id' => $city, 'position_id' => $worker_position->id));
+            }
+            //if selected all cities
+            else
+            {
+                //get all workers
+                $users = $worker_position->users;
+            }
+
+            //render options for select box
+            $this->renderPartial('_workers_select_item', array('workers' => $users));
+        }
+        else
+        {
+            throw new CHttpException(404);
+        }
     }
 
 }
