@@ -116,6 +116,8 @@ class UsersController extends Controller
         $positions = Positions::model()->getAllAsArray();
         //array of possible roles
         $roles = array(0 => $this->labels['regular user'], 1 => $this->labels['root']);
+        //cities
+        $cities = UserCities::model()->findAllAsArray();
 
         //create form-validator and model
         $form = new UserForm();
@@ -176,7 +178,7 @@ class UsersController extends Controller
         }
 
         //render
-        $this->render('user_create', array('form_mdl' => $form, 'positions' => $positions, 'roles' => $roles));
+        $this->render('user_create', array('form_mdl' => $form, 'positions' => $positions, 'roles' => $roles, 'cities' => $cities));
     }
 
 
@@ -202,6 +204,8 @@ class UsersController extends Controller
             $positions = Positions::model()->getAllAsArray();
             //array of possible roles
             $roles = array(0 => $this->labels['regular user'], 1 => $this->labels['root']);
+            //cities
+            $cities = UserCities::model()->findAllAsArray();
 
             //create form-validator and model
             $form = new UserForm();
@@ -270,7 +274,7 @@ class UsersController extends Controller
 
 
             //render
-            $this->render('user_edit', array('form_mdl' => $form, 'user' => $user, 'positions' => $positions, 'roles' => $roles, 'rights' => $rights));
+            $this->render('user_edit', array('form_mdl' => $form, 'user' => $user, 'positions' => $positions, 'roles' => $roles, 'rights' => $rights, 'cities' => $cities));
         }
         //if user not found
         else

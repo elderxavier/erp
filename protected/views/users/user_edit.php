@@ -5,6 +5,7 @@
 <?php /* @var $positions Array */ ?>
 <?php /* @var $roles Array */ ?>
 <?php /* @var $rights Array */ ?>
+<?php /* @var $cities Array*/ ?>
 
 
 <?php
@@ -76,6 +77,11 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/add_user.css');
                 <div class="form-group">
                     <?php echo $form->label($form_mdl,'role');?>
                     <?php echo $form->dropDownList($form_mdl,'role',$roles,array('class'=>'form-control','options' => array($user->role =>array('selected'=>true))));?>
+                </div>
+
+                <div class="form-group">
+                    <?php echo $form->label($form_mdl,'city_id');?>
+                    <?php echo $form->dropDownList($form_mdl,'city_id',$cities,array('class'=>'form-control','options' => array($user->city_id =>array('selected'=>true))));?>
                 </div>
 
                 <div class="form-group">

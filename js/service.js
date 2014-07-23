@@ -15,7 +15,7 @@ jQuery(document).ready(function(){
     var city_filter_select = jQuery("."+FILTER_SELECT_BOX_CLASS);
     var user_list_select = jQuery("."+FILTER_USERS_LIST_CLASS);
 
-    //add auto-complete feature
+    //add auto-complete feature for client-field
     client_field.autocomplete({
         source: function( request, response ) {
             $.ajax({
@@ -44,7 +44,7 @@ jQuery(document).ready(function(){
         }
     });
 
-    //when focus out
+    //when focus out form client-filed
     client_field.focusout(function()
     {
         //if new value entered by hands
@@ -53,7 +53,6 @@ jQuery(document).ready(function(){
             //try find in database by name
             jQuery.ajax({ url: '/ajax/clifi/name/'+client_field.val(), beforeSend: function(){/*TODO: pre-loader*/}}).done(function(data)
             {
-
                 //if found id
                 if(data != 'NOT_FOUND')
                 {
@@ -73,6 +72,7 @@ jQuery(document).ready(function(){
         }
     });
 
+    //when selected city
     city_filter_select.change(function(){
         jQuery.ajax({ url: '/ajax/workers/city/'+jQuery(this).val(), beforeSend: function(){/*TODO: pre-loader*/}}).done(function(data){
             user_list_select.html(data);

@@ -18,6 +18,7 @@ class UserForm extends CBaseForm
     public $role;
     public $avatar;
     public $position_id;
+    public $city_id;
 
     public $current_user_id = null;
 
@@ -71,6 +72,7 @@ class UserForm extends CBaseForm
             'repeat_password' => $this->labels['repeat password'],
             'rights' => $this->labels['rights'],
             'position' => $this->labels['position'],
+            'city_id' => $this->labels['city'],
         );
     }
 }

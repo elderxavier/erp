@@ -21,6 +21,7 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/table.css');
                         <th><?php echo $this->labels['name']; ?></th>
                         <th><?php echo $this->labels['surname']; ?></th>
                         <th><?php echo $this->labels['position']; ?></th>
+                        <th><?php echo $this->labels['city']; ?></th>
                         <th><?php echo $this->labels['actions'] ?></th>
                     </tr>
                     </thead>
@@ -32,6 +33,7 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/table.css');
                             <td><?php echo $user->name; ?></td>
                             <td><?php echo $user->surname; ?></td>
                             <td><?php echo $user->position ? $user->position->name : '-'; ?></td>
+                            <td><?php echo $user->city ? $user->city->city_name : '-'; ?></td>
                             <td>
                                 <?php if($this->rights['users_edit']): ?>
                                     <?php echo CHtml::link($this->labels['edit'],'/'.$this->id.'/edit/id/'.$user->id,array('class' => 'actions action-edit')); ?>

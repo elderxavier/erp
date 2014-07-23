@@ -4,7 +4,7 @@
 <?php /* @var $user Users */ ?>
 <?php /* @var $positions Array */ ?>
 <?php /* @var $roles Array */ ?>
-
+<?php /* @var $cities Array*/ ?>
 
 <?php
 $cs = Yii::app()->clientScript;
@@ -81,6 +81,11 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/add_user.css');
                 <div class="form-group">
                     <?php echo $form->label($form_mdl,'role');?>
                     <?php echo $form->dropDownList($form_mdl,'role',$roles,array('class'=>'form-control'));?>
+                </div>
+
+                <div class="form-group">
+                    <?php echo $form->label($form_mdl,'city_id');?>
+                    <?php echo $form->dropDownList($form_mdl,'city_id',$cities,array('class'=>'form-control'));?>
                 </div>
 
                 <div class="form-group">
