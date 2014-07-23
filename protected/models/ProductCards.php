@@ -21,6 +21,7 @@
  * @property OperationsIn[] $operationsIns
  * @property OperationsOut[] $operationsOuts
  * @property ProductCardCategories $category
+ * @property ProductFiles[] $productFiles
  * @property ProductInStock[] $productInStocks
  */
 class ProductCards extends CActiveRecord
@@ -60,6 +61,7 @@ class ProductCards extends CActiveRecord
 			'operationsIns' => array(self::HAS_MANY, 'OperationsIn', 'product_card_id'),
 			'operationsOuts' => array(self::HAS_MANY, 'OperationsOut', 'product_card_id'),
 			'category' => array(self::BELONGS_TO, 'ProductCardCategories', 'category_id'),
+			'productFiles' => array(self::HAS_MANY, 'ProductFiles', 'product_card_id'),
 			'productInStocks' => array(self::HAS_MANY, 'ProductInStock', 'product_card_id'),
 		);
 	}

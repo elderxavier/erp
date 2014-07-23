@@ -60,3 +60,22 @@
     background-color:#cc5c4e;
     height:33px;
     width:33px}
+
+
+.file-table
+{
+    width: 450px;
+    border: none;
+}
+.file-table td
+{
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #c9c9c9;
+    border-right: none;
+    padding: 5px;
+}
+.file-table tr:first-child td
+{
+    height: 20px;
+    background-color: #c8c8c8;
+}

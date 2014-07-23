@@ -272,7 +272,6 @@ class UsersController extends Controller
             }
 
 
-
             //render
             $this->render('user_edit', array('form_mdl' => $form, 'user' => $user, 'positions' => $positions, 'roles' => $roles, 'rights' => $rights, 'cities' => $cities));
         }

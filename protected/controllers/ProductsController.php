@@ -200,7 +200,7 @@ class ProductsController extends Controller
             $form->attributes = $_POST['ProductCardForm'];
 
             //if no errors
-            if($form->validate())
+            if($form->validate() && $form->validateArrayOfFiles('ProductCardForm','files'))
             {
                 //set params
                 $card->attributes = $_POST['ProductCardForm'];
@@ -210,6 +210,9 @@ class ProductsController extends Controller
 
                 //save to db
                 $card->save();
+
+                //save files
+                ProductFiles::model()->saveFiles($form->file_arr_params,$card->id);
 
                 //redirect to list
                 $this->redirect('/'.$this->id.'/cards');
@@ -234,7 +237,7 @@ class ProductsController extends Controller
         /* @var $card ProductCards */
 
         //try find in base
-        $card = ProductCards::model()->findByPk($id);
+        $card = ProductCards::model()->with('productFiles')->findByPk($id);
 
         //if found
         if(!empty($card))
@@ -252,7 +255,7 @@ class ProductsController extends Controller
                 $form->attributes = $_POST['ProductCardForm'];
 
                 //if no errors
-                if($form->validate())
+                if($form->validate() && $form->validateArrayOfFiles('ProductCardForm','files'))
                 {
                     //set params
                     $card->attributes = $_POST['ProductCardForm'];
@@ -261,6 +264,9 @@ class ProductsController extends Controller
 
                     //save to db
                     $card->save();
+
+                    //save files
+                    ProductFiles::model()->saveFiles($form->file_arr_params,$card->id);
 
                     //redirect to list
                     $this->redirect('/'.$this->id.'/cards');

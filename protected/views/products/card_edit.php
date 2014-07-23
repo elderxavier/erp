@@ -3,20 +3,23 @@
 <?php /* @var $categories_arr Array */ ?>
 <?php /* @var $card ProductCards */ ?>
 <?php /* @var $this ProductsController */ ?>
-
+<?php /* @var $cs CClientScript */ ?>
+<?php /* @var $file ProductFiles */ ?>
 
 <?php
 $cs = Yii::app()->clientScript;
 $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/add_product.css');
+$cs->registerScriptFile(Yii::app()->request->baseUrl.'/js/prod_cards.js',CClientScript::POS_END);
 ?>
 
 
 <?php $this->renderPartial('//partials/_sub_menu',array('links' => $this->GetSubMenu(), 'params' => array())); ?>
 
+
 <div class="container content-wrapper">
     <div class="row">
         <div class="col-lg-12">
-            <?php $form=$this->beginWidget('CActiveForm', array('id' =>'add-product-form','enableAjaxValidation'=>false,'htmlOptions'=>array('class'=>'clearfix'))); ?>
+            <?php $form=$this->beginWidget('CActiveForm', array('id' =>'add-product-form','enableAjaxValidation'=>false,'htmlOptions'=>array('class'=>'clearfix', 'enctype' => 'multipart/form-data'))); ?>
 
             <div class="form-group">
                 <?php echo $form->label($form_mdl,'product_code');?>
@@ -63,6 +66,33 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/add_product.css');
                 <?php echo $form->label($form_mdl,'description');?>
                 <?php echo $form->textArea($form_mdl,'description',array('class'=>'form-control', 'value' => $card->description));?>
                 <?php echo $form->error($form_mdl,'description'); ?>
+            </div>
+
+            <div class="form-group">
+                <?php echo $form->label($form_mdl,'files');?>
+                <table class="file-table form-control'">
+
+                    <tr>
+                        <td><?php echo $this->labels['label'];?></td>
+                        <td><?php echo $this->labels['name'];?></td>
+                        <td><?php echo $this->labels['actions'];?></td>
+                    </tr>
+
+                    <?php foreach($card->productFiles as $file): ?>
+                        <tr id="file_id_<?php echo $file->id; ?>">
+                            <td><?php echo $file->label; ?></td>
+                            <td><?php echo $file->filename; ?></td>
+                            <td><?php echo CHtml::link($this->labels['delete'],'/ajax/delfile/id/'.$file->id,array('class' => 'actions action-delete')); ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+
+                    <tr class="file-select">
+                        <td colspan="3">
+                            <input type="file" name="ProductCardForm[files][0]" class="form-control file-sel" spec-index="0">
+                        </td>
+                    </tr>
+
+                </table>
             </div>
 
             <button type="submit"><span><?php echo $this->labels['save']; ?></span><span class="glyphicon glyphicon-plus"></span></button>
