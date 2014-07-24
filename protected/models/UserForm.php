@@ -40,12 +40,14 @@ class UserForm extends CBaseForm
             //password, username and email cannot be empty
             $rules[] = array('username, password, repeat_password, email', 'required','message'=> $this->messages['fill the field'].' "{attribute}"');
             $rules[] = array('repeat_password', 'equal', 'to' => 'password');
+//            $rules[] = array('avatar', 'file', 'types'=>'jpg, gif, png');
         }
         //if old user updating
         else
         {
             //password can be empty
             $rules[] = array('username, email', 'required','message'=> $this->messages['fill the field'].' "{attribute}"');
+            $rules[] = array('avatar', 'file', 'types'=>'jpg, gif, png');
         }
 
         return $rules;

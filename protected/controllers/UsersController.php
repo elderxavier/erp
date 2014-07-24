@@ -147,21 +147,17 @@ class UsersController extends Controller
                 //who modified
                 $user->user_modified_by = Yii::app()->user->id;
 
-
                 //if have avatar
-                if($form->file_size > 0)
+                if($form->file_params['error'] == 0)
                 {
-                    //new filename
-                    $new_filename = $this->generateRandomString().'.'.$form->file_extension;
 
                     //if file copied
-                    if(copy($form->file_temp_name, 'images/user_thumbs/'.$new_filename))
+                    if(copy($form->file_params['tmp_name'], 'images/user_thumbs/'.$form->file_params['random_name']))
                     {
                         //set new avatar
-                        $user->avatar = $new_filename;
+                        $user->avatar = $form->file_params['random_name'];
                     }
                 }
-
 
                 //save user
                 $user->save();
@@ -233,13 +229,11 @@ class UsersController extends Controller
                     $user->user_modified_by = Yii::app()->user->id;
 
                     //if have avatar
-                    if($form->file_size > 0)
+                    if($form->file_params['error'] == 0)
                     {
-                        //new filename
-                        $new_filename = $this->generateRandomString().'.'.$form->file_extension;
 
                         //if file copied
-                        if(copy($form->file_temp_name, 'images/user_thumbs/'.$new_filename))
+                        if(copy($form->file_params['tmp_name'], 'images/user_thumbs/'.$form->file_params['random_name']))
                         {
                             //delete old avatar if exist
                             if($old_ava != '' && file_exists('images/user_thumbs/'.$old_ava))
@@ -248,7 +242,7 @@ class UsersController extends Controller
                             }
 
                             //set new avatar
-                            $user->avatar = $new_filename;
+                            $user->avatar = $form->file_params['random_name'];
                         }
                     }
                     //leave od avatar

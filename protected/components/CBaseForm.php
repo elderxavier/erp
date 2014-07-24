@@ -9,14 +9,11 @@ class CBaseForm extends CFormModel
     protected $labels = array();
     protected $messages = array();
 
-    //for single file validation
+    //max validation file size
     public $max_validation_file_size = 1000000;
-    public $file_name = "";
-    public $file_temp_name = "";
-    public $file_mime_type = "";
-    public $file_size = 0;
-    public $file_error = "";
-    public $file_extension = "";
+
+    //for single file validation
+    public $file_params = array();
 
     //for array of files validation
     public $file_arr_params = array();
@@ -113,16 +110,16 @@ class CBaseForm extends CFormModel
         );
 
         //get main parameters and set them to model
-        $this->file_name = $name = $_FILES[$form_name]['name'][$field_name];
-        $this->file_mime_type = $type = $_FILES[$form_name]['type'][$field_name];
-        $this->file_temp_name = $tmp_name = $_FILES[$form_name]['tmp_name'][$field_name];
-        $this->file_error = $error = $_FILES[$form_name]['error'][$field_name];
-        $this->file_size = $size = $_FILES[$form_name]['size'][$field_name];
-
+        $this->file_params['name'] = $name = $_FILES[$form_name]['name'][$field_name];
+        $this->file_params['type'] = $type = $_FILES[$form_name]['type'][$field_name];
+        $this->file_params['tmp_name'] = $tmp_name = $_FILES[$form_name]['tmp_name'][$field_name];
+        $this->file_params['error'] = $error = $_FILES[$form_name]['error'][$field_name];
+        $this->file_params['size'] = $size = $_FILES[$form_name]['size'][$field_name];
         //get extension
         $name_parts = explode(".",$name);
-        $this->file_extension = $name_parts[count($name_parts)-1];
-
+        $this->file_params['extension'] = $ext = $name_parts[count($name_parts)-1];
+        //random filename
+        $this->file_params['random_name'] = $this->generateRandomString().".".$ext;
 
         //if type not found in array
         if(!in_array($type,$arrTypesImages) && $this->file_size > 0)
@@ -142,6 +139,12 @@ class CBaseForm extends CFormModel
         return !$this->hasErrors();
     }
 
+    /**
+     * Validates every file in array
+     * @param $form_name
+     * @param $field_name
+     * @return bool
+     */
     public function validateArrayOfFiles($form_name,$field_name)
     {
         $arrTypesAvailable = array(
