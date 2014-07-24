@@ -82,7 +82,7 @@ $cs->registerScriptFile(Yii::app()->request->baseUrl.'/js/prod_cards.js',CClient
                         <tr id="file_id_<?php echo $file->id; ?>">
                             <td><?php echo $file->label; ?></td>
                             <td><?php echo $file->filename; ?></td>
-                            <td><?php echo CHtml::link($this->labels['delete'],'/ajax/delfile/id/'.$file->id,array('class' => 'actions action-delete')); ?></td>
+                            <td><?php echo CHtml::link($this->labels['delete'],'/ajax/delfile/id/'.$file->id,array('class' => 'actions action-delete  ajax-del-file', 'spec-id' =>$file->id)); ?></td>
                         </tr>
                     <?php endforeach; ?>
 

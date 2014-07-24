@@ -276,5 +276,39 @@ class AjaxController extends Controller {
         }
     }
 
+    /**
+     * Delete file item from db by ajax
+     * @param int $id
+     */
+    public function actionDelFile($id = 0)
+    {
+        /* @var $file ProductFiles */
+
+        //find file
+        $file = ProductFiles::model()->findByPk($id);
+
+        //if found
+        if($file)
+        {
+            //delete file if exist
+            if($file->filename != '' && file_exists('uploaded/product_file/'.$file->filename))
+            {
+                unlink('uploaded/product_file/'.$file->filename);
+            }
+
+            //delete record from db
+            $file->delete();
+
+            //print success status
+            echo "SUCCESS";
+        }
+        //if not found
+        else
+        {
+            //print fail status
+            echo "FAILED";
+        }
+    }
+
 }
 ?>

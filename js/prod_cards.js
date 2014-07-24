@@ -4,6 +4,8 @@ var FILE_FIELDS_NAME = 'files';
 var CLASS_FILE_BUTTON_SELECT = 'file-sel';
 var CLASS_TABLE_FILES = 'file-table';
 var FORM_NAME = 'ProductCardForm';
+var CLASS_FILE_DEL_LINK = 'ajax-del-file';
+var ID_TR = 'file_id_';
 
 jQuery(document).ready(function(){
 
@@ -21,6 +23,23 @@ jQuery(document).ready(function(){
             //add block to table
             jQuery("."+CLASS_TABLE_FILES).append(html_block);
         }
+    });
+
+    jQuery(document).on('click','.'+CLASS_FILE_DEL_LINK, function(){
+
+        //get file id from special attribute
+        var file_id = jQuery(this).attr('spec-id');
+
+        jQuery.ajax({ url: jQuery(this).attr('href'), beforeSend: function(){/*TODO: pre-loader*/}}).done(function(data){
+
+            if(data == 'SUCCESS')
+            {
+                //remove tr DOM element
+                jQuery("#"+ID_TR+file_id).remove();
+            }
+        });
+
+        return false;
     });
 
 });
