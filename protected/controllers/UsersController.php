@@ -150,7 +150,6 @@ class UsersController extends Controller
                 //if have avatar
                 if($form->file_params['error'] == 0)
                 {
-
                     //if file copied
                     if(copy($form->file_params['tmp_name'], 'images/user_thumbs/'.$form->file_params['random_name']))
                     {
@@ -288,13 +287,13 @@ class UsersController extends Controller
         /* @var $user Users */
 
         //new user
-        $user = Users::model()->with('operationsSrvs')->findByPk($id);
+        $user = Users::model()->with('serviceResolutions')->findByPk($id);
 
         //if user found
         if($user)
         {
             //if found usages in other tables
-            if(count($user->operationsSrvs) > 0)
+            if(count($user->serviceResolutions) > 0)
             {
                 //render restrict message
                 $this->render('restricts');
@@ -365,35 +364,40 @@ class UsersController extends Controller
         //delete all rights related with this user (clean all rights)
         UserRights::model()->deleteAllByAttributes(array('user_id' => $user_id));
 
-        //pass through each right in array
-        foreach($rights_array as $right_label => $state)
+        //if some checkboxes checked
+        if(!empty($rights_array) && is_array($rights_array))
         {
-            /* @var $right Rights */
-
-            //get right by it's name
-            $right = Rights::model()->findByAttributes(array('label' => $right_label));
-
-            //if right found
-            if(!empty($right))
+            //pass through each right in array
+            foreach($rights_array as $right_label => $state)
             {
-                /* @var $user_right_relation UserRights */
+                /* @var $right Rights */
 
-                //create new user-right relation record
-                $user_right_relation = new UserRights();
+                //get right by it's name
+                $right = Rights::model()->findByAttributes(array('label' => $right_label));
 
-                //set user id
-                $user_right_relation -> user_id = $user_id;
+                //if right found
+                if(!empty($right))
+                {
+                    /* @var $user_right_relation UserRights */
 
-                //set right id
-                $user_right_relation -> rights_id = $right->id;
+                    //create new user-right relation record
+                    $user_right_relation = new UserRights();
 
-                //set value (useless, this field should be deleted)
-                $user_right_relation -> right_value = 1;
+                    //set user id
+                    $user_right_relation -> user_id = $user_id;
 
-                //save
-                $user_right_relation -> save();
+                    //set right id
+                    $user_right_relation -> rights_id = $right->id;
+
+                    //set value (useless, this field should be deleted)
+                    $user_right_relation -> right_value = 1;
+
+                    //save
+                    $user_right_relation -> save();
+                }
             }
         }
+
     }
 
 }
