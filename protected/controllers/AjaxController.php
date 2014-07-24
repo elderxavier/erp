@@ -195,9 +195,6 @@ class AjaxController extends Controller {
     {
         if(Yii::app()->request->isAjaxRequest)
         {
-            //not found by default
-            $result = 'NOT_FOUND';
-
             //remove all connecting symbols, replace them with spaces
             $name = str_replace("%20"," ",$name);
             $name = str_replace("+"," ",$name);
@@ -217,24 +214,57 @@ class AjaxController extends Controller {
                 $sql = "SELECT * FROM clients WHERE company_name = '".$name."' OR name LIKE '".$name."%'";
             }
 
-
             //connection
             $con = Yii::app()->db;
 
-            //get all data by query
-            $data=$con->createCommand($sql)->queryAll();
+            //get row by query
+            $data=$con->createCommand($sql)->queryRow();
 
             //if find something
             if(!empty($data))
             {
-                $result = $data[0]['id'];
+                //client
+                $client = new Clients();
+                //set attributes from base to client
+                $client -> attributes = $data;
+                //render form partial
+                $this->renderPartial('_client_form_old_client',array('client' => $client, 'id' => $data['id']));
+            }
+            //if not find
+            else
+            {
+                //get full name or company name
+                count($words) > 1 ? $client_name = $words[0].' '.$words[1] : $client_name = $words[0];
+
+                //render partial
+                $this->renderPartial('_client_form_new_client',array('client_name' => $client_name));
             }
 
-            echo $result;
         }
         else
         {
             throw new CHttpException(404);
+        }
+    }
+
+    public function actionCliFiId($id = null)
+    {
+        if(Yii::app()->request->isAjaxRequest)
+        {
+            $sql = "SELECT * FROM clients WHERE id = '".$id."'";
+            $con = Yii::app()->db;
+            $data = $con->createCommand($sql)->queryRow();
+
+            if($data)
+            {
+                $client = new Clients();
+                $client -> attributes = $data;
+                $this->renderPartial('_client_form_old_client',array('client' => $client, 'id' => $data['id']));
+            }
+            else
+            {
+                echo "ERROR";
+            }
         }
     }
 

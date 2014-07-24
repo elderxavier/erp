@@ -1,101 +1,102 @@
 
 /*-- filters --- */
 .filter > div > label {
-    font-weight:400;
-    color:#9e9494;}
-
+	font-weight:400;
+	color:#9e9494;}
+	
 .filter > div > input[type=text]{
-    height:36px;
-    width:200px;
-    border:1px solid #c7c8cc;}
-
+	height:36px;
+	width:200px;
+	border:1px solid #c7c8cc;}
+	
 .filter > div > select{
-    color:#9e9494;
-    border-radius:0;
-    padding: 6px 5px;
-    width:200px;
-    border:1px solid #c7c8cc;}
-
+	color:#9e9494;
+	border-radius:0;
+	padding: 6px 5px;
+	width:200px;
+	border:1px solid #c7c8cc;}
+	
 .filter > div > select > option{
-    line-height:36px;}
-
-
+	line-height:36px;}
+	
+	
 .filters > form > .filter {
-    margin-bottom:20px;
-    padding-right:20px;
-    float:left;}
-
+	margin-bottom:20px;
+	padding-right:20px;
+	float:left;}
+	
 .filter2 > div {}		
-
+	
 .filter > div {
-    display:inline-block;}
-
+	display:inline-block;}
+	
 .filter > div > button {
-    padding:0;
-    text-transform:uppercase;
-    border:none;
-    border-radius:0px;
-    color:white;
-    background-color:#fb8f73;
-    height:36px;}
+	padding:0;
+	text-transform:uppercase;
+	border:none;
+	border-radius:0px;
+	color:white;
+	background-color:#fb8f73;
+	height:36px;}
 
 .filter > div > button > span {
-    display:inline-block;
-    height:36px;}
-
+	display:inline-block;
+	height:36px;}
+	
 .filter > div > button > span:first-child {
-    padding: 0 15px;}
-
+	padding: 0 15px;}
+	
 .filter > div > button > span:last-child {
-    background-color:#cc5c4e;}
-
+	background-color:#cc5c4e;}
+	
 /*--- table -holder ----*/
 .table-holder .table {
-    font-size:12px;}
+	font-size:12px;}
 
 .table-holder .table thead {
-    background-color:#b6b7bb;}
-
+	background-color:#b6b7bb;}
+	
 .table-holder .table thead th {
-    font-weight:400;
-    color:white;
-    text-transform:uppercase;}
-
+	font-weight:400;
+	color:white;
+	text-transform:uppercase;}
+	
 .table-holder .table tbody tr:hover td {
-    background-color:#e5f1cd;}
-
+	background-color:#e5f1cd;}
+	
 .table-holder .table thead th.count {
-    width:50px;}
+	width:50px;}
 .table-holder .table thead th.status {
-    width:80px;}
-
+	width:80px;}
+	
 .table thead th.status {
-    width:70px;}
-
+	width:70px;}
+	
 .table td.status  .btn {
-    border-radius:1px;
-    font-size:12px;
-    padding:3px;}
-
+	border-radius:1px;
+	font-size:12px;
+	padding:3px;}
+	
 .table td.status .btn-primary {
-    background-color:#7db222;}
-
+	background-color:#7db222;}
+	
 .table-holder {
-    overflow-x:auto;}
-
+	overflow-x:auto;}
+	
 td > .actions {	
-    display:inline-block;
-    width:11px;
-    line-height:12px;
-    text-indent:-9999px;
-    margin-right:10px;}
-
+	display:inline-block;
+	width:11px;
+	line-height:12px;
+	text-indent:-9999px;
+	margin-right:10px;}
+	
 td > a.actions:hover {
-    background-position:bottom center;}	
-
+	background-position:bottom center;}	
+	
 td > .action-edit {
-    background:url(../images/edit_bg.png) top center no-repeat }
-
+	background:url(../images/edit_bg.png) top center no-repeat }
+	
 td > .action-delete{
-    background:url(../images/delete_bg.png) top center no-repeat}	
-
+	background:url(../images/delete_bg.png) top center no-repeat}	
+		
+	

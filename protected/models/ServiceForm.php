@@ -34,6 +34,7 @@ class ServiceForm extends CBaseForm
             'problem_type_id' => $this->labels['problem type'],
             'city_id' => $this->labels['city'],
             'worker_id' => $this->labels['worker'],
+            'select_priority' => $this->label['select priority'],
         );
     }
 }

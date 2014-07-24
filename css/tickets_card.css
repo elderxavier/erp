@@ -1,0 +1,157 @@
+/*--- main container ---*/
+.main_container > .container, .main_container > .container-fluid {
+	padding-top:20px;
+	padding-bottom:20px;}
+
+.main_container  .content-wrapper {
+	border:1px solid #c7c8cc;}
+
+/*--- form left part----*/
+.card-holder .left-part .form-holder label {
+	font-weight:400;
+	font-size:12px;
+	color:#9b9292;
+	text-transform:uppercase;}
+	
+.card-holder .left-part .form-holder label.active {
+	background-color:#0a6a9a;}
+	
+#fio {
+	border-radius:0px;}
+	
+.left-part textarea {
+	border-radius:0px;
+	height:150px;
+	resize:none;}
+	
+.card-holder .left-part .form-holder select {
+	border-radius:0px;
+	color:#9b9292;
+	font-size:12px;
+	text-transform:uppercase;}
+	
+.card-holder .left-part .btn-group {
+	padding-left:0;
+	padding-right:0}
+	
+.card-holder .left-part .btn-group .btn {
+	border-radius:0;}
+
+
+.card-holder .left-part .btn-group label {
+	width:33%;
+	color:white;}
+	
+#option1 {
+	background-color:#77caf0;}
+
+#option2 {
+	background-color:#149fe4;}
+
+#option3 {
+	background-color:#0a6a9a;}
+	
+/*-- right part ---*/
+.right-part .form-holder {
+	border:1px solid #c7c8cc;}
+	
+.right-part .form-holder {
+	padding:0}	
+	
+.right-part .form-holder h2 {
+	margin:0;
+	line-height:46px;
+	font-weight:400;
+	font-size:14px;
+	text-transform:uppercase;
+	text-align:center;
+	color:white;
+	background-color:#89c325;}
+	
+.right-part .form-holder h3 {
+	font-weight:600;
+	text-align:center;
+	color:#ee7c69;
+	font-size:20px;
+	text-transform:uppercase;}
+	
+.right-part .form-holder h2 > span {
+	margin-right:10px;}
+	
+.right-part .cust-data {
+	padding:10px;}
+	
+.right-part .cust-data table tr>td{
+	line-height:30px;}
+	
+.right-part .cust-data table tr>td:first-child {
+	color:#9b9292;
+	font-size:12px;
+	text-transform:uppercase;}
+	
+.right-part .cust-data table tr>td:last-child {
+	font-size:12px;
+	color:#149fe4;}
+	
+/*-- buttons --*/	
+.btn-holder > button {
+	padding:0;
+	border-radius:0;
+	border:none;
+	color:white;
+	font-size:12px;
+	text-transform:uppercase;}
+	
+.btn-holder > button >span {
+	display:inline-block;}
+	
+.btn-holder > button >span:first-child {
+	padding: 7px 15px;}
+	
+.btn-holder > button >span:last-child {
+	font-size:14px;
+	padding-left:10px;
+	padding-right:10px;}
+	
+.btn-holder > button.btn-submit {
+	background-color:#cc5c4e;}
+	
+.btn-holder > button.btn-submit > span:first-child {
+	background-color:#fb8f73;}
+	
+.btn-holder > button.btn-reset > span:first-child {
+	background-color:#bdbec3;}
+
+.btn-holder > button.btn-reset {
+	background-color:#9e9595;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ----- responsive - part -------*/
+@media (min-width: 471px) {
+	
+}
+
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width:768px){
+
+	.card-holder .right-part {float:right;}
+	.card-holder  .left-part {float:left;}
+
+}
