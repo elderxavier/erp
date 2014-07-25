@@ -24,10 +24,12 @@
  * @property integer $city_id
  *
  * The followings are the available model relations:
+ * @property ServiceProcesses[] $serviceProcesses
+ * @property ServiceProcesses[] $serviceProcesses1
  * @property ServiceResolutions[] $serviceResolutions
  * @property UserRights[] $userRights
- * @property UserCities $city
  * @property Positions $position
+ * @property UserCities $city
  */
 class Users extends CActiveRecord
 {
@@ -63,10 +65,12 @@ class Users extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'serviceProcesses' => array(self::HAS_MANY, 'ServiceProcesses', 'current_employee_id'),
+			'serviceProcesses1' => array(self::HAS_MANY, 'ServiceProcesses', 'user_modified_by'),
 			'serviceResolutions' => array(self::HAS_MANY, 'ServiceResolutions', 'by_employee_id'),
 			'userRights' => array(self::HAS_MANY, 'UserRights', 'user_id'),
-			'city' => array(self::BELONGS_TO, 'UserCities', 'city_id'),
 			'position' => array(self::BELONGS_TO, 'Positions', 'position_id'),
+			'city' => array(self::BELONGS_TO, 'UserCities', 'city_id'),
 		);
 	}
 

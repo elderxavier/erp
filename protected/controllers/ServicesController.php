@@ -116,7 +116,9 @@ class ServicesController extends Controller
                         $service_process -> remark = $_POST['ServiceForm']['remark'];
                         $service_process -> client_id = $client->id;
                         $service_process -> label = 'empty label';
+                        $service_process -> priority = $_POST['ServiceForm']['priority'];
                         $service_process -> status = ServiceProcesses::ST_OPENED;
+                        $service_process -> current_employee_id = $_POST['ServiceForm']['worker_id'];
 
                         //save service process
                         $service_process -> save();
@@ -138,7 +140,7 @@ class ServicesController extends Controller
                         $resolution -> save();
 
                         //check priority of service
-                        switch($_POST['ServiceForm']['priority'])
+                        switch($service_process -> priority)
                         {
                             case 'low':
                                 //TODO: just notification on site

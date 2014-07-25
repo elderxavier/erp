@@ -16,12 +16,16 @@
  * @property integer $date_created
  * @property integer $date_changed
  * @property integer $user_modified_by
+ * @property string $priority
+ * @property integer $current_employee_id
  *
  * The followings are the available model relations:
  * @property OperationsSrv[] $operationsSrvs
- * @property OperationsOut $operation
+ * @property Users $userModifiedBy
  * @property Clients $client
+ * @property OperationsOut $operation
  * @property ServiceProblemTypes $problemType
+ * @property Users $currentEmployee
  * @property ServiceResolutions[] $serviceResolutions
  */
 class ServiceProcesses extends CActiveRecord
@@ -50,11 +54,11 @@ class ServiceProcesses extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('start_date, close_date, client_id, status, operation_id, problem_type_id, date_created, date_changed, user_modified_by', 'numerical', 'integerOnly'=>true),
-			array('label, remark', 'safe'),
+			array('start_date, close_date, client_id, status, operation_id, problem_type_id, date_created, date_changed, user_modified_by, current_employee_id', 'numerical', 'integerOnly'=>true),
+			array('label, remark, priority', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, label, remark, start_date, close_date, client_id, status, operation_id, problem_type_id, date_created, date_changed, user_modified_by', 'safe', 'on'=>'search'),
+			array('id, label, remark, start_date, close_date, client_id, status, operation_id, problem_type_id, date_created, date_changed, user_modified_by, priority, current_employee_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -67,9 +71,11 @@ class ServiceProcesses extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'operationsSrvs' => array(self::HAS_MANY, 'OperationsSrv', 'service_process_id'),
-			'operation' => array(self::BELONGS_TO, 'OperationsOut', 'operation_id'),
+			'userModifiedBy' => array(self::BELONGS_TO, 'Users', 'user_modified_by'),
 			'client' => array(self::BELONGS_TO, 'Clients', 'client_id'),
+			'operation' => array(self::BELONGS_TO, 'OperationsOut', 'operation_id'),
 			'problemType' => array(self::BELONGS_TO, 'ServiceProblemTypes', 'problem_type_id'),
+			'currentEmployee' => array(self::BELONGS_TO, 'Users', 'current_employee_id'),
 			'serviceResolutions' => array(self::HAS_MANY, 'ServiceResolutions', 'service_process_id'),
 		);
 	}
@@ -92,6 +98,8 @@ class ServiceProcesses extends CActiveRecord
 			'date_created' => 'Date Created',
 			'date_changed' => 'Date Changed',
 			'user_modified_by' => 'User Modified By',
+			'priority' => 'Priority',
+			'current_employee_id' => 'Current Employee',
 		);
 	}
 
@@ -125,6 +133,8 @@ class ServiceProcesses extends CActiveRecord
 		$criteria->compare('date_created',$this->date_created);
 		$criteria->compare('date_changed',$this->date_changed);
 		$criteria->compare('user_modified_by',$this->user_modified_by);
+		$criteria->compare('priority',$this->priority,true);
+		$criteria->compare('current_employee_id',$this->curren_employee_id);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -154,4 +164,52 @@ class ServiceProcesses extends CActiveRecord
 
         return (string)$arr[$this->status];
     }
+
+
+    /**
+     * Returns formatted time value, takes string of format like 'months.weeks.days.hours.minutes.seconds' or 'hours.minutes'
+     * @param string $format
+     * @return mixed
+     */
+    public function timeLeft($format)
+    {
+        //declare empty result
+        $result = $format;
+
+        $sec_in_min = 60; //one minute
+        $sec_in_hour = 60 * $sec_in_min; //one hour
+        $sec_in_day = 24 * $sec_in_hour; //one day
+        $sec_in_week = $sec_in_day * 7; //one week
+        $sec_in_month = $sec_in_week * 4; //month
+
+        //current time in seconds
+        $current_time = time();
+
+        //close time in seconds
+        $close_time = $this->close_date;
+
+        //seconds left
+        $seconds_left = $close_time - $current_time;
+
+        //calculate for all time formats
+        $months_left = (int)($seconds_left/$sec_in_month); $residue = $seconds_left - ($months_left * $sec_in_month);
+        $weeks_left = (int)($residue/$sec_in_week); $residue -= ($weeks_left * $sec_in_week);
+        $days_left = (int)($residue/$sec_in_day); $residue -= ($days_left * $sec_in_day);
+        $hours_left = (int)($residue/$sec_in_hour); $residue -= ($hours_left * $sec_in_hour);
+        $minutes_left = (int)($residue/$sec_in_min); $residue -= ($minutes_left * $sec_in_min);
+        $seconds_left = $residue;
+
+        //replace words in format-string with real values
+        $result = str_replace('months',$months_left,$result);
+        $result = str_replace('weeks',$weeks_left,$result);
+        $result = str_replace('days',$days_left,$result);
+        $result = str_replace('hours',$hours_left,$result);
+        $result = str_replace('minutes',$minutes_left,$result);
+        $result = str_replace('seconds',$seconds_left,$result);
+
+        //result
+        return $result;
+
+    }
+
 }
