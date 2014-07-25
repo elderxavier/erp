@@ -30,9 +30,9 @@ class ServiceProcesses extends CActiveRecord
     /**
      * Service statuses
      */
-    const SRV_OPENED = 0;
-    const SRV_IN_PROGRESS = 1;
-    const SRV_CLOSED = 2;
+    const ST_OPENED = 0;
+    const ST_IN_PROGRESS = 1;
+    const ST_CLOSED = 2;
 
 	/**
 	 * @return string the associated database table name
@@ -148,9 +148,9 @@ class ServiceProcesses extends CActiveRecord
      */
     public function statusLabel()
     {
-        $arr[self::SRV_CLOSED] = 'finished';
-        $arr[self::SRV_IN_PROGRESS] = 'in progress';
-        $arr[self::SRV_OPENED] = 'started';
+        $arr[self::ST_CLOSED] = 'finished';
+        $arr[self::ST_IN_PROGRESS] = 'in progress';
+        $arr[self::ST_OPENED] = 'opened';
 
         return (string)$arr[$this->status];
     }

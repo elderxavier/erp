@@ -38,7 +38,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/service.js',CClientScript::POS_
                 <div class="form-holder">
 
                     <div class="form-group">
-                        <?php echo $form->label($form_mdl,'client_id');?>
+                        <?php echo $form->label($form_mdl,'client_name');?>
                         <input type="hidden" name="found_client_name" value="" id="cli_found">
                         <?php echo $form->textField($form_mdl,'client_name',array('id' => 'fio', 'class'=>'form-control auto-complete-clients', 'placeholder' => 'Enter customer name'));?>
                         <?php echo $form->error($form_mdl,'client_name'); ?>
@@ -63,13 +63,13 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/service.js',CClientScript::POS_
                         <?php echo $form->label($form_mdl,'select_priority');?>
                         <div class="col-xs-12 btn-group" data-toggle="buttons">
                             <label class="btn btn-primary active">
-                                <input type="radio" name="options" id="option1" checked> <?php echo $this->labels['low']; ?>
+                                <input type="radio" value="low" name="ServiceForm[priority]" id="option1" checked> <?php echo $this->labels['low']; ?>
                             </label>
                             <label class="btn btn-primary">
-                                <input type="radio" name="options" id="option2"> <?php echo $this->labels['medium']; ?>
+                                <input type="radio" value="medium" name="ServiceForm[priority]" id="option2"> <?php echo $this->labels['medium']; ?>
                             </label>
                             <label class="btn btn-primary">
-                                <input type="radio" name="options" id="option3"> <?php echo $this->labels['high']; ?>
+                                <input type="radio" value="high" name="ServiceForm[priority]" id="option3"> <?php echo $this->labels['high']; ?>
                             </label>
                         </div>
                     </div><!--/form-group -->

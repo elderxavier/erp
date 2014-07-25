@@ -102,8 +102,10 @@ class ClientForm extends CBaseForm
                 //if found object is not same as object that we need update (in that case unique fields can be the same)
                 if(!($cur_id != null && $cur_id == $obj->getAttribute('id')))
                 {
+                    //all labels for this form attributes
+                    $labels = $this->attributeLabels();
                     //error
-                    $this->addError($attribute,$this->labels[$attribute].' '.$this->messages['already used']);
+                    $this->addError($attribute,$labels[$attribute].' '.$this->messages['already used']);
                 }
             }
         }

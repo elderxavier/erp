@@ -60,7 +60,23 @@
             <td><?php echo $this->labels['vat code']; ?></td>
             <td>
                 <a id="ed_Vat" class="text-editable" data-name="<?php echo $this->labels['vat code']; ?>"  data-emptytext="<?php echo $this->labels['empty']; ?>"  href="#"></a>
-                <input type="hidden" name="client[vat]" id="ed_VatH">
+                <input type="hidden" name="client[vat_code]" id="ed_VatH">
+            </td>
+        </tr>
+
+        <tr class="both hidden">
+            <td><?php echo $this->labels['phone']; ?></td>
+            <td>
+                <a id="ed_Phone" class="text-editable" title="<?php echo $this->labels['phone']; ?>" data-emptytext="<?php echo $this->labels['empty']; ?>" href="#"></a>
+                <input type="hidden" value="" name="client[phone1]" id="ed_PhoneH">
+            </td>
+        </tr>
+
+        <tr class="both hidden">
+            <td><?php echo $this->labels['email']; ?></td>
+            <td>
+                <a id="ed_Email" class="text-editable" title="<?php echo $this->labels['email']; ?>" data-emptytext="<?php echo $this->labels['empty']; ?>" href="#"></a>
+                <input type="hidden" value="" name="client[email1]" id="ed_EmailH">
             </td>
         </tr>
 

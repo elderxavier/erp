@@ -5,6 +5,7 @@
 jQuery(document).ready(function(){
 
     var client_field = jQuery(".auto-complete-clients");
+    var form_holder = jQuery(".client-settings");
 
     $.fn.editable.defaults.mode = 'inline';
 
@@ -34,8 +35,6 @@ jQuery(document).ready(function(){
                 //if loaded successfully
                 if(data != 'ERROR')
                 {
-                    var form_holder = jQuery(".client-settings");
-
                     //add content to holder
                     form_holder.html(data);
 
@@ -60,8 +59,6 @@ jQuery(document).ready(function(){
             //try find in database by name
             jQuery.ajax({ url: '/ajax/clifi/name/'+client_field.val(), beforeSend: function(){/*TODO: pre-loader*/}}).done(function(data)
             {
-                var form_holder = jQuery(".client-settings");
-
                 //add content to holder
                 form_holder.html(data);
 
@@ -79,6 +76,12 @@ jQuery(document).ready(function(){
         jQuery.ajax({ url: '/ajax/workers/city/'+jQuery(this).val(), beforeSend: function(){/*TODO: pre-loader*/}}).done(function(data){
             jQuery(".filtered-users").html(data);
         });
+    });
+
+    //clear and hide client form when pressed on reset button
+    jQuery(".btn-reset").click(function(){
+        form_holder.addClass('hidden');
+        form_holder.html('');
     });
 
 });

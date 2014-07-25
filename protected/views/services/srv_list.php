@@ -19,8 +19,8 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/table.css');
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th><?php echo $this->labels['opened']; ?></th>
-                        <th><?php echo $this->labels['closed']; ?></th>
+                        <th><?php echo $this->labels['open date']; ?></th>
+                        <th><?php echo $this->labels['close date']; ?></th>
                         <th><?php echo $this->labels['status']; ?></th>
                         <th><?php echo $this->labels['problem']; ?></th>
                         <th><?php echo $this->labels['problem code']; ?></th>
@@ -48,7 +48,7 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/table.css');
                                 <?php endif; ?>
 
                                 <?php if($this->rights['services_edit']): ?>
-                                    <?php echo CHtml::link($this->labels['close'],'/services/reopen/id/'.$service->id,array('class' => 'actions action-edit')); ?>
+                                    <?php echo CHtml::link($this->labels['edit'],'/services/reopen/id/'.$service->id,array('class' => 'actions action-edit')); ?>
                                 <?php endif; ?>
                             </td>
                         </tr>

@@ -15,7 +15,7 @@
             <td width="35%"><?php echo $this->labels['client type']; ?></td>
             <td width="65%">
                 <a href="#" title="<?php echo $this->labels['client type']; ?>"  style="display:inline"><?php echo $client->type == 1 ? $this->labels['juridical'] : $this->labels['physical']; ?></a>
-                <input type="hidden" value="<?php echo $client->type; ?>" name="client[type]">
+                <input type="hidden" value="<?php echo (int)$client->type; ?>" name="client[type]">
             </td>
         </tr>
 
@@ -70,6 +70,22 @@
             <td>
                 <a id="ed_Vat" class="text-editable" title="<?php echo $this->labels['vat code']; ?>"  href="#"><?php echo $client->vat_code; ?></a>
                 <input type="hidden" value="<?php echo $client->vat_code; ?>" name="client[vat_code]" id="ed_VatH">
+            </td>
+        </tr>
+
+        <tr class="both hidden">
+            <td><?php echo $this->labels['phone']; ?></td>
+            <td>
+                <a id="ed_Phone" class="text-editable" title="<?php echo $this->labels['phone']; ?>"  href="#"><?php echo $client->phone1; ?></a>
+                <input type="hidden" value="<?php echo $client->phone1; ?>" name="client[phone1]" id="ed_PhoneH">
+            </td>
+        </tr>
+
+        <tr class="both hidden">
+            <td><?php echo $this->labels['email']; ?></td>
+            <td>
+                <a id="ed_Email" class="text-editable" title="<?php echo $this->labels['email']; ?>"  href="#"><?php echo $client->email1; ?></a>
+                <input type="hidden" value="<?php echo $client->email1; ?>" name="client[email1]" id="ed_EmailH">
             </td>
         </tr>
 
