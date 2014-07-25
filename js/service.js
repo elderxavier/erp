@@ -4,11 +4,7 @@
 
 jQuery(document).ready(function(){
 
-    var hidden_id = jQuery("#cli_id");
     var client_field = jQuery(".auto-complete-clients");
-    var city_filter_select = jQuery(".ajax-filter-city");
-    var user_list_select = jQuery(".filtered-users");
-    var form_holder = jQuery(".client-settings");
 
     $.fn.editable.defaults.mode = 'inline';
 
@@ -38,8 +34,13 @@ jQuery(document).ready(function(){
                 //if loaded successfully
                 if(data != 'ERROR')
                 {
+                    var form_holder = jQuery(".client-settings");
+
                     //add content to holder
                     form_holder.html(data);
+
+                    //set found client name
+                    jQuery("#cli_found").val(ui.item.label);
 
                     //show
                     form_holder.removeClass('hidden');
@@ -47,26 +48,25 @@ jQuery(document).ready(function(){
 
             });
 
-        },
-        open: function() {
-            $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
-        },
-        close: function() {
-            $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
         }
     });
 
     //when focus out form client-filed
     client_field.focusout(function()
     {
-        //if new value entered by hands
-        if(hidden_id.attr('txt') != client_field.val())
+        //if new value entered by hands is not equal to old
+        if(jQuery("#cli_found").val() != client_field.val())
         {
             //try find in database by name
             jQuery.ajax({ url: '/ajax/clifi/name/'+client_field.val(), beforeSend: function(){/*TODO: pre-loader*/}}).done(function(data)
             {
+                var form_holder = jQuery(".client-settings");
+
                 //add content to holder
                 form_holder.html(data);
+
+                //last found
+                jQuery("#cli_found").val(client_field.val());
 
                 //show
                 form_holder.removeClass('hidden');
@@ -75,43 +75,47 @@ jQuery(document).ready(function(){
     });
 
     //when selected city
-    city_filter_select.change(function(){
+    jQuery(".ajax-filter-city").change(function(){
         jQuery.ajax({ url: '/ajax/workers/city/'+jQuery(this).val(), beforeSend: function(){/*TODO: pre-loader*/}}).done(function(data){
-            user_list_select.html(data);
+            jQuery(".filtered-users").html(data);
         });
     });
 
 });
 
-
+//when ajax loaded
 jQuery(document).ajaxComplete(function(){
 
+    //get editable type-field
+    var editTypeFiled = jQuery('#ed_type');
+
     //for selectable client type field
-    jQuery('#ed_type').editable({
+    editTypeFiled.editable({
         type: 'select',
-        value: 0,
+        value: 'none',
         name: 'select',
-        title: jQuery(this).attr('title'),
+        title: editTypeFiled.attr('title'),
         send: 'newer'
         //when changed value
-    }).on('rendered', function(e, editable){
-
+    }).on('save', function(e, editable){
             //st value to hidden field
-            jQuery('#ed_typeH').val(editable.value);
+            jQuery('#ed_typeH').val(editable.newValue);
 
             //if switched to company
-            if(editable.value == 1)
+            if(editable.newValue == 1)
             {
-                hideFields('phys');
-                showFields('jur');
+                showFields('both'); //show all fields
+                hideFields('phys'); //hide physical fields
+                showFields('jur'); //show juridical fields
+
             }
             //if switched to person
             else
             {
-                hideFields('jur');
-                showFields('phys');
+                showFields('both'); //show all fields
+                hideFields('jur'); //hide juridical fields
+                showFields('phys'); //show physical fields
             }
-
         });
 
 
@@ -122,20 +126,27 @@ jQuery(document).ajaxComplete(function(){
         title: jQuery(this).attr('title'),
         send:  'newer'
         //when changed value
-    }).on('rendered', function(e, editable){
+    }).on('save', function(e, editable){
             //get id of current link
             var id =  jQuery(this).attr('id');
             //find by this id hidden field and set value (hidden field has same id, but with H letter in end)
-            jQuery('#'+id+'H').val(editable.value);
+            jQuery('#'+id+'H').val(editable.newValue);
         });
 });
 
-
+/**
+ * Adds class 'hidden' to element
+ * @param type class name
+ */
 var hideFields = function(type)
 {
     jQuery('.'+type).addClass('hidden');
 };
 
+/**
+ * Removes class 'hidden' from element
+ * @param type
+ */
 var showFields = function(type)
 {
     jQuery('.'+type).removeClass('hidden');

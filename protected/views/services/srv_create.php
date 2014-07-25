@@ -16,7 +16,7 @@ $cs = Yii::app()->clientScript;
 $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/bootstrap-editable.css');
 $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/tickets_card.css');
 
-$cs->registerScriptFile(Yii::app()->baseUrl.'/js/bootstrap-editable_r.js',CClientScript::POS_END);
+$cs->registerScriptFile(Yii::app()->baseUrl.'/js/bootstrap-editable.js',CClientScript::POS_END);
 $cs->registerScriptFile(Yii::app()->baseUrl.'/js/service.js',CClientScript::POS_END);
 ?>
 
@@ -39,7 +39,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/service.js',CClientScript::POS_
 
                     <div class="form-group">
                         <?php echo $form->label($form_mdl,'client_id');?>
-                        <?php echo $form->hiddenField($form_mdl,'client_id',array('id' => 'cli_id', 'txt' => '')); ?>
+                        <input type="hidden" name="found_client_name" value="" id="cli_found">
                         <?php echo $form->textField($form_mdl,'client_name',array('id' => 'fio', 'class'=>'form-control auto-complete-clients', 'placeholder' => 'Enter customer name'));?>
                         <?php echo $form->error($form_mdl,'client_name'); ?>
                     </div>
