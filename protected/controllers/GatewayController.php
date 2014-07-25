@@ -5,21 +5,33 @@ class GatewayController extends Controller {
     /**
      * Returns JSON-array of product-cards
      */
-    public function actionCards()
+    public function actionCards($codename = null)
     {
-        /* @var $card ProductCards */
-
-        //empty array
+        //declare empty array
         $result = array();
 
-        //get all cards
-        $cards = ProductCards::model()->findAll();
-
-        //foreach card
-        foreach($cards as $card)
+        if($codename)
         {
-            //add array
-            $result[] = array('id' => $card->id, 'name' => $card->product_name, 'code' => $card->product_code);
+            //sql statement
+            $sql = "SELECT * FROM product_cards WHERE product_code LIKE '%".$codename."%' OR `product_name` LIKE '%".$codename."%'";
+        }
+        else
+        {
+            $sql = "SELECT * FROM product_cards";
+        }
+
+
+        //connection
+        $con = Yii::app()->db;
+
+        //get all data by query
+        $data=$con->createCommand($sql)->queryAll();
+
+        //foreach row
+        foreach($data as $row)
+        {
+            //add to result array
+            $result[] = array('id' => $row['id'],'name' => $row['product_name'],'code' => $row['product_code']);
         }
 
         echo json_encode($result);

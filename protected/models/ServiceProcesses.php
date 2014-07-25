@@ -188,15 +188,48 @@ class ServiceProcesses extends CActiveRecord
         //close time in seconds
         $close_time = $this->close_date;
 
-        //seconds left
+        //time left
         $seconds_left = $close_time - $current_time;
+        $months_left = 0;
+        $weeks_left = 0;
+        $days_left = 0;
+        $hours_left = 0;
+        $minutes_left = 0;
 
-        //calculate for all time formats
-        $months_left = (int)($seconds_left/$sec_in_month); $residue = $seconds_left - ($months_left * $sec_in_month);
-        $weeks_left = (int)($residue/$sec_in_week); $residue -= ($weeks_left * $sec_in_week);
-        $days_left = (int)($residue/$sec_in_day); $residue -= ($days_left * $sec_in_day);
-        $hours_left = (int)($residue/$sec_in_hour); $residue -= ($hours_left * $sec_in_hour);
-        $minutes_left = (int)($residue/$sec_in_min); $residue -= ($minutes_left * $sec_in_min);
+        //calculate for all time units
+        $residue = $seconds_left;
+
+
+        if(strstr($format,'moths'))
+        {
+            $months_left = (int)($residue/$sec_in_month);
+            $residue -= ($months_left * $sec_in_month);
+        }
+
+        if(strstr($format,'weeks'))
+        {
+            $weeks_left = (int)($residue/$sec_in_week);
+            $residue -= ($weeks_left * $sec_in_week);
+        }
+
+        if(strstr($format, 'days'))
+        {
+            $days_left = (int)($residue/$sec_in_day);
+            $residue -= ($days_left * $sec_in_day);
+        }
+
+        if(strstr($format, 'hours'))
+        {
+            $hours_left = (int)($residue/$sec_in_hour);
+            $residue -= ($hours_left * $sec_in_hour);
+        }
+
+        if(strstr($format, 'minutes'))
+        {
+            $minutes_left = (int)($residue/$sec_in_min);
+            $residue -= ($minutes_left * $sec_in_min);
+        }
+
         $seconds_left = $residue;
 
         //replace words in format-string with real values
