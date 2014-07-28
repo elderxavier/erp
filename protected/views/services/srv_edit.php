@@ -5,6 +5,9 @@
 <?php /* @var $this ServicesController */ ?>
 <?php /* @var $cs CClientScript */ ?>
 
+<?php /* @var $form_mdl SrvEditForm */ ?>
+<?php /* @var $form CActiveForm */ ?>
+
 <?php /* @var $cities array */ ?>
 <?php /* @var $workers array */ ?>
 
@@ -26,6 +29,11 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/ticket_info.js',CClientScript::
                 <div class="panel-heading">
                     <h3><span class="glyphicon glyphicon-tasks"></span><?php echo $this->labels['ticket code']; ?><strong><?php echo $service->label; ?></strong></h3>
                 </div><!--/panel-heading -->
+
+                <?php $form=$this->beginWidget('CActiveForm', array('enableAjaxValidation'=>false,'htmlOptions'=>array('class'=>''))); ?>
+
+
+
                 <div class="panel-body">
                     <table id="ticket-info" class="table table-bordered">
                         <tbody>
@@ -38,7 +46,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/ticket_info.js',CClientScript::
                         <tr>
                             <td><?php echo $this->labels['worker']; ?></td>
                             <td><?php echo $service->currentEmployee->name.' '.$service->currentEmployee->surname; ?></td>
-                            <td>Edit</td>
+                            <td><?php echo $this->labels['last edit by']; ?></td>
                             <td></td>
                         </tr>
                         <tr>
@@ -73,13 +81,13 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/ticket_info.js',CClientScript::
                                 <td><?php echo $this->labels['problem type']; ?></td>
                                 <td>
                                     <a id="ed_problem_type" href="#" class="editable-prb" data-value="<?php echo $service->problem_type_id; ?>" data-source='<?php echo $problem_types; ?>' style="display:inline"></a>
-                                    <input type="hidden" name="problem_id" id="ed_problem_typeH" value="<?php echo $service->problem_type_id; ?>">
+                                    <input type="hidden" name="SrvEditForm[problem_type_id]" id="ed_problem_typeH" value="<?php echo $service->problem_type_id; ?>">
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="2">
                                     <a href="#" id="ed_msg_ticket" class="editable"><?php echo $service->remark; ?></a>
-                                    <input type="hidden" name="remark" id="ed_msg_ticketH" value="<?php echo $service->remark; ?>">
+                                    <input type="hidden" name="SrvEditForm[remark]" id="ed_msg_ticketH" value="<?php echo $service->remark; ?>">
                                 </td>
                             </tr>
                         </table>
@@ -113,30 +121,26 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/ticket_info.js',CClientScript::
                             <label class="col-xs-3 col-sm-3 control-label" for="to"><?php echo $this->labels['forwarding']; ?>: </label>
 
                             <div class="col-sm-4 col-xs-4">
-                                <select class="form-control ajax-filter-city">
-                                    <?php foreach($cities as $id => $city): ?>
-                                        <option value="<?php echo $id; ?>"><?php echo $city; ?></option>
-                                    <?php endforeach;?>
-                                </select>
+                                <?php echo $form->dropDownList($form_mdl,'city_id',$cities,array('class'=>'form-control ajax-filter-city'));?>
                             </div>
 
                             <div class="col-sm-4 col-xs-4">
-                                <select class="form-control filtered-users">
-                                    <?php foreach($workers as $id => $worker): ?>
-                                        <option value="<?php echo $id; ?>"><?php echo $worker; ?></option>
-                                    <?php endforeach; ?>
-                                </select>
+                                <?php echo $form->dropDownList($form_mdl,'worker_id',$workers,array('class'=>'form-control filtered-users'));?>
                             </div>
+
                             <div class="col-sm-1 col-xs-1">
                                 <button type="submit"><span class="glyphicon glyphicon-ok"></span></button>
                             </div>
                         </div><!--/tr_for_to -->
 
                         <div class="text-area_holder col-md-12">
-                            <textarea name="resolution_remark"></textarea>
+                            <?php echo $form->textArea($form_mdl,'message_to_worker');?>
+                            <?php echo $form->error($form_mdl,'message_to_worker'); ?>
                         </div>
                     </div><!--/refer_to -->
                 </div><!--/panel-body -->
+
+                <?php $this->endWidget(); ?>
 
             </div><!--/ticket-body -->
 

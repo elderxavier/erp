@@ -139,9 +139,9 @@ class ServicesController extends Controller
                         $service_process -> status = ServiceProcesses::ST_OPENED; //status - opened
                         $service_process -> current_employee_id = $_POST['ServiceForm']['worker_id']; //lastly set employee
 
-
                         //save service process
                         $service_process -> save();
+
 
                         //create first resolution
                         $resolution = new ServiceResolutions();
@@ -194,6 +194,8 @@ class ServicesController extends Controller
 
     public function actionEdit($id = null)
     {
+        $form = new SrvEditForm();
+
         /* @var $worker_position Positions */
 
         //cities
@@ -209,6 +211,6 @@ class ServicesController extends Controller
         $workers = $worker_position->getAllUsersAsArray();
 
         $srv_process = ServiceProcesses::model()->with('client','problemType','currentEmployee','serviceResolutions')->findByPk($id);
-        $this->render('srv_edit',array('service' => $srv_process, 'problem_types' => $problem_types, 'cities' => $cities, 'workers' => $workers));
+        $this->render('srv_edit',array('service' => $srv_process, 'problem_types' => $problem_types, 'cities' => $cities, 'workers' => $workers, 'form_mdl' => $form));
     }
 }
