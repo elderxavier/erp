@@ -55,7 +55,7 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/tickets_list.css');
                                 <?php endif; ?>
 
                                 <?php if($this->rights['services_edit']): ?>
-                                    <?php echo CHtml::link($this->labels['edit'],'/services/reopen/id/'.$service->id,array('class' => 'actions action-edit')); ?>
+                                    <?php echo CHtml::link($this->labels['edit'],'/services/edit/id/'.$service->id,array('class' => 'actions action-edit')); ?>
                                 <?php endif; ?>
                             </td>
                         </tr>

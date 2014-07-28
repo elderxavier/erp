@@ -196,41 +196,59 @@ class ServiceProcesses extends CActiveRecord
         $hours_left = 0;
         $minutes_left = 0;
 
-        //calculate for all time units
+        //if time has gone into negative - left 0 seconds
+        if($seconds_left < 0) $seconds_left = 0;
+
+        //store all seconds as residue
         $residue = $seconds_left;
 
-
-        if(strstr($format,'moths'))
+        //if time is positive
+        if($seconds_left > 0)
         {
-            $months_left = (int)($residue/$sec_in_month);
-            $residue -= ($months_left * $sec_in_month);
+            //if word 'moths' exist in format-string
+            if(strstr($format,'moths'))
+            {
+                //calculate months
+                $months_left = (int)($residue/$sec_in_month); //get integral part of of division
+                $residue -= ($months_left * $sec_in_month); //recalculate residue
+            }
+
+            //if word 'weeks' exist in format-string
+            if(strstr($format,'weeks'))
+            {
+                //calculate weeks
+                $weeks_left = (int)($residue/$sec_in_week); //get integral part of of division
+                $residue -= ($weeks_left * $sec_in_week); //recalculate residue
+            }
+
+            //if word 'days' exist in format-string
+            if(strstr($format, 'days'))
+            {
+                //calculate days
+                $days_left = (int)($residue/$sec_in_day); //get integral part of of division
+                $residue -= ($days_left * $sec_in_day); //recalculate residue
+            }
+
+            //if word 'hours' exist in format-string
+            if(strstr($format, 'hours'))
+            {
+                //calculate hours
+                $hours_left = (int)($residue/$sec_in_hour); //get integral part of of division
+                $residue -= ($hours_left * $sec_in_hour); //recalculate residue
+            }
+
+            //if word 'minutes' exist in format-string
+            if(strstr($format, 'minutes'))
+            {
+                //calculate minutes
+                $minutes_left = (int)($residue/$sec_in_min); //get integral part of of division
+                $residue -= ($minutes_left * $sec_in_min); //recalculate residue
+            }
+
+            //seconds left after all
+            $seconds_left = $residue;
         }
 
-        if(strstr($format,'weeks'))
-        {
-            $weeks_left = (int)($residue/$sec_in_week);
-            $residue -= ($weeks_left * $sec_in_week);
-        }
-
-        if(strstr($format, 'days'))
-        {
-            $days_left = (int)($residue/$sec_in_day);
-            $residue -= ($days_left * $sec_in_day);
-        }
-
-        if(strstr($format, 'hours'))
-        {
-            $hours_left = (int)($residue/$sec_in_hour);
-            $residue -= ($hours_left * $sec_in_hour);
-        }
-
-        if(strstr($format, 'minutes'))
-        {
-            $minutes_left = (int)($residue/$sec_in_min);
-            $residue -= ($minutes_left * $sec_in_min);
-        }
-
-        $seconds_left = $residue;
 
         //replace words in format-string with real values
         $result = str_replace('months',$months_left,$result);

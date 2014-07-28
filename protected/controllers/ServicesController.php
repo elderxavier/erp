@@ -37,7 +37,7 @@ class ServicesController extends Controller
     }
 
     /**
-     * Create new service
+     * Create new service-process
      */
     public function actionCreate()
     {
@@ -96,8 +96,27 @@ class ServicesController extends Controller
                         $client_id ? $client = Clients::model()->findByPk($client_id) : $client = new Clients();
                         //set all attributes
                         $client->attributes = $_POST['client'];
-                        //save or update
-                        $client->isNewRecord ? $client->save() : $client->update();
+
+                        //set info-params
+                        $client->type = $form_clients->company;
+                        $client->date_changed = time();
+                        $client->user_modified_by = Yii::app()->user->id;
+
+                        //if created new client
+                        if($client->isNewRecord)
+                        {
+                            //creation time
+                            $client->date_created = time();
+                            //save in db
+                            $client->save();
+                        }
+                        //if old
+                        else
+                        {
+                            //update
+                            $client->update();
+                        }
+
 
                         //create service process
                         $service_process = new ServiceProcesses();
@@ -107,29 +126,30 @@ class ServicesController extends Controller
                         $service_process -> date_changed = time();
                         $service_process -> user_modified_by = Yii::app()->user->id;
 
-                        //start and end dates (will be set in future, now used defaults)
-                        $service_process -> start_date = time(); // defaults - current day
-                        $service_process -> close_date = time() + (24*60*60); // defaults - tomorrow
+                        //'start' and 'end' dates (will be set in future, now used defaults)
+                        $service_process -> start_date = time(); // default - current day
+                        $service_process -> close_date = time() + (24*60*60); // default - tomorrow
 
                         //set main params
-                        $service_process -> problem_type_id = $_POST['ServiceForm']['problem_type_id'];
-                        $service_process -> remark = $_POST['ServiceForm']['remark'];
-                        $service_process -> client_id = $client->id;
-                        $service_process -> label = 'empty label';
-                        $service_process -> priority = $_POST['ServiceForm']['priority'];
-                        $service_process -> status = ServiceProcesses::ST_OPENED;
-                        $service_process -> current_employee_id = $_POST['ServiceForm']['worker_id'];
+                        $service_process -> problem_type_id = $_POST['ServiceForm']['problem_type_id']; //relation with problems table
+                        $service_process -> remark = $_POST['ServiceForm']['remark']; //description
+                        $service_process -> client_id = $client->id; //relation with clients table
+                        $service_process -> label = 'empty label'; //system name of record
+                        $service_process -> priority = $_POST['ServiceForm']['priority']; //priority - string value
+                        $service_process -> status = ServiceProcesses::ST_OPENED; //status - opened
+                        $service_process -> current_employee_id = $_POST['ServiceForm']['worker_id']; //lastly set employee
+
 
                         //save service process
                         $service_process -> save();
 
                         //create first resolution
                         $resolution = new ServiceResolutions();
-                        $resolution -> service_process_id = $service_process->id;
-                        $resolution -> by_employee_id = $_POST['ServiceForm']['worker_id'];
-                        $resolution -> remark_for_employee = $service_process -> remark;
-                        $resolution -> process_current_status = $service_process -> status;
-                        $resolution -> status = ServiceResolutions::ST_NEW;
+                        $resolution -> service_process_id = $service_process->id; //relation with service-process which was created
+                        $resolution -> by_employee_id = $_POST['ServiceForm']['worker_id']; //relation with employee
+                        $resolution -> remark_for_employee = $service_process -> remark; //for first resolution used description of service process
+                        $resolution -> process_current_status = $service_process -> status; //current status of service-process
+                        $resolution -> status = ServiceResolutions::ST_NEW; //status of resolution - new
 
                         //info params
                         $resolution -> date_created = time();
@@ -170,5 +190,25 @@ class ServicesController extends Controller
 
         //render form
         $this->render('srv_create',array('form_mdl' => $form_service, 'form_cli' => $form_clients, 'clients' => $clients, 'problems' => $problems, 'cities' => $cities, 'workers' => $workers));
+    }
+
+    public function actionEdit($id = null)
+    {
+        /* @var $worker_position Positions */
+
+        //cities
+        $cities = array('ALL' => $this->labels['all']) + UserCities::model()->findAllAsArray();
+
+        //problem types
+        $problem_types = json_encode(ServiceProblemTypes::model()->findAllAsArray());
+
+        //get worker position
+        $worker_position = Positions::model()->findByAttributes(array('name' => 'Worker'));
+
+        //get all workers
+        $workers = $worker_position->getAllUsersAsArray();
+
+        $srv_process = ServiceProcesses::model()->with('client','problemType','currentEmployee','serviceResolutions')->findByPk($id);
+        $this->render('srv_edit',array('service' => $srv_process, 'problem_types' => $problem_types, 'cities' => $cities, 'workers' => $workers));
     }
 }

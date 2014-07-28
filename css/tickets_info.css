@@ -1,0 +1,147 @@
+/*--- main container ---*/
+.main_container > .container, .main_container > .container-fluid {
+	padding-top:20px;
+	padding-bottom:20px;}
+
+.main_container  .content-wrapper {
+	border:1px solid #c7c8cc;}
+	
+/*--- form left part----*/
+#ticket_body {
+	border-radius:0;
+	border:1px solid #b6b7bb;}
+
+#ticket_body .panel-heading  {
+	border-radius:0;
+	padding:10px;
+	background-color:#b6b7bb;}	
+	
+#ticket_body .panel-heading > h3 {
+	margin:0;
+	font-size:20px;
+	font-weight:400;
+	color:white;}
+	
+#ticket_body .panel-heading > h3 > span {
+	margin-right:10px;}
+	
+#ticket_body .panel-heading > h3 > strong {
+	margin-left:10px;}
+
+/*-- tableinfo --*/
+#ticket-info {
+	font-size:12px;}
+	
+#ticket-info tr > td:nth-child(odd) {
+	width:15%;	
+	background-color:#b6b7bb;
+	color:white;}
+	
+#ticket-problem-info {
+	border-radius:0;}
+	
+#ticket-problem-info table	{
+	font-size:12px;
+	border-radius:0}
+
+#ticket-problem-info table tr:first-child > td:first-child {
+	border-radius:0;
+	text-transform:uppercase;
+	width:25%;	
+	background-color:#b6b7bb;
+	color:white;}
+	
+.btn-holder .btn-group {
+	border-radius:0;
+	width:100%;}	
+		
+.btn-holder .btn-group > .btn {
+	border-radius:0px;
+	width:20%;}
+	
+#refer_to {
+	border-radius:0;
+	padding:10px;}
+	
+#tr_for_to {
+	margin:0;}		
+
+#tr_for_to label {
+	display:inline-block;
+	line-height:28px;
+	font-weight:400;
+	font-size:12px;
+	text-transform:uppercase;
+	color:#b6b7bb;}
+
+#tr_for_to select {
+	font-size:12px;
+	color:#b6b7bb;
+	border-radius:0px;}	
+	
+#tr_for_to button {
+	border:none;
+	border-radius:0;
+	padding: 0 10px;
+	height:32px;}
+	
+.text-area_holder {
+	margin-top:10px;}
+	
+.text-area_holder textarea {
+	width:100%;}
+	
+/*-- tabs ---*/
+.tabbable ul {}
+
+.tabbable ul > li {
+	margin-right:3px;
+	background-color:#b6b7bb;
+	border-radius:0;}
+	
+.tabbable ul > li > a {
+	margin-right:0;
+	border-radius:0;
+	color:white;
+	font-size:14px;}
+	
+.tabbable ul > li.active > a, .tabbable ul > li.active > a:focus {
+	outline:none;
+	color: #b6b7bb;}
+		
+/* --- right part ---*/
+#customor_info {
+	border-radius:0}
+
+#customor_info .panel-heading {
+	padding:0;}
+	
+#customor_info .panel-heading h4 {
+	margin:0;
+	line-height:46px;
+	font-weight:400;
+	font-size:14px;
+	text-transform:uppercase;
+	text-align:center;
+	color:white;
+	background-color:#89c325;}
+	
+#customor_info .panel-body h4 {
+	font-weight:600;
+	text-align:center;
+	color:#ee7c69;
+	font-size:20px;
+	text-transform:uppercase;}
+	
+#customor_info .panel-body table tr > td {
+	line-height:30px;} 
+	
+	
+#customor_info .panel-body table tr>td:first-child {
+	color:#9b9292;
+	font-size:12px;
+	text-transform:uppercase;}
+	
+#customor_info .panel-body table tr>td:last-child {
+	font-size:12px;
+	color:#149fe4;}	
