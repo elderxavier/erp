@@ -142,14 +142,37 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/ticket_info.js',CClientScript::
             <div class="tabbable">
                 <ul class="nav nav-tabs" role="tablist">
                     <li class="active"><a href="#home" role="tab" data-toggle="tab">Comments</a></li>
-                    <li><a href="#profile" role="tab" data-toggle="tab">ticket history</a></li>
+                    <li><a href="#profile" role="tab" data-toggle="tab"><?php echo $this->labels['ticket history']; ?></a></li>
                 </ul>
 
                 <!-- Tab panes -->
                 <div class="tab-content">
                     <hr>
-                    <div class="tab-pane active" id="home">comment</div>
-                    <div class="tab-pane" id="profile">History</div>
+                    <div class="tab-pane active" id="home">
+                        comments
+                    </div>
+                    <div class="tab-pane" id="profile">
+                        <table class="table table-bordered table-striped table-hover">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th><?php echo $this->labels['worker']; ?></th>
+                                <th><?php echo $this->labels['status']; ?></th>
+                                <th><?php echo $this->labels['created']; ?></th>
+                                <th><?php echo $this->labels['changed']; ?></th>
+                            </tr>
+                            <?php foreach($service->serviceResolutions as $resolution): ?>
+                            <tr>
+                                <td><?php echo $resolution->id; ?></td>
+                                <td><?php echo $resolution->byEmployee->name.' '.$resolution->byEmployee->surname; ?></td>
+                                <td><?php echo $resolution->statusLabel(); ?></td>
+                                <td><?php echo date('Y.m.d',$resolution->date_created);?></td>
+                                <td><?php echo date('Y.m.d',$resolution->date_changed);?></td>
+                            </tr>
+                            <?php endforeach;?>
+                            </thead>
+                        </table>
+                    </div>
                 </div>
             </div><!--/tabbable -->
         </div>

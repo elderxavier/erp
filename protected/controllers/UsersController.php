@@ -129,8 +129,11 @@ class UsersController extends Controller
             $form->attributes = $_POST['UserForm'];
 
             //if validation passed
-            if($form->validate() && $form->validateFile('UserForm','avatar'))
+            if($form->validate())
             {
+                //get file from request
+                $avatar = CUploadedFile::getInstance($form,'avatar');
+
                 //new user
                 $user = new Users();
 
@@ -148,13 +151,16 @@ class UsersController extends Controller
                 $user->user_modified_by = Yii::app()->user->id;
 
                 //if have avatar
-                if($form->file_params['error'] == 0)
+                if($avatar->size > 0)
                 {
-                    //if file copied
-                    if(copy($form->file_params['tmp_name'], 'images/user_thumbs/'.$form->file_params['random_name']))
+                    //create new file-name
+                    $new_file_name = uniqid('av_').'.'.$avatar->extensionName;
+
+                    //if file saved
+                    if($avatar->saveAs('images/user_thumbs/'.$new_file_name))
                     {
                         //set new avatar
-                        $user->avatar = $form->file_params['random_name'];
+                        $user->avatar = $new_file_name;
                     }
                 }
 
@@ -219,8 +225,11 @@ class UsersController extends Controller
                 $user->attributes = $_POST['UserForm'];
 
                 //if validation passed
-                if($form->validate() && $form->validateFile('UserForm','avatar'))
+                if($form->validate())
                 {
+                    //get file from request
+                    $avatar = CUploadedFile::getInstance($form,'avatar');
+
                     //set dates
                     $user->date_changed = time();
 
@@ -228,11 +237,13 @@ class UsersController extends Controller
                     $user->user_modified_by = Yii::app()->user->id;
 
                     //if have avatar
-                    if($form->file_params['error'] == 0)
+                    if($avatar->size > 0)
                     {
+                        //create new file-name
+                        $new_file_name = uniqid('av_').'.'.$avatar->extensionName;
 
-                        //if file copied
-                        if(copy($form->file_params['tmp_name'], 'images/user_thumbs/'.$form->file_params['random_name']))
+                        //if avatar saved
+                        if($avatar->saveAs('images/user_thumbs/'.$new_file_name))
                         {
                             //delete old avatar if exist
                             if($old_ava != '' && file_exists('images/user_thumbs/'.$old_ava))
@@ -241,7 +252,7 @@ class UsersController extends Controller
                             }
 
                             //set new avatar
-                            $user->avatar = $form->file_params['random_name'];
+                            $user->avatar = $new_file_name;
                         }
                     }
                     //leave od avatar

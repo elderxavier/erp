@@ -106,7 +106,7 @@ class ServiceProcessStatuses extends CActiveRecord
 	}
 
     /**
-     * Returns PK of system status, takes permanent system label of status
+     * Returns id of system status by it's system-id (system-label)
      * @param $systemId
      * @return int
      */
@@ -116,6 +116,20 @@ class ServiceProcessStatuses extends CActiveRecord
         $status = self::model()->findByAttributes(array('system_id' => $systemId));
 
         if($status) return $status->id;
+        else return 0;
+    }
+
+    /**
+     * Returns name of status by it's id
+     * @param $id
+     * @return int|string
+     */
+    public function getNameById($id)
+    {
+        /* @var $status ServiceProcessStatuses */
+        $status = self::model()->findByPk($id);
+
+        if($status) return $status->status_name;
         else return 0;
     }
 }

@@ -192,6 +192,10 @@ class ServicesController extends Controller
         $this->render('srv_create',array('form_mdl' => $form_service, 'form_cli' => $form_clients, 'clients' => $clients, 'problems' => $problems, 'cities' => $cities, 'workers' => $workers));
     }
 
+    /**
+     * Edits service process
+     * @param null $id
+     */
     public function actionEdit($id = null)
     {
         /* @var $worker_position Positions */

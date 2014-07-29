@@ -5,14 +5,6 @@
  */
 class UserForm extends CBaseForm
 {
-
-    //max validation file size
-    public $max_validation_file_size = 1000000;
-
-    //for single file validation
-    public $file_params = array();
-
-
     public $username;
     public $password;
     public $repeat_password;
@@ -48,14 +40,14 @@ class UserForm extends CBaseForm
             //password, username and email cannot be empty
             $rules[] = array('username, password, repeat_password, email', 'required','message'=> $this->messages['fill the field'].' "{attribute}"');
             $rules[] = array('repeat_password', 'equal', 'to' => 'password');
-//            $rules[] = array('avatar', 'file', 'types'=>'jpg, gif, png', 'allowEmpty' =>true, 'maxSize' => 1024);
+            $rules[] = array('avatar', 'file', 'types'=>'jpg, gif, png', 'allowEmpty' =>true, 'maxSize' => 1000000);
         }
         //if old user updating
         else
         {
             //password can be empty
             $rules[] = array('username, email', 'required','message'=> $this->messages['fill the field'].' "{attribute}"');
-//            $rules[] = array('avatar', 'file', 'types'=>'jpg, gif, png', 'allowEmpty' =>true, 'maxSize' => 1024);
+            $rules[] = array('avatar', 'file', 'types'=>'jpg, gif, png', 'allowEmpty' =>true, 'maxSize' => 1000000);
         }
 
         return $rules;
@@ -138,78 +130,5 @@ class UserForm extends CBaseForm
         {
             $this->addError($attribute, $this->messages['fields'].' "'.$this->labels[$attribute].'" and "'.$this->labels[$value_to_equal].'" '.$this->messages['must be equal']);
         }
-    }
-
-
-    /**
-     * Validates file and stores parameters of file in model
-     * @param $form_name
-     * @param $field_name
-     * @return bool
-     */
-    public function validateFile($form_name,$field_name)
-    {
-        //available types for images
-        $arrTypesImages = array
-        (
-            'png' => 'image/png',
-            'jpe' => 'image/jpeg',
-            'jpeg' => 'image/jpeg',
-            'jpg' => 'image/jpeg',
-            'gif' => 'image/gif',
-            'bmp' => 'image/bmp'
-        );
-
-        //get main parameters and set them to model
-        $this->file_params['name'] = $name = $_FILES[$form_name]['name'][$field_name];
-        $this->file_params['type'] = $type = $_FILES[$form_name]['type'][$field_name];
-        $this->file_params['tmp_name'] = $tmp_name = $_FILES[$form_name]['tmp_name'][$field_name];
-        $this->file_params['error'] = $error = $_FILES[$form_name]['error'][$field_name];
-        $this->file_params['size'] = $size = $_FILES[$form_name]['size'][$field_name];
-        //get extension
-        $name_parts = explode(".",$name);
-        $this->file_params['extension'] = $ext = $name_parts[count($name_parts)-1];
-        //random filename
-        $this->file_params['random_name'] = $this->generateRandomString().".".$ext;
-
-        //if type not found in array
-        if(!in_array($type,$arrTypesImages) && $this->file_params['error'] == 0)
-        {
-            //add error
-            $this->addError($field_name,$this->messages['wrong image type']);
-        }
-
-        //if size bigger than maximum validation size
-        if($size > $this->max_validation_file_size)
-        {
-            //add error
-            $this->addError($field_name,$this->messages['image is too big']);
-        }
-
-        //returns true if no errors
-        return !$this->hasErrors();
-    }
-
-
-    /**
-     * Generates random string
-     * @param int $length
-     * @param bool $uppercase
-     * @return string
-     */
-    public function generateRandomString($length = 8, $uppercase = false)
-    {
-        //string of chars
-        $chars = 'abdefhiknrstyzABDEFGHKNQRSTYZ23456789';
-        //count of chars
-        $numChars = strlen($chars);
-        //empty string
-        $string = '';
-        //collect random chars from char-string
-        for ($i = 0; $i < $length; $i++) {
-            $string .= substr($chars, rand(1, $numChars) - 1, 1);
-        }
-        //returns string (can be in uppercase if uppercase set to true)
-        return $uppercase ? strtoupper($string) : $string;
     }
 }
