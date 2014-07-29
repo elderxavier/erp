@@ -47,7 +47,7 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/tickets_list.css');
                             <td><?php echo $service->userModifiedBy->name.' '.$service->userModifiedBy->surname; ?></td>
                             <td><?php echo $service->currentEmployee->name.' '.$service->currentEmployee->surname; ?></td>
                             <td><?php echo $service->timeLeft('days d hours h minutes m seconds s'); ?></td>
-                            <td><?php echo $service->statusLabel(); ?></td>
+                            <td><?php echo $service->status->status_name; ?></td>
 
                             <td>
                                 <?php if($this->rights['services_delete']): ?>

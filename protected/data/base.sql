@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost
-Source Server Version : 50535
+Source Server         : local
+Source Server Version : 50538
 Source Host           : localhost:3306
 Source Database       : alex_erp2
 
 Target Server Type    : MYSQL
-Target Server Version : 50535
+Target Server Version : 50538
 File Encoding         : 65001
 
-Date: 2014-07-25 16:21:09
+Date: 2014-07-29 13:42:06
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -54,14 +54,15 @@ CREATE TABLE `clients` (
   KEY `last_invoice_id` (`last_invoice_id`),
   CONSTRAINT `clients_ibfk_1` FOREIGN KEY (`first_invoice_id`) REFERENCES `invoices_out` (`id`),
   CONSTRAINT `clients_ibfk_2` FOREIGN KEY (`last_invoice_id`) REFERENCES `invoices_out` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of clients
 -- ----------------------------
-INSERT INTO `clients` VALUES ('3', 'Vasia', '', 'Pupkin', 'COD5646854', '', 'COD998564', null, null, null, '123456', '123456', null, 'test@test.tst', 'test@test.tst', 'remark', 'remark', null, null, null, null, '0', '1405585981', '1406282368', '1', null, null);
+INSERT INTO `clients` VALUES ('3', 'Vasia', '', 'Pupkin', 'COD5646854', '', 'COD998564', null, null, null, '123456', '123456', null, 'test@test.tst', 'test@test.tst', 'remark', 'remark', null, null, null, null, '0', '1405585981', '1406629962', '1', null, null);
 INSERT INTO `clients` VALUES ('4', 'Viqtor', '', 'Creed', 'CDHTR56', '', 'DF874654', null, null, null, '123456', '123456', null, 'em@i.l', 'em@i.l', 'remark', 'remark', null, null, null, null, '0', '1405586036', '1405586036', '1', null, null);
-INSERT INTO `clients` VALUES ('6', '', 'Philips', '', '', 'PFG465', 'VATDF5465', null, null, null, '123456', '123456', null, 'em@ail.com', 'em@ail.com', 'remark', 'remark', null, null, null, null, '1', '1405588123', '1405588123', '1', null, null);
+INSERT INTO `clients` VALUES ('6', '', 'Philips', '', '', 'PFG465', 'VATDF5465', null, null, null, '123456', '123456', null, 'em@ail.com', 'em@ail.com', 'remark', 'remark', null, null, null, null, '1', '1405588123', '1406629354', '1', null, null);
+INSERT INTO `clients` VALUES ('7', 'Тестинг', '', 'Тестов', 'PERCODE6546', '', 'VAT486SDF', null, null, null, '123456', null, null, 'em@ail.su', null, null, null, null, null, null, null, '0', '1406630140', '1406630140', '1', null, null);
 
 -- ----------------------------
 -- Table structure for `invoices_in`
@@ -423,11 +424,12 @@ CREATE TABLE `service_processes` (
   `start_date` int(11) DEFAULT NULL,
   `close_date` int(11) DEFAULT NULL,
   `client_id` int(11) DEFAULT NULL,
-  `status` int(11) DEFAULT NULL,
+  `status_id` int(11) DEFAULT NULL,
   `operation_id` int(11) DEFAULT NULL,
   `problem_type_id` int(11) DEFAULT NULL,
   `date_created` int(11) DEFAULT NULL,
   `date_changed` int(11) DEFAULT NULL,
+  `user_created_by` int(11) DEFAULT NULL,
   `user_modified_by` int(11) DEFAULT NULL,
   `priority` text,
   `current_employee_id` int(11) DEFAULT NULL,
@@ -437,18 +439,43 @@ CREATE TABLE `service_processes` (
   KEY `service_processes_ibfk_2` (`operation_id`),
   KEY `user_modified_by` (`user_modified_by`),
   KEY `current_employee_id` (`current_employee_id`),
-  CONSTRAINT `service_processes_ibfk_6` FOREIGN KEY (`current_employee_id`) REFERENCES `users` (`id`),
+  KEY `user_created_by` (`user_created_by`),
+  KEY `status_id` (`status_id`),
+  CONSTRAINT `service_processes_ibfk_8` FOREIGN KEY (`status_id`) REFERENCES `service_process_statuses` (`id`),
   CONSTRAINT `service_processes_ibfk_1` FOREIGN KEY (`client_id`) REFERENCES `clients` (`id`),
   CONSTRAINT `service_processes_ibfk_2` FOREIGN KEY (`operation_id`) REFERENCES `operations_out` (`id`),
   CONSTRAINT `service_processes_ibfk_3` FOREIGN KEY (`problem_type_id`) REFERENCES `service_problem_types` (`id`),
-  CONSTRAINT `service_processes_ibfk_5` FOREIGN KEY (`user_modified_by`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+  CONSTRAINT `service_processes_ibfk_5` FOREIGN KEY (`user_modified_by`) REFERENCES `users` (`id`),
+  CONSTRAINT `service_processes_ibfk_6` FOREIGN KEY (`current_employee_id`) REFERENCES `users` (`id`),
+  CONSTRAINT `service_processes_ibfk_7` FOREIGN KEY (`user_created_by`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of service_processes
 -- ----------------------------
-INSERT INTO `service_processes` VALUES ('1', 'empty label', 'Фильтр взбесился и начал избивать людей! Быстрее спасайте нас!', '1406287597', '1406373997', '3', '0', null, '2', '1406287597', '1406287597', '1', 'medium', '5');
-INSERT INTO `service_processes` VALUES ('2', 'empty label', 'Клиент рассматривал фильтр и внезапно засунул свою голову в мясорубку! Это уже 10 случай подобного типа! Быстрее выезжай, Пинислав! Спаси его!', '1406294265', '1406380665', '4', '0', null, '1', '1406294265', '1406294265', '1', 'low', '4');
+INSERT INTO `service_processes` VALUES ('4', 'some key', 'Фильтр перебил почти всех сотружников Philips! Быстрее, вован! Это срочно!', '1406629354', '1406715754', '6', '1', null, '2', '1406629354', '1406629354', '1', '1', 'high', '5');
+INSERT INTO `service_processes` VALUES ('5', 'some key', 'Наш клиент смотрел на фильтр и внезапно засунул свою голову в мясорубку! Это уже 10 случай! Скорее Пинислав, вытащи его голову пока ее не скрутило!', '1406629962', '1406716362', '3', '1', null, '1', '1406629962', '1406629962', '1', '1', 'medium', '4');
+INSERT INTO `service_processes` VALUES ('6', 'some key', 'Тест', '1406630140', '1406716540', '7', '1', null, '2', '1406630140', '1406630140', '1', '1', 'low', '5');
+
+-- ----------------------------
+-- Table structure for `service_process_statuses`
+-- ----------------------------
+DROP TABLE IF EXISTS `service_process_statuses`;
+CREATE TABLE `service_process_statuses` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `status_name` text,
+  `system_id` text,
+  `system` int(11) DEFAULT NULL,
+  `priority` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of service_process_statuses
+-- ----------------------------
+INSERT INTO `service_process_statuses` VALUES ('1', 'opened', 'SYS_OPENED', '1', '1');
+INSERT INTO `service_process_statuses` VALUES ('2', 'in progress', 'SYS_PROGRESS', '1', '2');
+INSERT INTO `service_process_statuses` VALUES ('3', 'closed', 'SYS_CLOSED', '1', '3');
 
 -- ----------------------------
 -- Table structure for `service_resolutions`
@@ -475,8 +502,8 @@ CREATE TABLE `service_resolutions` (
 -- ----------------------------
 -- Records of service_resolutions
 -- ----------------------------
-INSERT INTO `service_resolutions` VALUES ('1', '1', '5', 'Фильтр взбесился и начал избивать людей! Быстрее спасайте нас!', null, '0', '1', '1406287597', '1406287597', '1');
-INSERT INTO `service_resolutions` VALUES ('2', '2', '4', 'Клиент рассматривал фильтр и внезапно засунул свою голову в мясорубку! Это уже 10 случай подобного типа! Быстрее выезжай, Пинислав! Спаси его!', null, '0', '1', '1406294265', '1406294265', '1');
+INSERT INTO `service_resolutions` VALUES ('1', '4', '5', 'Фильтр перебил почти всех сотружников Philips! Быстрее, вован! Это срочно!', null, '1', '1', '1406629354', '1406629354', '1');
+INSERT INTO `service_resolutions` VALUES ('2', '5', '4', 'Наш клиент смотрел на фильтр и внезапно засунул свою голову в мясорубку! Это уже 10 случай! Скорее Пинислав, вытащи его голову пока ее не скрутило!', null, '1', '1', '1406629962', '1406629962', '1');
 
 -- ----------------------------
 -- Table structure for `stocks`

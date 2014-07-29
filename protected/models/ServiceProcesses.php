@@ -10,34 +10,29 @@
  * @property integer $start_date
  * @property integer $close_date
  * @property integer $client_id
- * @property integer $status
+ * @property integer $status_id
  * @property integer $operation_id
  * @property integer $problem_type_id
  * @property integer $date_created
  * @property integer $date_changed
+ * @property integer $user_created_by
  * @property integer $user_modified_by
  * @property string $priority
  * @property integer $current_employee_id
  *
  * The followings are the available model relations:
  * @property OperationsSrv[] $operationsSrvs
- * @property Users $userModifiedBy
+ * @property ServiceProcessStatuses $status
  * @property Clients $client
  * @property OperationsOut $operation
  * @property ServiceProblemTypes $problemType
+ * @property Users $userModifiedBy
  * @property Users $currentEmployee
+ * @property Users $userCreatedBy
  * @property ServiceResolutions[] $serviceResolutions
  */
 class ServiceProcesses extends CActiveRecord
 {
-
-    /**
-     * Service statuses
-     */
-    const ST_OPENED = 0;
-    const ST_IN_PROGRESS = 1;
-    const ST_CLOSED = 2;
-
 	/**
 	 * @return string the associated database table name
 	 */
@@ -54,11 +49,11 @@ class ServiceProcesses extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('start_date, close_date, client_id, status, operation_id, problem_type_id, date_created, date_changed, user_modified_by, current_employee_id', 'numerical', 'integerOnly'=>true),
+			array('start_date, close_date, client_id, status_id, operation_id, problem_type_id, date_created, date_changed, user_created_by, user_modified_by, current_employee_id', 'numerical', 'integerOnly'=>true),
 			array('label, remark, priority', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, label, remark, start_date, close_date, client_id, status, operation_id, problem_type_id, date_created, date_changed, user_modified_by, priority, current_employee_id', 'safe', 'on'=>'search'),
+			array('id, label, remark, start_date, close_date, client_id, status_id, operation_id, problem_type_id, date_created, date_changed, user_created_by, user_modified_by, priority, current_employee_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -71,11 +66,13 @@ class ServiceProcesses extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'operationsSrvs' => array(self::HAS_MANY, 'OperationsSrv', 'service_process_id'),
-			'userModifiedBy' => array(self::BELONGS_TO, 'Users', 'user_modified_by'),
+			'status' => array(self::BELONGS_TO, 'ServiceProcessStatuses', 'status_id'),
 			'client' => array(self::BELONGS_TO, 'Clients', 'client_id'),
 			'operation' => array(self::BELONGS_TO, 'OperationsOut', 'operation_id'),
 			'problemType' => array(self::BELONGS_TO, 'ServiceProblemTypes', 'problem_type_id'),
+			'userModifiedBy' => array(self::BELONGS_TO, 'Users', 'user_modified_by'),
 			'currentEmployee' => array(self::BELONGS_TO, 'Users', 'current_employee_id'),
+			'userCreatedBy' => array(self::BELONGS_TO, 'Users', 'user_created_by'),
 			'serviceResolutions' => array(self::HAS_MANY, 'ServiceResolutions', 'service_process_id'),
 		);
 	}
@@ -92,11 +89,12 @@ class ServiceProcesses extends CActiveRecord
 			'start_date' => 'Start Date',
 			'close_date' => 'Close Date',
 			'client_id' => 'Client',
-			'status' => 'Status',
+			'status_id' => 'Status',
 			'operation_id' => 'Operation',
 			'problem_type_id' => 'Problem Type',
 			'date_created' => 'Date Created',
 			'date_changed' => 'Date Changed',
+			'user_created_by' => 'User Created By',
 			'user_modified_by' => 'User Modified By',
 			'priority' => 'Priority',
 			'current_employee_id' => 'Current Employee',
@@ -127,14 +125,15 @@ class ServiceProcesses extends CActiveRecord
 		$criteria->compare('start_date',$this->start_date);
 		$criteria->compare('close_date',$this->close_date);
 		$criteria->compare('client_id',$this->client_id);
-		$criteria->compare('status',$this->status);
+		$criteria->compare('status_id',$this->status_id);
 		$criteria->compare('operation_id',$this->operation_id);
 		$criteria->compare('problem_type_id',$this->problem_type_id);
 		$criteria->compare('date_created',$this->date_created);
 		$criteria->compare('date_changed',$this->date_changed);
+		$criteria->compare('user_created_by',$this->user_created_by);
 		$criteria->compare('user_modified_by',$this->user_modified_by);
 		$criteria->compare('priority',$this->priority,true);
-		$criteria->compare('current_employee_id',$this->curren_employee_id);
+		$criteria->compare('current_employee_id',$this->current_employee_id);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -151,20 +150,6 @@ class ServiceProcesses extends CActiveRecord
 	{
 		return parent::model($className);
 	}
-
-    /**
-     * Returns current status as text label
-     * @return string
-     */
-    public function statusLabel()
-    {
-        $arr[self::ST_CLOSED] = 'finished';
-        $arr[self::ST_IN_PROGRESS] = 'in progress';
-        $arr[self::ST_OPENED] = 'opened';
-
-        return (string)$arr[$this->status];
-    }
-
 
     /**
      * Returns formatted time value, takes string of format like 'months.weeks.days.hours.minutes.seconds' or 'hours.minutes'
@@ -262,5 +247,4 @@ class ServiceProcesses extends CActiveRecord
         return $result;
 
     }
-
 }

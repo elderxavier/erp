@@ -4,12 +4,14 @@
 <?php /* @var $problem_types array */ ?>
 <?php /* @var $this ServicesController */ ?>
 <?php /* @var $cs CClientScript */ ?>
+<?php /* @var $status ServiceProcessStatuses */ ?>
 
 <?php /* @var $form_mdl SrvEditForm */ ?>
 <?php /* @var $form CActiveForm */ ?>
 
 <?php /* @var $cities array */ ?>
 <?php /* @var $workers array */ ?>
+<?php /* @var $statuses array */ ?>
 
 <?php
 $cs = Yii::app()->clientScript;
@@ -32,14 +34,12 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/ticket_info.js',CClientScript::
 
                 <?php $form=$this->beginWidget('CActiveForm', array('enableAjaxValidation'=>false,'htmlOptions'=>array('class'=>''))); ?>
 
-
-
                 <div class="panel-body">
                     <table id="ticket-info" class="table table-bordered">
                         <tbody>
                         <tr>
                             <td><?php echo $this->labels['ticket creator']; ?></td>
-                            <td><?php echo $service->userModifiedBy->name.' '.$service->userModifiedBy->surname;?></td>
+                            <td><?php echo $service->userCreatedBy->name.' '.$service->userCreatedBy->surname;?></td>
                             <td><?php echo $this->labels['creation date']; ?></td>
                             <td><?php echo date('Y.m.d H:i',$service->date_created);?></td>
                         </tr>
@@ -47,7 +47,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/ticket_info.js',CClientScript::
                             <td><?php echo $this->labels['worker']; ?></td>
                             <td><?php echo $service->currentEmployee->name.' '.$service->currentEmployee->surname; ?></td>
                             <td><?php echo $this->labels['last edit by']; ?></td>
-                            <td></td>
+                            <td><?php echo $service->userModifiedBy->name.' '.$service->userModifiedBy->surname;?></td>
                         </tr>
                         <tr>
                             <td><?php echo $this->labels['client']; ?></td>
@@ -96,24 +96,13 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/ticket_info.js',CClientScript::
                     <hr>
                     <div class="col=md-12 btn-holder">
                         <div class="btn-group" data-toggle="buttons">
-                            <label class="btn btn-danger active">
-                                <input type="radio" name="options" id="option1" checked> Option 1
-                            </label>
-                            <label class="btn btn-danger">
-                                <input type="radio" name="options" id="option2"> Option 2
-                            </label>
-                            <label class="btn btn-danger">
-                                <input type="radio" name="options" id="option3"> Option 3
-                            </label>
-                            <label class="btn btn-danger">
-                                <input type="radio" name="options" id="option3"> Option 4
-                            </label>
-                            <label class="btn btn-danger">
-                                <input type="radio" name="options" id="option3"> Option 5
-                            </label>
+                            <?php foreach($statuses as $status): ?>
+                                <label class="btn btn-danger <?php if($status->id == $service->status->id): ?> active <?php endif;?>">
+                                    <input type="radio" name="SrvEditForm[status]" value="<?php echo $status->id; ?>" id="option1" <?php if($status->id == $service->status->id): ?> checked <?php endif;?>> <?php echo $status->status_name; ?>
+                                </label>
+                            <?php endforeach;?>
                         </div>
                     </div><!--/btn-holder -->
-
                     <hr>
 
                     <div class="col-sm-12 panel panel-default" id="refer_to">

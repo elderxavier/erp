@@ -125,6 +125,7 @@ class ServicesController extends Controller
                         $service_process -> date_created = time();
                         $service_process -> date_changed = time();
                         $service_process -> user_modified_by = Yii::app()->user->id;
+                        $service_process -> user_created_by = Yii::app()->user->id;
 
                         //'start' and 'end' dates (will be set in future, now used defaults)
                         $service_process -> start_date = time(); // default - current day
@@ -134,9 +135,9 @@ class ServicesController extends Controller
                         $service_process -> problem_type_id = $_POST['ServiceForm']['problem_type_id']; //relation with problems table
                         $service_process -> remark = $_POST['ServiceForm']['remark']; //description
                         $service_process -> client_id = $client->id; //relation with clients table
-                        $service_process -> label = 'empty label'; //system name of record
+                        $service_process -> label = 'some key'; //system name of record (empty for now, in future will be generated from ID)
                         $service_process -> priority = $_POST['ServiceForm']['priority']; //priority - string value
-                        $service_process -> status = ServiceProcesses::ST_OPENED; //status - opened
+                        $service_process -> status_id = ServiceProcessStatuses::model()->systemStatusId('SYS_OPENED'); //get id of OPENED status
                         $service_process -> current_employee_id = $_POST['ServiceForm']['worker_id']; //lastly set employee
 
                         //save service process
@@ -194,23 +195,30 @@ class ServicesController extends Controller
 
     public function actionEdit($id = null)
     {
-        $form = new SrvEditForm();
-
         /* @var $worker_position Positions */
 
-        //cities
-        $cities = array('ALL' => $this->labels['all']) + UserCities::model()->findAllAsArray();
+        //create service-editing-form
+        $form = new SrvEditForm();
 
-        //problem types
-        $problem_types = json_encode(ServiceProblemTypes::model()->findAllAsArray());
+        //arrays for select boxes
+        $cities = array('ALL' => $this->labels['all']) + UserCities::model()->findAllAsArray(); // cities as pairs-array
+        $problem_types = json_encode(ServiceProblemTypes::model()->findAllAsArray()); // problem types (used in editable)
+        $worker_position = Positions::model()->findByAttributes(array('name' => 'Worker')); //worker position object
+        $workers = $worker_position->getAllUsersAsArray(); //all workers as pairs-array
+        $statuses = ServiceProcessStatuses::model()->findAll(array(),array('order' => 'priority ASC'));
 
-        //get worker position
-        $worker_position = Positions::model()->findByAttributes(array('name' => 'Worker'));
+        //find service-process
+        $srv_process = ServiceProcesses::model()->with('client','problemType','currentEmployee','serviceResolutions','status')->findByPk($id);
 
-        //get all workers
-        $workers = $worker_position->getAllUsersAsArray();
+        //render form
+        $this->render('srv_edit',array('service' => $srv_process, 'problem_types' => $problem_types, 'cities' => $cities, 'workers' => $workers, 'form_mdl' => $form, 'statuses' => $statuses));
 
-        $srv_process = ServiceProcesses::model()->with('client','problemType','currentEmployee','serviceResolutions')->findByPk($id);
-        $this->render('srv_edit',array('service' => $srv_process, 'problem_types' => $problem_types, 'cities' => $cities, 'workers' => $workers, 'form_mdl' => $form));
+        if($_POST['SrvEditForm'])
+        {
+            $form->attributes = $_POST['SrvEditForm'];
+
+            Debug::out($_POST);
+            exit();
+        }
     }
 }
