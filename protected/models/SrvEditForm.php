@@ -11,7 +11,7 @@ class SrvEditForm extends CBaseForm
     public function rules()
     {
         return array(
-            array('city_id, worker_id, remark, problem_type_id, message_to_worker', 'required', 'message'=> $this->messages['fill the field'].' "{attribute}"'),
+            array('worker_id, remark, problem_type_id', 'required', 'message'=> $this->messages['fill the field'].' "{attribute}"'),
             array('city_id, worker_id, remark, message_to_worker', 'safe'),
         );
     }

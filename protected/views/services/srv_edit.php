@@ -58,7 +58,13 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/ticket_info.js',CClientScript::
                         <tr>
                             <td><?php echo $this->labels['status']; ?></td>
                             <td>
-                               <span class="label label-success">job done</span>
+                               <?php foreach($statuses as $status): ?>
+                                   <?php if($status->id == $service->status->id): ?>
+                                       <?php $class = "label-danger"; ?>
+                                       <?php $status->system_id == 'SYS_CLOSED' ? $class = "label-success" : $class = "label-danger"; ?>
+                                       <span class="label <?php echo $class; ?>"><?php echo $status->status_name; ?></span>
+                                   <?php endif?>
+                               <?php endforeach;?>
                             </td>
                             <td><?php echo $this->labels['priority']; ?></td>
                             <td>
