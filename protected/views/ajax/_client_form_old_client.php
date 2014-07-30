@@ -113,5 +113,6 @@
             </td>
         </tr>
     </table>
-
+    <br>
+    <a class="make-new-client-link" href="/ajax/newclient/name/<?php echo $client->type == 1 ? $client->company_name : $client->name.' '.$client->surname; ?>">Make new</a>
 </div><!--/cust-data -->

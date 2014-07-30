@@ -202,6 +202,23 @@ class AjaxController extends Controller {
     }
 
     /**
+     * Just render client-form for new client, takes client name as parameter
+     * @param string $name
+     * @throws CHttpException
+     */
+    public function actionNewClient($name = '')
+    {
+        if(Yii::app()->request->isAjaxRequest)
+        {
+            $this->renderPartial('_client_form_new_client',array('client_name' => $name));
+        }
+        else
+        {
+            throw new CHttpException(404);
+        }
+    }
+
+    /**
      * Founds client by id and renders partial form
      * @param null $id
      * @throws CHttpException

@@ -135,6 +135,19 @@ jQuery(document).ajaxComplete(function(){
             //find by this id hidden field and set value (hidden field has same id, but with H letter in end)
             jQuery('#'+id+'H').val(editable.newValue);
         });
+
+    //when user wants make new client with name of found client
+    jQuery('.make-new-client-link').click(function(){
+
+        //load client info by id
+        jQuery.ajax({ url: jQuery(this).attr('href'), beforeSend: function(){/*TODO: pre-loader*/}}).done(function(data)
+        {
+            //add content to holder
+            jQuery(".client-settings").html(data);
+        });
+
+        return false;
+    });
 });
 
 /**
