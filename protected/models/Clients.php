@@ -200,4 +200,95 @@ class Clients extends CActiveRecord
 
         return $arr;
     }
+
+    /**
+     * Takes name's surname's or company-name's start fragment and returns array of variants
+     * @param string $start
+     * @return array
+     */
+    public function getClientsByNameParts($start)
+    {
+        //declare empty array
+        $result = array();
+
+        //explode string to words
+        $words = explode(" ",$start, 2);
+
+        //if given two words
+        if(count($words) > 1)
+        {
+            //sql statement
+            $sql = "SELECT * FROM clients WHERE company_name LIKE '".$start."%' OR ((`name` LIKE '".$words[0]."%') AND (`surname` LIKE '".$words[1]."%'))";
+        }
+        //if just one word
+        else
+        {
+            //sql statement
+            $sql = "SELECT * FROM clients WHERE company_name LIKE '".$start."%' OR `name` LIKE '".$start."%'";
+        }
+
+        //connection
+        $con = Yii::app()->db;
+
+        //get all data by query
+        $data=$con->createCommand($sql)->queryAll();
+
+        //foreach row
+        foreach($data as $row)
+        {
+            //add to result array
+            $result[] = array('label' => $row['type'] == 1 ? $row['company_name'] : $row['name'].' '.$row['surname'], 'id' => $row['id']);
+        }
+
+        return $result;
+    }
+
+    /**
+     * Takes the star-fragments of name and surname and returns one record
+     * @param string $name
+     * @return mixed
+     */
+    public function findClientByNames($name)
+    {
+        //remove all connecting symbols, replace them with spaces
+        $name = str_replace("%20"," ",$name);
+        $name = str_replace("+"," ",$name);
+
+        //get array of separated-by-spaces words
+        $words = explode(" ",$name,2);
+
+        //if complex name (name and surname expecting)
+        if(count($words) > 1)
+        {
+            //sql statement
+            $sql = "SELECT * FROM clients WHERE company_name = '".$name."' OR ((name LIKE '".$words[0]."') AND (surname LIKE '".$words[1]."'))";
+        }
+        //if simple name (one word)
+        else
+        {
+            $sql = "SELECT * FROM clients WHERE company_name = '".$name."' OR name LIKE '".$name."%'";
+        }
+
+        //connection
+        $con = Yii::app()->db;
+
+        //get row by query
+        $data=$con->createCommand($sql)->queryRow();
+
+        return $data;
+    }
+
+    /**
+     * Returns one record-row from table by id
+     * @param int $id
+     * @return mixed
+     */
+    public function getOneRowByPk($id)
+    {
+        $sql = "SELECT * FROM clients WHERE id = '".$id."'";
+        $con = Yii::app()->db;
+        $data = $con->createCommand($sql)->queryRow();
+
+        return $data;
+    }
 }
