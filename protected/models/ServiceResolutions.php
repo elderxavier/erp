@@ -22,9 +22,11 @@
 class ServiceResolutions extends CActiveRecord
 {
 
-    const ST_NEW = 1;
-    const ST_IN_PROGRESS = 2;
-    const ST_DONE = 3;
+    public static $statuses = array(
+        'NEW' => array('id' => 1, 'label' => 'New'),
+        'IN_PROGRESS' => array('id' => 2, 'label' => 'In progress'),
+        'DONE' => array('id' => 3, 'label' => 'Complete'),
+    );
 
 	/**
 	 * @return string the associated database table name
@@ -127,17 +129,20 @@ class ServiceResolutions extends CActiveRecord
 		return parent::model($className);
 	}
 
-
     /**
-     * Returns current status as text label
+     * Returns label of status
      * @return string
      */
     public function statusLabel()
     {
-        $arr[self::ST_DONE] = 'finished';
-        $arr[self::ST_IN_PROGRESS] = 'in progress';
-        $arr[self::ST_NEW] = 'assigned';
+        foreach(self::$statuses as $status)
+        {
+            if($status['id'] == $this->status)
+            {
+                return $status['label'];
+            }
+        }
 
-        return (string)$arr[$this->status];
+        return '';
     }
 }

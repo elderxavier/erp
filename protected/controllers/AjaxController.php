@@ -340,5 +340,39 @@ class AjaxController extends Controller {
         }
     }
 
+
+    /**
+     * Renders service-resolution info
+     * @param null $id
+     * @throws CHttpException
+     */
+    public function actionResolutionView($id = null)
+    {
+        /* @var $resolution ServiceResolutions */
+
+        //if ajax
+        if(Yii::app()->request->isAjaxRequest)
+        {
+            //if found
+            if($resolution = ServiceResolutions::model()->findByPk((int)$id))
+            {
+                //render partial
+                $this->renderPartial('_resolution_view',array('resolution' => $resolution));
+            }
+            //if not found
+            else
+            {
+                //error message
+                echo $this->messages['Information not found'];
+            }
+        }
+        //if not ajax
+        else
+        {
+            //exception
+            throw new CHttpException(404);
+        }
+    }
+
 }
 ?>

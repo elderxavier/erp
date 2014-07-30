@@ -249,7 +249,7 @@ class ServicesController extends Controller
                         $resolution -> by_employee_id = $service_process->current_employee_id; //relation with employee
                         $resolution -> remark_for_employee = $_POST['SrvEditForm']['message_to_worker']; //for first resolution used description of service process
                         $resolution -> process_current_status = $service_process -> status_id; //current status of service-process
-                        $resolution -> status = ServiceResolutions::ST_NEW; //status of resolution - new
+                        $resolution -> status = ServiceResolutions::$statuses['NEW']['id'];
 
                         //info params
                         $resolution -> date_created = time();

@@ -160,6 +160,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/ticket_info.js',CClientScript::
                                 <th><?php echo $this->labels['status']; ?></th>
                                 <th><?php echo $this->labels['created']; ?></th>
                                 <th><?php echo $this->labels['changed']; ?></th>
+                                <th><?php echo $this->labels['actions']; ?></th>
                             </tr>
                             <?php foreach($service->serviceResolutions as $resolution): ?>
                             <tr>
@@ -168,6 +169,9 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/ticket_info.js',CClientScript::
                                 <td><?php echo $resolution->statusLabel(); ?></td>
                                 <td><?php echo date('Y.m.d',$resolution->date_created);?></td>
                                 <td><?php echo date('Y.m.d',$resolution->date_changed);?></td>
+                                <td>
+                                    <?php echo CHtml::link($this->labels['view'],'/ajax/resolutionview/id/'.$resolution->id,array('class' => 'actions action-edit modal-link-opener')); ?>
+                                </td>
                             </tr>
                             <?php endforeach;?>
                             </thead>

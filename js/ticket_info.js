@@ -31,4 +31,55 @@ $(document).ready(function(e) {
         });
     });
 
+
+    //when clicked on 'view' link
+    jQuery(".modal-link-opener").click(function(){
+
+        //get href
+        var href = jQuery(this).attr('href');
+
+        //load to modal window
+        jQuery.ajax({ url: href,beforeSend: function(){/*TODO: pre-loader*/}}).done(function(data)
+        {
+            modal('test',data);
+        });
+
+        //stop click event
+        return false;
+
+    });
+
 });
+
+/**
+ * Show modal window with some content
+ * @param window_name
+ * @param content
+ */
+var modal = function(window_name,content)
+{
+    var dialog_div = jQuery(".dialog");
+
+    dialog_div.dialog({
+        title: window_name,
+        resizable:false,
+        modal:true,
+
+        minHeight: 300,
+        minWidth: 400,
+
+        position: {
+            my: "center",
+            at: "center"
+        },
+        buttons: {}
+    });
+
+    //add content to container
+    dialog_div.html(content);
+
+    //event for close button
+    jQuery(".close-modal-w").click(function(){
+        dialog_div.dialog("close");
+    });
+};
