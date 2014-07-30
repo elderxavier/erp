@@ -30,8 +30,22 @@ class UserForm extends CBaseForm
     {
         //main rules
         $rules = array(
+            //username and email must be unique
             array('username, email','unique','model_class' => 'Users', 'current_id' => $this->current_user_id),
-            array('name, surname, phone, email, address, remark, role, position_id','safe')
+
+            //safe attributes
+            array('name, surname, phone, email, address, remark, role, position_id','safe'),
+
+            //avatar-file validation
+            array(
+                'avatar',//field name
+                'file', //file validation
+                'types'=>'jpg, gif, png', //available file-types
+                'allowEmpty' =>true, //can be empty
+                'maxSize' => 1000000, //1 mb
+                'wrongType' => $this->messages['file has wrong type'], //message for wrong-type error
+                'tooLarge' => $this->messages['file is too large'], //message for 'too large' error
+            ),
         );
 
         //if new user created
@@ -39,15 +53,15 @@ class UserForm extends CBaseForm
         {
             //password, username and email cannot be empty
             $rules[] = array('username, password, repeat_password, email', 'required','message'=> $this->messages['fill the field'].' "{attribute}"');
+
+            //field 'repeat password' and 'password' must have same value
             $rules[] = array('repeat_password', 'equal', 'to' => 'password');
-            $rules[] = array('avatar', 'file', 'types'=>'jpg, gif, png', 'allowEmpty' =>true, 'maxSize' => 1000000);
         }
         //if old user updating
         else
         {
-            //password can be empty
+            //required username and email, password can be empty
             $rules[] = array('username, email', 'required','message'=> $this->messages['fill the field'].' "{attribute}"');
-            $rules[] = array('avatar', 'file', 'types'=>'jpg, gif, png', 'allowEmpty' =>true, 'maxSize' => 1000000);
         }
 
         return $rules;

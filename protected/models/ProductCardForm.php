@@ -29,8 +29,18 @@ class ProductCardForm extends CBaseForm
 			array('product_code', 'unique', 'model_class' => 'ProductCards', 'current_id' => $this->current_card_id),
 
             // rules for file validation
-            array('files', 'file', 'types'=>'jpg, gif, png', 'allowEmpty' =>true, 'maxSize' => 1000000, 'maxFiles' => 5),
-		);
+            array(
+                'files',//field name
+                'file', //file validation
+                'types'=>'jpg, gif, png', //available file-types
+                'allowEmpty' =>true, //can be empty
+                'maxSize' => 1000000, //1 mb
+                'maxFiles' => 5, //max count of files
+                'wrongType' => $this->messages['file has wrong type'], //message for wrong-type error
+                'tooLarge' => $this->messages['file is too large'], //message for 'too large' error
+                'tooMany' => $this->messages['max quantity of files is'].' 5', //message for 'too many files' error
+            ),
+        );
 	}
 
     /**
