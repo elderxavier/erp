@@ -43,7 +43,7 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/tickets_list.css');
                             <td><?php echo $service->priority; ?></td>
                             <td><?php echo $service->problemType->label; ?></td>
                             <td><?php echo $service->client->type == 0 ? $service->client->name.' '.$service->client->surname : $service->client->company_name; ?></td>
-                            <td><?php echo time('Y.m.d',$service->date_created); ?></td>
+                            <td><?php echo date('Y.m.d',$service->date_created); ?></td>
                             <td><?php echo $service->userModifiedBy->name.' '.$service->userModifiedBy->surname; ?></td>
                             <td><?php echo $service->currentEmployee->name.' '.$service->currentEmployee->surname; ?></td>
                             <td><?php echo $service->timeLeft('days d hours h minutes m seconds s'); ?></td>

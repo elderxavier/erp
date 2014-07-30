@@ -37,11 +37,12 @@ $(document).ready(function(e) {
 
         //get href
         var href = jQuery(this).attr('href');
+        var title = jQuery(this).attr('title');
 
         //load to modal window
         jQuery.ajax({ url: href,beforeSend: function(){/*TODO: pre-loader*/}}).done(function(data)
         {
-            modal('test',data);
+            modal(title,data);
         });
 
         //stop click event
