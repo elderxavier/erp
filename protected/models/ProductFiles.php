@@ -104,27 +104,28 @@ class ProductFiles extends CActiveRecord
 
 
     /**
-     * Saves files on server and creates product-file-objects in data-base
-     * @param array $file_params
-     * @param int $product_card_id
+     * Creates product-file records in db, and saves files. Takes array of uploaded files and id of product card
+     * @param $files
+     * @param $product_card_id
      */
-    public function saveFiles($file_params,$product_card_id)
+    public function saveFiles($files,$product_card_id)
     {
-        /* @var $file ProductFiles */
+        /* @var $file_obj CUploadedFile */
 
         //pass through all array of file-params
-        foreach($file_params as $index => $file_arr)
+        foreach($files as $index => $file_obj)
         {
-            //if file uploaded and no errors
-            if($file_arr['error'] == 0)
+            //if got file
+            if($file_obj->size > 0)
             {
-                //if copied successfully
-                if(copy($file_arr['tmp_name'], 'uploaded/product_files/'.$file_arr['random_name']))
+                $new_name = uniqid('pr_').'.'.$file_obj->extensionName;
+
+                if($file_obj->saveAs('uploaded/product_files/'.$new_name))
                 {
                     $file = new ProductFiles();
                     $file -> product_card_id = $product_card_id;
-                    $file -> filename = $file_arr['random_name'];
-                    $file -> label = $file_arr['name'];
+                    $file -> filename = $new_name;
+                    $file -> label = $file_obj->name;
                     $file -> save();
                 }
             }

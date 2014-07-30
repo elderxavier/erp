@@ -80,6 +80,7 @@ $cs->registerScriptFile(Yii::app()->request->baseUrl.'/js/prod_cards.js',CClient
                         </td>
                     </tr>
                 </table>
+                <?php echo $form->error($form_mdl,'files'); ?>
             </div>
 
             <button type="submit"><span><?php echo $this->labels['save']; ?></span><span class="glyphicon glyphicon-plus"></span></button>
