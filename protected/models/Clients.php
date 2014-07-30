@@ -237,7 +237,7 @@ class Clients extends CActiveRecord
         foreach($data as $row)
         {
             //add to result array
-            $result[] = array('label' => $row['type'] == 1 ? $row['company_name'] : $row['name'].' '.$row['surname'], 'id' => $row['id']);
+            $result[] = array('label' => $row['type'] == 1 ? $row['company_name'].' ('.$row['company_code'].')'  : $row['name'].' '.$row['surname'].' ('.$row['personal_code'].')', 'id' => $row['id']);
         }
 
         return $result;
