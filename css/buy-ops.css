@@ -114,3 +114,12 @@ th:first-child{
 {
     display: none;
 }
+
+#inputProduct
+{
+    min-height: 200px;
+}
+.glyphicon-hand-down
+{
+    cursor: pointer;
+}
