@@ -43,29 +43,6 @@ class Controller extends CController
 
 
     /**
-     * Generates random string (used for file-name generation and e.g.)
-     * @param int $length
-     * @param bool $uppercase
-     * @return string
-     */
-    public function generateRandomString($length = 8, $uppercase = false)
-    {
-        //string of chars
-        $chars = 'abdefhiknrstyzABDEFGHKNQRSTYZ23456789';
-        //count of chars
-        $numChars = strlen($chars);
-        //empty string
-        $string = '';
-        //collect random chars from char-string
-        for ($i = 0; $i < $length; $i++) {
-            $string .= substr($chars, rand(1, $numChars) - 1, 1);
-        }
-        //returns string (can be in uppercase if uppercase set to true)
-        return $uppercase ? strtoupper($string) : $string;
-    }
-
-
-    /**
      * Converts entered by user price to cents-format for storing in database
      * @param string $str_price
      * @return int|mixed|string
@@ -87,7 +64,6 @@ class Controller extends CController
 
         return $value;
     }
-
 
     /**
      * Converts cent-format price to user readable price-value

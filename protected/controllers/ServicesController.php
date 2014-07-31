@@ -56,7 +56,7 @@ class ServicesController extends Controller
         $problems = ServiceProblemTypes::model()->findAllAsArray();
 
         //get worker position
-        $worker_position = Positions::model()->findByAttributes(array('name' => 'Worker'));
+        $worker_position = Positions::model()->findByAttributes(array('name' => 'Worker'));  /*TODO: it's a bad solution to use the name as the key, should think about better*/
 
         //get all workers
         $workers = $worker_position->getAllUsersAsArray();
@@ -117,7 +117,6 @@ class ServicesController extends Controller
                             $client->update();
                         }
 
-
                         //create service process
                         $service_process = new ServiceProcesses();
 
@@ -132,9 +131,9 @@ class ServicesController extends Controller
                         $service_process -> close_date = time() + (24*60*60); // default - tomorrow
 
                         //set main params
-                        $service_process -> problem_type_id = $_POST['ServiceForm']['problem_type_id']; //relation with problems table
+                        $service_process -> problem_type_id = $_POST['ServiceForm']['problem_type_id']; //relation with problem-table
                         $service_process -> remark = $_POST['ServiceForm']['remark']; //description
-                        $service_process -> client_id = $client->id; //relation with clients table
+                        $service_process -> client_id = $client->id; //relation with client-table
                         $service_process -> label = 'some key'; //system name of record (empty for now, in future will be generated from ID)
                         $service_process -> priority = $_POST['ServiceForm']['priority']; //priority - string value
                         $service_process -> status_id = ServiceProcessStatuses::model()->systemStatusId('SYS_OPENED'); //get id of OPENED status
@@ -147,7 +146,7 @@ class ServicesController extends Controller
                         $resolution = new ServiceResolutions();
                         $resolution -> service_process_id = $service_process->id; //relation with service-process which was created
                         $resolution -> by_employee_id = $_POST['ServiceForm']['worker_id']; //relation with employee
-                        $resolution -> remark_for_employee = $service_process -> remark; //for first resolution used description of service process
+                        $resolution -> remark_for_employee = $service_process -> remark; //for first resolution description used description of service process
                         $resolution -> process_current_status = $service_process -> status; //current status of service-process
                         $resolution -> status = ServiceResolutions::$statuses['NEW']['id']; //status of resolution - new
 
@@ -208,7 +207,7 @@ class ServicesController extends Controller
         //arrays for select boxes and other elements
         $cities = array('ALL' => $this->labels['all']) + UserCities::model()->findAllAsArray(); // cities as pairs-array
         $problem_types = json_encode(ServiceProblemTypes::model()->findAllAsArray()); // problem types (used in editable)
-        $worker_position = Positions::model()->findByAttributes(array('name' => 'Worker')); //worker position object
+        $worker_position = Positions::model()->findByAttributes(array('name' => 'Worker')); /*TODO: it's a bad solution to use the name as the key, should think about better*/
         $workers = $worker_position->getAllUsersAsArray(); //all workers as pairs-array
         $statuses = ServiceProcessStatuses::model()->findAll(array(),array('order' => 'priority ASC')); //array of statuses
 
