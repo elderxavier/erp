@@ -218,13 +218,13 @@ class Clients extends CActiveRecord
         if(count($words) > 1)
         {
             //sql statement
-            $sql = "SELECT * FROM clients WHERE company_name LIKE '".$start."%' OR ((`name` LIKE '".$words[0]."%') AND (`surname` LIKE '".$words[1]."%'))";
+            $sql = "SELECT * FROM clients WHERE company_name LIKE '%".$start."%' OR ((`name` LIKE '%".$words[0]."%') AND (`surname` LIKE '%".$words[1]."%'))";
         }
         //if just one word
         else
         {
             //sql statement
-            $sql = "SELECT * FROM clients WHERE company_name LIKE '".$start."%' OR `name` LIKE '".$start."%'";
+            $sql = "SELECT * FROM clients WHERE company_name LIKE '%".$start."%' OR `name` LIKE '".$start."%'";
         }
 
         //connection
