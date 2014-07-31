@@ -7,11 +7,12 @@ class ServiceForm extends CBaseForm
     public $worker_id;
     public $problem_type_id;
     public $remark;
+    public $client_type;
 
     public function rules()
     {
         return array(
-            array('client_name, worker_id, problem_type_id, remark', 'required', 'message'=> $this->messages['fill the field'].' "{attribute}"'),
+            array('client_type, client_name, worker_id, problem_type_id, remark', 'required', 'message'=> $this->messages['fill the field'].' "{attribute}"'),
             array('client_name, city_id, worker_id, problem_type_id, remark', 'safe'),
         );
     }
@@ -28,6 +29,7 @@ class ServiceForm extends CBaseForm
             'city_id' => $this->labels['city'],
             'worker_id' => $this->labels['worker'],
             'select_priority' => $this->labels['select priority'],
+            'client_type' => $this->labels['client type'],
         );
     }
 }

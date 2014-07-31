@@ -1,22 +1,33 @@
-/**
- * Created by Wolfdark on 21.07.14.
- */
-
 jQuery(document).ready(function(){
 
-    var client_field = jQuery(".auto-complete-clients");
-    var form_holder = jQuery(".client-settings");
 
-    $.fn.editable.defaults.mode = 'inline';
+    var client_filter = jQuery(".client-filter");
 
-    //add auto-complete feature for client-field
-    client_field.autocomplete({
+    /**
+     * When client type chosen
+     */
+    jQuery(".ajax-select-client-type").change(function(){
+
+        if(jQuery(this).val() != '')
+        {
+            //show client-select form
+            jQuery(".client-select-block").removeClass('hidden');
+        }
+        else
+        {
+            jQuery(".client-select-block").addClass('hidden');
+        }
+    });
+
+    //auto-complete filter-field
+    client_filter.autocomplete({
         source: function( request, response ) {
             $.ajax({
                 url: "/ajax/clients",
                 dataType: "json",
                 data: {
-                    start: request.term
+                    start: request.term,
+                    type: jQuery(".ajax-select-client-type").val()
                 },
                 success: function( data ) {
                     response( data );
@@ -26,144 +37,37 @@ jQuery(document).ready(function(){
         minLength: 1,
         //when selected
         select:function(event,ui){
-            //get id
-            var id = ui.item.id;
 
-            //load client info by id
-            jQuery.ajax({ url: '/ajax/clifiid/id/'+id, beforeSend: function(){/*TODO: pre-loader*/}}).done(function(data)
-            {
-                //if loaded successfully
-                if(data != 'ERROR')
-                {
-                    //add content to holder
-                    form_holder.html(data);
+            var id = ui.item.id; //get id of client
+            var label = ui.item.label; //get entered word
 
-                    //set found client name
-                    jQuery("#cli_found").val(ui.item.label);
-
-                    //show
-                    form_holder.removeClass('hidden');
-                }
-
-            });
-
+            loadFilteredData(label,jQuery(".ajax-select-client-type").val(),'filtered-clients');
         }
     });
 
-    //when focus out form client-filed
-    client_field.focusout(function()
+    //when focus out
+    client_filter.focusout(function()
     {
-        //if new value entered by hands is not equal to old
-        if(jQuery("#cli_found").val() != client_field.val())
+        if(jQuery(this).val() != '')
         {
-            //try find in database by name
-            jQuery.ajax({ url: '/ajax/clifi/name/'+client_field.val(), beforeSend: function(){/*TODO: pre-loader*/}}).done(function(data)
-            {
-                //add content to holder
-                form_holder.html(data);
-
-                //last found
-                jQuery("#cli_found").val(client_field.val());
-
-                //show
-                form_holder.removeClass('hidden');
-            });
+            loadFilteredData(jQuery(this).val(),jQuery(".ajax-select-client-type").val(),'filtered-clients');
         }
-    });
 
-    //when selected city
-    jQuery(".ajax-filter-city").change(function(){
-        jQuery.ajax({ url: '/ajax/workers/city/'+jQuery(this).val(), beforeSend: function(){/*TODO: pre-loader*/}}).done(function(data){
-            jQuery(".filtered-users").html(data);
-        });
-    });
-
-    //clear and hide client form when pressed on reset button
-    jQuery(".btn-reset").click(function(){
-        form_holder.addClass('hidden');
-        form_holder.html('');
     });
 
 });
 
-//when ajax loaded
-jQuery(document).ajaxComplete(function(){
-
-    //get editable type-field
-    var editTypeFiled = jQuery('#ed_type');
-
-    //for selectable client type field
-    editTypeFiled.editable({
-        type: 'select',
-        value: 'none',
-        name: 'select',
-        title: editTypeFiled.attr('title'),
-        send: 'newer'
-        //when changed value
-    }).on('save', function(e, editable){
-            //st value to hidden field
-            jQuery('#ed_typeH').val(editable.newValue);
-
-            //if switched to company
-            if(editable.newValue == 1)
-            {
-                showFields('both'); //show all fields
-                hideFields('phys'); //hide physical fields
-                showFields('jur'); //show juridical fields
-
-            }
-            //if switched to person
-            else
-            {
-                showFields('both'); //show all fields
-                hideFields('jur'); //hide juridical fields
-                showFields('phys'); //show physical fields
-            }
-        });
-
-
-    //for text items
-    jQuery('.text-editable').editable({
-        type:  'text',
-        name:  'username',
-        title: jQuery(this).attr('title'),
-        send:  'newer'
-        //when changed value
-    }).on('save', function(e, editable){
-            //get id of current link
-            var id =  jQuery(this).attr('id');
-            //find by this id hidden field and set value (hidden field has same id, but with H letter in end)
-            jQuery('#'+id+'H').val(editable.newValue);
-        });
-
-    //when user wants make new client with name of found client
-    jQuery('.make-new-client-link').click(function(){
-
-        //load client info by id
-        jQuery.ajax({ url: jQuery(this).attr('href'), beforeSend: function(){/*TODO: pre-loader*/}}).done(function(data)
-        {
-            //add content to holder
-            jQuery(".client-settings").html(data);
-        });
-
-        return false;
+/**
+ * Loads result of ajax filter-query to container
+ * @param words filter-param
+ * @param type type of clients
+ * @param container_class class of container
+ */
+function loadFilteredData(words,type,container_class)
+{
+    //try find in database by name
+    jQuery.ajax({ url: '/ajax/clientsfilter/words/'+words+'/type/'+type, beforeSend: function(){/*TODO: pre-loader*/}}).done(function(data)
+    {
+        jQuery('.'+container_class).html(data);
     });
-});
-
-/**
- * Adds class 'hidden' to element
- * @param type class name
- */
-var hideFields = function(type)
-{
-    jQuery('.'+type).addClass('hidden');
-};
-
-/**
- * Removes class 'hidden' from element
- * @param type
- */
-var showFields = function(type)
-{
-    jQuery('.'+type).removeClass('hidden');
-};
+}

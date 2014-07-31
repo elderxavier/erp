@@ -7,13 +7,13 @@
 	border:1px solid #c7c8cc;}
 
 /*--- form left part----*/
-.card-holder .left-part .form-holder label {
+.card-holder .form-holder label {
 	font-weight:400;
 	font-size:12px;
 	color:#9b9292;
 	text-transform:uppercase;}
 	
-.card-holder .left-part .form-holder label.active {
+.card-holder  .form-holder label.active {
 	background-color:#0a6a9a;}
 	
 #fio {
@@ -24,7 +24,8 @@
 	height:150px;
 	resize:none;}
 	
-.card-holder .left-part .form-holder select {
+.card-holder  .form-holder select {
+	max-width:300px;
 	border-radius:0px;
 	color:#9b9292;
 	font-size:12px;
@@ -51,6 +52,47 @@
 #option3 {
 	background-color:#0a6a9a;}
 	
+/*-- filters --*/
+.filter-wrapper {
+	border-radius:0;
+	padding:20px;
+	border:1px solid #c7c8cc;}
+	
+.filter-wrapper .client-filter {
+	border-radius:0;
+	max-width:80%;}
+	
+.body-holder {
+	height:130px;
+	overflow-y:scroll;
+	border-bottom:1px solid #c7c8cc;
+	position:relative;}
+	
+.table-holder > table {
+	margin-bottom:0px;
+	font-size:12px;}
+
+.table-holder > table > thead > tr > th:first-child  {
+	width:30%;}
+	
+.table-holder > table > thead > tr > th:last-child  {
+	width:42%;}
+		
+.table-holder > table > thead  {
+	background-color:#b6b7bb;}
+	
+	
+.table-holder > table > thead th {
+	font-weight:400;
+	text-transform:uppercase;
+	color:white;}
+	
+.table-holder  table > tbody > tr > td:last-child {
+	width:40%;}
+	
+.table > tbody > tr > td:first-child {
+	width:30%;}
+
 /*-- right part ---*/
 .right-part .form-holder {
 	border:1px solid #c7c8cc;}
@@ -127,20 +169,77 @@
 
 
 
+/*--- modal cust -info --*/
+.cust-info {}
+	
+.cust-info .modal-content {	
+	border-radius:1px;}
 
+.cust-info-table table {
+	font-size:13px;}
+	
+.cust-info-table {
+	padding-bottom:10px;
+	border-bottom:1px solid #b6b7bb;}
+	
+	
+.cust-info-table table tbody > tr > td:first-child {
+	font-weight:600;
+	width:40%;}
 
+.cust-info-table table tbody > tr > td {
+	line-height:22px;}
+	
+	
+.last-purchase-table table {
+	font-size:12px;
+	width:100%;}
+	
+.last-purchase-table table thead {
+	color:white;
+	text-transform:uppercase;
+	background-color:#b6b7bb;}
+	
+.last-purchase-table table thead tr > th {
+	text-align:center;
+	line-height:22px;
+	font-weight:400;
+	border:1px dotted #FFF;}
+	
+.last-purchase-table table tbody tr > td {
+	text-align:center;
+	line-height:24px;
+	border-right:1px dotted #d7d8db;
+	border-bottom:1px dotted #d7d8db;}
+	
+.last-purchase-table table tbody tr:last-child > td {
+	border-bottom:1px solid  #d7d8db;}
+	
+.last-purchase-table table tbody tr > td:first-child {
+	border-left:1px solid #d7d8db;}
+	
+.last-purchase-table table tbody tr > td:last-child {
+	border-right:1px solid #d7d8db;}
 
-
-
-
-
-
-
-
-
-
-
-
+/* -- modal bottom --*/
+.modal-footer .btn {
+	border:none;
+	border-radius:0;
+	padding:0;
+	padding-left:10px;
+	color:white;
+	line-height:26px;
+	background-color:#fb8f73;}
+	
+.modal-footer .btn > span {
+	margin-left:10px;
+	padding:0 5px;
+	line-height:26px;
+	background-color:#cc5c4e;
+	display:inline-block;}
+	
+.modal-footer .btn:hover {
+	background-color:#cc5c4e;}
 
 /* ----- responsive - part -------*/
 @media (min-width: 471px) {

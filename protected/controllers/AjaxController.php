@@ -150,101 +150,34 @@ class AjaxController extends Controller {
     /**
      * Prints json-converted array of client-ids and client-names (used in srv_create.php for auto-complete)
      * @param string $start
+     * @param int $type
      * @throws CHttpException
      */
-    public function actionClients($start = '')
+    public function actionClients($start = '', $type = 0)
     {
         //if this is ajax request
         if(Yii::app()->request->isAjaxRequest)
         {
             //print encoded to json array
-            echo json_encode(Clients::model()->getClientsByNameParts($start));
+            echo json_encode(Clients::model()->getClientsByNameParts($start,$type));
         }
         //if not ajax
         else
         {
             throw new CHttpException(404);
         }
-
     }
 
 
     /**
-     * Finds client by name or company name, and renders form (used in srv_create.php for 'focus-out')
-     * @param string $name
-     * @throws CHttpException
+     * Renders filtered table of clients (used in srv_create.php)
+     * @param string $words
+     * @param int $type
      */
-    public function actionCliFi($name = '')
+    public function actionClientsFilter($words,$type)
     {
-        if(Yii::app()->request->isAjaxRequest)
-        {
-            //get client-row
-            $data=Clients::model()->findClientByNames($name);
-
-            //if found something
-            if(!empty($data))
-            {
-                $client = new Clients();
-                $client -> attributes = $data;
-                $this->renderPartial('_client_form_old_client',array('client' => $client, 'id' => $data['id']));
-            }
-            //if not found
-            else
-            {
-                //render partial
-                $this->renderPartial('_client_form_new_client',array('client_name' => $name));
-            }
-        }
-        else
-        {
-            throw new CHttpException(404);
-        }
-    }
-
-    /**
-     * Just render client-form for new client, takes client name as parameter
-     * @param string $name
-     * @throws CHttpException
-     */
-    public function actionNewClient($name = '')
-    {
-        if(Yii::app()->request->isAjaxRequest)
-        {
-            $this->renderPartial('_client_form_new_client',array('client_name' => $name));
-        }
-        else
-        {
-            throw new CHttpException(404);
-        }
-    }
-
-    /**
-     * Founds client by id and renders partial form
-     * @param null $id
-     * @throws CHttpException
-     */
-    public function actionCliFiId($id = null)
-    {
-        //if ajax
-        if(Yii::app()->request->isAjaxRequest)
-        {
-            //if found row by pk
-            if($data = Clients::model()->getOneRowByPk($id))
-            {
-                $client = new Clients(); //client object
-                $client -> attributes = $data; //set attributes to it
-                $this->renderPartial('_client_form_old_client',array('client' => $client, 'id' => $data['id'])); //render
-            }
-            else
-            {
-                echo "ERROR";
-            }
-        }
-        //if not ajax
-        else
-        {
-            throw new CHttpException(404);
-        }
+        $clients_rows = Clients::model()->findClientsByNames($words,$type);
+        $type == 0 ? $this->renderPartial('_clients_filtered_physical',array('clients_rows' => $clients_rows)) : $this->renderPartial('_clients_filtered_juridical',array('clients_rows' => $clients_rows));
     }
 
 

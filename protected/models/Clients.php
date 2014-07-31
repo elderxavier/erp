@@ -201,12 +201,14 @@ class Clients extends CActiveRecord
         return $arr;
     }
 
+
     /**
-     * Takes name's surname's or company-name's start fragment and returns array of variants
+     * Takes name's surname's or company-name's start fragment, type of client and returns array of variants
      * @param string $start
+     * @param int $type
      * @return array
      */
-    public function getClientsByNameParts($start)
+    public function getClientsByNameParts($start,$type)
     {
         //declare empty array
         $result = array();
@@ -214,17 +216,26 @@ class Clients extends CActiveRecord
         //explode string to words
         $words = explode(" ",$start, 2);
 
-        //if given two words
-        if(count($words) > 1)
+        //if juridical client-type
+        if($type == 1)
         {
-            //sql statement
-            $sql = "SELECT * FROM clients WHERE company_name LIKE '%".$start."%' OR ((`name` LIKE '%".$words[0]."%') AND (`surname` LIKE '%".$words[1]."%'))";
+            $sql = "SELECT * FROM clients WHERE company_name LIKE '%".$start."%'";
         }
-        //if just one word
+        //if physical client-type
         else
         {
-            //sql statement
-            $sql = "SELECT * FROM clients WHERE company_name LIKE '%".$start."%' OR `name` LIKE '".$start."%'";
+            //if given two words
+            if(count($words) > 1)
+            {
+                //sql statement
+                $sql = "SELECT * FROM clients WHERE (`name` LIKE '%".$words[0]."%') AND (`surname` LIKE '%".$words[1]."%')";
+            }
+            //if just one word
+            else
+            {
+                //sql statement
+                $sql = "SELECT * FROM clients WHERE name LIKE '%".$start."%'";
+            }
         }
 
         //connection
@@ -237,43 +248,51 @@ class Clients extends CActiveRecord
         foreach($data as $row)
         {
             //add to result array
-            $result[] = array('label' => $row['type'] == 1 ? $row['company_name'].' ('.$row['company_code'].')'  : $row['name'].' '.$row['surname'].' ('.$row['personal_code'].')', 'id' => $row['id']);
+            $result[] = array('label' => $row['type'] == 1 ? $row['company_name']: $row['name'].' '.$row['surname'], 'id' => $row['id']);
         }
 
         return $result;
     }
 
-    /**
-     * Takes the star-fragments of name and surname and returns one record
-     * @param string $name
-     * @return mixed
-     */
-    public function findClientByNames($name)
-    {
-        //remove all connecting symbols, replace them with spaces
-        $name = str_replace("%20"," ",$name);
-        $name = str_replace("+"," ",$name);
 
+    /**
+     * Takes the star-fragments of name and surname, type and returns array of clients
+     * @param string $name
+     * @param int $type
+     * @return array
+     */
+    public function findClientsByNames($name,$type)
+    {
         //get array of separated-by-spaces words
         $words = explode(" ",$name,2);
 
-        //if complex name (name and surname expecting)
-        if(count($words) > 1)
+        //if juridical client-type
+        if($type == 1)
         {
-            //sql statement
-            $sql = "SELECT * FROM clients WHERE company_name = '".$name."' OR ((name LIKE '".$words[0]."') AND (surname LIKE '".$words[1]."'))";
+            $sql = "SELECT * FROM clients WHERE company_name LIKE '%".$name."%'";
         }
-        //if simple name (one word)
+        //if physical client-type
         else
         {
-            $sql = "SELECT * FROM clients WHERE company_name = '".$name."' OR name LIKE '".$name."%'";
+            //if given two words
+            if(count($words) > 1)
+            {
+                //sql statement
+                $sql = "SELECT * FROM clients WHERE (`name` LIKE '%".$words[0]."%') AND (`surname` LIKE '%".$words[1]."%')";
+            }
+            //if just one word
+            else
+            {
+                //sql statement
+                $sql = "SELECT * FROM clients WHERE name LIKE '%".$name."%'";
+            }
         }
 
         //connection
         $con = Yii::app()->db;
 
-        //get row by query
-        $data=$con->createCommand($sql)->queryRow();
+        //get rows if name was not empty by query
+        $name != '' ? $data=$con->createCommand($sql)->queryAll() : $data = array();
 
         return $data;
     }

@@ -1,16 +1,9 @@
-<?php /* @var $service ServiceProcesses */ ?>
-<?php /* @var $services array */ ?>
 <?php /* @var $this ServicesController */ ?>
-
 <?php /* @var $cs CClientScript */ ?>
 
+<?php /* @var $client_types array */ ?>
 <?php /* @var $form_mdl ServiceForm */?>
 <?php /* @var $form CActiveForm */ ?>
-<?php /* @var $clients array */ ?>
-<?php /* @var $problems array */ ?>
-<?php /* @var $cities array */ ?>
-<?php /* @var $workers array */ ?>
-
 <?php
 $cs = Yii::app()->clientScript;
 $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/bootstrap-editable.css');
@@ -22,75 +15,56 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/service.js',CClientScript::POS_
 
 <?php $this->renderPartial('//partials/_sub_menu',array('links' => $this->GetSubMenu(), 'params' => array())); ?>
 
+
 <div class="container-fluid  main-content-holder content-wrapper">
     <div class="row card-holder">
-            <?php $form=$this->beginWidget('CActiveForm', array('id' =>'add-product-form','enableAjaxValidation'=>false,'htmlOptions'=>array('class'=>'clearfix'))); ?>
 
+        <div class="col-md-12">
+            <div class="form-holder">
 
-            <div class="col-lg-5 col-md-5 col-sm-6 right-part">
-                <div class="form-holder client-settings hidden">
+                <?php $form=$this->beginWidget('CActiveForm', array('id' =>'add-product-form','enableAjaxValidation'=>false,'htmlOptions'=>array('class'=>'clearfix'))); ?>
+                <div class="form-group">
+                    <?php echo $form->label($form_mdl,'client_type');?>
+                    <?php echo $form->dropDownList($form_mdl,'client_type',$client_types,array('id' => 'client-type', 'class'=>'form-control ajax-select-client-type'));?>
+                </div><!--/form-group -->
+                <?php $this->endWidget(); ?>
 
-                </div><!--/form holder-->
-            </div><!--/right -->
-
-
-            <div class="col-lg-6 col-md-6 col-sm-6 left-part">
-                <div class="form-holder">
-
+                <div class="col-md-12 filter-wrapper hidden client-select-block">
                     <div class="form-group">
-                        <?php echo $form->label($form_mdl,'client_name');?>
-                        <input type="hidden" name="found_client_name" value="" id="cli_found">
-                        <?php echo $form->textField($form_mdl,'client_name',array('id' => 'fio', 'class'=>'form-control auto-complete-clients', 'placeholder' => 'Enter customer name'));?>
-                        <?php echo $form->error($form_mdl,'client_name'); ?>
-                    </div>
-                    <hr/>
-
-                    <div class="row">
-                        <div  class="col-sm-6">
-                            <?php echo $form->label($form_mdl,'city_id');?>
-                            <?php echo $form->dropDownList($form_mdl,'city_id',$cities,array('id' => 'branch', 'class'=>'form-control ajax-filter-city'));?>
-                        </div>
-
-                        <div  class="col-sm-6">
-                            <?php echo $form->label($form_mdl,'worker_id');?>
-                            <?php echo $form->dropDownList($form_mdl,'worker_id',$workers,array('id' => 'worker', 'class'=>'form-control filtered-users'));?>
-                        </div>
-                    </div><!--/row -->
-
-                    <hr/>
-
-                    <div class="form-group">
-                        <?php echo $form->label($form_mdl,'select_priority');?>
-                        <div class="col-xs-12 btn-group" data-toggle="buttons">
-                            <label class="btn btn-primary active">
-                                <input type="radio" value="low" name="ServiceForm[priority]" id="option1" checked> <?php echo $this->labels['low']; ?>
-                            </label>
-                            <label class="btn btn-primary">
-                                <input type="radio" value="medium" name="ServiceForm[priority]" id="option2"> <?php echo $this->labels['medium']; ?>
-                            </label>
-                            <label class="btn btn-primary">
-                                <input type="radio" value="high" name="ServiceForm[priority]" id="option3"> <?php echo $this->labels['high']; ?>
-                            </label>
-                        </div>
+                        <label for="name-filter"><?php echo $this->labels['filter']; ?></label>
+                        <input id="name-filter" type="text" class="form-control client-filter" placeholder="">
                     </div><!--/form-group -->
 
-                    <div class="form-group">
-                        <?php echo $form->label($form_mdl,'problem_type_id');?>
-                        <?php echo $form->dropDownList($form_mdl,'problem_type_id',$problems,array('class'=>'form-control'));?>
-                    </div><!--/form-group -->
-
-                    <div class="form-group">
-                        <?php echo $form->label($form_mdl,'remark');?>
-                        <?php echo $form->textArea($form_mdl,'remark',array('class'=>'form-control'));?>
-                        <?php echo $form->error($form_mdl,'remark'); ?>
+                    <div class="filtered-clients">
                     </div>
-                </div><!--/form-holder -->
-            </div><!--/left -->
-            <div class="btn-holder col-sm-12 clearfix">
-                <button class="btn-submit" type="submit"><span><?php echo $this->labels['create ticket']; ?></span><span class="glyphicon glyphicon-chevron-right"></span></button>
-                <button class="btn-reset" type="reset"><span><?php echo $this->labels['reset fields']; ?></span> <span class="glyphicon glyphicon-remove"></span></button>
-            </div><!--/btn-holder -->
-            <?php $this->endWidget(); ?>
-    </div>
-</div>
+                </div><!--filter-wrapper -->
+
+
+                <div class="light-box-holder">
+                    <div class="modal fade cust-info" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-md">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                                </div><!--/modal-header -->
+
+                                <div class="modal-body">
+
+                                </div><!--/modoal-body -->
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Continue</button>
+                                </div><!--/modal-footer -->
+
+                            </div><!--/modal-content -->
+                        </div><!--/modal-dialog -->
+                    </div><!--/modal -->
+
+                </div><!--/light-box-holder -->
+            </div><!--/form-holder -->
+        </div><!--/left -->
+    </div><!--row -->
+</div><!--/container -->
 

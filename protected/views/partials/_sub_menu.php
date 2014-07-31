@@ -2,7 +2,7 @@
 <?php /* @var $params array */ ?>
 <?php /* @var $this Controller */ ?>
 
-<div class="container">
+<div class="container-fluid main-content-holder">
     <div class="row">
         <div class="col-lg-12 " id="content-nav">
             <ul class="sub-menu clearfix">
