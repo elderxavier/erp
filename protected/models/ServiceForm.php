@@ -8,12 +8,16 @@ class ServiceForm extends CBaseForm
     public $problem_type_id;
     public $remark;
     public $client_type;
+    public $start_date;
+    public $close_date;
 
     public function rules()
     {
         return array(
-            array('client_type, client_name, worker_id, problem_type_id, remark', 'required', 'message'=> $this->messages['fill the field'].' "{attribute}"'),
-            array('client_name, city_id, worker_id, problem_type_id, remark', 'safe'),
+            array('start_date, close_date, worker_id, problem_type_id, remark', 'required', 'message'=> $this->messages['fill the field'].' "{attribute}"'),
+            array('start_date, close_date, city_id, worker_id, problem_type_id, remark', 'safe'),
+//            array('start_date, close_date', 'date', 'format' => 'MM/dd/YYYY'),
+            array('start_date', 'dateSmaller', 'than' => 'close_date', 'format' => 'n/d/Y'),
         );
     }
 
@@ -31,5 +35,27 @@ class ServiceForm extends CBaseForm
             'select_priority' => $this->labels['select priority'],
             'client_type' => $this->labels['client type'],
         );
+    }
+
+    /**
+     * Checks if attribute smaller than parameter
+     * @param string $attribute
+     * @param array $param
+     */
+    public function dateSmaller($attribute,$param)
+    {
+        if(!$this->hasErrors())
+        {
+            $check = $param['than'];
+            $format = $param['format'];
+
+            $check_time = DateTime::createFromFormat($format,$this->$check);
+            $current_time = DateTime::createFromFormat($format,$this->$attribute);
+
+            if($current_time->getTimestamp() > $check_time->getTimestamp())
+            {
+                $this->addError($attribute, $this->messages['value of field'].' "'.$this->labels[$attribute].'" '.$this->messages['must be smaller than value of'].' "'.$this->labels[$check].'"');
+            }
+        }
     }
 }

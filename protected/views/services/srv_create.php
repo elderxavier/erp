@@ -40,9 +40,12 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/service.js',CClientScript::POS_
                 </div><!--filter-wrapper -->
 
                 <div class="light-box-holder">
-                    <div class="modal fade cust-info"  tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                    <div class="modal fade cust-info" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                     </div><!--/modal -->
                 </div><!--/light-box-holder -->
+
+                <?php $this->renderPartial('_new_client_modal_physical'); ?>
+                <?php $this->renderPartial('_new_client_modal_juridical'); ?>
 
             </div><!--/form-holder -->
         </div><!--/left -->

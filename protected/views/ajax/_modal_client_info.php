@@ -68,7 +68,7 @@
 
         <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close<span class="glyphicon glyphicon-thumbs-down"></span></button>
-            <a href="/clients/createnext/<?php echo $client->id; ?>">
+            <a href="/services/continue/<?php echo $client->id; ?>">
                 <button type="button" class="btn btn-primary">Continue<span class="glyphicon glyphicon-share-alt"></span></button>
             </a>
         </div><!--/modal-footer -->

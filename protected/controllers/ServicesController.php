@@ -38,7 +38,7 @@ class ServicesController extends Controller
 
 
     /**
-     *
+     * Renders first-step form of service creation
      */
     public function actionCreate()
     {
@@ -51,6 +51,88 @@ class ServicesController extends Controller
         //render form
         $this->render('srv_create', array('client_types' => $types, 'form_mdl' => $form));
     }
+
+
+    /**
+     * Renders second-step form of service creation
+     * @param int $id
+     * @throws CHttpException
+     */
+    public function actionContinue($id = 0)
+    {
+        /* @var $client Clients */
+        /* @var $worker_position Positions */
+        /* @var $process ServiceProcesses */
+        /* @var $form SrvEditForm*/
+
+        //find client from list
+        $client = Clients::model()->findByPk((int)$id);
+
+        //client
+        if($client)
+        {
+            $form = new ServiceForm(); //create validation-form
+            $problems = ServiceProblemTypes::model()->findAllAsArray(); //problem types
+            $cities = array('ALL' => $this->labels['all']) + UserCities::model()->findAllAsArray(); // cities as pairs-array
+            $worker_position = Positions::model()->findByAttributes(array('name' => 'Worker')); /*TODO: it's a bad solution to use the name as the key, should think about better*/
+            $workers = $worker_position->getAllUsersAsArray(); //all workers as pairs-array
+
+            //if POST given
+            if($_POST['ServiceForm'])
+            {
+                //set attributes
+                $form->attributes = $_POST['ServiceForm'];
+
+                //if validated
+                if($form->validate())
+                {
+                    //convert string do date-time objects
+                    $start_dt = DateTime::createFromFormat('n/d/Y',$_POST['ServiceForm']['start_date']);
+                    $close_dt = DateTime::createFromFormat('n/d/Y',$_POST['ServiceForm']['close_date']);
+
+                    //create new service process
+                    $process = new ServiceProcesses();
+                    //set main params
+                    $process->attributes = $_POST['ServiceForm'];
+                    $process->status_id = ServiceProcessStatuses::model()->systemStatusId('SYS_OPENED'); /* system statuses: SYS_OPENED, SYS_PROGRESS, SYS_CLOSED */
+                    $process->current_employee_id = $_POST['ServiceForm']['worker_id'];
+                    $process->client_id = $client->id;
+
+                    $process->start_date = $start_dt->getTimestamp();
+                    $process->close_date = $close_dt->getTimestamp();
+
+                    //set info params
+                    $process->date_created = time();
+                    $process->date_changed = time();
+                    $process->user_modified_by = Yii::app()->user->id;
+                    //save process
+                    $process->save();
+
+                    //create first resolution
+                    $resolution = new ServiceResolutions();
+                    //set main params
+                    $resolution->by_employee_id = $_POST['ServiceForm']['worker_id'];
+                    $resolution->remark_for_employee = $process->remark;
+                    $resolution->status = ServiceResolutions::$statuses['NEW']['id'];
+                    $resolution->process_current_status = $process->status_id;
+                    $resolution->service_process_id = $process->id;
+                    //save resolution
+                    $resolution->save();
+
+
+                    //redirect to list
+                    $this->redirect('/services/list/');
+                }
+            }
+
+            $this->render('srv_create_continue',array('form_mdl' => $form, 'client' => $client, 'problems' => $problems, 'workers' => $workers, 'cities' => $cities));
+        }
+        else
+        {
+            throw new CHttpException(404);
+        }
+    }
+
 
     /**
      * Edits service process

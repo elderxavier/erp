@@ -52,6 +52,27 @@
 #option3 {
 	background-color:#0a6a9a;}
 	
+/*-- assign section --*/
+.assign-section-wrapper {
+	margin-bottom:20px;
+	padding-bottom:20px;
+	border:1px solid #b6b7bb;}
+	
+.assign-section-wrapper > div > h5 {
+	font-size:12px;
+	text-transform:uppercase;
+	line-height:22px;
+	margin:0;}
+	
+.form-holder .assign-section-wrapper > div  label {
+	text-transform:capitalize}
+	
+#datepick {
+	border-radius:0;}		
+	
+.sel-time {
+	margin-top:10px;}		
+	
 /*-- filters --*/
 .filter-wrapper {
 	border-radius:0;
@@ -92,7 +113,31 @@
 	
 .table > tbody > tr > td:first-child {
 	width:30%;}
-
+	
+/*--- filter buttons ---*/
+.new-cust-btn-holder {
+	margin-top:20px;}
+	
+.new-cust-btn-holder > button{
+	padding:0;
+	padding-left:10px;
+	line-height:26px;
+	border:none;
+	color:white;
+	background-color:#fb8f73;
+	border-radius:0;}
+	
+.new-cust-btn-holder > button:hover {
+	background-color:#cc5c4e;}
+	
+.new-cust-btn-holder > button > span{
+	background-color:#cc5c4e;
+	line-height:26px;
+	margin-left:10px;
+	display:inline-block;
+	padding:0 5px;}
+	
+	
 /*-- right part ---*/
 .right-part .form-holder {
 	border:1px solid #c7c8cc;}
@@ -136,6 +181,9 @@
 	color:#149fe4;}
 	
 /*-- buttons --*/	
+.btn-holder {
+	margin-top:20px;}
+
 .btn-holder > button {
 	padding:0;
 	border-radius:0;
@@ -220,6 +268,24 @@
 	
 .last-purchase-table table tbody tr > td:last-child {
 	border-right:1px solid #d7d8db;}
+	
+	
+/*-- modal new customer --*/
+.new-customer-table-holder table {
+	font-size:12px;}
+	
+.new-customer-table-holder table  tr {}
+	
+
+.new-customer-table-holder table tr > td	{
+	padding-bottom:5px;}
+
+.new-customer-table-holder table tr > td:first-child	{
+	width:40%;}
+
+.errorMessage {
+	font-size:10px;
+	color:red;}	
 
 /* -- modal bottom --*/
 .modal-footer .btn {

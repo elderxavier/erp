@@ -319,4 +319,22 @@ class Clients extends CActiveRecord
     {
         return $this->type == 1 ? $this->company_name : $this->name.' '.$this->surname;
     }
+
+    /**
+     * Returns label of client's type
+     * @return string
+     */
+    public function getTypeName()
+    {
+        return $this->type == 1 ? 'juridical' : 'physical';
+    }
+
+    /**
+     * Returns personal or company code
+     * @return string
+     */
+    public function getActiveCode()
+    {
+        return $this->type == 1 ? $this->company_code : $this->personal_code;
+    }
 }

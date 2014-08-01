@@ -27,5 +27,5 @@
     </table>
 </div><!--body-holder-->
 <div class="new-cust-btn-holder">
-    <button>New customer</button>
-</div><!--/new-cust-btn-holder -->
+    <button data-toggle="modal" data-target=".new-customer-juridical"><?php echo $this->labels['new customer']; ?><span class="glyphicon glyphicon-plus-sign"></span></button>
+</div>
