@@ -54,6 +54,35 @@ jQuery(document).ready(function(){
         }
 
     });
+
+
+    jQuery('.modal-new-client-form').submit(function(){
+
+        var type = jQuery(this).attr('id');
+        var errors = [];
+
+        switch (type)
+        {
+            case 'juridical-form':
+                errors = checkRequired(['vat_code','company_code','company_name','phone1','email1'],'Juridical',true);
+                break;
+            case 'physical-form':
+                errors = checkRequired(['name','surname','vat_code','personal_code','phone1','email1'],'Physical',true);
+                break;
+        }
+
+        if(errors.length > 0)
+        {
+            return false;
+        }
+        else
+        {
+
+        }
+
+        return true;
+    });
+
 });
 
 jQuery(document).ajaxComplete(function(){
@@ -83,4 +112,33 @@ function loadFilteredData(words,type,container_class)
     {
         jQuery('.'+container_class).html(data);
     });
+}
+
+function checkRequired(fields,type,highlight_errors)
+{
+    //errors
+    var errors = [];
+
+    //through all names
+    for(var i = 0; i < fields.length; i++)
+    {
+        var jqField = jQuery('[name="Client'+type+'['+fields[i]+']"]');
+//        if(jqField.isArray())jqField = jqField[0];
+
+        if(jqField.val() == '')
+        {
+            errors.push(fields[i]);
+
+            if(highlight_errors)
+            {
+                jQuery('#'+type+'_'+fields[i]+'_err').removeClass('hidden');
+            }
+        }
+        else
+        {
+            jQuery('#'+type+'_'+fields[i]+'_err').addClass('hidden');
+        }
+    }
+
+    return errors;
 }

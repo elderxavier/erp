@@ -37,6 +37,12 @@ class ServicesController extends Controller
     }
 
 
+    public function actionContinueFromNew()
+    {
+        Debug::out($_POST);
+        exit();
+    }
+
     /**
      * Renders first-step form of service creation
      */

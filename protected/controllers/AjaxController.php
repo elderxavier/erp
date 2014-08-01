@@ -176,7 +176,8 @@ class AjaxController extends Controller {
      */
     public function actionClientsFilter($words,$type)
     {
-        $clients_rows = Clients::model()->findClientsByNames($words,$type);
+        if($words != '') $clients_rows = Clients::model()->findClientsByNames($words,$type);
+        else $clients_rows = array();
         $type == 0 ? $this->renderPartial('_clients_filtered_physical',array('clients_rows' => $clients_rows)) : $this->renderPartial('_clients_filtered_juridical',array('clients_rows' => $clients_rows));
     }
 

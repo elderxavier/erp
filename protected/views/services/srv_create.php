@@ -36,6 +36,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/service.js',CClientScript::POS_
                     </div><!--/form-group -->
 
                     <div class="filtered-clients">
+
                     </div>
                 </div><!--filter-wrapper -->
 
