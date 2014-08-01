@@ -125,6 +125,7 @@ class ServicesController extends Controller
                 }
             }
 
+            //render form
             $this->render('srv_create_continue',array('form_mdl' => $form, 'client' => $client, 'problems' => $problems, 'workers' => $workers, 'cities' => $cities));
         }
         else
