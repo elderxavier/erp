@@ -39,30 +39,11 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/service.js',CClientScript::POS_
                     </div>
                 </div><!--filter-wrapper -->
 
-
                 <div class="light-box-holder">
-                    <div class="modal fade cust-info" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-md">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-                                </div><!--/modal-header -->
-
-                                <div class="modal-body">
-
-                                </div><!--/modoal-body -->
-
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Continue</button>
-                                </div><!--/modal-footer -->
-
-                            </div><!--/modal-content -->
-                        </div><!--/modal-dialog -->
+                    <div class="modal fade cust-info"  tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                     </div><!--/modal -->
-
                 </div><!--/light-box-holder -->
+
             </div><!--/form-holder -->
         </div><!--/left -->
     </div><!--row -->

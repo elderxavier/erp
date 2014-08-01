@@ -310,4 +310,13 @@ class Clients extends CActiveRecord
 
         return $data;
     }
+
+    /**
+     * Returns name or company name
+     * @return string
+     */
+    public function getFullName()
+    {
+        return $this->type == 1 ? $this->company_name : $this->name.' '.$this->surname;
+    }
 }

@@ -54,7 +54,20 @@ jQuery(document).ready(function(){
         }
 
     });
+});
 
+jQuery(document).ajaxComplete(function(){
+   jQuery('.load-modal-client').click(function(){
+
+       var href = jQuery(this).attr('href');
+       var container = jQuery(this).attr('data-target');
+
+       //try find in database by name
+       jQuery.ajax({ url: href, beforeSend: function(){/*TODO: pre-loader*/}}).done(function(data)
+       {
+           jQuery(container).html(data);
+       });
+   });
 });
 
 /**

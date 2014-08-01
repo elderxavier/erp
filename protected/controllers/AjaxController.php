@@ -182,6 +182,17 @@ class AjaxController extends Controller {
 
 
     /**
+     * Renders modal window for client-info
+     * @param null $id
+     */
+    public function actionClientModal($id = null)
+    {
+        $client = Clients::model()->with('lastInvoice')->findByPk($id);
+        $this->renderPartial('_modal_client_info',array('client' => $client));
+    }
+
+
+    /**
      * Renders option items of workers found by city for select-box (used in srv_create.php)
      * @param int $city
      * @throws CHttpException

@@ -18,7 +18,7 @@
         <tbody>
         <?php foreach($clients_rows as $row): ?>
             <tr>
-                <td><a href="#" data-toggle="modal" data-target=".cust-info"><?php echo $row['type'] == 0 ? $row['name'].' '.$row['surname'] : $row['company_name']; ?></a></td>
+                <td><a href="/ajax/clientmodal/<?php echo $row['id']; ?>" data-toggle="modal" data-target=".cust-info" class="load-modal-client"><?php echo $row['type'] == 0 ? $row['name'].' '.$row['surname'] : $row['company_name']; ?></a></td>
                 <td><?php echo $row['type'] == 0 ? $row['personal_code'] : $row['company_code']; ?></a></td>
                 <td><?php echo '-'; ?></td>
             </tr>
