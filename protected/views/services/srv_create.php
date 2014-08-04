@@ -29,16 +29,22 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/service.js',CClientScript::POS_
                 </div><!--/form-group -->
                 <?php $this->endWidget(); ?>
 
+                <div class="col-md-12 filter-wrapper message-select-type"><h5 class="text-center"><?php echo $this->labels['select client type']; ?></h5></div>
+
                 <div class="col-md-12 filter-wrapper hidden client-select-block">
-                    <div class="form-group">
-                        <label for="name-filter"><?php echo $this->labels['filter']; ?></label>
-                        <input id="name-filter" type="text" class="form-control client-filter" placeholder="">
-                    </div><!--/form-group -->
+                    <div class="form-inline">
+                        <div class="form-group filter-group">
+                            <label><?php echo $this->labels['filter']; ?></label>
+                            <input id="client-by-name" type="text" class="form-control client-filter by-name">
+                            <input id="client-by-code" type="text" class="form-control client-filter by-number">
+                            <button id="filter-button" class="form-control clearfix"><?php echo $this->labels['filter']; ?><span class="glyphicon glyphicon-search text-right"></span></button>
+                        </div><!--/form-group -->
+                    </div><!--/form-inline -->
 
                     <div class="filtered-clients">
-
                     </div>
                 </div><!--filter-wrapper -->
+
 
                 <div class="light-box-holder">
                     <div class="modal fade cust-info" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">

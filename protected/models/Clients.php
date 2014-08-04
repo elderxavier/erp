@@ -298,6 +298,23 @@ class Clients extends CActiveRecord
     }
 
     /**
+     * Returns array of clients
+     * @param string $code
+     * @param int $type
+     * @return array
+     */
+    public function findClientsByCode($code,$type)
+    {
+        $type == 1 ? $sql = "SELECT * FROM clients WHERE company_code LIKE '%".$code."%'" : $sql = "SELECT * FROM clients WHERE personal_code LIKE '%".$code."%'";
+        //connection
+        $con = Yii::app()->db;
+        //get rows if parameter not empty
+        $code != '' ? $data=$con->createCommand($sql)->queryAll() : $data = array();
+
+        return $data;
+    }
+
+    /**
      * Returns one record-row from table by id
      * @param int $id
      * @return mixed

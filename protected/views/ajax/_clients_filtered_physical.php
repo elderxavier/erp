@@ -12,10 +12,10 @@
         </thead>
     </table>
 </div><!--/table-header-holder -->
-
 <div class="table-holder body-holder filtered-clients">
     <table class="table table-bordered table-hover">
         <tbody>
+        <?php if(!empty($clients_rows)): ?>
         <?php foreach($clients_rows as $row): ?>
             <tr>
                 <td><a href="/ajax/clientmodal/<?php echo $row['id']; ?>" data-toggle="modal" data-target=".cust-info" class="load-modal-client"><?php echo $row['type'] == 0 ? $row['name'].' '.$row['surname'] : $row['company_name']; ?></a></td>
@@ -23,6 +23,11 @@
                 <td><?php echo '-'; ?></td>
             </tr>
         <?php endforeach;?>
+        <?php else: ?>
+            <tr>
+                <td colspan="3" class="text-center"><h5><?php echo $this->labels['no data']; ?></h5></td>
+            </tr>
+        <?php endif;?>
         </tbody>
     </table>
 </div><!--body-holder-->

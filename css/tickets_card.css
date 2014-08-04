@@ -83,9 +83,38 @@
 	border-radius:0;
 	max-width:80%;}
 	
+.filter-group > * {
+	display:block;}
+	
+.filter-group > input {
+	width:300px;
+	height:34px;
+	margin-bottom:10px;
+	border:1px solid #b6b7bb;}
+	
+.filter-group > button {
+	padding: 0 0 0 10px;
+	border:none;
+	border-radius:0px;
+	background-color:#fb8f73;
+	color:white;
+	width:30%;
+	line-height:32px;}
+	
+.filter-group > button:hover {
+	background-color:#cc5c4e;}
+	
+.filter-group > button > span {
+	margin-left:10px;
+	padding: 0 7px;
+	display:block;
+	float:right;
+	line-height:30px;
+	background-color:#cc5c4e;}
+		
 .body-holder {
-	height:130px;
-	overflow-y:scroll;
+	max-height:130px;
+	overflow-y:auto;
 	border-bottom:1px solid #c7c8cc;
 	position:relative;}
 	
@@ -318,5 +347,15 @@
 
 	.card-holder .right-part {float:right;}
 	.card-holder  .left-part {float:left;}
+	
+	.filter-group > * {display:inline-block;margin-right:10px;}
+	.filter-group > .by-number {width:200px;}
+	.filter-group > button { margin-bottom:10px;}
 
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width:992px) {
+	.filter-group > .by-name { width:450px;}
+	
 }

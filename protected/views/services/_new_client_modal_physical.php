@@ -7,7 +7,7 @@
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 <h4 class="modal-title"><?php echo $this->labels['new customer']; ?></h4>
             </div><!--/modal-header -->
-            <form id="physical-form" class="modal-new-client-form" action="<?php echo $this->createUrl('/services/continuefromnew'); ?>" method="post">
+            <form id="Physical" class="modal-new-client-form" action="<?php echo $this->createUrl('/services/continuefromnew'); ?>" method="post">
 
                 <div class="modal-body">
                     <div class="new-customer-table-holder">

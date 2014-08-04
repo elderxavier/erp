@@ -173,11 +173,20 @@ class AjaxController extends Controller {
      * Renders filtered table of clients (used in srv_create.php)
      * @param string $words
      * @param int $type
+     * @param string $code
      */
-    public function actionClientsFilter($words,$type)
+    public function actionClientsFilter($words,$type,$code = '')
     {
-        if($words != '') $clients_rows = Clients::model()->findClientsByNames($words,$type);
-        else $clients_rows = array();
+        if(empty($code))
+        {
+            if($words != '') $clients_rows = Clients::model()->findClientsByNames($words,$type);
+            else $clients_rows = array();
+        }
+        else
+        {
+            $clients_rows = Clients::model()->findClientsByCode($code,$type);
+        }
+
         $type == 0 ? $this->renderPartial('_clients_filtered_physical',array('clients_rows' => $clients_rows)) : $this->renderPartial('_clients_filtered_juridical',array('clients_rows' => $clients_rows));
     }
 
