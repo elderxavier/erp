@@ -165,13 +165,13 @@ class ContractorsController extends Controller
         /* @var $client Clients */
 
         //try find by pk
-        $client = Clients::model()->with('invoicesOuts')->findByPk($id);
+        $client = Clients::model()->with('invoicesOuts', 'serviceProcesses')->findByPk($id);
 
         //if found
         if(!empty($client))
         {
             //if exist some invoices related with this client
-            if(count($client->invoicesOuts) > 0)
+            if(count($client->invoicesOuts) > 0 || count($client->serviceProcesses) > 0)
             {
                 $this->render('restricts');
             }
@@ -234,15 +234,6 @@ class ContractorsController extends Controller
             //if got post
             if(isset($_POST['SupplierForm']))
             {
-                //if company
-                if($_POST['SupplierForm']['company'])
-                {
-                    //validate as company (company code required)
-                    $form->company = 1;
-                    //set type to client (1 = company)
-                    $supplier->type = 1;
-                }
-
                 //set attributes and validate
                 $form->attributes = $_POST['SupplierForm'];
                 $supplier->attributes = $_POST['SupplierForm'];
@@ -284,13 +275,6 @@ class ContractorsController extends Controller
         //if got post
         if(isset($_POST['SupplierForm']))
         {
-            //if company
-            if($_POST['SupplierForm']['company'])
-            {
-                //validate as company (company code required)
-                $form->company = 1;
-            }
-
             //set attributes and validate
             $form->attributes = $_POST['SupplierForm'];
 
@@ -301,9 +285,6 @@ class ContractorsController extends Controller
                 //create new supplier and set params
                 $supplier = new Suppliers();
                 $supplier->attributes = $_POST['SupplierForm'];
-
-                //set company or not
-                $supplier->type = $form->company;
 
                 //set creation parameters
                 $supplier->date_created = time();

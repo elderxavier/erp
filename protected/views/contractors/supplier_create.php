@@ -16,27 +16,21 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/add_product.css');
             <?php $form=$this->beginWidget('CActiveForm', array('id' =>'add-product-form','enableAjaxValidation'=>false,'htmlOptions'=>array('class'=>'clearfix'))); ?>
 
             <div class="form-group">
-                <?php echo $form->label($form_mdl,'personal_code');?>
-                <?php echo $form->textField($form_mdl,'personal_code',array('class'=>'form-control'));?>
-                <?php echo $form->error($form_mdl,'personal_code'); ?>
+                <?php echo $form->label($form_mdl,'company_name');?>
+                <?php echo $form->textField($form_mdl,'company_name',array('class'=>'form-control'));?>
+                <?php echo $form->error($form_mdl,'company_name'); ?>
+            </div>
+
+            <div class="form-group">
+                <?php echo $form->label($form_mdl,'company_code');?>
+                <?php echo $form->textField($form_mdl,'company_code',array('class'=>'form-control'));?>
+                <?php echo $form->error($form_mdl,'company_code'); ?>
             </div>
 
             <div class="form-group">
                 <?php echo $form->label($form_mdl,'vat_code');?>
                 <?php echo $form->textField($form_mdl,'vat_code',array('class'=>'form-control'));?>
                 <?php echo $form->error($form_mdl,'vat_code'); ?>
-            </div>
-
-            <div class="form-group">
-                <?php echo $form->label($form_mdl,'name');?>
-                <?php echo $form->textField($form_mdl,'name',array('class'=>'form-control'));?>
-                <?php echo $form->error($form_mdl,'name'); ?>
-            </div>
-
-            <div class="form-group">
-                <?php echo $form->label($form_mdl,'surname');?>
-                <?php echo $form->textField($form_mdl,'surname',array('class'=>'form-control'));?>
-                <?php echo $form->error($form_mdl,'surname'); ?>
             </div>
 
             <div class="form-group">
@@ -69,23 +63,28 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/add_product.css');
                 <?php echo $form->error($form_mdl,'remark'); ?>
             </div>
 
-
             <div class="form-group">
-                <?php echo $form->label($form_mdl,'company'); ?>
-                    <input type="checkbox" name="SupplierForm[company]">
-                    <!-- --><?php //echo $form->checkBox($form_mdl,'company'); ?>
+                <?php echo $form->label($form_mdl,'country');?>
+                <?php echo $form->textField($form_mdl,'country',array('class'=>'form-control'));?>
+                <?php echo $form->error($form_mdl,'country'); ?>
             </div>
 
             <div class="form-group">
-                <?php echo $form->label($form_mdl,'company_name');?>
-                <?php echo $form->textField($form_mdl,'company_name',array('class'=>'form-control'));?>
-                <?php echo $form->error($form_mdl,'company_name'); ?>
+                <?php echo $form->label($form_mdl,'city');?>
+                <?php echo $form->textField($form_mdl,'city',array('class'=>'form-control'));?>
+                <?php echo $form->error($form_mdl,'city'); ?>
             </div>
 
             <div class="form-group">
-                <?php echo $form->label($form_mdl,'company_code');?>
-                <?php echo $form->textField($form_mdl,'company_code',array('class'=>'form-control'));?>
-                <?php echo $form->error($form_mdl,'company_code'); ?>
+                <?php echo $form->label($form_mdl,'street');?>
+                <?php echo $form->textField($form_mdl,'street',array('class'=>'form-control'));?>
+                <?php echo $form->error($form_mdl,'street'); ?>
+            </div>
+
+            <div class="form-group">
+                <?php echo $form->label($form_mdl,'building_nr');?>
+                <?php echo $form->textField($form_mdl,'building_nr',array('class'=>'form-control'));?>
+                <?php echo $form->error($form_mdl,'building_nr'); ?>
             </div>
 
             <button type="submit"><span><?php echo $this->labels['save']; ?></span><span class="glyphicon glyphicon-plus"></span></button>

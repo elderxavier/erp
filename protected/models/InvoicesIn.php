@@ -20,7 +20,6 @@
  * @property Suppliers $supplier
  * @property PaymentMethods $paymentMethod
  * @property OperationsIn[] $operationsIns
- * @property Suppliers[] $suppliers
  */
 class InvoicesIn extends CActiveRecord
 {
@@ -59,7 +58,6 @@ class InvoicesIn extends CActiveRecord
 			'supplier' => array(self::BELONGS_TO, 'Suppliers', 'supplier_id'),
 			'paymentMethod' => array(self::BELONGS_TO, 'PaymentMethods', 'payment_method_id'),
 			'operationsIns' => array(self::HAS_MANY, 'OperationsIn', 'invoice_id'),
-			'suppliers' => array(self::HAS_MANY, 'Suppliers', 'last_invoice_id'),
 		);
 	}
 

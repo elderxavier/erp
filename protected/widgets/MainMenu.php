@@ -3,7 +3,6 @@
 
 class MainMenu extends Widget {
 
-
     public function run(){
 
         /* @var $rights UserRights */

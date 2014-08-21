@@ -31,6 +31,12 @@
  * @property integer $user_modified_by
  * @property integer $priority
  * @property integer $status
+ * @property string $address
+ * @property string $country
+ * @property string $city
+ * @property string $street
+ * @property string $building_nr
+ * @property string $contract_number
  *
  * The followings are the available model relations:
  * @property InvoicesOut $firstInvoice
@@ -57,10 +63,11 @@ class Clients extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('first_invoice_id, last_invoice_id, last_service_id, next_service_id, last_service_date, next_service_date, type, date_created, date_changed, user_modified_by, priority, status', 'numerical', 'integerOnly'=>true),
+			array('address, country, city, street, building_nr, contract_number', 'length', 'max'=>255),
 			array('name, company_name, surname, personal_code, company_code, vat_code, phones, phone1, phone2, emails, email1, email2, remark, remark_for_service', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, name, company_name, surname, personal_code, company_code, vat_code, first_invoice_id, last_invoice_id, phones, phone1, phone2, emails, email1, email2, remark, remark_for_service, last_service_id, next_service_id, last_service_date, next_service_date, type, date_created, date_changed, user_modified_by, priority, status', 'safe', 'on'=>'search'),
+			array('id, name, company_name, surname, personal_code, company_code, vat_code, first_invoice_id, last_invoice_id, phones, phone1, phone2, emails, email1, email2, remark, remark_for_service, last_service_id, next_service_id, last_service_date, next_service_date, type, date_created, date_changed, user_modified_by, priority, status, address, country, city, street, building_nr, contract_number', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -112,6 +119,12 @@ class Clients extends CActiveRecord
 			'user_modified_by' => 'User Modified By',
 			'priority' => 'Priority',
 			'status' => 'Status',
+			'address' => 'Address',
+			'country' => 'Country',
+			'city' => 'City',
+			'street' => 'Street',
+			'building_nr' => 'Building Nr',
+			'contract_number' => 'Contract Number',
 		);
 	}
 
@@ -160,6 +173,12 @@ class Clients extends CActiveRecord
 		$criteria->compare('user_modified_by',$this->user_modified_by);
 		$criteria->compare('priority',$this->priority);
 		$criteria->compare('status',$this->status);
+		$criteria->compare('address',$this->address,true);
+		$criteria->compare('country',$this->country,true);
+		$criteria->compare('city',$this->city,true);
+		$criteria->compare('street',$this->street,true);
+		$criteria->compare('building_nr',$this->building_nr,true);
+		$criteria->compare('contract_number',$this->contract_number,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -176,7 +195,6 @@ class Clients extends CActiveRecord
 	{
 		return parent::model($className);
 	}
-
 
     /**
      * Returns all clients as pairs 'id'=>'name'

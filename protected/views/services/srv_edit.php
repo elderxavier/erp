@@ -218,16 +218,20 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/ticket_info.js',CClientScript::
                             <td><?php echo $service->client->email1; ?></td>
                         </tr>
                         <tr>
+                            <td><?php echo $this->labels['country']; ?></td>
+                            <td><?php echo $service->client->country; ?></td>
+                        </tr>
+                        <tr>
                             <td><?php echo $this->labels['city']; ?></td>
-                            <td></td>
+                            <td><?php echo $service->client->city; ?></td>
                         </tr>
                         <tr>
                             <td><?php echo $this->labels['street']; ?></td>
-                            <td></td>
+                            <td><?php echo $service->client->street; ?></td>
                         </tr>
                         <tr>
                             <td><?php echo $this->labels['house']; ?></td>
-                            <td></td>
+                            <td><?php echo $service->client->building_nr; ?></td>
                         </tr>
                     </table>
                 </div><!--/panel-body -->

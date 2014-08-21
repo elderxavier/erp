@@ -5,6 +5,12 @@
  */
 class SupplierForm extends CBaseForm
 {
+    public $address;
+    public $country;
+    public $city;
+    public $street;
+    public $building_nr;
+
     public $name;
     public $company_name;
     public $surname;
@@ -17,7 +23,6 @@ class SupplierForm extends CBaseForm
     public $email2;
     public $remark;
 
-    public $company;
     public $current_supplier_id = null;
 
 
@@ -29,22 +34,10 @@ class SupplierForm extends CBaseForm
     {
         //main rules
         $rules = array(
-            array('vat_code, phone1, email1', 'required', 'message'=> $this->messages['fill the field'].' "{attribute}"'),
-            array('name, company_name, surname, personal_code, company_code, vat_code, phone1, phone2, email1, email2, remark', 'safe')
+            array('company_name, company_code, vat_code, phone1, email1', 'required', 'message'=> $this->messages['fill the field'].' "{attribute}"'),
+            array('company_name, company_code, vat_code, phone1, phone2, email1, email2, remark', 'safe'),
+            array('company_code', 'unique', 'model_class' => 'Suppliers', 'current_id' => $this->current_supplier_id)
         );
-
-        //for company
-        if($this->company)
-        {
-            $rules[]=array('company_name, company_code', 'required', 'message' => $this->messages['fill the field'].' "{attribute}"');
-            $rules[]=array('company_code', 'unique', 'model_class' => 'Suppliers', 'current_id' => $this->current_supplier_id);
-        }
-        //for single person
-        else
-        {
-            $rules[]=array('personal_code, name, surname','required', 'message'=> $this->messages['fill the field'].' "{attribute}"');
-            $rules[]=array('personal_code', 'unique', 'model_class' => 'Suppliers', 'current_id' => $this->current_supplier_id);
-        }
 
         return $rules;
     }
@@ -67,7 +60,12 @@ class SupplierForm extends CBaseForm
             'email1' => $this->labels['email 1'],
             'email2' => $this->labels['email 2'],
             'remark' => $this->labels['remark'],
-            'company' => $this->labels['company'],
+
+            'address' => $this->labels['address'],
+            'country' => $this->labels['country'],
+            'city' => $this->labels['city'],
+            'street' => $this->labels['street'],
+            'building_nr' => $this->labels['building number'],
         );
     }
 

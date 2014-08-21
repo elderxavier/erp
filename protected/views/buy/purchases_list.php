@@ -30,7 +30,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/buy-ops.js',CClientScript::POS_
                         <tr>
                             <td><?php echo $invoice->id; ?></td>
                             <td><?php echo $invoice->invoice_code; ?></td>
-                            <td><?php echo $invoice->supplier->type == 1 ? $invoice->supplier->company_name : $invoice->supplier->name.' '.$invoice->supplier->surname; ?></td>
+                            <td><?php echo $invoice->supplier->company_name;?></td>
                             <td><?php echo date('Y.m.d',$invoice->date_created); ?></td>
 
                             <td>

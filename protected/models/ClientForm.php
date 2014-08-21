@@ -5,6 +5,12 @@
  */
 class ClientForm extends CBaseForm
 {
+    public $address;
+    public $country;
+    public $city;
+    public $street;
+    public $building_nr;
+
     public $name;
     public $company_name;
     public $surname;
@@ -70,6 +76,12 @@ class ClientForm extends CBaseForm
             'remark' => $this->labels['remark'],
             'remark_for_service' => $this->labels['remark for service'],
             'company' => $this->labels['company'],
+
+            'address' => $this->labels['address'],
+            'country' => $this->labels['country'],
+            'city' => $this->labels['city'],
+            'street' => $this->labels['street'],
+            'building_nr' => $this->labels['building number'],
         );
     }
 

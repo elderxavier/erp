@@ -35,7 +35,7 @@
                     </tr>
                     <tr>
                         <td><?php echo $this->labels['address']; ?></td>
-                        <td>-</td>
+                        <td><?php echo $client->country.', '.$client->city.', '.$client->street.', '.$client->building_nr; ?></td>
                     </tr>
                 </table>
             </div><!--/cust-info-table -->

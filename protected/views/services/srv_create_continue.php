@@ -56,18 +56,23 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/service_continue.js',CClientScr
                             </tr>
 
                             <tr>
+                                <td><?php echo $this->labels['country'] ?></td>
+                                <td><a  href="#"><?php echo $client->country; ?></a></td>
+                            </tr>
+
+                            <tr>
                                 <td><?php echo $this->labels['city'] ?></td>
-                                <td><a  href="#"><?php echo ''; ?></a></td>
+                                <td><a  href="#"><?php echo $client->city; ?></a></td>
                             </tr>
 
                             <tr>
                                 <td><?php echo $this->labels['street'] ?></td>
-                                <td><a href="#"><?php echo ''; ?></a></td>
+                                <td><a href="#"><?php echo $client->street; ?></a></td>
                             </tr>
 
                             <tr>
                                 <td><?php echo $this->labels['house']; ?></td>
-                                <td><a href="#"><?php echo ''; ?></a></td>
+                                <td><a href="#"><?php echo $client->building_nr; ?></a></td>
                             </tr>
                         </table>
                     </div><!--/cust-data -->

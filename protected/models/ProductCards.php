@@ -133,4 +133,39 @@ class ProductCards extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+    /**
+     * Returns array of data-items - products from database by code or name
+     * @param string $name
+     * @param string $code
+     * @param bool $for_auto_complete
+     * @return array
+     */
+    public function findAllByNameOrCode($name,$code,$for_auto_complete = false)
+    {
+        $data = array();
+        $sql = "SELECT * FROM ".$this->tableName();
+        if($name != '' && $code == '') $sql = "SELECT * FROM ".$this->tableName()." WHERE product_name LIKE '%".$name."%'";
+        elseif($code != '') $sql = "SELECT * FROM ".$this->tableName()." WHERE product_code LIKE '%".$code."%'";
+
+        if($name != '' || $code != '')
+        {
+            if(!$for_auto_complete)
+            {
+                $con = Yii::app()->db;
+                $data = $con->createCommand($sql)->queryAll(true);
+            }
+            else
+            {
+                $con = Yii::app()->db;
+                $rows = $con->createCommand($sql)->queryAll(true);
+                foreach($rows as $row)
+                {
+                    $data[] = array('label' => $code != '' ? $row['product_code'] : $row['product_name'], 'id' => $row['id']);
+                }
+            }
+        }
+
+        return $data;
+    }
 }

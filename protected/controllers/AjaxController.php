@@ -304,5 +304,65 @@ class AjaxController extends Controller {
         }
     }
 
+
+    /**
+     * auto-complete for purchase step1
+     */
+    public function actionSellers($term = null)
+    {
+        if(Yii::app()->request->isAjaxRequest)
+        {
+            $result = Suppliers::model()->getAllClientsJson($term);
+            echo $result;
+
+        }else{
+            throw new CHttpException(404);
+        }
+    }//actionSellers
+
+
+    public function actionSellfilter()
+    {
+        $request = Yii::app()->request;
+        if($request->isAjaxRequest){
+            $name = $request->getPost('name');
+
+
+            $data = Suppliers::model()->getSeller($name);
+            if(!empty($data)){
+                echo $this->renderPartial('_filterSuppTable',array('data'=>$data),true);
+            }else{
+                echo $this->renderPartial('_emptyTable',array(),true);
+            }
+
+        }else{
+            throw new CHttpException(404);
+        }
+    }// sellFilter
+
+    public function actionSellinfo($id = null)
+    {
+        $id = (int)$id;
+        $request = Yii::app()->request;
+        if($request->isAjaxRequest){
+            $data = Suppliers::model()->findByPk($id);
+            $modal = $this->renderPartial('supp_info_modal',array('data' => $data,),true);
+            echo $modal;
+        }else{
+            throw new CHttpException(404);
+        }
+    }//custInfo
+
+    /**
+     * Renders table of products
+     * @param string $name
+     * @param string $code
+     */
+    public function actionFindProductsModal($name='',$code='')
+    {
+        $rows = ProductCards::model()->findAllByNameOrCode($name,$code);
+        $this->renderPartial('_find_prod_modal',array('rows' => $rows));
+    }
+
 }
 ?>

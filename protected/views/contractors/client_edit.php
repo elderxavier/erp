@@ -99,6 +99,31 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/add_product.css');
                 <?php echo $form->error($form_mdl,'company_code'); ?>
             </div>
 
+            <div class="form-group">
+                <?php echo $form->label($form_mdl,'country');?>
+                <?php echo $form->textField($form_mdl,'country',array('class'=>'form-control', 'value' => $client->country));?>
+                <?php echo $form->error($form_mdl,'country'); ?>
+            </div>
+
+            <div class="form-group">
+                <?php echo $form->label($form_mdl,'city');?>
+                <?php echo $form->textField($form_mdl,'city',array('class'=>'form-control', 'value' => $client->city));?>
+                <?php echo $form->error($form_mdl,'city'); ?>
+            </div>
+
+            <div class="form-group">
+                <?php echo $form->label($form_mdl,'street');?>
+                <?php echo $form->textField($form_mdl,'street',array('class'=>'form-control', 'value' => $client->street));?>
+                <?php echo $form->error($form_mdl,'street'); ?>
+            </div>
+
+            <div class="form-group">
+                <?php echo $form->label($form_mdl,'building_nr');?>
+                <?php echo $form->textField($form_mdl,'building_nr',array('class'=>'form-control', 'value' => $client->building_nr));?>
+                <?php echo $form->error($form_mdl,'building_nr'); ?>
+            </div>
+
+
             <button type="submit"><span><?php echo $this->labels['save']; ?></span><span class="glyphicon glyphicon-plus"></span></button>
 
             <?php $this->endWidget(); ?>
