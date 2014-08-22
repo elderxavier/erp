@@ -46,7 +46,6 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/purchase.js',CClientScript::POS
                                     <tr>
                                         <td colspan="3" class="text-center"><h5>No data</h5></td>
                                     </tr>
-                                    
                                 </tbody>
                             </table>
                         </div><!--body-holder-->

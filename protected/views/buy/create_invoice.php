@@ -1,7 +1,12 @@
 <?php
+/* @var $form_mdl ProductCardForm */
+/* @var $form CActiveForm */
 /* @var $this BuyController */
 /* @var $cs CClientScript */
 /* @var $supplier Suppliers */
+/* @var $stocks Stocks[] */
+/* @var $categories_arr Array */
+/* @var $filter_by_code string */
 
 $cs = Yii::app()->clientScript;
 $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/invoice_in.css');
@@ -37,7 +42,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/purchase.js',CClientScript::POS
                         </tbody>
                     </table>
                     <div class="btn-holder">
-                        <button data-toggle="modal" data-target="#invoiceReady"><?php echo $this->labels['new products']; ?>&nbsp;<span class="glyphicon glyphicon-plus-sign"></span></button>
+                        <button data-toggle="modal" data-target="#newProduct"><?php echo $this->labels['new product']; ?>&nbsp;<span class="glyphicon glyphicon-plus-sign"></span></button>
                     </div>
                 </div><!--/product-table-holder -->
             </div><!--/filter-holder -->
@@ -67,6 +72,14 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/purchase.js',CClientScript::POS
                     </tbody>
                 </table>
             </div><!--/table-holder -->
+            <div id="stock-selection">
+                <label for="stock-selector"><?php echo $this->labels['stock']; ?></label>
+                <select id="stock-selector">
+                    <?php foreach($stocks as $stock): ?>
+                        <option><?php echo $stock->name; ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
             <div id="product-section">
                 <h4><?php echo $this->labels['product list']; ?></h4>
                 <div class="product-holder-area">
@@ -81,11 +94,14 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/purchase.js',CClientScript::POS
                             <th><?php echo $this->labels['actions']; ?></th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="product-list-holder">
+                        <tr id="empty-list">
+                            <td colspan="6"><?php echo $this->labels['no data found']; ?></td>
+                        </tr>
                         <tr class="summ">
                             <td colspan="3"></td>
                             <td>Summ:</td>
-                            <td colspan="2">3456 EUR</td>
+                            <td colspan="2"><span id="total">0</span> EUR</td>
                         </tr>
                         </tbody>
                     </table>
@@ -123,28 +139,97 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/purchase.js',CClientScript::POS
 
         </div><!--/invoice-ready -->
 
-        <div class="new-product">
 
-            <div class="modal fade" id="newProduct" tabindex="-1" role="dialog">
+
+        <div class="new-product">
+            <div class="modal" id="newProduct" tabindex="-1" role="dialog">
                 <div class="modal-dialog">
+
                     <div class="modal-content">
                         <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                            <h4 class="modal-title">Modal title</h4>
+                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"><?php $this->labels['close']; ?></span></button>
+                            <h4 class="modal-title"><?php echo $this->labels['new product']; ?></h4>
                         </div><!--/.modal-heafer -->
 
-                        <div class="modal-body">
-                            <p>One fine body&hellip;</p>
-                        </div><!--/modal-body -->
+                        <?php if($form_mdl->hasErrors()):?><div class="opened-modal-prod"></div><?php endif; ?>
+                        <?php if($filter_by_code != ''):?><input id="filter-by-code" value="<?php echo $filter_by_code; ?>" type="hidden"><?php endif; ?>
 
+                        <?php $form=$this->beginWidget('CActiveForm', array('id' =>'add-product-form','enableAjaxValidation'=>false,'htmlOptions'=>array('class'=>'clearfix', 'enctype' => 'multipart/form-data'))); ?>
+                        <div class="modal-body">
+
+                            <div class="form-group">
+                                <?php echo $form->label($form_mdl,'product_code');?>
+                                <?php echo $form->textField($form_mdl,'product_code',array('class'=>'form-control', 'value' => ''));?>
+                                <?php echo $form->error($form_mdl,'product_code'); ?>
+                            </div>
+
+                            <div class="form-group">
+                                <?php echo $form->label($form_mdl,'product_name');?>
+                                <?php echo $form->textField($form_mdl,'product_name',array('class'=>'form-control', 'value' => ''));?>
+                                <?php echo $form->error($form_mdl,'product_name'); ?>
+                            </div>
+
+                            <div class="form-group">
+                                <?php echo $form->label($form_mdl,'category_id');?>
+                                <?php echo $form->dropDownList($form_mdl,'category_id',$categories_arr,array('class'=>'form-control','options' => array($card->category_id =>array('selected'=>true))));?>
+                            </div>
+
+                            <fieldset>
+                                <legend><?php echo $form->label($form_mdl,'dimension_units'); ?></legend>
+                                <div class="form-group">
+                                    <div class="radio">
+                                        <label>
+                                            <?php echo $form->radioButton($form_mdl,'units',array('value'=>'units','uncheckValue'=>null,'checked'=>true));?>
+                                            <?php echo $this->labels['units']; ?>
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <?php echo $form->radioButton($form_mdl,'units',array('value'=>'kg','uncheckValue'=>null,'checked'=>false));?>
+                                            <?php echo $this->labels['kg']; ?>
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <?php echo $form->radioButton($form_mdl,'units',array('value'=>'liters','uncheckValue'=>null,'checked'=>false));?>
+                                            <?php echo $this->labels['liters']; ?>
+                                        </label>
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <div class="form-group">
+                                <?php echo $form->label($form_mdl,'description');?>
+                                <?php echo $form->textArea($form_mdl,'description',array('class'=>'form-control', 'value' => ''));?>
+                                <?php echo $form->error($form_mdl,'description'); ?>
+                            </div>
+
+                            <div class="form-group">
+                                <?php echo $form->label($form_mdl,'files');?>
+                                <table class="file-table form-control'">
+                                    <tr>
+                                        <td><?php echo $this->labels['label'];?></td>
+                                        <td><?php echo $this->labels['name'];?></td>
+                                        <td><?php echo $this->labels['actions'];?></td>
+                                    </tr>
+
+                                    <tr class="file-select">
+                                        <td colspan="3">
+                                            <input type="file" name="ProductCardForm[files][0]" class="form-control file-sel" spec-index="0">
+                                        </td>
+                                    </tr>
+                                </table>
+                                <?php echo $form->error($form_mdl,'files'); ?>
+                            </div>
+                        </div><!--/modal-body -->
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->labels['cancel']; ?></button>
+                            <button type="submit" class="btn btn-primary"><?php echo $this->labels['save']; ?></button>
                         </div><!--/modal-footer -->
+                        <?php $this->endWidget(); ?>
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->
             </div><!-- /.modal -->
-
         </div><!--/new-product -->
 
     </div><!--/modals-holder -->
