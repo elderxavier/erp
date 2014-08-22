@@ -26,7 +26,52 @@ $(document).ready(function(e) {
         });  
     
     });//live
-	
+
+
+    $('#prod-name-input').autocomplete({
+        source: function( request, response ) {
+            $.ajax({
+                url: "/ajax/autocompleteproductsname",
+                dataType: "json",
+                data: {
+                    term: request.term
+                },
+                success: function( data ) {
+                    response( data );
+                }
+            });
+        },
+        minLength: 1,
+
+        select:function(event,ui){
+            var id = ui.item.id; //get id of client
+            var label = ui.item.label; //get entered word
+
+        }
+    });
+
+    $('#prod-code-input').autocomplete({
+        source: function( request, response ) {
+            $.ajax({
+                url: "/ajax/AutoCompleteProductsCode",
+                dataType: "json",
+                data: {
+                    term: request.term
+                },
+                success: function( data ) {
+                    response( data );
+                }
+            });
+        },
+        minLength: 1,
+
+        select:function(event,ui){
+            var id = ui.item.id; //get id of client
+            var label = ui.item.label; //get entered word
+
+        }
+    });
+
     $(document).on('click','#filter-search',function(){
         var value = $('.by-name').val();
         clientFilter(value);

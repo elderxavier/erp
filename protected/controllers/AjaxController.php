@@ -364,5 +364,28 @@ class AjaxController extends Controller {
         $this->renderPartial('_find_prod_modal',array('rows' => $rows));
     }
 
+    public function actionAutoCompleteProductsName($term = null)
+    {
+        if(Yii::app()->request->isAjaxRequest)
+        {
+            $result = json_encode(ProductCards::model()->findAllByNameOrCode($term,'',true));
+            echo $result;
+        }else{
+            throw new CHttpException(404);
+        }
+    }
+
+    public function actionAutoCompleteProductsCode($term = null)
+    {
+        if(Yii::app()->request->isAjaxRequest)
+        {
+            $result = json_encode(ProductCards::model()->findAllByNameOrCode('',$term,true));
+            echo $result;
+        }else{
+            throw new CHttpException(404);
+        }
+    }
+
+
 }
 ?>
