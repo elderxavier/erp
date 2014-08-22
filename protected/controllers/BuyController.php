@@ -71,9 +71,15 @@ class BuyController extends Controller
 
         $this->render('in_purchases_step1', array('form_mdl' => $form));
     }//step1
-    
-    
-    public function actionCreateInvoice($id = null){
+
+
+    /**
+     * Render create-invoice page-form, if given post - create product card and then render form again
+     * @param int $id supplier id
+     * @throws CHttpException
+     */
+    public function actionCreateInvoice($id = null)
+    {
         if($supplier = Suppliers::model()->findByPk($id))
         {
             $form = new ProductCardForm();
@@ -115,4 +121,69 @@ class BuyController extends Controller
             throw new CHttpException(404);
         }
     }//createInvoice
+
+    /**
+     * Create invoice and operations
+     * @throws CHttpException
+     */
+    public function actionFinishCreation()
+    {
+        /* @var $stock Stocks */
+        /* @var $supplier Suppliers */
+
+        if(isset($_POST['BuyForm']))
+        {
+            $supplier_id = $_POST['BuyForm']['supplier_id'];
+            $stock_id = $_POST['BuyForm']['stock'];
+            $products = $_POST['BuyForm']['products'];
+            $signer_name = '';
+            $invoice_code = '';
+
+            //try find stock and supplier
+            $supplier = Suppliers::model()->findByPk($supplier_id);
+            $stock = Stocks::model()->findByPk($stock_id);
+
+            //if supplier and stock exist in base
+            if($supplier && $stock)
+            {
+                //create new incoming invoice
+                $invoice = new InvoicesIn();
+
+                //set main params
+                $invoice->supplier_id = $supplier->id;
+                $invoice->date_changed = time();
+                $invoice->date_created = time();
+                $invoice->signer_name = $signer_name;
+                $invoice->invoice_code = $invoice_code;
+
+                //save invoice in db
+                $invoice->save();
+
+                foreach($products as $id => $product_arr)
+                {
+                    $operation = new OperationsIn(); //create incoming operation
+                    $operation -> invoice_id = $invoice->id; //relation with invoice
+                    $operation -> product_card_id = $id; //set product card
+                    $operation -> qnt = $product_arr['qnt']; //quantity
+                    $operation -> price = $this->priceStrToCents($product_arr['price']); //price
+                    $operation -> stock_id = $stock_id; //stock id
+                    $operation -> client_id = $supplier->id; //supplier
+                    $operation -> stock_qnt_after_op = Stocks::model()->addToStockAndGetCount($id,$product_arr['qnt'],$stock->id); //add to stock and get current quantity in stock
+                    $operation -> date = time(); //time of operation
+                    $operation -> save(); //save to base
+                }
+
+                //redirect to list of invoices
+                $this->redirect('/buy/invoices');
+            }
+            else
+            {
+                throw new CHttpException(404);
+            }
+        }
+        else
+        {
+            throw new CHttpException(404);
+        }
+    }
 }

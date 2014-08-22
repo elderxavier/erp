@@ -139,12 +139,49 @@ $(document).ready(function(e) {
         filterProds(jQuery('#prod-name-input').val(),jQuery('#prod-code-input').val())
     });
 
+
     jQuery(".create-invoice").click(function(){
-        jQuery(".added-products").each(function(i,obj)
+
+        //clean all values
+        var total_price = 0;
+        jQuery(".make-invoice-body").html('');
+        jQuery(".make-invoice-fields").html('');
+        var stock_id = jQuery('#stock-selector').val();
+
+        //for each added product-tr in table
+        jQuery(".prod-item").each(function(i,obj)
         {
-            var data = jQuery(obj).data();
+            var id = jQuery(obj).data().id;
+            var name = jQuery(obj).find('#pr-name').html();
+            var code = jQuery(obj).find('#pr-code').html();
+            var units = jQuery(obj).find('#pr-units').html();
+            var qnt = jQuery(obj).find('#pr-qnt').find('.quant').val();
+            var price = jQuery(obj).find('#pr-price').find('.price').val();
+
+
+            //if price not correct - make it zero
+            if (isNaN(price)) price = 0;
+
+            //hidden inputs
+            var html_fields = '<input type="hidden" name="BuyForm[products]['+id+'][qnt]" value="'+qnt+'">'+'<input type="hidden" name="BuyForm[products]['+id+'][price]" value="'+price+'">';
+            //visible table rows
+            var html_tr_info = '<tr><td>'+name+'</td><td>'+code+'</td><td>'+units+'</td><td>'+qnt+'</td><td>'+price+'</td></tr>';
+
+            //if quantity set
+            if(qnt > 0 && !isNaN(qnt))
+            {
+                //append html
+                jQuery(".make-invoice-body").append(html_tr_info);
+                jQuery(".make-invoice-fields").append(html_fields);
+
+                //increase sum
+                total_price += (price * qnt);
+            }
+
         });
-    });
+        jQuery(".make-invoice-fields").append('<input type="hidden" name="BuyForm[stock]" value="'+stock_id+'">');
+        jQuery("#sum-invoice").html(total_price);
+    });//create invoice
 
 });//document ready
 
@@ -182,7 +219,7 @@ var addProduct = function(objProd){
 
     var prodArray = $(".prod-item");
     var prodId = parseInt(objProd.id);
-    var elem = "<tr id='"+ prodId +"' class='prod-item' data-id='"+ prodId +"'><td>"+ objProd.name +"</td><td>"+ objProd.code +"</td><td>"+ objProd.unit +"</td><td><input class='quant' type='text' value='1'></td><td><input class='price' type='text' value=''></td><td><button data-id='"+ prodId +"' class='del-btn btn btn-danger btn-xs'><span class='glyphicon glyphicon-minus-sign'></span></button></td></tr>";
+    var elem = "<tr id='"+ prodId +"' class='prod-item' data-id='"+ prodId +"'><td id='pr-name'>"+ objProd.name +"</td><td id='pr-code'>"+ objProd.code +"</td><td id='pr-units'>"+ objProd.unit +"</td><td id='pr-qnt'><input class='quant' type='text' value='1'></td><td id='pr-price'><input class='price' type='text' value=''></td><td><button data-id='"+ prodId +"' class='del-btn btn btn-danger btn-xs'><span class='glyphicon glyphicon-minus-sign'></span></button></td></tr>";
 
     var elemObj = $('#'+objProd.id);
     console.log(elemObj.length);

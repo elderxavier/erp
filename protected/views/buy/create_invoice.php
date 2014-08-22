@@ -76,7 +76,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/purchase.js',CClientScript::POS
                 <label for="stock-selector"><?php echo $this->labels['stock']; ?></label>
                 <select id="stock-selector">
                     <?php foreach($stocks as $stock): ?>
-                        <option><?php echo $stock->name; ?></option>
+                        <option value="<?php echo $stock->id; ?>"><?php echo $stock->name; ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
@@ -100,7 +100,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/purchase.js',CClientScript::POS
                         </tr>
                         <tr class="summ">
                             <td colspan="3"></td>
-                            <td>Summ:</td>
+                            <td><?php echo $this->labels['total']; ?>:</td>
                             <td colspan="2"><span id="total">0</span> EUR</td>
                         </tr>
                         </tbody>
@@ -120,19 +120,45 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/purchase.js',CClientScript::POS
             <div class="modal fade" id="invoiceReady" tabindex="-1" role="dialog">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                            <h4 class="modal-title"><?php echo $this->labels['invoice info']; ?></h4>
-                        </div><!--/.modal-heafer -->
+                        <form method="post" action="<?php echo Yii::app()->createUrl('/buy/finishcreation'); ?>">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"><?php echo $this->labels['close']; ?></span></button>
+                                <h4 class="modal-title"><?php echo $this->labels['invoice info']; ?></h4>
+                            </div><!--/.modal-heafer -->
 
-                        <div class="modal-body">
-                            <p>One fine body&hellip;</p>
-                        </div><!--/modal-body -->
+                            <div class="modal-body">
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th><?php echo $this->labels['product name']; ?></th>
+                                        <th><?php echo $this->labels['product code']; ?></th>
+                                        <th><?php echo $this->labels['units']; ?></th>
+                                        <th><?php echo $this->labels['quantity']; ?></th>
+                                        <th><?php echo $this->labels['price']; ?> (EUR)</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="make-invoice-body">
 
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
-                        </div><!--/modal-footer -->
+                                    </tbody>
+                                    <tfoot>
+                                    <tr>
+                                        <td><?php echo $this->labels['total']; ?> (EUR)</td>
+                                        <td id="sum-invoice" colspan="4"></td>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+
+                            </div><!--/modal-body -->
+
+                            <div class="make-invoice-fields"></div>
+
+                            <input type="hidden" name="BuyForm[supplier_id]" value="<?php echo $supplier->id; ?>">
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->labels['close']; ?></button>
+                                <button type="submit" class="btn btn-primary"><?php echo $this->labels['save']; ?></button>
+                            </div><!--/modal-footer -->
+                        </form>
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->
             </div><!-- /.modal -->
@@ -147,7 +173,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/purchase.js',CClientScript::POS
 
                     <div class="modal-content">
                         <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"><?php $this->labels['close']; ?></span></button>
+                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"><?php echo $this->labels['close']; ?></span></button>
                             <h4 class="modal-title"><?php echo $this->labels['new product']; ?></h4>
                         </div><!--/.modal-heafer -->
 
