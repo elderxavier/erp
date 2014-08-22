@@ -40,6 +40,11 @@ $(document).ready(function(e) {
          jQuery("#newProduct").modal('show');
      }
 
+     if(jQuery(".opened-modal-new-supplier").length > 0)
+     {
+         jQuery(".new-customer").modal('show');
+     }
+
     if(jQuery("#filter-by-code").length > 0)
     {
         filterProds('',jQuery("#filter-by-code").val());

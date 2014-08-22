@@ -40,7 +40,36 @@ class BuyController extends Controller
     
     
     public function actionCreateStep1(){
-        $this->render('in_purchases_step1');
+
+        $form = new SupplierForm();
+
+        //if got post
+        if(isset($_POST['SupplierForm']))
+        {
+            //set attributes and validate
+            $form->attributes = $_POST['SupplierForm'];
+
+            //if no errors
+            if($form->validate())
+            {
+                //create new supplier and set params
+                $supplier = new Suppliers();
+                $supplier->attributes = $_POST['SupplierForm'];
+
+                //set creation parameters
+                $supplier->date_created = time();
+                $supplier->date_changed = time();
+                $supplier->user_modified_by = Yii::app()->user->id;
+
+                //save to db
+                $supplier->save();
+
+                //redirect to list
+                $this->redirect('/'.$this->id.'/createinvoice/id/'.$supplier->id);
+            }
+        }
+
+        $this->render('in_purchases_step1', array('form_mdl' => $form));
     }//step1
     
     
