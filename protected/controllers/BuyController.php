@@ -136,8 +136,8 @@ class BuyController extends Controller
             $supplier_id = $_POST['BuyForm']['supplier_id'];
             $stock_id = $_POST['BuyForm']['stock'];
             $products = $_POST['BuyForm']['products'];
-            $signer_name = '';
-            $invoice_code = '';
+            $signer_name = $_POST['BuyForm']['signer_name'];
+            $invoice_code = $_POST['BuyForm']['invoice_code'];
 
             //try find stock and supplier
             $supplier = Suppliers::model()->findByPk($supplier_id);

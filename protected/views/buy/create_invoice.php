@@ -80,6 +80,14 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/purchase.js',CClientScript::POS
                     <?php endforeach; ?>
                 </select>
             </div>
+            <div>
+                <label for="signer-name"><?php echo $this->labels['signer name']; ?></label>
+                <input type="text" id="signer-name" placeholder="<?php echo $this->labels['signer name']; ?>">
+            </div>
+            <div>
+                <label for="invoice-code"><?php echo $this->labels['invoice code']; ?></label>
+                <input type="text" id="invoice-code" placeholder="<?php echo $this->labels['invoice code']; ?>">
+            </div>
             <div id="product-section">
                 <h4><?php echo $this->labels['product list']; ?></h4>
                 <div class="product-holder-area">

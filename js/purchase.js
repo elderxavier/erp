@@ -140,16 +140,39 @@ $(document).ready(function(e) {
     });
 
 
-    jQuery(".create-invoice").click(function(){
-
-        //clean all values
+    jQuery(".create-invoice").click(function(e){
+        //total price - zero
         var total_price = 0;
-        jQuery(".make-invoice-body").html('');
-        jQuery(".make-invoice-fields").html('');
+        //get all values and containers
         var stock_id = jQuery('#stock-selector').val();
+        var signer_name = jQuery("#signer-name").val();
+        var inv_code = jQuery("#invoice-code").val();
+        var items = jQuery(".prod-item");
+        var hidden_field_container = jQuery(".make-invoice-fields");
+
+        //clean all containers
+        hidden_field_container.html("");
+        jQuery(".make-invoice-body").html('');
+
+        //check for emptiness
+        if(signer_name =='')
+        {
+            alert('Fill signer name');
+            return false;
+        }
+        if(inv_code == '')
+        {
+            alert('Fill invoice code');
+            return false;
+        }
+        if(items.length == 0)
+        {
+            alert('No products selected');
+            return false;
+        }
 
         //for each added product-tr in table
-        jQuery(".prod-item").each(function(i,obj)
+        items.each(function(i,obj)
         {
             var id = jQuery(obj).data().id;
             var name = jQuery(obj).find('#pr-name').html();
@@ -179,8 +202,12 @@ $(document).ready(function(e) {
             }
 
         });
-        jQuery(".make-invoice-fields").append('<input type="hidden" name="BuyForm[stock]" value="'+stock_id+'">');
+        //append hidden fields
+        hidden_field_container.append('<input type="hidden" name="BuyForm[stock]" value="'+stock_id+'"><input type="hidden" name="BuyForm[signer_name]" value="'+signer_name+'"><input type="hidden" name="BuyForm[invoice_code]" value="'+inv_code+'">');
+        //write total price
         jQuery("#sum-invoice").html(total_price);
+        //return old event
+        return e;
     });//create invoice
 
 });//document ready
