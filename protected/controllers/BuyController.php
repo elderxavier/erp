@@ -108,7 +108,7 @@ class BuyController extends Controller
 
             $categories_arr = ProductCardCategories::model()->getAllAsArray();
             $stocks = Stocks::model()->findAll();
-            $this->render('create_invoice', array('supplier' => $supplier, 'stocks' => $stocks, 'categories_arr' => $categories_arr, 'form_mdl' => $form, 'filter_by_code' => $card != null ? $card->product_code : ''));
+            $this->render('create_invoice', array('supplier' => $supplier, 'stocks' => $stocks, 'categories_arr' => $categories_arr, 'form_mdl' => $form, 'card' => $card));
         }
         else
         {

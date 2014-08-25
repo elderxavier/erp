@@ -6,7 +6,7 @@
 /* @var $supplier Suppliers */
 /* @var $stocks Stocks[] */
 /* @var $categories_arr Array */
-/* @var $filter_by_code string */
+/* @var $card ProductCards */
 
 $cs = Yii::app()->clientScript;
 $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/invoice_in.css');
@@ -37,7 +37,19 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/purchase.js',CClientScript::POS
                         </thead>
                         <tbody id="filtered-tbl-body">
                         <tr>
-                            <td align="center" colspan="3"><?php echo $this->labels['no data found']; ?></td>
+
+                            <?php if($card): ?>
+                                <td><?php echo $card->product_name; ?></td>
+                                <td><?php echo $card->product_code; ?></td>
+                                <td>
+                                    <a data-name="<?php echo $card->product_name; ?>" data-code="<?php echo $card->product_code; ?>" data-unit="<?php echo $card->units; ?>" data-id="<?php echo $card->id; ?>" class="btn btn-default btn-sm add-prod" href="#">
+                                        <?php echo $this->labels['add to list']; ?>&nbsp;<span class="glyphicon glyphicon-share"></span>
+                                    </a>
+                                </td>
+                            <?php else: ?>
+                                <td align="center" colspan="3"><?php echo $this->labels['no data found']; ?></td>
+                            <?php endif; ?>
+
                         </tr>
                         </tbody>
                     </table>

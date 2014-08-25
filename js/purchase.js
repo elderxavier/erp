@@ -4,6 +4,12 @@ $(function(){
 
     empty_list_text = jQuery('#empty-list').find('td').html();
 
+    $(document).on('click','.add-prod',function(){
+        var objProd = $(this).data();
+        addProduct(objProd);
+        return false;
+    });//click
+
     $(".prod-item  td  button").click(function(e) {
         var id = $(this).data('id');
         delProd(id);
@@ -39,11 +45,6 @@ $(function(){
     if(jQuery(".opened-modal-new-supplier").length > 0)
     {
         jQuery(".new-customer").modal('show');
-    }
-
-    if(jQuery("#filter-by-code").length > 0)
-    {
-        filterProds('',jQuery("#filter-by-code").val());
     }
 
     $(document).on('keydown','.by-name',function(){
@@ -151,16 +152,6 @@ $(function(){
 
 });
 
-$(document).ajaxComplete(function(){
-    $('.add-prod').click(function(e) {
-        var objProd = $(this).data();
-        addProduct(objProd);
-        return false;
-    });//click
-});
-
-
-
 
 var createInvoiceFillForm = function(e)
 {
@@ -247,11 +238,17 @@ var checkSimbols = function(e){
 */
 
 var clientFilter = function(value){
-    console.log(value);
 	$('.body-holder table tbody').load('/ajax/sellfilter/',
 		{ name : value}
 	);	
 };//clientFilter
+
+var clientCodeFilter = function(value)
+{
+    $('.body-holder table tbody').load('/ajax/sellfilter/',
+        { code : value}
+    );
+};//clientCodeFilter
 
 var modalInfo = function(link){
     $.ajaxSetup({async:false});
