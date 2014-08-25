@@ -238,24 +238,6 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/purchase.js',CClientScript::POS
                                 <?php echo $form->textArea($form_mdl,'description',array('class'=>'form-control', 'value' => ''));?>
                                 <?php echo $form->error($form_mdl,'description'); ?>
                             </div>
-
-                            <div class="form-group">
-                                <?php echo $form->label($form_mdl,'files');?>
-                                <table class="file-table form-control'">
-                                    <tr>
-                                        <td><?php echo $this->labels['label'];?></td>
-                                        <td><?php echo $this->labels['name'];?></td>
-                                        <td><?php echo $this->labels['actions'];?></td>
-                                    </tr>
-
-                                    <tr class="file-select">
-                                        <td colspan="3">
-                                            <input type="file" name="ProductCardForm[files][0]" class="form-control file-sel" spec-index="0">
-                                        </td>
-                                    </tr>
-                                </table>
-                                <?php echo $form->error($form_mdl,'files'); ?>
-                            </div>
                         </div><!--/modal-body -->
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->labels['cancel']; ?><span class="glyphicon glyphicon-thumbs-down"></span></button>
