@@ -111,6 +111,7 @@ class ServicesController extends Controller
                     $process->date_created = time();
                     $process->date_changed = time();
                     $process->user_modified_by = Yii::app()->user->id;
+                    $process->user_created_by = Yii::app()->user->id;
                     //save process
                     $process->save();
 
