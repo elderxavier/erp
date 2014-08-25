@@ -120,8 +120,17 @@ $(function(){
 
 
     $(document).on('click','#filter-search',function(){
-        var value = $('.by-name').val();
-        clientFilter(value);
+        var m_value = $('.by-name').val();
+        var m_code = $('.by-number').val();
+
+        if(m_code == '')
+        {
+            clientFilter(m_value);
+        }
+        else
+        {
+            alert('filter by code will be done soon');
+        }
     });//click
 
 

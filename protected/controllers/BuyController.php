@@ -103,12 +103,6 @@ class BuyController extends Controller
 
                     //save to db
                     $card->save();
-
-                    //get array of files
-                    $files = CUploadedFile::getInstances($form,'files');
-
-                    //save files
-                    ProductFiles::model()->saveFiles($files,$card->id);
                 }
             }
 

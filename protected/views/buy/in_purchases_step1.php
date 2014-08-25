@@ -101,27 +101,9 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/purchase.js',CClientScript::POS
                                     </div>
 
                                     <div class="form-group">
-                                        <?php echo $form->label($form_mdl,'phone2');?>
-                                        <?php echo $form->textField($form_mdl,'phone2',array('class'=>'form-control'));?>
-                                        <?php echo $form->error($form_mdl,'phone2'); ?>
-                                    </div>
-
-                                    <div class="form-group">
                                         <?php echo $form->label($form_mdl,'email1');?>
                                         <?php echo $form->textField($form_mdl,'email1',array('class'=>'form-control'));?>
                                         <?php echo $form->error($form_mdl,'email1'); ?>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <?php echo $form->label($form_mdl,'email2');?>
-                                        <?php echo $form->textField($form_mdl,'email2',array('class'=>'form-control'));?>
-                                        <?php echo $form->error($form_mdl,'email2'); ?>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <?php echo $form->label($form_mdl,'remark');?>
-                                        <?php echo $form->textArea($form_mdl,'remark',array('class'=>'form-control'));?>
-                                        <?php echo $form->error($form_mdl,'remark'); ?>
                                     </div>
 
                                     <div class="form-group">
