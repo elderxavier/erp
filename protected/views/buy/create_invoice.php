@@ -120,7 +120,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/purchase.js',CClientScript::POS
 
         </div><!--/left -->
         <div class="btn-holder col-sm-12 clearfix text-right">
-            <button class="btn-submit create-invoice" style="display:none;"  data-toggle="modal" data-target="#invoiceReady"><span><?php echo $this->labels['create ticket']; ?></span><span class="glyphicon glyphicon-chevron-right"></span></button>
+            <button class="btn-submit create-invoice" style="display:none;"  data-toggle="modal" data-target="#invoiceReady"><span><?php echo $this->labels['create invoice']; ?></span><span class="glyphicon glyphicon-chevron-right"></span></button>
         </div><!--/btn-holder -->
     </div><!--row -->
     <div class="modals-holder">

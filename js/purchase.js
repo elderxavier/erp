@@ -17,7 +17,7 @@ $(function(){
     });//click on del-btn
 
     $(document).on('keyup keydown','.price',function(e){
-        if(checkSymbolsMy(e.keyCode))
+        if(checkSymbolsMy(e))
         {
             total();
             return true;
@@ -220,11 +220,22 @@ var createInvoiceFillForm = function(e)
     return e;
 };
 
-var checkSymbolsMy = function(code)
+var checkSymbolsMy = function(e)
 {
-    var available_keys = [97, 98, 99, 100, 101, 102, 103, 104, 105, 96, 8, 190, 37, 39];
-    return (jQuery.inArray(code,available_keys) != -1);
+    var available_keys = [97, 98, 99, 100, 101, 102, 103, 104, 105, 96, 8, 190, 37, 39, 46, 49, 50, 51, 52, 53, 54, 55, 56, 57, 48];
+    return (jQuery.inArray(e.keyCode,available_keys) != -1);
 };
+
+/*
+var checkSimbols = function(e){
+    if (e.keyCode == 8 || e.keyCode == 46) {
+        return true;
+    }else{
+        var letters = '1234567890.';
+        return (letters.indexOf(String.fromCharCode(e.which)) != -1);
+    }
+}
+*/
 
 var clientFilter = function(value){
     console.log(value);
