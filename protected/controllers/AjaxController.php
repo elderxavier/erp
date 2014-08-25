@@ -308,11 +308,11 @@ class AjaxController extends Controller {
     /**
      * auto-complete for purchase step1
      */
-    public function actionSellers($term = null)
+    public function actionSellers($term = '',$code = '')
     {
         if(Yii::app()->request->isAjaxRequest)
         {
-            $result = Suppliers::model()->getAllClientsJson($term);
+            $result = Suppliers::model()->getAllClientsJson($term,$code);
             echo $result;
 
         }else{
@@ -325,10 +325,11 @@ class AjaxController extends Controller {
     {
         $request = Yii::app()->request;
         if($request->isAjaxRequest){
-            $name = $request->getPost('name');
+            $name = $request->getPost('name', '');
+            $code = $request->getPost('code', '');
 
+            $data = Suppliers::model()->getSeller($name,$code);
 
-            $data = Suppliers::model()->getSeller($name);
             if(!empty($data)){
                 echo $this->renderPartial('_filterSuppTable',array('data'=>$data),true);
             }else{

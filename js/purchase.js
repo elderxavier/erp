@@ -47,33 +47,40 @@ $(function(){
         jQuery(".new-customer").modal('show');
     }
 
-    $(document).on('keydown','.by-name',function(){
 
-        $('.by-name').autocomplete({
-            source: function( request, response ) {
-                $.ajax({
-                    url: "/ajax/sellers",
-                    dataType: "json",
-                    data: {
-                        term: request.term
+    $('.by-name').autocomplete({
+        source: function( request, response ) {
+            $.ajax({
+                url: "/ajax/sellers",
+                dataType: "json",
+                data: {
+                    term: request.term
 
-                    },
-                    success: function( data ) {
-                        response( data );
-                    }
-                });
-            },
-            minLength: 1,
+                },
+                success: function( data ) {
+                    response( data );
+                }
+            });
+        },
+        minLength: 1
+    });
 
-            select:function(event,ui){
-                var id = ui.item.id; //get id of client
-                var label = ui.item.label; //get entered word
+    $('.by-number').autocomplete({
+        source: function( request, response ) {
+            $.ajax({
+                url: "/ajax/sellers",
+                dataType: "json",
+                data: {
+                    code: request.term
 
-            }
-        });
-
-    });//live
-
+                },
+                success: function( data ) {
+                    response( data );
+                }
+            });
+        },
+        minLength: 1
+    });
 
     $('#prod-name-input').autocomplete({
         source: function( request, response ) {
@@ -124,14 +131,7 @@ $(function(){
         var m_value = $('.by-name').val();
         var m_code = $('.by-number').val();
 
-        if(m_code == '')
-        {
-            clientFilter(m_value);
-        }
-        else
-        {
-            alert('filter by code will be done soon');
-        }
+        clientFilter(m_value,m_code);
     });//click
 
 
@@ -237,18 +237,12 @@ var checkSimbols = function(e){
 }
 */
 
-var clientFilter = function(value){
+var clientFilter = function(value,code_v){
 	$('.body-holder table tbody').load('/ajax/sellfilter/',
-		{ name : value}
+		{ name : value, code: code_v}
 	);	
 };//clientFilter
 
-var clientCodeFilter = function(value)
-{
-    $('.body-holder table tbody').load('/ajax/sellfilter/',
-        { code : value}
-    );
-};//clientCodeFilter
 
 var modalInfo = function(link){
     $.ajaxSetup({async:false});

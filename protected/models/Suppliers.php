@@ -154,13 +154,15 @@ class Suppliers extends CActiveRecord
 		return parent::model($className);
 	}
 
-    public function getAllClientsJson($suppName =  null)
+    public function getAllClientsJson($suppName = '', $code = '')
     {
-        if(!empty($suppName)){
+        if(!empty($suppName) || !empty($code)){
             $companyName = trim($suppName);
             $result = array();
             //sql statement
-            $sql = "SELECT * FROM `".$this->tableName()."` WHERE company_name LIKE '%".$companyName."%'";
+            if(empty($code)) $sql = "SELECT * FROM `".$this->tableName()."` WHERE company_name LIKE '%".$companyName."%'";
+            else $sql = "SELECT * FROM `".$this->tableName()."` WHERE company_code LIKE '%".$code."%'";
+
             $con = $this->dbConnection;
             //get all data by query
             $data=$con->createCommand($sql)->queryAll(true);
@@ -168,7 +170,8 @@ class Suppliers extends CActiveRecord
             foreach($data as $row)
             {
                 //add to result array
-                $result[] = array( 'label' => $row['company_name'] ,'id' => $row['id']);
+                if(empty($code)) $result[] = array( 'label' => $row['company_name'] ,'id' => $row['id']);
+                else $result[] = array( 'label' => $row['company_code'] ,'id' => $row['id']);
             }
             return json_encode($result);
         }
@@ -176,20 +179,25 @@ class Suppliers extends CActiveRecord
     }//getAllClientsJson
 
 
-    public function getSeller($name = null)
+    public function getSeller($name = '', $code = '')
     {
-        $arrRow = array();
-        if(!empty($name)){
-            $companyName = trim($name);
-            $con = $this->dbConnection;
-            $sql = "SELECT * FROM `".$this->tableName()."` WHERE company_name LIKE '".$companyName."'";
-            $data=$con->createCommand($sql)->query();
+        $companyName = trim($name);
+        $companyCode = trim($code);
 
-            foreach($data as $row)
-            {
-                $arrRow[] = $row;
-            }
+        $con = $this->dbConnection;
+
+        if(empty($code)) $sql = "SELECT * FROM `".$this->tableName()."` WHERE company_name LIKE '%".$companyName."%'";
+        else $sql = "SELECT * FROM `".$this->tableName()."` WHERE company_code LIKE '".$companyCode."'";
+
+        if(empty($code) && empty($name))
+        {
+            $data=array();
         }
-        return $arrRow;
+        else
+        {
+            $data=$con->createCommand($sql)->queryAll(true);
+        }
+
+        return $data;
     }//getClients
 }
