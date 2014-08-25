@@ -106,7 +106,7 @@ class ProductsController extends Controller
                 $form -> attributes = $_POST['ProductCategoryForm'];
 
                 //if has errors
-                if(!$form -> validate())
+                if($form -> validate())
                 {
                     //set attributes
                     $category -> attributes = $_POST['ProductCategoryForm'];

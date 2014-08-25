@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50538
 File Encoding         : 65001
 
-Date: 2014-08-25 12:29:00
+Date: 2014-08-25 14:07:15
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -89,12 +89,12 @@ CREATE TABLE `invoices_in` (
   KEY `payment_method_id` (`payment_method_id`),
   CONSTRAINT `invoices_in_ibfk_1` FOREIGN KEY (`supplier_id`) REFERENCES `suppliers` (`id`),
   CONSTRAINT `invoices_in_ibfk_2` FOREIGN KEY (`payment_method_id`) REFERENCES `payment_methods` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of invoices_in
 -- ----------------------------
-INSERT INTO `invoices_in` VALUES ('9', '9', 'Test', null, null, null, null, 'Test', '1408958686', '1408958686', null);
+INSERT INTO `invoices_in` VALUES ('10', '9', 'INVCODE8974', null, null, null, null, 'Some Signer', '1408959961', '1408959961', null);
 
 -- ----------------------------
 -- Table structure for `invoices_out`
@@ -145,12 +145,13 @@ CREATE TABLE `operations_in` (
   CONSTRAINT `operations_in_ibfk_1` FOREIGN KEY (`invoice_id`) REFERENCES `invoices_in` (`id`),
   CONSTRAINT `operations_in_ibfk_2` FOREIGN KEY (`product_card_id`) REFERENCES `product_cards` (`id`),
   CONSTRAINT `operations_in_ibfk_3` FOREIGN KEY (`stock_id`) REFERENCES `stocks` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of operations_in
 -- ----------------------------
-INSERT INTO `operations_in` VALUES ('1', '2', '9', '1', '1408958686', '2500', '1', '14', '9');
+INSERT INTO `operations_in` VALUES ('2', '9', '10', '5', '1408959961', '21000', '1', '5', '9');
+INSERT INTO `operations_in` VALUES ('3', '10', '10', '10', '1408959961', '15000', '1', '10', '9');
 
 -- ----------------------------
 -- Table structure for `operations_out`
@@ -257,18 +258,14 @@ CREATE TABLE `product_cards` (
   PRIMARY KEY (`id`),
   KEY `category_id` (`category_id`),
   CONSTRAINT `product_cards_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `product_card_categories` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of product_cards
 -- ----------------------------
-INSERT INTO `product_cards` VALUES ('2', '4', 'Intel Core i5', 'PR_385FHK', '2.5 Ghz, 4 core, 5MB cache', '30045', 'units', null, '1', '1405427276', '1406645829', '1');
-INSERT INTO `product_cards` VALUES ('3', '6', 'Philips 234 E', 'PRODSKK', 'Monitors', null, 'units', null, '1', '1405426995', '1405426995', '1');
-INSERT INTO `product_cards` VALUES ('4', '4', 'Intel Core i7', 'CORDSF87', '20 kilograms of precessors', null, 'kg', null, '1', '1405607100', '1406645425', '1');
-INSERT INTO `product_cards` VALUES ('5', '4', 'Elbrus S4', 'PRODSKKSDA', 'TEST', null, 'units', null, '1', '1406129083', '1406188426', '1');
-INSERT INTO `product_cards` VALUES ('6', '4', 'TESTITEM', 'TESTITEM', 'TESTITEM', null, 'units', null, null, '1406709759', '1406710252', '1');
-INSERT INTO `product_cards` VALUES ('7', '4', 'AMD quad core Xtreme', 'P8SDF546D', 'Fast processor', null, 'units', null, null, '1408704741', '1408704741', '1');
-INSERT INTO `product_cards` VALUES ('8', '4', 'Elbrus S2', 'PRD789656', '500 Mhz, 4 Cores, WLIW archeticture', null, 'units', null, null, '1408714741', '1408714741', '1');
+INSERT INTO `product_cards` VALUES ('9', '7', 'Intel Core i7', 'PROD1234', '4 cores, 3 Ghz, 8 MB cache', null, 'units', null, '1', '1408959551', '1408959568', '1');
+INSERT INTO `product_cards` VALUES ('10', '7', 'Intel Core i5', 'PROD789', '4 cores, 2.5 Ghz', null, 'units', null, null, '1408959630', '1408959630', '1');
+INSERT INTO `product_cards` VALUES ('11', '8', 'nVIDIA GTX 760 ', 'PROD456', 'Some info', null, 'units', null, null, '1408959755', '1408959755', '1');
 
 -- ----------------------------
 -- Table structure for `product_card_categories`
@@ -283,13 +280,13 @@ CREATE TABLE `product_card_categories` (
   `date_changed` int(11) DEFAULT NULL,
   `user_modified_by` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of product_card_categories
 -- ----------------------------
-INSERT INTO `product_card_categories` VALUES ('4', 'Processors', '', '1', '1404392037', '1405345673', '1');
-INSERT INTO `product_card_categories` VALUES ('6', 'Monitors', 'just monitors', '1', '1404719915', '1404719915', '1');
+INSERT INTO `product_card_categories` VALUES ('7', 'Processors', 'Some info', null, '1408959409', '1408959409', '1');
+INSERT INTO `product_card_categories` VALUES ('8', 'Video cards', 'Some info', null, '1408959459', '1408959805', '1');
 
 -- ----------------------------
 -- Table structure for `product_files`
@@ -308,12 +305,6 @@ CREATE TABLE `product_files` (
 -- ----------------------------
 -- Records of product_files
 -- ----------------------------
-INSERT INTO `product_files` VALUES ('1', '4', 'REDiHYZH.png', 'main_page.png');
-INSERT INTO `product_files` VALUES ('2', '4', 'yiY7D4Nk.png', 'icon.png');
-INSERT INTO `product_files` VALUES ('3', '4', '4AdRd4zi.png', 'example.png');
-INSERT INTO `product_files` VALUES ('4', '5', 'SS4tRiQZ.png', 'main_page.png');
-INSERT INTO `product_files` VALUES ('6', '2', 'tefE49ED.jpg', 'dmitrij_chitrov.jpg');
-INSERT INTO `product_files` VALUES ('7', '2', '9z9GR4yd.jpg', 'dmitrij_chitrov.jpg');
 
 -- ----------------------------
 -- Table structure for `product_in_stock`
@@ -331,17 +322,13 @@ CREATE TABLE `product_in_stock` (
   KEY `stock_id` (`stock_id`),
   CONSTRAINT `product_in_stock_ibfk_1` FOREIGN KEY (`product_card_id`) REFERENCES `product_cards` (`id`),
   CONSTRAINT `product_in_stock_ibfk_2` FOREIGN KEY (`stock_id`) REFERENCES `stocks` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of product_in_stock
 -- ----------------------------
-INSERT INTO `product_in_stock` VALUES ('1', '1', '2', '14', '1408958686', '1405692681');
-INSERT INTO `product_in_stock` VALUES ('2', '1', '3', '25', '1408954725', '1405692681');
-INSERT INTO `product_in_stock` VALUES ('3', '1', '4', '30', '1408954725', '1405692681');
-INSERT INTO `product_in_stock` VALUES ('4', '1', '6', '24', '1408954725', '1408714101');
-INSERT INTO `product_in_stock` VALUES ('5', '1', '5', '10', '1408714786', '1408714786');
-INSERT INTO `product_in_stock` VALUES ('6', '1', '8', '6', '1408714786', '1408714786');
+INSERT INTO `product_in_stock` VALUES ('1', '1', '9', '5', '1408959961', '1408959961');
+INSERT INTO `product_in_stock` VALUES ('2', '1', '10', '10', '1408959961', '1408959961');
 
 -- ----------------------------
 -- Table structure for `rights`
@@ -443,11 +430,13 @@ CREATE TABLE `service_processes` (
   CONSTRAINT `service_processes_ibfk_6` FOREIGN KEY (`current_employee_id`) REFERENCES `users` (`id`),
   CONSTRAINT `service_processes_ibfk_7` FOREIGN KEY (`user_created_by`) REFERENCES `users` (`id`),
   CONSTRAINT `service_processes_ibfk_8` FOREIGN KEY (`status_id`) REFERENCES `service_process_statuses` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of service_processes
 -- ----------------------------
+INSERT INTO `service_processes` VALUES ('20', null, 'Some problem description', '1409392065', '1409737665', '11', '1', null, '1', '1408960065', '1408960065', null, '1', 'medium', '5');
+INSERT INTO `service_processes` VALUES ('21', null, 'Some problem description', '1409478649', '1410429049', '12', '1', null, '2', '1408960249', '1408960249', null, '1', 'low', '3');
 
 -- ----------------------------
 -- Table structure for `service_process_statuses`
@@ -489,11 +478,13 @@ CREATE TABLE `service_resolutions` (
   KEY `by_employee_id` (`by_employee_id`),
   CONSTRAINT `service_resolutions_ibfk_1` FOREIGN KEY (`service_process_id`) REFERENCES `service_processes` (`id`),
   CONSTRAINT `service_resolutions_ibfk_2` FOREIGN KEY (`by_employee_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of service_resolutions
 -- ----------------------------
+INSERT INTO `service_resolutions` VALUES ('6', '20', '5', 'Some problem description', null, '1', '1', null, null, null);
+INSERT INTO `service_resolutions` VALUES ('7', '21', '3', 'Some problem description', null, '1', '1', null, null, null);
 
 -- ----------------------------
 -- Table structure for `stocks`
