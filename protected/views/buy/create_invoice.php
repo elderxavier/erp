@@ -72,22 +72,24 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/purchase.js',CClientScript::POS
                     </tbody>
                 </table>
             </div><!--/table-holder -->
-            <div id="stock-selection">
+
+            <div id="stock-selection" class="form-horizontal">
                 <label for="stock-selector"><?php echo $this->labels['stock']; ?></label>
-                <select id="stock-selector">
+                <select class="form-control" id="stock-selector">
                     <?php foreach($stocks as $stock): ?>
                         <option value="<?php echo $stock->id; ?>"><?php echo $stock->name; ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
-            <div>
+            <div id="invoice-number" class="form-horizontal">
                 <label for="signer-name"><?php echo $this->labels['signer name']; ?></label>
-                <input type="text" id="signer-name" placeholder="<?php echo $this->labels['signer name']; ?>">
+                <input class="form-control" type="text" id="signer-name" placeholder="<?php echo $this->labels['signer name']; ?>">
             </div>
-            <div>
+            <div id="invoice-number" class="form-horizontal">
                 <label for="invoice-code"><?php echo $this->labels['invoice code']; ?></label>
-                <input type="text" id="invoice-code" placeholder="<?php echo $this->labels['invoice code']; ?>">
+                <input class="form-control" type="text" id="invoice-code" placeholder="<?php echo $this->labels['invoice code']; ?>">
             </div>
+
             <div id="product-section">
                 <h4><?php echo $this->labels['product list']; ?></h4>
                 <div class="product-holder-area">
@@ -163,8 +165,8 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/purchase.js',CClientScript::POS
                             <input type="hidden" name="BuyForm[supplier_id]" value="<?php echo $supplier->id; ?>">
 
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->labels['close']; ?></button>
-                                <button type="submit" class="btn btn-primary"><?php echo $this->labels['save']; ?></button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->labels['close']; ?><span class="glyphicon glyphicon-thumbs-down"></span></button>
+                                <button type="submit" class="btn btn-primary"><?php echo $this->labels['save']; ?><span class="glyphicon glyphicon-share-alt"></span></button>
                             </div><!--/modal-footer -->
                         </form>
                     </div><!-- /.modal-content -->
@@ -257,8 +259,8 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/purchase.js',CClientScript::POS
                             </div>
                         </div><!--/modal-body -->
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->labels['cancel']; ?></button>
-                            <button type="submit" class="btn btn-primary"><?php echo $this->labels['save']; ?></button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->labels['cancel']; ?><span class="glyphicon glyphicon-thumbs-down"></span></button>
+                            <button type="submit" class="btn btn-primary"><?php echo $this->labels['save']; ?><span class="glyphicon glyphicon-share-alt"></span></button>
                         </div><!--/modal-footer -->
                         <?php $this->endWidget(); ?>
                     </div><!-- /.modal-content -->
