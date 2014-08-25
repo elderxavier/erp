@@ -34,7 +34,7 @@ class ProductCardForm extends CBaseForm
                 'file', //file validation
                 'types'=>'jpg, gif, png', //available file-types
                 'allowEmpty' =>true, //can be empty
-                'maxSize' => 1000000, //1 mb
+                'maxSize' => 20000000, //20 mb
                 'maxFiles' => 5, //max count of files
                 'wrongType' => $this->messages['file has wrong type'], //message for wrong-type error
                 'tooLarge' => $this->messages['file is too large'], //message for 'too large' error
