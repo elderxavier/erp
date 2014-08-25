@@ -19,7 +19,7 @@
                     </div>
                     <div class="form-group">
                         <?php echo $form->label($model,'password');?>
-                        <?php echo $form->textField($model,'password',array('class'=>'form-control'));?>
+                        <?php echo $form->passwordField($model, 'password', array('class' => 'form-control')); ?>
                         <?php echo $form->error($model,'password'); ?>
                     </div>
                     <button class="btn btn-default pull-right"><span><?php echo $this->labels['login']; ?></span><span><img src="/images/filters_arrow.png" width="36" height="36" ></span></button>
