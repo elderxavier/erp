@@ -274,6 +274,68 @@ class Clients extends CActiveRecord
 
 
     /**
+     * Takes name, code and founds in base (used for auto-complete in step 1, and for regular table)
+     * @param string $name
+     * @param string $code
+     * @param bool $auto_complete
+     * @return array
+     */
+    public function getByCodeOrName($name = "",$code = "", $auto_complete = true)
+    {
+        $result = array();
+
+        if(!empty($code) || !empty($name))
+        {
+            if(empty($code))
+            {
+                //explode string to words (name and surname probably)
+                $words = explode(" ",$name, 2);
+
+                //sql statement
+                $sql = "SELECT * FROM clients WHERE ((`name` LIKE '%".$words[0]."%' OR `surname` LIKE '%".$words[0]."%') AND (`name` LIKE '%".$words[1]."%' OR  `surname` LIKE '%".$words[1]."%')) OR (`company_name` LIKE '%".$name."%')";
+            }
+            else
+            {
+                $sql = "SELECT * FROM clients WHERE (`company_code` LIKE '%".$code."%') OR (`personal_code` LIKE '%".$code."%')";
+            }
+
+            //connection
+            $con = Yii::app()->db;
+
+            //get all data by query
+            $data=$con->createCommand($sql)->queryAll(true);
+
+            //if data for auto-complete
+            if($auto_complete)
+            {
+                foreach($data as $row)
+                {
+                    //if not searching by code
+                    if(empty($code))
+                    {
+                        //add to result array
+                        $result[] = array('label' => $row['type'] == 1 ? $row['company_name']: $row['name'].' '.$row['surname'], 'id' => $row['id']);
+                    }
+                    //if searching by code
+                    else
+                    {
+                        //add to result array
+                        $result[] = array('label' => $row['type'] == 1 ? $row['company_code'] : $row['personal_code'], 'id' => $row['id']);
+                    }
+                }
+            }
+            //if for regular tables
+            else
+            {
+                $result = $data;
+            }
+        }
+
+        return $result;
+    }
+
+
+    /**
      * Takes the star-fragments of name and surname, type and returns array of clients
      * @param string $name
      * @param int $type

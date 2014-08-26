@@ -169,6 +169,23 @@ class AjaxController extends Controller {
     }
 
 
+    public function actionClientsForSales($name = "",$code = "",$auto_complete = 1)
+    {
+        if(Yii::app()->request->isAjaxRequest)
+        {
+            if($auto_complete == 1)
+            {
+                echo json_encode(Clients::model()->getByCodeOrName($name,$code,true));
+            }
+            else
+            {
+                $data = Clients::model()->getByCodeOrName($name,$code,false);
+                $this->renderPartial('_clients_first_step_table',array('data' => $data));
+            }
+        }
+    }
+
+
     /**
      * Renders filtered table of clients (used in srv_create.php)
      * @param string $words
@@ -353,6 +370,19 @@ class AjaxController extends Controller {
             throw new CHttpException(404);
         }
     }//custInfo
+
+
+    public function actionClientInfo($id = null)
+    {
+        $id = (int)$id;
+        $request = Yii::app()->request;
+        if($request->isAjaxRequest){
+            $data = Clients::model()->findByPk($id);
+            $this->renderPartial('client_info_modal',array('data' => $data,));
+        }else{
+            throw new CHttpException(404);
+        }
+    }
 
     /**
      * Renders table of products
