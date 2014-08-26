@@ -93,7 +93,16 @@ class SellController extends Controller
      */
     public function actionNextStepCreate($cid = null)
     {
-        Debug::out($cid);
-        exit('');
+        if($client = Clients::model()->findByPk($cid))
+        {
+            $stocks_for_sel = Stocks::model()->getAsArrayPairs();
+            $available_stocks = Stocks::model()->findAllByAttributes(array('location_id' => Yii::app()->user->getState('city_id')));
+
+            $this->render('next_step',array('stocks' => $stocks_for_sel, 'available_st' => $available_stocks));
+        }
+        else
+        {
+            throw new CHttpException(404);
+        }
     }
 }

@@ -6,7 +6,7 @@
  * The followings are the available columns in table 'stocks':
  * @property integer $id
  * @property string $name
- * @property string $location
+ * @property integer $location_id
  * @property string $description
  * @property integer $date_created
  * @property integer $date_changed
@@ -16,6 +16,7 @@
  * @property OperationsIn[] $operationsIns
  * @property OperationsOut[] $operationsOuts
  * @property ProductInStock[] $productInStocks
+ * @property UserCities $location
  */
 class Stocks extends CActiveRecord
 {
@@ -35,11 +36,11 @@ class Stocks extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('date_created, date_changed, user_modified_by', 'numerical', 'integerOnly'=>true),
-			array('name, location, description', 'safe'),
+			array('location_id, date_created, date_changed, user_modified_by', 'numerical', 'integerOnly'=>true),
+			array('name, description', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, name, location, description, date_created, date_changed, user_modified_by', 'safe', 'on'=>'search'),
+			array('id, name, location_id, description, date_created, date_changed, user_modified_by', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -54,6 +55,7 @@ class Stocks extends CActiveRecord
 			'operationsIns' => array(self::HAS_MANY, 'OperationsIn', 'stock_id'),
 			'operationsOuts' => array(self::HAS_MANY, 'OperationsOut', 'stock_id'),
 			'productInStocks' => array(self::HAS_MANY, 'ProductInStock', 'stock_id'),
+			'location' => array(self::BELONGS_TO, 'UserCities', 'location_id'),
 		);
 	}
 
@@ -65,7 +67,7 @@ class Stocks extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'name' => 'Name',
-			'location' => 'Location',
+			'location_id' => 'Location',
 			'description' => 'Description',
 			'date_created' => 'Date Created',
 			'date_changed' => 'Date Changed',
@@ -93,7 +95,7 @@ class Stocks extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('name',$this->name,true);
-		$criteria->compare('location',$this->location,true);
+		$criteria->compare('location_id',$this->location_id);
 		$criteria->compare('description',$this->description,true);
 		$criteria->compare('date_created',$this->date_created);
 		$criteria->compare('date_changed',$this->date_changed);
@@ -115,6 +117,41 @@ class Stocks extends CActiveRecord
 		return parent::model($className);
 	}
 
+    /**
+     * Returns all stocks as pairs array
+     * @param int $location_id
+     * @return array
+     */
+    public function getAsArrayPairs($location_id = null)
+    {
+        /* @var $stock Stocks */
+        /* @var $city USerCities  */
+        $result = array();
+
+        //try find city
+        $city = UserCities::model()->findByPk($location_id);
+
+        //if city found
+        if($city)
+        {
+            //get all by city
+            $all = $city->stocks;
+        }
+        //if not found
+        else
+        {
+            //get all
+            $all = self::model()->findAll();
+        }
+
+        //covert to pairs (id => name) array
+        foreach($all as $stock)
+        {
+           $result[$stock->id] = $stock->name;
+        }
+
+        return $result;
+    }
 
     /**
      * Adds 'product_is_stock' record to table, or just increases quantity if product already in stock

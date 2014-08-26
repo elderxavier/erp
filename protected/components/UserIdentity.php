@@ -77,6 +77,7 @@ class UserIdentity extends CUserIdentity
 
 
                 $this->setState('rights',$rights);
+                $this->setState('city_id',$user_record->city_id);
 
                 //no errors
                 $this->errorCode=self::ERROR_NONE;

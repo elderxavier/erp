@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50538
 File Encoding         : 65001
 
-Date: 2014-08-25 14:07:15
+Date: 2014-08-26 18:05:04
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -60,13 +60,14 @@ CREATE TABLE `clients` (
   KEY `last_invoice_id` (`last_invoice_id`),
   CONSTRAINT `clients_ibfk_1` FOREIGN KEY (`first_invoice_id`) REFERENCES `invoices_out` (`id`),
   CONSTRAINT `clients_ibfk_2` FOREIGN KEY (`last_invoice_id`) REFERENCES `invoices_out` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of clients
 -- ----------------------------
 INSERT INTO `clients` VALUES ('11', 'Viqtor', '', 'Creed', 'PER789456', '', 'VAT789789', null, null, null, '123456', '321654', null, 'test@test.com', 'mail@mail.com', 'Some info', 'Some info', null, null, null, null, null, '1408958172', '1408958172', '1', null, null, null, 'Lithuania', 'Vilnius', 'Kalvariju g', '15 b', null);
 INSERT INTO `clients` VALUES ('12', '', 'Senukai', '', 'PER78463', 'COCODE5646', 'VAT64893', null, null, null, '123456', '321654', null, 'em@ail.com', 'test@test.test', 'Some info', 'Some info', null, null, null, null, '1', '1408958292', '1408958292', '1', null, null, null, 'Lithuania', 'Vilnius', 'Kalvariju g', '89 g', null);
+INSERT INTO `clients` VALUES ('13', 'Anatolij', '', 'Krupnov', 'PER9865', '', 'VAT54964', null, null, null, '123465', '', null, 'test@test.com', '', 'Some info', 'Some info', null, null, null, null, null, '1409046662', '1409046662', '1', null, null, null, 'Lithuania', 'Panevezys', 'Krupnovo', '89 f', null);
 
 -- ----------------------------
 -- Table structure for `invoices_in`
@@ -258,14 +259,16 @@ CREATE TABLE `product_cards` (
   PRIMARY KEY (`id`),
   KEY `category_id` (`category_id`),
   CONSTRAINT `product_cards_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `product_card_categories` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of product_cards
 -- ----------------------------
 INSERT INTO `product_cards` VALUES ('9', '7', 'Intel Core i7', 'PROD1234', '4 cores, 3 Ghz, 8 MB cache', null, 'units', null, '1', '1408959551', '1408959568', '1');
-INSERT INTO `product_cards` VALUES ('10', '7', 'Intel Core i5', 'PROD789', '4 cores, 2.5 Ghz', null, 'units', null, null, '1408959630', '1408959630', '1');
+INSERT INTO `product_cards` VALUES ('10', '7', 'Intel Core i5', 'PROD789', '4 cores, 2.5 Ghz', null, 'units', null, '0', '1408959630', '1408959630', '1');
 INSERT INTO `product_cards` VALUES ('11', '8', 'nVIDIA GTX 760 ', 'PROD456', 'Some info', null, 'units', null, null, '1408959755', '1408959755', '1');
+INSERT INTO `product_cards` VALUES ('12', '8', 'nVIDIA GTX 560', 'PROD5864', 'Some info', null, 'units', null, null, '1408965216', '1408965216', '1');
+INSERT INTO `product_cards` VALUES ('13', '7', 'AMD Atom Xtreme', 'PROD4234', 'Some info', null, 'units', null, null, '1408970273', '1408970273', '1');
 
 -- ----------------------------
 -- Table structure for `product_card_categories`
@@ -300,7 +303,7 @@ CREATE TABLE `product_files` (
   PRIMARY KEY (`id`),
   KEY `product_card_id` (`product_card_id`),
   CONSTRAINT `product_files_ibfk_1` FOREIGN KEY (`product_card_id`) REFERENCES `product_cards` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of product_files
@@ -493,18 +496,20 @@ DROP TABLE IF EXISTS `stocks`;
 CREATE TABLE `stocks` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` text,
-  `location` text,
+  `location_id` int(11) DEFAULT NULL,
   `description` text,
   `date_created` int(11) DEFAULT NULL,
   `date_changed` int(11) DEFAULT NULL,
   `user_modified_by` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `location_id` (`location_id`),
+  CONSTRAINT `stocks_ibfk_1` FOREIGN KEY (`location_id`) REFERENCES `user_cities` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of stocks
 -- ----------------------------
-INSERT INTO `stocks` VALUES ('1', 'Vilnius', 'Vilnius', 'Stock in vilnius', '0', '0', '1');
+INSERT INTO `stocks` VALUES ('1', 'Vilnius', '1', 'Stock in vilnius', '0', '0', '1');
 
 -- ----------------------------
 -- Table structure for `suppliers`
@@ -570,7 +575,7 @@ CREATE TABLE `users` (
   KEY `city_id` (`city_id`),
   CONSTRAINT `users_ibfk_1` FOREIGN KEY (`position_id`) REFERENCES `positions` (`id`),
   CONSTRAINT `users_ibfk_2` FOREIGN KEY (`city_id`) REFERENCES `user_cities` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of users
@@ -589,15 +594,16 @@ CREATE TABLE `user_cities` (
   `city_name` text,
   `country` text,
   `description` text,
+  `changed_by` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user_cities
 -- ----------------------------
-INSERT INTO `user_cities` VALUES ('1', 'Vilnius', 'Lithuania', null);
-INSERT INTO `user_cities` VALUES ('2', 'Kaunas', 'Lithuania', null);
-INSERT INTO `user_cities` VALUES ('3', 'Panevezys', 'Lithuania', null);
+INSERT INTO `user_cities` VALUES ('1', 'Vilnius', 'Lithuania', null, null);
+INSERT INTO `user_cities` VALUES ('2', 'Kaunas', 'Lithuania', null, null);
+INSERT INTO `user_cities` VALUES ('3', 'Panevezys', 'Lithuania', null, null);
 
 -- ----------------------------
 -- Table structure for `user_rights`
@@ -613,7 +619,7 @@ CREATE TABLE `user_rights` (
   KEY `user_id` (`user_id`),
   CONSTRAINT `user_rights_ibfk_1` FOREIGN KEY (`rights_id`) REFERENCES `rights` (`id`),
   CONSTRAINT `user_rights_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=377 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=369 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user_rights
