@@ -207,6 +207,27 @@ class AjaxController extends Controller {
         $type == 0 ? $this->renderPartial('_clients_filtered_physical',array('clients_rows' => $clients_rows)) : $this->renderPartial('_clients_filtered_juridical',array('clients_rows' => $clients_rows));
     }
 
+    /**
+     * Renders filtered table of clients (used in first_step.php)
+     * @param $words
+     * @param $type
+     * @param string $code
+     */
+    public function actionClientsFilterSell($words,$type,$code = '')
+    {
+        if(empty($code))
+        {
+            if($words != '') $clients_rows = Clients::model()->findClientsByNames($words,$type);
+            else $clients_rows = array();
+        }
+        else
+        {
+            $clients_rows = Clients::model()->findClientsByCode($code,$type);
+        }
+
+        $type == 0 ? $this->renderPartial('_clients_filtered_physical_sell',array('clients_rows' => $clients_rows)) : $this->renderPartial('_clients_filtered_juridical_sell',array('clients_rows' => $clients_rows));
+    }
+
 
     /**
      * Renders modal window for client-info
@@ -216,6 +237,16 @@ class AjaxController extends Controller {
     {
         $client = Clients::model()->with('lastInvoice')->findByPk($id);
         $this->renderPartial('_modal_client_info',array('client' => $client));
+    }
+
+    /**
+     * Renders modal window for client-info
+     * @param null $id
+     */
+    public function actionClientModalSell($id = null)
+    {
+        $client = Clients::model()->with('lastInvoice')->findByPk($id);
+        $this->renderPartial('_modal_client_info_sell',array('client' => $client));
     }
 
 

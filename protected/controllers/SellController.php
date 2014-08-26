@@ -9,7 +9,7 @@ class SellController extends Controller
     {
         $arr = array(
             'invoices' => array('action' => 'invoices','visible' => $this->rights['sales_see'] ? 1 : 0 , 'class' => 'list-products'),
-            'add invoice' => array('action' => 'FirstStepCreate', 'visible' => $this->rights['sales_add'] ? 1 : 0, 'class' => 'create-product'),
+            'add invoice' => array('action' => 'firststepcreate', 'visible' => $this->rights['sales_add'] ? 1 : 0, 'class' => 'create-product'),
         );
 
         return $arr;
@@ -42,7 +42,8 @@ class SellController extends Controller
      */
     public function actionFirstStepCreate($id = null)
     {
-        $form = new ClientForm();
+        $form_clients = new ClientForm();
+        $form_srv = new ServiceForm();
 
         if(isset($_POST['ClientForm']))
         {
@@ -50,14 +51,14 @@ class SellController extends Controller
             if($_POST['ClientForm']['company'])
             {
                 //validate as company (company code required)
-                $form->company = 1;
+                $form_clients->company = 1;
             }
 
             //set attributes and validate
-            $form->attributes = $_POST['ClientForm'];
+            $form_clients->attributes = $_POST['ClientForm'];
 
             //if no errors
-            if($form->validate())
+            if($form_clients->validate())
             {
                 //empty client
                 $client = new Clients();
@@ -66,7 +67,7 @@ class SellController extends Controller
                 $client->attributes = $_POST['ClientForm'];
 
                 //set company or not
-                $client->type = $form->company;
+                $client->type = $form_clients->company;
 
                 //set creation parameters
                 $client->date_created = time();
@@ -77,11 +78,14 @@ class SellController extends Controller
                 $client->save();
 
                 //redirect to next step
-                $this->redirect(Yii::app()->createUrl('/sell/nextStepCreate/',array('cid' => $client->id)));
+                $this->redirect(Yii::app()->createUrl('/sell/nextstepcreate/',array('cid' => $client->id)));
             }
         }
 
-        $this->render('first_step', array('form_mdl' => $form));
+        //array for types-select-box
+        $types = array('' => 'Select', 0 => $this->labels['physical'], 1 => $this->labels['juridical']);
+
+        $this->render('first_step', array('form_mdl' => $form_clients, 'form_srv' => $form_srv, 'client_types' => $types));
     }
 
     /**
