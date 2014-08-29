@@ -1,27 +1,30 @@
 <?php
 
 /**
- * This is the model class for table "user_cities".
+ * This is the model class for table "operations_opt".
  *
- * The followings are the available columns in table 'user_cities':
+ * The followings are the available columns in table 'operations_opt':
  * @property integer $id
- * @property string $city_name
- * @property string $country
- * @property string $prefix
- * @property integer $changed_by
+ * @property integer $invoice_id
+ * @property integer $card_id
+ * @property integer $qnt
+ * @property integer $price
+ * @property integer $discount_percent
+ * @property integer $client_id
+ * @property integer $date
  *
  * The followings are the available model relations:
- * @property Stocks[] $stocks
- * @property Users[] $users
+ * @property ProductCards $card
+ * @property InvoicesOut $invoice
  */
-class UserCities extends CActiveRecord
+class OperationsOpt extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'user_cities';
+		return 'operations_opt';
 	}
 
 	/**
@@ -32,11 +35,10 @@ class UserCities extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('changed_by', 'numerical', 'integerOnly'=>true),
-			array('city_name, country, prefix', 'safe'),
+			array('invoice_id, card_id, qnt, price, discount_percent, client_id, date', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, city_name, country, prefix, changed_by', 'safe', 'on'=>'search'),
+			array('id, invoice_id, card_id, qnt, price, discount_percent, client_id, date', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -48,8 +50,8 @@ class UserCities extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'stocks' => array(self::HAS_MANY, 'Stocks', 'location_id'),
-			'users' => array(self::HAS_MANY, 'Users', 'city_id'),
+			'card' => array(self::BELONGS_TO, 'ProductCards', 'card_id'),
+			'invoice' => array(self::BELONGS_TO, 'InvoicesOut', 'invoice_id'),
 		);
 	}
 
@@ -60,10 +62,13 @@ class UserCities extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'city_name' => 'City Name',
-			'country' => 'Country',
-			'prefix' => 'Prefix',
-			'changed_by' => 'Changed By',
+			'invoice_id' => 'Invoice',
+			'card_id' => 'Card',
+			'qnt' => 'Qnt',
+			'price' => 'Price',
+			'discount_percent' => 'Discount Percent',
+			'client_id' => 'Client',
+			'date' => 'Date',
 		);
 	}
 
@@ -86,10 +91,13 @@ class UserCities extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('city_name',$this->city_name,true);
-		$criteria->compare('country',$this->country,true);
-		$criteria->compare('prefix',$this->prefix,true);
-		$criteria->compare('changed_by',$this->changed_by);
+		$criteria->compare('invoice_id',$this->invoice_id);
+		$criteria->compare('card_id',$this->card_id);
+		$criteria->compare('qnt',$this->qnt);
+		$criteria->compare('price',$this->price);
+		$criteria->compare('discount_percent',$this->discount_percent);
+		$criteria->compare('client_id',$this->client_id);
+		$criteria->compare('date',$this->date);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -100,33 +108,10 @@ class UserCities extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return UserCities the static model class
+	 * @return OperationsOpt the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
 	}
-
-    /**
-     * Returns all cities as pairs 'id'=>'name'
-     * @return array
-     */
-    public function findAllAsArray()
-    {
-        /* @var $city UserCities */
-
-        //declare empty array
-        $arr = array();
-
-        //get all
-        $all = UserCities::model()->findAll();
-
-        //make array
-        foreach($all as $city)
-        {
-            $arr[$city->id] = $city->city_name;
-        }
-
-        return $arr;
-    }
 }

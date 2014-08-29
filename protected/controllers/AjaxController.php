@@ -449,5 +449,39 @@ class AjaxController extends Controller {
     }
 
 
+
+    public function actionAutoCompleteFromStockByName($term = null, $stock = null)
+    {
+        if(Yii::app()->request->isAjaxRequest)
+        {
+            $result = json_encode(ProductCards::model()->findAllByNameOrCodeAndStock($term,'',$stock,true));
+            echo $result;
+        }
+        else
+        {
+            throw new CHttpException(404);
+        }
+    }
+
+    public function actionAutoCompleteFromStockByCode($term = null, $stock = null)
+    {
+        if(Yii::app()->request->isAjaxRequest)
+        {
+            $result = json_encode(ProductCards::model()->findAllByNameOrCodeAndStock('',$term,$stock,true));
+            echo $result;
+        }
+        else
+        {
+            throw new CHttpException(404);
+        }
+    }
+
+    public function actionFilterByStockCodeAndName($name = '',$code = '',$stock = '')
+    {
+        $result = ProductCards::model()->findAllByNameOrCodeAndStock($name,$code,$stock);
+        $this->renderPartial('_filtered_for_sales',array('items' => $result));
+    }
+
+
 }
 ?>

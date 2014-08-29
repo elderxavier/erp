@@ -168,4 +168,61 @@ class ProductCards extends CActiveRecord
 
         return $data;
     }
+
+
+    /**
+     * Returns array of data-item by stock, name, code (quantity in stock must be more than zero)
+     * @param string $name
+     * @param string $code
+     * @param int $stock_id
+     * @param bool $for_auto_complete
+     * @return array
+     */
+    public function findAllByNameOrCodeAndStock($name, $code, $stock_id, $for_auto_complete = false)
+    {
+        /* @var $stock Stocks */
+        /* @var $items ProductInStock[] */
+
+        $result = array();
+
+        $stock = Stocks::model()->findByPk($stock_id);
+        $items = $stock->productInStocks;
+
+        if(empty($stock_id)) return $result;
+
+        foreach($items as $item)
+        {
+            if(empty($code) && stristr($item->productCard->product_name,$name) != false)
+            {
+                if($item->qnt > 0)
+                {
+                    if($for_auto_complete)
+                    {
+                        $result[] = array('label' => $item->productCard->product_name, 'id' => $item->productCard->id);
+                    }
+                    else
+                    {
+                        $result[] = $item;
+                    }
+                }
+            }
+
+            if(!empty($code) && stristr($item->productCard->product_code,$code) != false)
+            {
+                if($item->qnt > 0)
+                {
+                    if($for_auto_complete)
+                    {
+                        $result[] = array('label' => $item->productCard->product_code, 'id' => $item->productCard->id);
+                    }
+                    else
+                    {
+                        $result[] = $item;
+                    }
+                }
+            }
+        }
+
+        return $result;
+    }
 }

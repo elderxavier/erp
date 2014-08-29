@@ -1,9 +1,16 @@
 <?php /* @var $invoices Array */ ?>
 <?php /* @var $invoice InvoicesOut */ ?>
+<?php /* @var $this SellController */ ?>
+<?php /* @var $client Clients */ ?>
+<?php /* @var $options OptionCards[] */ ?>
+<?php /* @var $available_stocks_id array */ ?>
+<?php /* @var $stocks Stocks[]*/ ?>
+<?php /* @var $vats Vat[] */ ?>
+<?php /* @var $count int */ ?>
 
 <?php
 $cs = Yii::app()->clientScript;
-//$cs->registerCssFile(Yii::app()->request->baseUrl.'/css/table.css');
+$cs->registerCssFile(Yii::app()->request->baseUrl.'/css/invoice_out.css');
 $cs->registerScriptFile(Yii::app()->baseUrl.'/js/sales_next_step.js',CClientScript::POS_END);
 ?>
 
@@ -15,118 +22,60 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/sales_next_step.js',CClientScri
     <div class="col-sm-6 left-part">
 
         <div id="stock-selection" class="form-horizontal">
-            <label>Select stock</label>
-            <select class="form-control">
-                <option>Vilnius</option>
-                <option>Kaunas</option>
-                <option>Klaipeda</option>
+
+            <label><?php echo $this->labels['select stock']; ?></label>
+            <select id="stock-selector" class="form-control">
+                <?php foreach($stocks as $index => $stock): ?>
+                    <option value="<?php echo $stock->id; ?>"><?php echo $stock->name.' ['.$stock->location->city_name.']'; ?></option>
+                <?php endforeach; ?>
             </select>
+
         </div>
         <div class="filter-holder">
-            <h4>Product filter</h4>
+            <h4><?php echo $this->labels['filter']; ?></h4>
             <div class="filter-inputs-holder">
-                <input type="text" placeholder="product name" />
-                <input type="text" placeholder="product code" />
-                <button>Search<span class="glyphicon glyphicon-search text-right"></span></button>
+                <input id="prod-name" type="text" placeholder="<?php echo $this->labels['product name']; ?>" />
+                <input id="prod-code" type="text" placeholder="<?php echo $this->labels['product code']; ?>" />
+                <button id="filter-button"><?php echo $this->labels['search']; ?><span class="glyphicon glyphicon-search text-right"></span></button>
             </div>
             <div class="product-table-holder">
                 <table width="100%" class="table table-bordered table-hover">
                     <thead>
                     <tr>
-                        <th>Product name</th>
-                        <th>Product code</th>
-                        <th>quant</th>
-                        <th>Action</th>
+                        <th><?php echo $this->labels['product name']; ?></th>
+                        <th><?php echo $this->labels['product code']; ?></th>
+                        <th><?php echo $this->labels['quantity']; ?></th>
+                        <th><?php echo $this->labels['actions']; ?></th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="filtered-body">
                     <tr>
-                        <td colspan="3">No data</td>
-                    </tr>
-                    <tr>
-                        <td>product 1</td>
-                        <td>1223435353</td>
-                        <td>3</td>
-                        <td>
-                            <a data-name="product" data-code="1234545" data-unit="vnt" data-id="1" class="btn btn-default btn-sm add-prod clearfix" href="#">
-                                add to list&nbsp;<span class="glyphicon glyphicon-share"></span>
-                            </a>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>product 1</td>
-                        <td>1223435353</td>
-                        <td>3</td>
-                        <td>
-                            <a data-name="product" data-code="1234545" data-unit="vnt" data-id="2" class="btn btn-default btn-sm add-prod" href="#">
-                                add to list&nbsp;<span class="glyphicon glyphicon-share"></span>
-                            </a>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>product 1</td>
-                        <td>1223435353</td>
-                        <td>3</td>
-                        <td>
-                            <a data-name="product" data-code="1234545" data-unit="vnt" data-id="3" class="btn btn-default btn-sm add-prod" href="#">
-                                add to list&nbsp;<span class="glyphicon glyphicon-share"></span>
-                            </a>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>product 1</td>
-                        <td>1223435353</td>
-                        <td>3</td>
-                        <td>
-                            <a data-name="product" data-code="1234545" data-unit="vnt" data-id="4" class="btn btn-default btn-sm add-prod" href="#">
-                                add to list&nbsp;<span class="glyphicon glyphicon-share"></span>
-                            </a>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>product 1</td>
-                        <td>1223435353</td>
-                        <td>3</td>
-                        <td>
-                            <a data-name="product" data-code="1234545" data-unit="vnt" data-id="5" class="btn btn-default btn-sm add-prod" href="#">
-                                add to list&nbsp;<span class="glyphicon glyphicon-share"></span>
-                            </a>
-                        </td>
+                        <td colspan="3"><?php echo $this->labels['no data']; ?></td>
                     </tr>
                     </tbody>
                 </table>
-
             </div><!--/product-table-holder -->
-            <h4>Transport</h4>
+
+            <h4><?php echo $this->labels['options']; ?></h4>
             <div class="transport-option-holder">
                 <table class="table table-bordered">
                     <thead>
                     <tr>
-                        <th>Transport name</th>
-                        <th>action</th>
+                        <th><?php echo $this->labels['name']; ?></th>
+                        <th><?php echo $this->labels['actions']; ?></th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>Option 1</td>
-                        <td>
-                            <a data-name="option1"  data-unit="vnt" data-id="1" class="btn btn-default btn-sm add-option" href="#">
-                                add to list&nbsp;<span class="glyphicon glyphicon-share"></span>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Option 2</td>
-                        <td>
-                            <a data-name="option2"  data-unit="vnt" data-id="2" class="btn btn-default btn-sm add-option" href="#">
-                                add to list&nbsp;<span class="glyphicon glyphicon-share"></span>
-                            </a>
-                        </td>
-                    </tr>
+                    <?php foreach($options as $option): ?>
+                        <tr>
+                            <td><?php echo $option->name; ?></td>
+                            <td>
+                                <a data-name="<?php echo $option->name; ?>"  data-unit="vnt" data-id="<?php echo $option->id; ?>" class="btn btn-default btn-sm add-option" href="#">
+                                    <?php echo $this->labels['add to list']; ?>&nbsp;<span class="glyphicon glyphicon-share"></span>
+                                </a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
                     </tbody>
                 </table>
             </div><!--/tranport-table0holder-->
@@ -136,53 +85,67 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/sales_next_step.js',CClientScri
 
     <div class="col-lg-6 col-md-6 col-sm-6 pull-right">
         <div class="table-holder">
-            <h4>Client info</h4>
+            <h4><?php echo $this->labels['client info']; ?></h4>
             <table  class="table table-bordered">
                 <tbody>
                 <tr>
-                    <td>Comapny name</td>
-                    <td>Inliusion</td>
-                    <td>tel</td>
-                    <td>+343254324</td>
+                    <td><?php echo $client->type == 1 ? $this->labels['company name'] : $this->labels['name']; ?></td>
+                    <td><?php echo $client->type == 1 ? $client->company_name : $client->name.' '.$client->surname; ?></td>
+                    <td><?php echo $this->labels['phone']; ?></td>
+                    <td><?php echo $client->phone1; ?></td>
                 </tr>
                 <tr>
-                    <td>Company code</td>
-                    <td>34325432432</td>
-                    <td>Vat code</td>
-                    <td>LT_3432434</td>
+                    <td><?php echo $client->type == 1 ? $this->labels['company code'] : $this->labels['personal code']; ?></td>
+                    <td><?php echo $client->type == 1 ? $client->company_code : $client->personal_code; ?></td>
+                    <td><?php echo $this->labels['vat code']; ?></td>
+                    <td><?php echo $client->vat_code; ?></td>
                 </tr>
                 <tr>
-                    <td>Adress</td>
-                    <td colspan="3">Perkunkemio g 7, Vilnius, LT-012345</td>
+                    <td><?php echo $this->labels['address']; ?></td>
+                    <td colspan="3"><?php echo $client->getAddressFormatted(', '); ?></td>
                 </tr>
                 </tbody>
             </table>
         </div><!--/table-holder -->
 
 
+        <div id="vat-section">
+            <label><?php echo $this->labels['select VAT']; ?> %</label>
+            <select id="vat">
+                <?php foreach($vats as $vat): ?>
+                    <option value="<?php echo $vat->id; ?>"><?php echo $vat->percent; ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
 
         <div id="product-section">
-            <h4>Product list</h4>
+            <h4><?php echo $this->labels['product list']; ?></h4>
             <div class="product-holder-area">
                 <table id="prod-list" class="table table-bordered" width="100%">
                     <thead>
                     <tr>
-                        <th>product name</th>
-                        <th>prod code</th>
-                        <th>units</th>
-                        <th>quant</th>
-                        <th>price (EUR)</th>
-                        <th>action</th>
+                        <th><?php echo $this->labels['product name']; ?></th>
+                        <th><?php echo $this->labels['product code']; ?></th>
+                        <th><?php echo $this->labels['units']; ?></th>
+                        <th><?php echo $this->labels['quantity']; ?></th>
+                        <th><?php echo $this->labels['price']; ?> (EUR)</th>
+                        <th><?php echo $this->labels['discount']; ?> %</th>
+                        <th><?php echo $this->labels['actions']; ?></th>
                     </tr>
                     </thead>
                     <tbody id="product-list-holder">
                     <tr id="empty-list">
-                        <td colspan="6">No data</td>
+                        <td colspan="7"><?php echo $this->labels['no data']; ?></td>
                     </tr>
                     <tr class="summ">
                         <td colspan="3"></td>
-                        <td>Summ:</td>
-                        <td colspan="2"><span id="total">0</span> EUR</td>
+                        <td colspan="2"><?php echo $this->labels['total']; ?>:</td>
+                        <td colspan="2"><span id="total">0.00</span> EUR</td>
+                    </tr>
+                    <tr class="summ-plus-vat">
+                        <td colspan="3"></td>
+                        <td colspan="2" class="name"><?php echo $this->labels['total']; ?> <span><?php if(isset($vats[0])){ echo $vats[0]->percent;} ?></span>% <?php echo $this->labels['VAT']; ?>:</td>
+                        <td colspan="2"><span id="total-plus-vat">0.00</span> EUR</td>
                     </tr>
                     </tbody>
                 </table>
@@ -191,7 +154,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/sales_next_step.js',CClientScri
 
     </div><!--/left -->
     <div class="btn-holder col-sm-12 clearfix text-right">
-        <button class="btn-submit"   data-toggle="modal" data-target="#invoiceReady"><span>Creat invoice</span><span class="glyphicon glyphicon-chevron-right"></span></button>
+        <button class="btn-submit" data-toggle="modal" data-target="#invoiceReady"><span><?php echo $this->labels['create invoice']; ?></span><span class="glyphicon glyphicon-chevron-right"></span></button>
     </div><!--/btn-holder -->
 </div><!--row -->
 <div class="modals-holder">
@@ -201,28 +164,28 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/sales_next_step.js',CClientScri
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        <h4 class="modal-title">Invoice : 213232323</h4>
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"><?php echo $this->labels['close']; ?></span></button>
+                        <h4 class="modal-title"><?php echo $this->labels['invoice']; ?> : <?php echo $count + 1; ?></h4>
                     </div><!--/.modal-heafer -->
-
+                    <form method="post" action="<?php echo Yii::app()->createUrl('/sell/finalstep'); ?>">
                     <div class="modal-body">
                         <div class="supl-header">
                             <table class="table table-bordered" width="100%">
                                 <tr>
-                                    <td>company</td>
-                                    <td>inclusion</td>
-                                    <td></td>
-                                    <td></td>
+                                    <td><?php echo $client->type == 1 ? $this->labels['company name'] : $this->labels['name']; ?></td>
+                                    <td><?php echo $client->type == 1 ? $client->company_name : $client->name.' '.$client->surname; ?></td>
+                                    <td><?php echo $this->labels['phone']; ?></td>
+                                    <td><?php echo $client->phone1; ?></td>
                                 </tr>
                                 <tr>
-                                    <td>compaany code</td>
-                                    <td>2324234</td>
-                                    <td>Vat code </td>
-                                    <td>fdghhfdhg</td>
+                                    <td><?php echo $client->type == 1 ? $this->labels['company code'] : $this->labels['personal code']; ?></td>
+                                    <td><?php echo $client->type == 1 ? $client->company_code : $client->personal_code; ?></td>
+                                    <td><?php echo $this->labels['vat code']; ?></td>
+                                    <td><?php echo $client->vat_code; ?></td>
                                 </tr>
                                 <tr>
-                                    <td>Adress</td>
-                                    <td colspan="3">Vilnius, kapsu g 8, LT-21345</td>
+                                    <td><?php echo $this->labels['address']; ?></td>
+                                    <td colspan="3"><?php echo $client->getAddressFormatted(', '); ?></td>
                                 </tr>
                             </table>
                         </div><!--/supl-header -->
@@ -230,52 +193,49 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/sales_next_step.js',CClientScri
                             <table class="table table-bordered" width="100%">
                                 <thead>
                                 <tr>
-                                    <th>product name</th>
-                                    <th>prod code</th>
-                                    <th>units</th>
-                                    <th>quant</th>
-                                    <th>price (EUR)</th>
+                                    <th><?php echo $this->labels['product name']; ?></th>
+                                    <th><?php echo $this->labels['product code']; ?></th>
+                                    <th><?php echo $this->labels['units']; ?></th>
+                                    <th><?php echo $this->labels['quantity']; ?></th>
+                                    <th><?php echo $this->labels['price']; ?> (EUR)</th>
+                                    <th><?php echo $this->labels['discount']; ?> %</th>
                                 </tr>
                                 </thead>
-                                <tbody>
-                                <tr>
-                                    <td>Product 1</td>
-                                    <td>prd 12345677</td>
-                                    <td>litr</td>
-                                    <td>123</td>
-                                    <td>213321</td>
-                                </tr>
 
-                                <tr>
-                                    <td>Product 1</td>
-                                    <td>prd 12345677</td>
-                                    <td>litr</td>
-                                    <td>123</td>
-                                    <td>213321</td>
-                                </tr>
+                                <tbody class="modal-tbl-body">
+                                </tbody>
+
+                                <tfoot>
                                 <tr class="total">
                                     <td colspan="3"></td>
-                                    <td>Total :</td>
-                                    <td>700 EUR</td>
+                                    <td colspan="2"><?php echo $this->labels['total']; ?> :</td>
+                                    <td><span id="total-modal">0.00</span> EUR</td>
                                 </tr>
-                                </tbody>
+                                <tr class="total-with-vat">
+                                    <td colspan="3"></td>
+                                    <td colspan="2"><?php echo $this->labels['total']; ?> <span class="vat-percent"></span>% <?php echo $this->labels['VAT']; ?> :</td>
+                                    <td><span id="total-plus-vat-modal">0.00</span> EUR</td>
+                                </tr>
+                                </tfoot>
                             </table>
                         </div><!--/modal-prod-list-holder -->
                     </div><!--/modal-body -->
 
+                    <div class="hidden-fields-modal"></div>
+
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close<span class="glyphicon glyphicon-thumbs-down"></span></button>
-                        <button type="button" class="btn btn-primary">Continue<span class="glyphicon glyphicon-share-alt"></span></button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->labels['close']; ?><span class="glyphicon glyphicon-thumbs-down"></span></button>
+                        <button type="button" class="btn btn-primary"><?php echo $this->labels['continue']; ?><span class="glyphicon glyphicon-print"></span></button>
+                        <button type="submit" class="btn btn-primary"><?php echo $this->labels['continue']; ?><span class="glyphicon glyphicon-share-alt"></span></button>
                     </div><!--/modal-footer -->
+                    </form>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
 
     </div><!--/invoice-ready -->
 
-    <div class="new-product">
 
 
-    </div><!--/modals-holder -->
+</div><!--/modals-holder -->
 </div><!--/container -->
-</div><!--/ main-container -->

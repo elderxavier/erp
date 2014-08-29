@@ -93,16 +93,32 @@ class SellController extends Controller
      */
     public function actionNextStepCreate($cid = null)
     {
+        /* @var $stocks Stocks[] */
+        /* @var $available_stocks Stocks[] */
+
         if($client = Clients::model()->findByPk($cid))
         {
-            $stocks_for_sel = Stocks::model()->getAsArrayPairs();
+            $available_stocks_id = array();
+            $stocks = Stocks::model()->findAll();
+            $options = OptionCards::model()->findAllByAttributes(array('status' => 1));
+            $vats = Vat::model()->findAll();
             $available_stocks = Stocks::model()->findAllByAttributes(array('location_id' => Yii::app()->user->getState('city_id')));
+            $invoices_count = InvoicesOut::model()->count();
 
-            $this->render('next_step',array('stocks' => $stocks_for_sel, 'available_st' => $available_stocks));
+
+            foreach($available_stocks as $stock){$available_stocks_id[] = $stock->id;}
+
+            $this->render('next_step',array('stocks' => $stocks, 'available_stocks_id' => $available_stocks_id, 'client' => $client, 'options' => $options, 'vats' => $vats, 'count' => $invoices_count));
         }
         else
         {
             throw new CHttpException(404);
         }
+    }
+
+    public function actionFinalStep()
+    {
+        Debug::out($_POST);
+        exit('test');
     }
 }

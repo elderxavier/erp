@@ -298,13 +298,10 @@ class Clients extends CActiveRecord
             {
                 $sql = "SELECT * FROM clients WHERE (`company_code` LIKE '%".$code."%') OR (`personal_code` LIKE '%".$code."%')";
             }
-
             //connection
             $con = Yii::app()->db;
-
             //get all data by query
             $data=$con->createCommand($sql)->queryAll(true);
-
             //if data for auto-complete
             if($auto_complete)
             {
@@ -433,5 +430,24 @@ class Clients extends CActiveRecord
     public function getActiveCode()
     {
         return $this->type == 1 ? $this->company_code : $this->personal_code;
+    }
+
+    /**
+     * Returns formatted address string
+     * @param string $delimiter
+     * @return string
+     */
+    public function getAddressFormatted($delimiter = ',')
+    {
+        $address_arr = array();
+        $address_str = '';
+
+        if(!empty($this->country)) $address_arr[] = $this->country;
+        if(!empty($this->city)) $address_arr[] = $this->city;
+        if(!empty($this->street)) $address_arr[] = $this->street;
+        if(!empty($this->building_nr)) $address_arr[] = $this->building_nr;
+        if(!empty($address_arr)) $address_str = implode($delimiter,$address_arr);
+
+        return $address_str;
     }
 }
