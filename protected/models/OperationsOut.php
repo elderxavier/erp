@@ -15,13 +15,17 @@
  * @property integer $user_modified_by
  * @property integer $vat_id
  * @property integer $document_id
+ * @property integer $stock_id
+ * @property integer $status_id
  *
  * The followings are the available model relations:
  * @property Clients[] $clients
  * @property Clients[] $clients1
+ * @property OperationOutStatuses $status
  * @property Clients $client
  * @property PaymentMethods $paymentMethod
  * @property Vat $vat
+ * @property Stocks $stock
  * @property OperationsOutItems[] $operationsOutItems
  * @property OperationsOutOptItems[] $operationsOutOptItems
  * @property OperationsSrvItems[] $operationsSrvItems
@@ -44,11 +48,11 @@ class OperationsOut extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('warranty_start_date, payment_method_id, client_id, date_created, date_changed, user_modified_by, vat_id, document_id', 'numerical', 'integerOnly'=>true),
+			array('warranty_start_date, payment_method_id, client_id, date_created, date_changed, user_modified_by, vat_id, document_id, stock_id, status_id', 'numerical', 'integerOnly'=>true),
 			array('invoice_code, signer_name', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, invoice_code, warranty_start_date, payment_method_id, signer_name, client_id, date_created, date_changed, user_modified_by, vat_id, document_id', 'safe', 'on'=>'search'),
+			array('id, invoice_code, warranty_start_date, payment_method_id, signer_name, client_id, date_created, date_changed, user_modified_by, vat_id, document_id, stock_id, status_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -62,9 +66,11 @@ class OperationsOut extends CActiveRecord
 		return array(
 			'clients' => array(self::HAS_MANY, 'Clients', 'first_invoice_id'),
 			'clients1' => array(self::HAS_MANY, 'Clients', 'last_invoice_id'),
+			'status' => array(self::BELONGS_TO, 'OperationOutStatuses', 'status_id'),
 			'client' => array(self::BELONGS_TO, 'Clients', 'client_id'),
 			'paymentMethod' => array(self::BELONGS_TO, 'PaymentMethods', 'payment_method_id'),
 			'vat' => array(self::BELONGS_TO, 'Vat', 'vat_id'),
+			'stock' => array(self::BELONGS_TO, 'Stocks', 'stock_id'),
 			'operationsOutItems' => array(self::HAS_MANY, 'OperationsOutItems', 'operation_id'),
 			'operationsOutOptItems' => array(self::HAS_MANY, 'OperationsOutOptItems', 'operation_id'),
 			'operationsSrvItems' => array(self::HAS_MANY, 'OperationsSrvItems', 'operaion_id'),
@@ -88,6 +94,8 @@ class OperationsOut extends CActiveRecord
 			'user_modified_by' => 'User Modified By',
 			'vat_id' => 'Vat',
 			'document_id' => 'Document',
+			'stock_id' => 'Stock',
+			'status_id' => 'Status',
 		);
 	}
 
@@ -120,6 +128,8 @@ class OperationsOut extends CActiveRecord
 		$criteria->compare('user_modified_by',$this->user_modified_by);
 		$criteria->compare('vat_id',$this->vat_id);
 		$criteria->compare('document_id',$this->document_id);
+		$criteria->compare('stock_id',$this->stock_id);
+		$criteria->compare('status_id',$this->status_id);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

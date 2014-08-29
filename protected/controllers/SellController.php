@@ -33,8 +33,12 @@ class SellController extends Controller
         //get all sale-invoices
         $invoices = OperationsOut::model()->with('client')->findAll();
 
+        $types = array(0 => $this->labels['physical'],1 => $this->labels['juridical']);
+        $statuses = OperationOutStatuses::model()->findAllAsArray();
+        $cities = UserCities::model()->findAllAsArray();
+
         //render table
-        $this->render('sales_list', array('invoices' => $invoices));
+        $this->render('sales_list', array('invoices' => $invoices, 'types' => $types, 'cities' => $cities, 'statuses' => $statuses));
     }
 
     /**
@@ -141,6 +145,8 @@ class SellController extends Controller
             $operation->user_modified_by = Yii::app()->user->id;
             $operation->vat_id = $vat_id;
             $operation->invoice_code = '';
+            $operation->stock_id = $stock_id;
+            $operation->status_id = 0;
             $operation->save();
 
             foreach($products as $pr_card_id => $product_item)

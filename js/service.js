@@ -95,23 +95,18 @@ jQuery(document).ready(function(){
 });
 
 //when all AJAX loaded
-jQuery(document).ajaxComplete(function(){
 
-    //when clicked on client-info link in table
-    jQuery('.load-modal-client').click(function(){
+jQuery(".filter-wrapper").on('click', '.load-modal-client',function(){
 
-        var href = jQuery(this).attr('href'); //get link
-        var container = jQuery(this).attr('data-target'); //container
+    var href = jQuery(this).attr('href'); //get link
+    var container = jQuery(this).attr('data-target'); //container
 
-        //load info to container
-        jQuery.ajax({ url: href, beforeSend: function(){/*TODO: pre-loader*/}}).done(function(data)
-        {
-            jQuery(container).html(data);
-        });
+    //load info to container
+    jQuery.ajax({ url: href, beforeSend: function(){/*TODO: pre-loader*/}}).done(function(data)
+    {
+        jQuery(container).html(data);
     });
-
 });
-
 
 /**
  * Loads result of ajax filter-query to container

@@ -13,8 +13,9 @@
  * @property integer $user_modified_by
  *
  * The followings are the available model relations:
- * @property OperationsIn[] $operationsIns
+ * @property OperationsInItems[] $operationsInItems
  * @property OperationsOut[] $operationsOuts
+ * @property OperationsOutItems[] $operationsOutItems
  * @property ProductInStock[] $productInStocks
  * @property UserCities $location
  */
@@ -52,8 +53,9 @@ class Stocks extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'operationsIns' => array(self::HAS_MANY, 'OperationsIn', 'stock_id'),
+			'operationsInItems' => array(self::HAS_MANY, 'OperationsInItems', 'stock_id'),
 			'operationsOuts' => array(self::HAS_MANY, 'OperationsOut', 'stock_id'),
+			'operationsOutItems' => array(self::HAS_MANY, 'OperationsOutItems', 'stock_id'),
 			'productInStocks' => array(self::HAS_MANY, 'ProductInStock', 'stock_id'),
 			'location' => array(self::BELONGS_TO, 'UserCities', 'location_id'),
 		);
@@ -117,6 +119,7 @@ class Stocks extends CActiveRecord
 		return parent::model($className);
 	}
 
+
     /**
      * Returns all stocks as pairs array
      * @param int $location_id
@@ -132,7 +135,7 @@ class Stocks extends CActiveRecord
         $city = UserCities::model()->findByPk($location_id);
 
         //if city found
-        if($city)
+        if(!empty($city))
         {
             //get all by city
             $all = $city->stocks;
@@ -147,7 +150,7 @@ class Stocks extends CActiveRecord
         //covert to pairs (id => name) array
         foreach($all as $stock)
         {
-           $result[$stock->id] = $stock->name;
+            $result[$stock->id] = $stock->name;
         }
 
         return $result;
@@ -165,7 +168,7 @@ class Stocks extends CActiveRecord
         /* @var $product_in_stock ProductInStock */
 
         //if stock found
-        if(Stocks::model()->findByPk($stock_id))
+        if($stock = Stocks::model()->findByPk($stock_id))
         {
             //try find product in stock by card_id and stock_id
             $product_in_stock = ProductInStock::model()->findByAttributes(array('stock_id' => $stock_id, 'product_card_id' => $card_id));
@@ -207,7 +210,7 @@ class Stocks extends CActiveRecord
     {
         /* @var $product_in_stock ProductInStock */
 
-        if(Stocks::model()->findByPk($stock_id))
+        if($stock = Stocks::model()->findByPk($stock_id))
         {
             //try find product in stock by card_id and stock_id
             $product_in_stock = ProductInStock::model()->findByAttributes(array('stock_id' => $stock_id, 'product_card_id' => $card_id));
@@ -230,4 +233,5 @@ class Stocks extends CActiveRecord
             return 0;
         }
     }
+
 }
