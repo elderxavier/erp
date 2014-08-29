@@ -106,6 +106,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/sales_next_step.js',CClientScri
                 </tr>
                 </tbody>
             </table>
+            <input type="hidden" id="client-id" value="<?php echo $client->id; ?>">
         </div><!--/table-holder -->
 
 

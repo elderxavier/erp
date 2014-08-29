@@ -156,7 +156,7 @@ class BuyController extends Controller
                 foreach($products as $id => $product_arr)
                 {
                     $operation = new OperationsInItems(); //create incoming operation item
-                    $operation -> invoice_id = $invoice->id; //relation with invoice
+                    $operation -> operation_id = $invoice->id; //relation with invoice
                     $operation -> product_card_id = $id; //set product card
                     $operation -> qnt = $product_arr['qnt']; //quantity
                     $operation -> price = $this->priceStrToCents($product_arr['price']); //price

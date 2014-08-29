@@ -1,5 +1,5 @@
 <?php /* @var $invoices Array */ ?>
-<?php /* @var $invoice InvoicesIn */ ?>
+<?php /* @var $invoice OperationsIn */ ?>
 
 <?php
 $cs = Yii::app()->clientScript;

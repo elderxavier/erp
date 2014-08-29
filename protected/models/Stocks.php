@@ -195,4 +195,39 @@ class Stocks extends CActiveRecord
             return 0;
         }
     }
+
+    /**
+     * Decreases quantity in stock, if found product and returns resulted quantity
+     * @param int $card_id
+     * @param int $qnt
+     * @param int $stock_id
+     * @return int
+     */
+    public function removeFromStockAndGetCount($card_id, $qnt, $stock_id)
+    {
+        /* @var $product_in_stock ProductInStock */
+
+        if(Stocks::model()->findByPk($stock_id))
+        {
+            //try find product in stock by card_id and stock_id
+            $product_in_stock = ProductInStock::model()->findByAttributes(array('stock_id' => $stock_id, 'product_card_id' => $card_id));
+
+            if($product_in_stock)
+            {
+                $product_in_stock->qnt -= $qnt;
+                $product_in_stock->date_changed = time();
+                $product_in_stock->update();
+
+                return $product_in_stock->qnt;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        else
+        {
+            return 0;
+        }
+    }
 }

@@ -6,7 +6,7 @@
  * The followings are the available columns in table 'operations_out_items':
  * @property integer $id
  * @property integer $product_card_id
- * @property integer $invoice_id
+ * @property integer $operation_id
  * @property integer $qnt
  * @property integer $date
  * @property integer $price
@@ -16,7 +16,7 @@
  * @property integer $discount_percent
  *
  * The followings are the available model relations:
- * @property OperationsOut $invoice
+ * @property OperationsOut $operation
  * @property ProductCards $productCard
  * @property Stocks $stock
  * @property ServiceProcesses[] $serviceProcesses
@@ -39,10 +39,10 @@ class OperationsOutItems extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('product_card_id, invoice_id, qnt, date, price, stock_id, stock_qnt_after_op, client_id, discount_percent', 'numerical', 'integerOnly'=>true),
+			array('product_card_id, operation_id, qnt, date, price, stock_id, stock_qnt_after_op, client_id, discount_percent', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, product_card_id, invoice_id, qnt, date, price, stock_id, stock_qnt_after_op, client_id, discount_percent', 'safe', 'on'=>'search'),
+			array('id, product_card_id, operation_id, qnt, date, price, stock_id, stock_qnt_after_op, client_id, discount_percent', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -54,7 +54,7 @@ class OperationsOutItems extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'invoice' => array(self::BELONGS_TO, 'OperationsOut', 'invoice_id'),
+			'operation' => array(self::BELONGS_TO, 'OperationsOut', 'operation_id'),
 			'productCard' => array(self::BELONGS_TO, 'ProductCards', 'product_card_id'),
 			'stock' => array(self::BELONGS_TO, 'Stocks', 'stock_id'),
 			'serviceProcesses' => array(self::HAS_MANY, 'ServiceProcesses', 'operation_id'),
@@ -69,7 +69,7 @@ class OperationsOutItems extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'product_card_id' => 'Product Card',
-			'invoice_id' => 'Invoice',
+			'operation_id' => 'Operation',
 			'qnt' => 'Qnt',
 			'date' => 'Date',
 			'price' => 'Price',
@@ -100,7 +100,7 @@ class OperationsOutItems extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('product_card_id',$this->product_card_id);
-		$criteria->compare('invoice_id',$this->invoice_id);
+		$criteria->compare('operation_id',$this->operation_id);
 		$criteria->compare('qnt',$this->qnt);
 		$criteria->compare('date',$this->date);
 		$criteria->compare('price',$this->price);

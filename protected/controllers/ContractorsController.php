@@ -165,13 +165,13 @@ class ContractorsController extends Controller
         /* @var $client Clients */
 
         //try find by pk
-        $client = Clients::model()->with('invoicesOuts', 'serviceProcesses')->findByPk($id);
+        $client = Clients::model()->with('operationsOuts', 'serviceProcesses')->findByPk($id);
 
         //if found
         if(!empty($client))
         {
             //if exist some invoices related with this client
-            if(count($client->invoicesOuts) > 0 || count($client->serviceProcesses) > 0)
+            if(count($client->operationsOuts) > 0 || count($client->serviceProcesses) > 0)
             {
                 $this->render('restricts');
             }
@@ -311,13 +311,13 @@ class ContractorsController extends Controller
         /* @var $supplier Suppliers */
 
         //try find by pk
-        $supplier = Suppliers::model()->with('invoicesIns')->findByPk($id);
+        $supplier = Suppliers::model()->with('operationsIns')->findByPk($id);
 
         //if found
         if(!empty($supplier))
         {
             //if exist some invoices related with this client
-            if(count($supplier->invoicesIns) > 0)
+            if(count($supplier->operationsIns) > 0)
             {
                 $this->render('restricts');
             }

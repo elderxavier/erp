@@ -116,9 +116,65 @@ class SellController extends Controller
         }
     }
 
-    public function actionFinalStep()
+
+    public function actionFinalStep($generate = false)
     {
-        Debug::out($_POST);
-        exit('test');
+        /* @var $stock Stocks */
+        /* @var $client Clients */
+
+        $form = $_POST['SaleFrom'];
+        $stock_id = $form['stock_id'];
+        $client_id = $form['client_id'];
+        $vat_id = $form['vat_id'];
+        $products = $form['products'];
+        $options = $form['options'];
+
+        if($stock = Stocks::model()->findByPk($stock_id) && $client = Clients::model()->findByPk($client_id))
+        {
+            $operation = new OperationsOut();
+            $operation->client_id = $client_id;
+            $operation->signer_name = "";
+//            $operation->payment_method_id = 0;
+            $operation->date_created = time();
+            $operation->date_changed = time();
+            $operation->warranty_start_date = time();
+            $operation->user_modified_by = Yii::app()->user->id;
+            $operation->vat_id = $vat_id;
+            $operation->invoice_code = '';
+            $operation->save();
+
+            foreach($products as $pr_card_id => $product_item)
+            {
+                if($product_item['qnt'] > 0 && $product_item['price'] > 0 && is_numeric($product_item['price']))
+                {
+                    $item_prod = new OperationsOutItems();
+                    $item_prod -> price = $this->priceStrToCents($product_item['price']);
+                    $item_prod -> discount_percent = $product_item['discount'];
+                    $item_prod -> qnt = $product_item['qnt'];
+                    $item_prod -> product_card_id = $pr_card_id;
+                    $item_prod -> operation_id = $operation->id;
+                    $item_prod -> stock_id = $stock_id;
+                    $item_prod -> stock_qnt_after_op = Stocks::model()->removeFromStockAndGetCount($pr_card_id,$product_item['qnt'],$stock_id);
+                    $item_prod -> client_id = $client_id;
+                    $item_prod -> save();
+                }
+            }
+
+            foreach($options as $op_card_id => $option_item)
+            {
+                if($option_item['price'] > 0 && is_numeric($option_item['price']))
+                {
+                    $item_option = new OperationsOutOptItems();
+                    $item_option -> operation_id = $operation->id;
+                    $item_option ->option_card_id = $op_card_id;
+                    $item_option -> price = $this->priceStrToCents($option_item['price']);
+                    $item_option -> qnt = 1;
+                    $item_option -> client_id = $client_id;
+                    $item_option -> save();
+                }
+            }
+        }
+
+        $this->redirect(Yii::app()->createUrl('/sell/invoices'));
     }
 }

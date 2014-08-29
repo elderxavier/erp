@@ -163,6 +163,10 @@ var loadFormByAddedItems = function()
         hiddenFieldsBlock.append("<input type='hidden' value='"+price+"' name='SaleFrom[options]["+id+"][price]'>");
     });
 
+    hiddenFieldsBlock.append("<input type='hidden' value='"+parseFloat(jQuery("#stock-selector").val())+"' name='SaleFrom[stock_id]'>");
+    hiddenFieldsBlock.append("<input type='hidden' value='"+parseFloat(jQuery("#client-id").val())+"' name='SaleFrom[client_id]'>");
+    hiddenFieldsBlock.append("<input type='hidden' value='"+parseFloat($('#vat').val())+"' name='SaleFrom[vat_id]'>");
+
     total_price_vat = total_price + (total_price * (vat/100));
 
     totalModal.html(total_price.toFixed(2));

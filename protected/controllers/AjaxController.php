@@ -132,7 +132,7 @@ class AjaxController extends Controller {
     public function actionViewInvoiceIn($id = null)
     {
         //get all operations by invoice id
-        $operations_in = OperationsInItems::model()->findAllByAttributes(array('invoice_id' => $id));
+        $operations_in = OperationsInItems::model()->findAllByAttributes(array('operation_id' => $id));
 
         //if find something
         if(!empty($operations_in))
@@ -447,8 +447,6 @@ class AjaxController extends Controller {
             throw new CHttpException(404);
         }
     }
-
-
 
     public function actionAutoCompleteFromStockByName($term = null, $stock = null)
     {

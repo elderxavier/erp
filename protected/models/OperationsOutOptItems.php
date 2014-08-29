@@ -5,8 +5,8 @@
  *
  * The followings are the available columns in table 'operations_out_opt_items':
  * @property integer $id
- * @property integer $invoice_id
- * @property integer $card_id
+ * @property integer $operation_id
+ * @property integer $option_card_id
  * @property integer $qnt
  * @property integer $price
  * @property integer $discount_percent
@@ -14,8 +14,8 @@
  * @property integer $date
  *
  * The followings are the available model relations:
- * @property OperationsOut $invoice
- * @property ProductCards $card
+ * @property OperationsOut $operation
+ * @property OptionCards $optionCard
  */
 class OperationsOutOptItems extends CActiveRecord
 {
@@ -35,10 +35,10 @@ class OperationsOutOptItems extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('invoice_id, card_id, qnt, price, discount_percent, client_id, date', 'numerical', 'integerOnly'=>true),
+			array('operation_id, option_card_id, qnt, price, discount_percent, client_id, date', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, invoice_id, card_id, qnt, price, discount_percent, client_id, date', 'safe', 'on'=>'search'),
+			array('id, operation_id, option_card_id, qnt, price, discount_percent, client_id, date', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -50,8 +50,8 @@ class OperationsOutOptItems extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'invoice' => array(self::BELONGS_TO, 'OperationsOut', 'invoice_id'),
-			'card' => array(self::BELONGS_TO, 'ProductCards', 'card_id'),
+			'operation' => array(self::BELONGS_TO, 'OperationsOut', 'operation_id'),
+			'optionCard' => array(self::BELONGS_TO, 'OptionCards', 'option_card_id'),
 		);
 	}
 
@@ -62,8 +62,8 @@ class OperationsOutOptItems extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'invoice_id' => 'Invoice',
-			'card_id' => 'Card',
+			'operation_id' => 'Operation',
+			'option_card_id' => 'Option Card',
 			'qnt' => 'Qnt',
 			'price' => 'Price',
 			'discount_percent' => 'Discount Percent',
@@ -91,8 +91,8 @@ class OperationsOutOptItems extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('invoice_id',$this->invoice_id);
-		$criteria->compare('card_id',$this->card_id);
+		$criteria->compare('operation_id',$this->operation_id);
+		$criteria->compare('option_card_id',$this->option_card_id);
 		$criteria->compare('qnt',$this->qnt);
 		$criteria->compare('price',$this->price);
 		$criteria->compare('discount_percent',$this->discount_percent);

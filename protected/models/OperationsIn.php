@@ -57,7 +57,7 @@ class OperationsIn extends CActiveRecord
 		return array(
 			'supplier' => array(self::BELONGS_TO, 'Suppliers', 'supplier_id'),
 			'paymentMethod' => array(self::BELONGS_TO, 'PaymentMethods', 'payment_method_id'),
-			'operationsInItems' => array(self::HAS_MANY, 'OperationsInItems', 'invoice_id'),
+			'operationsInItems' => array(self::HAS_MANY, 'OperationsInItems', 'operation_id'),
 		);
 	}
 

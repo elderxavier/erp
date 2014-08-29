@@ -1,32 +1,28 @@
 <?php
 
 /**
- * This is the model class for table "operations_in_items".
+ * This is the model class for table "operations_srv_items".
  *
- * The followings are the available columns in table 'operations_in_items':
+ * The followings are the available columns in table 'operations_srv_items':
  * @property integer $id
- * @property integer $product_card_id
- * @property integer $operation_id
- * @property integer $qnt
- * @property integer $date
+ * @property integer $operaion_id
+ * @property integer $service_process_id
  * @property integer $price
- * @property integer $stock_id
- * @property integer $stock_qnt_after_op
- * @property integer $client_id
+ * @property integer $under_warranty
+ * @property integer $date
  *
  * The followings are the available model relations:
- * @property OperationsIn $operation
- * @property ProductCards $productCard
- * @property Stocks $stock
+ * @property OperationsOut $operaion
+ * @property ServiceProcesses $serviceProcess
  */
-class OperationsInItems extends CActiveRecord
+class OperationsSrvItems extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'operations_in_items';
+		return 'operations_srv_items';
 	}
 
 	/**
@@ -37,10 +33,10 @@ class OperationsInItems extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('product_card_id, operation_id, qnt, date, price, stock_id, stock_qnt_after_op, client_id', 'numerical', 'integerOnly'=>true),
+			array('operaion_id, service_process_id, price, under_warranty, date', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, product_card_id, operation_id, qnt, date, price, stock_id, stock_qnt_after_op, client_id', 'safe', 'on'=>'search'),
+			array('id, operaion_id, service_process_id, price, under_warranty, date', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -52,9 +48,8 @@ class OperationsInItems extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'operation' => array(self::BELONGS_TO, 'OperationsIn', 'operation_id'),
-			'productCard' => array(self::BELONGS_TO, 'ProductCards', 'product_card_id'),
-			'stock' => array(self::BELONGS_TO, 'Stocks', 'stock_id'),
+			'operaion' => array(self::BELONGS_TO, 'OperationsOut', 'operaion_id'),
+			'serviceProcess' => array(self::BELONGS_TO, 'ServiceProcesses', 'service_process_id'),
 		);
 	}
 
@@ -65,14 +60,11 @@ class OperationsInItems extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'product_card_id' => 'Product Card',
-			'operation_id' => 'Operation',
-			'qnt' => 'Qnt',
-			'date' => 'Date',
+			'operaion_id' => 'Operaion',
+			'service_process_id' => 'Service Process',
 			'price' => 'Price',
-			'stock_id' => 'Stock',
-			'stock_qnt_after_op' => 'Stock Qnt After Op',
-			'client_id' => 'Client',
+			'under_warranty' => 'Under Warranty',
+			'date' => 'Date',
 		);
 	}
 
@@ -95,14 +87,11 @@ class OperationsInItems extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('product_card_id',$this->product_card_id);
-		$criteria->compare('operation_id',$this->operation_id);
-		$criteria->compare('qnt',$this->qnt);
-		$criteria->compare('date',$this->date);
+		$criteria->compare('operaion_id',$this->operaion_id);
+		$criteria->compare('service_process_id',$this->service_process_id);
 		$criteria->compare('price',$this->price);
-		$criteria->compare('stock_id',$this->stock_id);
-		$criteria->compare('stock_qnt_after_op',$this->stock_qnt_after_op);
-		$criteria->compare('client_id',$this->client_id);
+		$criteria->compare('under_warranty',$this->under_warranty);
+		$criteria->compare('date',$this->date);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -113,7 +102,7 @@ class OperationsInItems extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return OperationsInItems the static model class
+	 * @return OperationsSrvItems the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
