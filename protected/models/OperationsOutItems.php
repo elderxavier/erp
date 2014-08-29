@@ -1,30 +1,34 @@
 <?php
 
 /**
- * This is the model class for table "operations_opt".
+ * This is the model class for table "operations_out_items".
  *
- * The followings are the available columns in table 'operations_opt':
+ * The followings are the available columns in table 'operations_out_items':
  * @property integer $id
+ * @property integer $product_card_id
  * @property integer $invoice_id
- * @property integer $card_id
  * @property integer $qnt
- * @property integer $price
- * @property integer $discount_percent
- * @property integer $client_id
  * @property integer $date
+ * @property integer $price
+ * @property integer $stock_id
+ * @property integer $stock_qnt_after_op
+ * @property integer $client_id
+ * @property integer $discount_percent
  *
  * The followings are the available model relations:
- * @property ProductCards $card
- * @property InvoicesOut $invoice
+ * @property OperationsOut $invoice
+ * @property ProductCards $productCard
+ * @property Stocks $stock
+ * @property ServiceProcesses[] $serviceProcesses
  */
-class OperationsOpt extends CActiveRecord
+class OperationsOutItems extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'operations_opt';
+		return 'operations_out_items';
 	}
 
 	/**
@@ -35,10 +39,10 @@ class OperationsOpt extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('invoice_id, card_id, qnt, price, discount_percent, client_id, date', 'numerical', 'integerOnly'=>true),
+			array('product_card_id, invoice_id, qnt, date, price, stock_id, stock_qnt_after_op, client_id, discount_percent', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, invoice_id, card_id, qnt, price, discount_percent, client_id, date', 'safe', 'on'=>'search'),
+			array('id, product_card_id, invoice_id, qnt, date, price, stock_id, stock_qnt_after_op, client_id, discount_percent', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -50,8 +54,10 @@ class OperationsOpt extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'card' => array(self::BELONGS_TO, 'ProductCards', 'card_id'),
-			'invoice' => array(self::BELONGS_TO, 'InvoicesOut', 'invoice_id'),
+			'invoice' => array(self::BELONGS_TO, 'OperationsOut', 'invoice_id'),
+			'productCard' => array(self::BELONGS_TO, 'ProductCards', 'product_card_id'),
+			'stock' => array(self::BELONGS_TO, 'Stocks', 'stock_id'),
+			'serviceProcesses' => array(self::HAS_MANY, 'ServiceProcesses', 'operation_id'),
 		);
 	}
 
@@ -62,13 +68,15 @@ class OperationsOpt extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
+			'product_card_id' => 'Product Card',
 			'invoice_id' => 'Invoice',
-			'card_id' => 'Card',
 			'qnt' => 'Qnt',
-			'price' => 'Price',
-			'discount_percent' => 'Discount Percent',
-			'client_id' => 'Client',
 			'date' => 'Date',
+			'price' => 'Price',
+			'stock_id' => 'Stock',
+			'stock_qnt_after_op' => 'Stock Qnt After Op',
+			'client_id' => 'Client',
+			'discount_percent' => 'Discount Percent',
 		);
 	}
 
@@ -91,13 +99,15 @@ class OperationsOpt extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
+		$criteria->compare('product_card_id',$this->product_card_id);
 		$criteria->compare('invoice_id',$this->invoice_id);
-		$criteria->compare('card_id',$this->card_id);
 		$criteria->compare('qnt',$this->qnt);
-		$criteria->compare('price',$this->price);
-		$criteria->compare('discount_percent',$this->discount_percent);
-		$criteria->compare('client_id',$this->client_id);
 		$criteria->compare('date',$this->date);
+		$criteria->compare('price',$this->price);
+		$criteria->compare('stock_id',$this->stock_id);
+		$criteria->compare('stock_qnt_after_op',$this->stock_qnt_after_op);
+		$criteria->compare('client_id',$this->client_id);
+		$criteria->compare('discount_percent',$this->discount_percent);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -108,7 +118,7 @@ class OperationsOpt extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return OperationsOpt the static model class
+	 * @return OperationsOutItems the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

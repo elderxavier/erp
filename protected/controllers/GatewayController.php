@@ -61,7 +61,7 @@ class GatewayController extends Controller {
         $c -> addBetweenCondition('date',$from,$to);
 
         //get all by criteria
-        $operations = OperationsIn::model()->findAll($c);
+        $operations = OperationsInItems::model()->findAll($c);
 
         //foreach operation
         foreach($operations as $operation)

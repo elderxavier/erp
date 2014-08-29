@@ -132,7 +132,7 @@ class AjaxController extends Controller {
     public function actionViewInvoiceIn($id = null)
     {
         //get all operations by invoice id
-        $operations_in = OperationsIn::model()->findAllByAttributes(array('invoice_id' => $id));
+        $operations_in = OperationsInItems::model()->findAllByAttributes(array('invoice_id' => $id));
 
         //if find something
         if(!empty($operations_in))

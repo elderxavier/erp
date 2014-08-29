@@ -1,27 +1,32 @@
 <?php
 
 /**
- * This is the model class for table "option_cards".
+ * This is the model class for table "operations_in_items".
  *
- * The followings are the available columns in table 'option_cards':
+ * The followings are the available columns in table 'operations_in_items':
  * @property integer $id
- * @property string $name
- * @property integer $date_created
- * @property integer $date_changed
- * @property integer $user_modified_by
- * @property integer $status
+ * @property integer $product_card_id
+ * @property integer $invoice_id
+ * @property integer $qnt
+ * @property integer $date
+ * @property integer $price
+ * @property integer $stock_id
+ * @property integer $stock_qnt_after_op
+ * @property integer $client_id
  *
  * The followings are the available model relations:
- * @property OperationsOutOptItems[] $operationsOutOptItems
+ * @property OperationsIn $invoice
+ * @property ProductCards $productCard
+ * @property Stocks $stock
  */
-class OptionCards extends CActiveRecord
+class OperationsInItems extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'option_cards';
+		return 'operations_in_items';
 	}
 
 	/**
@@ -32,11 +37,10 @@ class OptionCards extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('date_created, date_changed, user_modified_by, status', 'numerical', 'integerOnly'=>true),
-			array('name', 'safe'),
+			array('product_card_id, invoice_id, qnt, date, price, stock_id, stock_qnt_after_op, client_id', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, name, date_created, date_changed, user_modified_by, status', 'safe', 'on'=>'search'),
+			array('id, product_card_id, invoice_id, qnt, date, price, stock_id, stock_qnt_after_op, client_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -48,7 +52,9 @@ class OptionCards extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'operationsOutOptItems' => array(self::HAS_MANY, 'OperationsOutOptItems', 'option_card_id'),
+			'invoice' => array(self::BELONGS_TO, 'OperationsIn', 'invoice_id'),
+			'productCard' => array(self::BELONGS_TO, 'ProductCards', 'product_card_id'),
+			'stock' => array(self::BELONGS_TO, 'Stocks', 'stock_id'),
 		);
 	}
 
@@ -59,11 +65,14 @@ class OptionCards extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Name',
-			'date_created' => 'Date Created',
-			'date_changed' => 'Date Changed',
-			'user_modified_by' => 'User Modified By',
-			'status' => 'Status',
+			'product_card_id' => 'Product Card',
+			'invoice_id' => 'Invoice',
+			'qnt' => 'Qnt',
+			'date' => 'Date',
+			'price' => 'Price',
+			'stock_id' => 'Stock',
+			'stock_qnt_after_op' => 'Stock Qnt After Op',
+			'client_id' => 'Client',
 		);
 	}
 
@@ -86,11 +95,14 @@ class OptionCards extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('name',$this->name,true);
-		$criteria->compare('date_created',$this->date_created);
-		$criteria->compare('date_changed',$this->date_changed);
-		$criteria->compare('user_modified_by',$this->user_modified_by);
-		$criteria->compare('status',$this->status);
+		$criteria->compare('product_card_id',$this->product_card_id);
+		$criteria->compare('invoice_id',$this->invoice_id);
+		$criteria->compare('qnt',$this->qnt);
+		$criteria->compare('date',$this->date);
+		$criteria->compare('price',$this->price);
+		$criteria->compare('stock_id',$this->stock_id);
+		$criteria->compare('stock_qnt_after_op',$this->stock_qnt_after_op);
+		$criteria->compare('client_id',$this->client_id);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -101,7 +113,7 @@ class OptionCards extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return OptionCards the static model class
+	 * @return OperationsInItems the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

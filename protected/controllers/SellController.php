@@ -31,7 +31,7 @@ class SellController extends Controller
     public function actionInvoices()
     {
         //get all sale-invoices
-        $invoices = InvoicesOut::model()->with('client')->findAll();
+        $invoices = OperationsOut::model()->with('client')->findAll();
 
         //render table
         $this->render('sales_list', array('invoices' => $invoices));
@@ -103,7 +103,7 @@ class SellController extends Controller
             $options = OptionCards::model()->findAllByAttributes(array('status' => 1));
             $vats = Vat::model()->findAll();
             $available_stocks = Stocks::model()->findAllByAttributes(array('location_id' => Yii::app()->user->getState('city_id')));
-            $invoices_count = InvoicesOut::model()->count();
+            $invoices_count = OperationsOut::model()->count();
 
 
             foreach($available_stocks as $stock){$available_stocks_id[] = $stock->id;}

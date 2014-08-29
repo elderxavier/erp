@@ -304,13 +304,13 @@ class ProductsController extends Controller
         /* @var $card ProductCards */
 
         //try find in base
-        $card = ProductCards::model()->with('operationsIns','operationsOuts','productInStocks')->findByPk($id);
+        $card = ProductCards::model()->with('OperationsInItemss','operationsOuts','productInStocks')->findByPk($id);
 
         //if found
         if(!empty($card))
         {
             //check for usages - if used somewhere
-            if(count($card->operationsIns) > 0 || count($card->operationsOuts) > 0 || $card->productInStocks)
+            if(count($card->operationsInItems) > 0 || count($card->operationsOutItems) > 0 || $card->productInStocks)
             {
                 //render restricts
                 $this->render('restricts');

@@ -31,7 +31,7 @@ class BuyController extends Controller
     public function actionInvoices()
     {
         //get all invoices
-        $invoices = InvoicesIn::model()->with('supplier')->findAll();
+        $invoices = OperationsIn::model()->with('supplier')->findAll();
 
         //render table
         $this->render('purchases_list', array('invoices' => $invoices));
@@ -141,7 +141,7 @@ class BuyController extends Controller
             if($supplier && $stock)
             {
                 //create new incoming invoice
-                $invoice = new InvoicesIn();
+                $invoice = new OperationsIn();
 
                 //set main params
                 $invoice->supplier_id = $supplier->id;
@@ -155,7 +155,7 @@ class BuyController extends Controller
 
                 foreach($products as $id => $product_arr)
                 {
-                    $operation = new OperationsIn(); //create incoming operation
+                    $operation = new OperationsInItems(); //create incoming operation item
                     $operation -> invoice_id = $invoice->id; //relation with invoice
                     $operation -> product_card_id = $id; //set product card
                     $operation -> qnt = $product_arr['qnt']; //quantity

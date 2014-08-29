@@ -1,27 +1,30 @@
 <?php
 
 /**
- * This is the model class for table "option_cards".
+ * This is the model class for table "operations_out_opt_items".
  *
- * The followings are the available columns in table 'option_cards':
+ * The followings are the available columns in table 'operations_out_opt_items':
  * @property integer $id
- * @property string $name
- * @property integer $date_created
- * @property integer $date_changed
- * @property integer $user_modified_by
- * @property integer $status
+ * @property integer $invoice_id
+ * @property integer $card_id
+ * @property integer $qnt
+ * @property integer $price
+ * @property integer $discount_percent
+ * @property integer $client_id
+ * @property integer $date
  *
  * The followings are the available model relations:
- * @property OperationsOutOptItems[] $operationsOutOptItems
+ * @property OperationsOut $invoice
+ * @property ProductCards $card
  */
-class OptionCards extends CActiveRecord
+class OperationsOutOptItems extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'option_cards';
+		return 'operations_out_opt_items';
 	}
 
 	/**
@@ -32,11 +35,10 @@ class OptionCards extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('date_created, date_changed, user_modified_by, status', 'numerical', 'integerOnly'=>true),
-			array('name', 'safe'),
+			array('invoice_id, card_id, qnt, price, discount_percent, client_id, date', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, name, date_created, date_changed, user_modified_by, status', 'safe', 'on'=>'search'),
+			array('id, invoice_id, card_id, qnt, price, discount_percent, client_id, date', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -48,7 +50,8 @@ class OptionCards extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'operationsOutOptItems' => array(self::HAS_MANY, 'OperationsOutOptItems', 'option_card_id'),
+			'invoice' => array(self::BELONGS_TO, 'OperationsOut', 'invoice_id'),
+			'card' => array(self::BELONGS_TO, 'ProductCards', 'card_id'),
 		);
 	}
 
@@ -59,11 +62,13 @@ class OptionCards extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Name',
-			'date_created' => 'Date Created',
-			'date_changed' => 'Date Changed',
-			'user_modified_by' => 'User Modified By',
-			'status' => 'Status',
+			'invoice_id' => 'Invoice',
+			'card_id' => 'Card',
+			'qnt' => 'Qnt',
+			'price' => 'Price',
+			'discount_percent' => 'Discount Percent',
+			'client_id' => 'Client',
+			'date' => 'Date',
 		);
 	}
 
@@ -86,11 +91,13 @@ class OptionCards extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('name',$this->name,true);
-		$criteria->compare('date_created',$this->date_created);
-		$criteria->compare('date_changed',$this->date_changed);
-		$criteria->compare('user_modified_by',$this->user_modified_by);
-		$criteria->compare('status',$this->status);
+		$criteria->compare('invoice_id',$this->invoice_id);
+		$criteria->compare('card_id',$this->card_id);
+		$criteria->compare('qnt',$this->qnt);
+		$criteria->compare('price',$this->price);
+		$criteria->compare('discount_percent',$this->discount_percent);
+		$criteria->compare('client_id',$this->client_id);
+		$criteria->compare('date',$this->date);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -101,7 +108,7 @@ class OptionCards extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return OptionCards the static model class
+	 * @return OperationsOutOptItems the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

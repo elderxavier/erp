@@ -18,8 +18,9 @@
  * @property integer $user_modified_by
  *
  * The followings are the available model relations:
- * @property OperationsIn[] $operationsIns
- * @property OperationsOut[] $operationsOuts
+ * @property OperationsInItems[] $operationsInItems
+ * @property OperationsOutItems[] $operationsOutItems
+ * @property OperationsOutOptItems[] $operationsOutOptItems
  * @property ProductCardCategories $category
  * @property ProductFiles[] $productFiles
  * @property ProductInStock[] $productInStocks
@@ -58,8 +59,9 @@ class ProductCards extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'operationsIns' => array(self::HAS_MANY, 'OperationsIn', 'product_card_id'),
-			'operationsOuts' => array(self::HAS_MANY, 'OperationsOut', 'product_card_id'),
+			'operationsInItems' => array(self::HAS_MANY, 'OperationsInItems', 'product_card_id'),
+			'operationsOutItems' => array(self::HAS_MANY, 'OperationsOutItems', 'product_card_id'),
+			'operationsOutOptItems' => array(self::HAS_MANY, 'OperationsOutOptItems', 'card_id'),
 			'category' => array(self::BELONGS_TO, 'ProductCardCategories', 'category_id'),
 			'productFiles' => array(self::HAS_MANY, 'ProductFiles', 'product_card_id'),
 			'productInStocks' => array(self::HAS_MANY, 'ProductInStock', 'product_card_id'),

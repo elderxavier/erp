@@ -27,7 +27,7 @@
  * @property string $contract_number
  *
  * The followings are the available model relations:
- * @property InvoicesIn[] $invoicesIns
+ * @property OperationsIn[] $operationsIns
  */
 class Suppliers extends CActiveRecord
 {
@@ -64,7 +64,7 @@ class Suppliers extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'invoicesIns' => array(self::HAS_MANY, 'InvoicesIn', 'supplier_id'),
+			'operationsIns' => array(self::HAS_MANY, 'OperationsIn', 'supplier_id'),
 		);
 	}
 

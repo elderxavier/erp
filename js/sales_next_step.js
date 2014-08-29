@@ -167,7 +167,7 @@ var loadFormByAddedItems = function()
 
     totalModal.html(total_price.toFixed(2));
     totalVatModal.html(total_price_vat.toFixed(2));
-};
+};//loadFormByAddedItems
 
 var filterByNameCodeStock = function(name,code,stock)
 {
@@ -175,7 +175,7 @@ var filterByNameCodeStock = function(name,code,stock)
     {
         jQuery('#filtered-body').html(data);
     });
-};
+};//filterByNameCodeStock
 
 
 var checkSymbols = function(e,value)
@@ -208,7 +208,7 @@ var addOption = function(objOpt){
         $(".summ").before(elem);
     }
 
-}//addOption
+};//addOption
 
 var addProduct = function(objProd){
     if($('#empty-list').length > 0){
