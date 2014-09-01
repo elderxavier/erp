@@ -7,7 +7,7 @@
 <?php
 $cs = Yii::app()->clientScript;
 $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/invoice_list.css');
-//$cs->registerScriptFile(Yii::app()->baseUrl.'/js/buy-ops.js',CClientScript::POS_END);
+$cs->registerScriptFile(Yii::app()->baseUrl.'/js/sales_list.js',CClientScript::POS_END);
 ?>
 
 <?php $this->renderPartial('//partials/_sub_menu',array('links' => $this->GetSubMenu(), 'params' => array())); ?>
@@ -62,7 +62,7 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/invoice_list.css');
             <?php foreach($invoices as $nr => $operation): ?>
                 <tr>
                     <td><?php echo $nr + 1; ?></td>
-                    <td><a href="#" data-toggle="modal" data-id="<?php echo $operation->id; ?>" data-target="#invoiceInfo"><?php echo $operation->id; ?></a></td>
+                    <td><a class="info-open-lnk" href="<?php echo Yii::app()->createUrl('/ajax/operationoutinfo',array('id' => $operation->id)); ?>" data-toggle="modal" data-id="<?php echo $operation->id; ?>" data-target="#invoiceInfo"><?php echo $operation->id; ?></a></td>
                     <td><?php echo $operation->client->getFullName(); ?></td>
                     <td><?php echo $operation->client->type == 1 ? $this->labels['juridical'] : $this->labels['physical']; ?></td>
                     <td><?php echo $operation->stock->location->city_name; ?></td>
@@ -81,81 +81,7 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/invoice_list.css');
         <div class="invoice-ready">
 
             <div class="modal fade" id="invoiceInfo" tabindex="-1" role="dialog">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                            <h4 class="modal-title">Invoice : 213232323</h4>
-                        </div><!--/.modal-heafer -->
-                        <div class="modal-body">
-                            <div class="supl-header">
-                                <table class="table table-bordered" width="100%">
-                                    <tr>
-                                        <td>company</td>
-                                        <td>inclusion</td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td>compaany code</td>
-                                        <td>2324234</td>
-                                        <td>Vat code </td>
-                                        <td>fdghhfdhg</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Adress</td>
-                                        <td colspan="3">Vilnius, kapsu g 8, LT-21345</td>
-                                    </tr>
-                                </table>
-                            </div><!--/supl-header -->
-                            <div class="modal-prod-list-holder">
-                                <table class="table table-bordered" width="100%">
-                                    <thead>
-                                    <tr>
-                                        <th>product name</th>
-                                        <th>prod code</th>
-                                        <th>units</th>
-                                        <th>quant</th>
-                                        <th>price (EUR)</th>
-                                        <th>discount %</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>Product 1</td>
-                                        <td>prd 12345677</td>
-                                        <td>litr</td>
-                                        <td>123</td>
-                                        <td>213321</td>
-                                        <td>10</td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>Product 1</td>
-                                        <td>prd 12345677</td>
-                                        <td>litr</td>
-                                        <td>123</td>
-                                        <td>213321</td>
-                                        <td>5</td>
-                                    </tr>
-                                    <tr class="total">
-                                        <td colspan="3"></td>
-                                        <td colspan="2">Total :</td>
-                                        <td>700 EUR</td>
-                                    </tr>
-                                    <tr class="total-with-vat">
-                                        <td colspan="3"></td>
-                                        <td colspan="2">Total 21% VAT :</td>
-                                        <td>700 EUR</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div><!--/modal-prod-list-holder -->
-                        </div><!--/modal-body -->
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close<span class="glyphicon glyphicon-thumbs-down"></span></button>
-                        </div><!--/modal-footer -->
-                    </div><!-- /.modal-content -->
+                <div id="modal-operation-info" class="modal-dialog">
                 </div><!-- /.modal-dialog -->
             </div><!-- /.modal -->
 

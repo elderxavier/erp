@@ -146,4 +146,30 @@ class OperationsOut extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+    /**
+     * Calculates total price of all items (including options)
+     * @param bool $with_vat
+     * @return float|int
+     */
+    public function calculateTotalPrice($with_vat = true)
+    {
+        $total_sum = 0;
+
+        foreach($this->operationsOutItems as $prod_item)
+        {
+            $total_sum += ($prod_item->price - ($prod_item->price * ($prod_item->discount_percent/100)))*$prod_item->qnt;
+        }
+        foreach($this->operationsOutOptItems as $opt_item)
+        {
+            $total_sum += $opt_item->price;
+        }
+
+        if($with_vat)
+        {
+            $total_sum += ($total_sum * $this->vat->percent/100);
+        }
+
+        return $total_sum;
+    }
 }

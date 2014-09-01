@@ -476,9 +476,30 @@ class AjaxController extends Controller {
 
     public function actionFilterByStockCodeAndName($name = '',$code = '',$stock = '')
     {
-        $result = ProductCards::model()->findAllByNameOrCodeAndStock($name,$code,$stock);
-        $this->renderPartial('_filtered_for_sales',array('items' => $result));
+        if(Yii::app()->request->isAjaxRequest)
+        {
+            $result = ProductCards::model()->findAllByNameOrCodeAndStock($name,$code,$stock);
+            $this->renderPartial('_filtered_for_sales',array('items' => $result));
+        }
+        else
+        {
+            throw new CHttpException(404);
+        }
     }
+
+    public function actionOperationOutInfo($id = null)
+    {
+        if($operation = OperationsOut::model()->findByPk($id))
+        {
+            $this->renderPartial('_operation_out',array('operation' => $operation));
+        }
+        else
+        {
+            throw new CHttpException(404);
+        }
+    }
+
+
 
 
 }
