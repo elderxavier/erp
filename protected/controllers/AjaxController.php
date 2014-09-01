@@ -20,7 +20,6 @@ class AjaxController extends Controller {
         
     }
 
-
     /**
      * Changes status of product by ajax
      * @param null $id
@@ -57,7 +56,6 @@ class AjaxController extends Controller {
             }
         }
     }
-
 
     /**
      * Renders form by JSON settings (used in purchase_create.php)
@@ -149,7 +147,6 @@ class AjaxController extends Controller {
     }
     */
 
-
     /**
      * Prints json-converted array of client-ids and client-names (used for auto-complete)
      * @param int $term
@@ -170,7 +167,6 @@ class AjaxController extends Controller {
         }
 
     }//Clients
-
 
     /**
      * Renders option items of workers found by city for select-box (used in srv_create.php)

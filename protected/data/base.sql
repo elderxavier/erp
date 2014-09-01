@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50538
 File Encoding         : 65001
 
-Date: 2014-09-01 13:55:41
+Date: 2014-09-01 16:30:14
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -58,16 +58,35 @@ CREATE TABLE `clients` (
   KEY `next_service_id` (`next_service_id`),
   KEY `first_invoice_id` (`first_invoice_id`),
   KEY `last_invoice_id` (`last_invoice_id`),
+  KEY `type` (`type`),
+  CONSTRAINT `clients_ibfk_3` FOREIGN KEY (`type`) REFERENCES `client_types` (`id`),
   CONSTRAINT `clients_ibfk_1` FOREIGN KEY (`first_invoice_id`) REFERENCES `operations_out` (`id`),
   CONSTRAINT `clients_ibfk_2` FOREIGN KEY (`last_invoice_id`) REFERENCES `operations_out` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of clients
 -- ----------------------------
-INSERT INTO `clients` VALUES ('11', 'Viqtor', '', 'Creed', 'PER789456', '', 'VAT789789', null, null, null, '123456', '321654', null, 'test@test.com', 'mail@mail.com', 'Some info', 'Some info', null, null, null, null, null, '1408958172', '1408958172', '1', null, null, null, 'Lithuania', 'Vilnius', 'Kalvariju g', '15 b', null);
+INSERT INTO `clients` VALUES ('11', 'Viqtor', '', 'Creed', 'PER789456', '', 'VAT789789', null, null, null, '123456', '321654', null, 'test@test.com', 'mail@mail.com', 'Some info', 'Some info', null, null, null, null, '2', '1408958172', '1408958172', '1', null, null, null, 'Lithuania', 'Vilnius', 'Kalvariju g', '15 b', null);
 INSERT INTO `clients` VALUES ('12', '', 'Senukai', '', 'PER78463', 'COCODE5646', 'VAT64893', null, null, null, '123456', '321654', null, 'em@ail.com', 'test@test.test', 'Some info', 'Some info', null, null, null, null, '1', '1408958292', '1408958292', '1', null, null, null, 'Lithuania', 'Vilnius', 'Kalvariju g', '89 g', null);
-INSERT INTO `clients` VALUES ('13', 'Anatolij', '', 'Krupnov', 'PER9865', '', 'VAT54964', null, null, null, '123465', '', null, 'test@test.com', '', 'Some info', 'Some info', null, null, null, null, null, '1409046662', '1409046662', '1', null, null, null, 'Lithuania', 'Panevezys', 'Krupnovo', '89 f', null);
+INSERT INTO `clients` VALUES ('13', 'Anatolij', '', 'Krupnov', 'PER9865', '', 'VAT54964', null, null, null, '123465', '', null, 'test@test.com', '', 'Some info', 'Some info', null, null, null, null, '2', '1409046662', '1409046662', '1', null, null, null, 'Lithuania', 'Panevezys', 'Krupnovo', '89 f', null);
+INSERT INTO `clients` VALUES ('14', 'Генадий', null, 'Прыгунов', 'PER8DSF', null, 'VAT68DSF', null, null, null, '123456', null, null, 'test@test.com', null, 'Some info', 'Some info', null, null, null, null, '2', '1409571802', '1409571802', '1', null, null, null, 'Lithuania', 'Kaunas', 'Pinislovo', '89', null);
+
+-- ----------------------------
+-- Table structure for `client_types`
+-- ----------------------------
+DROP TABLE IF EXISTS `client_types`;
+CREATE TABLE `client_types` (
+  `id` int(11) NOT NULL DEFAULT '0',
+  `name` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of client_types
+-- ----------------------------
+INSERT INTO `client_types` VALUES ('1', 'Juridical');
+INSERT INTO `client_types` VALUES ('2', 'Physical');
 
 -- ----------------------------
 -- Table structure for `operations_in`
@@ -163,7 +182,7 @@ CREATE TABLE `operations_out` (
 -- ----------------------------
 -- Records of operations_out
 -- ----------------------------
-INSERT INTO `operations_out` VALUES ('3', '', '1409314430', null, '', '13', '1409314430', '1409314430', '1', '1', null, '1', '0');
+INSERT INTO `operations_out` VALUES ('3', '', '1409314430', null, '', '13', '1409314430', '1409314430', '1', '1', null, '1', '1');
 
 -- ----------------------------
 -- Table structure for `operations_out_items`
@@ -256,8 +275,8 @@ CREATE TABLE `operation_out_statuses` (
 -- ----------------------------
 -- Records of operation_out_statuses
 -- ----------------------------
-INSERT INTO `operation_out_statuses` VALUES ('0', null, 'On the way');
 INSERT INTO `operation_out_statuses` VALUES ('1', null, 'Delivered');
+INSERT INTO `operation_out_statuses` VALUES ('2', null, 'On the way');
 
 -- ----------------------------
 -- Table structure for `option_cards`

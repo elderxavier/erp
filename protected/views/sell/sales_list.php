@@ -15,8 +15,8 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/sales_list.js',CClientScript::P
 <div class="container-fluid  main-content-holder content-wrapper">
     <div class="row filter-holder">
         <form>
+            <input type="text" id="client-name-inputs" placeholder="<?php echo $this->labels['client name']; ?>">
             <input type="text" placeholder="<?php echo $this->labels['invoice code']; ?>">
-            <input type="text" placeholder="<?php echo $this->labels['client name']; ?>">
             <select>
                 <option value=""><?php echo $this->labels['client type']; ?></option>
                 <?php foreach($types as $id => $type): ?>
