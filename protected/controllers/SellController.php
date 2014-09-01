@@ -33,7 +33,7 @@ class SellController extends Controller
         //get all sale-invoices
         $invoices = OperationsOut::model()->with('client')->findAll();
 
-        $types = array(0 => $this->labels['physical'],1 => $this->labels['juridical']);
+        $types = ClientTypes::model()->findAllAsArray();
         $statuses = OperationOutStatuses::model()->findAllAsArray();
         $cities = UserCities::model()->findAllAsArray();
 

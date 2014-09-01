@@ -39,6 +39,7 @@
  * @property string $contract_number
  *
  * The followings are the available model relations:
+ * @property ClientTypes $typeObj
  * @property OperationsOut $firstInvoice
  * @property OperationsOut $lastInvoice
  * @property OperationsOut[] $operationsOuts
@@ -79,6 +80,7 @@ class Clients extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'typeObj' => array(self::BELONGS_TO, 'ClientTypes', 'type'),
 			'firstInvoice' => array(self::BELONGS_TO, 'OperationsOut', 'first_invoice_id'),
 			'lastInvoice' => array(self::BELONGS_TO, 'OperationsOut', 'last_invoice_id'),
 			'operationsOuts' => array(self::HAS_MANY, 'OperationsOut', 'client_id'),
@@ -490,15 +492,6 @@ class Clients extends CActiveRecord
     public function getFullName()
     {
         return $this->type == 1 ? $this->company_name : $this->name.' '.$this->surname;
-    }
-
-    /**
-     * Returns label of client's type
-     * @return string
-     */
-    public function getTypeName()
-    {
-        return $this->type == 1 ? 'juridical' : 'physical';
     }
 
     /**

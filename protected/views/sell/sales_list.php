@@ -18,15 +18,13 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/sales_list.js',CClientScript::P
             <input type="text" placeholder="<?php echo $this->labels['invoice code']; ?>">
             <input type="text" placeholder="<?php echo $this->labels['client name']; ?>">
             <select>
-                <option disabled selected value=""><?php echo $this->labels['client type']; ?></option>
-                <option value=""><?php echo $this->labels['all']; ?></option>
+                <option value=""><?php echo $this->labels['client type']; ?></option>
                 <?php foreach($types as $id => $type): ?>
                     <option value="<?php echo $id; ?>"><?php echo $type; ?></option>
                 <?php endforeach;?>
             </select>
             <select>
-                <option disabled selected value=""><?php echo $this->labels['city']; ?></option>
-                <option value=""><?php echo $this->labels['all']; ?></option>
+                <option value=""><?php echo $this->labels['city']; ?></option>
                 <?php foreach($cities as $id => $city): ?>
                     <option value="<?php echo $id; ?>"><?php echo $city; ?></option>
                 <?php endforeach;?>
@@ -64,7 +62,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/sales_list.js',CClientScript::P
                     <td><?php echo $nr + 1; ?></td>
                     <td><a class="info-open-lnk" href="<?php echo Yii::app()->createUrl('/ajax/operationoutinfo',array('id' => $operation->id)); ?>" data-toggle="modal" data-id="<?php echo $operation->id; ?>" data-target="#invoiceInfo"><?php echo $operation->id; ?></a></td>
                     <td><?php echo $operation->client->getFullName(); ?></td>
-                    <td><?php echo $operation->client->type == 1 ? $this->labels['juridical'] : $this->labels['physical']; ?></td>
+                    <td><?php echo $operation->client->typeObj->name; ?></td>
                     <td><?php echo $operation->stock->location->city_name; ?></td>
                     <td><?php echo date('Y.m.d G:i',$operation->date_created); ?></td>
                     <td><?php echo $operation->invoice_code; ?></td>

@@ -416,7 +416,7 @@ class AjaxController extends Controller {
 
             if($id == 1){
                 echo $this->renderPartial('_filter_jur',array(),true);
-            }else if($id == 0){
+            }else{
                 echo $this->renderPartial('_filter_fiz',array(),true);
             }
 
