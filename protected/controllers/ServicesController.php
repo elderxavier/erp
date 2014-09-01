@@ -50,12 +50,50 @@ class ServicesController extends Controller
     {
         //create new form-validator-model for service
         $form = new ServiceForm();
+        $form_clients = new ClientForm();
+
+        if(isset($_POST['ClientForm']))
+        {
+            //if company
+            if($_POST['ClientForm']['company'])
+            {
+                //validate as company (company code required)
+                $form_clients->company = 1;
+            }
+
+            //set attributes and validate
+            $form_clients->attributes = $_POST['ClientForm'];
+
+            //if no errors
+            if($form_clients->validate())
+            {
+                //empty client
+                $client = new Clients();
+
+                //set attributes
+                $client->attributes = $_POST['ClientForm'];
+
+                //set company or not
+                $client->type = $form_clients->company;
+
+                //set creation parameters
+                $client->date_created = time();
+                $client->date_changed = time();
+                $client->user_modified_by = Yii::app()->user->id;
+
+                //save to db
+                $client->save();
+
+                //redirect to next step
+                $this->redirect(Yii::app()->createUrl('/services/continue/',array('cid' => $client->id)));
+            }
+        }
 
         //array for types-select-box
         $types = array('' => 'Select', 0 => $this->labels['physical'], 1 => $this->labels['juridical']);
 
         //render form
-        $this->render('srv_create', array('client_types' => $types, 'form_mdl' => $form));
+        $this->render('srv_create', array('client_types' => $types, 'form_mdl' => $form, 'form_cli_mdl' => $form_clients));
     }
 
 

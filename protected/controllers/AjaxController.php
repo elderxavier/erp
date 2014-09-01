@@ -153,20 +153,20 @@ class AjaxController extends Controller {
      * @param int $type
      * @throws CHttpException
      */
-    public function actionClients($start = '', $type = 0)
+    public function actionClients($term=null,$type=null)
     {
-        //if this is ajax request
+
         if(Yii::app()->request->isAjaxRequest)
         {
-            //print encoded to json array
-            echo json_encode(Clients::model()->getClientsByNameParts($start,$type));
+            $result = Clients::model()->getAllClientsJson($term,$type);
+            echo $result;
         }
-        //if not ajax
         else
         {
             throw new CHttpException(404);
         }
-    }
+
+    }//Clients
 
 
     public function actionClientsForSales($name = "",$code = "",$auto_complete = 1)
@@ -183,28 +183,6 @@ class AjaxController extends Controller {
                 $this->renderPartial('_clients_first_step_table',array('data' => $data));
             }
         }
-    }
-
-
-    /**
-     * Renders filtered table of clients (used in srv_create.php)
-     * @param string $words
-     * @param int $type
-     * @param string $code
-     */
-    public function actionClientsFilter($words,$type,$code = '')
-    {
-        if(empty($code))
-        {
-            if($words != '') $clients_rows = Clients::model()->findClientsByNames($words,$type);
-            else $clients_rows = array();
-        }
-        else
-        {
-            $clients_rows = Clients::model()->findClientsByCode($code,$type);
-        }
-
-        $type == 0 ? $this->renderPartial('_clients_filtered_physical',array('clients_rows' => $clients_rows)) : $this->renderPartial('_clients_filtered_juridical',array('clients_rows' => $clients_rows));
     }
 
     /**
@@ -226,17 +204,6 @@ class AjaxController extends Controller {
         }
 
         $type == 0 ? $this->renderPartial('_clients_filtered_physical_sell',array('clients_rows' => $clients_rows)) : $this->renderPartial('_clients_filtered_juridical_sell',array('clients_rows' => $clients_rows));
-    }
-
-
-    /**
-     * Renders modal window for client-info
-     * @param null $id
-     */
-    public function actionClientModal($id = null)
-    {
-        $client = Clients::model()->with('lastInvoice')->findByPk($id);
-        $this->renderPartial('_modal_client_info',array('client' => $client));
     }
 
     /**
@@ -500,6 +467,56 @@ class AjaxController extends Controller {
     }
 
 
+    public function actionFSelector($id = null)
+    {
+
+        if(Yii::app()->request->isAjaxrequest){
+
+            if($id == 1){
+                echo $this->renderPartial('_filter_jur',array(),true);
+            }else if($id == 0){
+                echo $this->renderPartial('_filter_fiz',array(),true);
+            }
+
+        }else{
+            throw new CHttpException(404);
+        }
+
+    }//Fselector
+
+    public function actionCustFilter()
+    {
+        $request = Yii::app()->request;
+
+        if($request->isAjaxRequest){
+            $name = $request->getPost('name');
+            $type = $request->getPost('type');
+
+            $data = Clients::model()->getClients($name,$type);
+
+            if(!empty($data)){
+                echo $this->renderPartial('_filterTable',array('data'=>$data,'type' => $type),true);
+            }else{
+                echo $this->renderPartial('_emptyTable',array(),true);
+            }
+
+        }else{
+            throw new CHttpException(404);
+        }
+    }// custFilter
+
+    public function actionCustinfo($id = null)
+    {
+        $id = (int)$id;
+        $request = Yii::app()->request;
+        if($request->isAjaxRequest){
+            $data = Clients::model()->findByPk($id);
+            $modal = $this->renderPartial('_customer_info_modal',array('client' => $data),true);
+            echo $modal;
+        }else{
+            throw new CHttpException(404);
+        }
+    }//custInfo
 
 
 }
