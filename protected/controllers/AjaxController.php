@@ -489,13 +489,18 @@ class AjaxController extends Controller {
         $request = Yii::app()->request;
 
         if($request->isAjaxRequest){
+
             $name = $request->getPost('name');
             $type = $request->getPost('type');
+
+            //get next-step controller and action
+            $next_con= $request->getPost('nc','services');
+            $next_act = $request->getPost('na','continue');
 
             $data = Clients::model()->getClients($name,$type);
 
             if(!empty($data)){
-                echo $this->renderPartial('_filterTable',array('data'=>$data,'type' => $type),true);
+                echo $this->renderPartial('_filterTable',array('data'=>$data,'type' => $type,'next_c' => $next_con, 'next_a' => $next_act),true);
             }else{
                 echo $this->renderPartial('_emptyTable',array(),true);
             }
@@ -505,13 +510,13 @@ class AjaxController extends Controller {
         }
     }// custFilter
 
-    public function actionCustinfo($id = null)
+    public function actionCustinfo($id = null,$nc = 'services',$na = 'continue')
     {
         $id = (int)$id;
         $request = Yii::app()->request;
         if($request->isAjaxRequest){
             $data = Clients::model()->findByPk($id);
-            $modal = $this->renderPartial('_customer_info_modal',array('client' => $data),true);
+            $modal = $this->renderPartial('_customer_info_modal',array('client' => $data, 'next_controller' => $nc, 'next_action' => $na),true);
             echo $modal;
         }else{
             throw new CHttpException(404);

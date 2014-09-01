@@ -44,6 +44,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/service.js',CClientScript::POS_
                             </div><!--/modal-content -->
                         </div><!--/modal-dialog -->
                     </div><!--/modal -->
+
                     <?php if($form_cli_mdl->hasErrors()): ?>
                         <?php if($form_cli_mdl->company): ?>
                             <input type="hidden" value="1" id="open-modal-create-client">
@@ -51,6 +52,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/service.js',CClientScript::POS_
                             <input type="hidden" value="0" id="open-modal-create-client">
                         <?php endif;?>
                     <?php endif;?>
+
                     <?php $this->renderPartial('_new_client_modal_juridical',array('form_mdl' => $form_cli_mdl)); ?>
                     <?php $this->renderPartial('_new_client_modal_physical',array('form_mdl' => $form_cli_mdl)); ?>
                 </div><!--/light-box-holder -->

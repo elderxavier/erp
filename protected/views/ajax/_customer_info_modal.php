@@ -1,6 +1,8 @@
 <?php /* @var $this Controller */ ?>
 <?php /* @var $client Clients */ ?>
 <?php /* @var $operation OperationsOut */ ?>
+<?php /* @var $next_controller string */ ?>
+<?php /* @var $next_action string */ ?>
 
 
 <div class="modal-header clearfix">
@@ -67,7 +69,7 @@
 
 <div class="modal-footer">
     <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->labels['close']; ?><span class="glyphicon glyphicon-thumbs-down"></span></button>
-    <a href="/services/continue/<?php echo $client->id; ?>">
+    <a href="/<?php echo $next_controller ?>/<?php echo $next_action; ?>/<?php echo $client->id; ?>">
         <button type="button" class="btn btn-primary"><?php echo $this->labels['continue']; ?><span class="glyphicon glyphicon-share-alt"></span></button>
     </a>
 </div><!--/modal-footer -->

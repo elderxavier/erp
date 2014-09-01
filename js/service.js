@@ -70,8 +70,23 @@ var modalInfo = function(link){
 
 var clientFilter = function(type,value){
     console.log(type,value);
+
+    var next_controller = 'services';
+    var next_action = 'continue';
+
+    //next step controller and action
+    var next_act = jQuery("#next-action");
+    var next_con = jQuery("#next-controller");
+
+    //if found hidden fields of next controller and action - get value
+    if(jQuery(next_act).length > 0 && jQuery(next_con).length > 0)
+    {
+        next_controller = next_con.val();
+        next_action = next_act.val();
+    }
+
     $('.body-holder table tbody').load('/ajax/custfilter/',
-        {type: type, name : value}
+        {type: type, name : value, nc : next_controller, na: next_action}
     );
 };//clientFilter
 
@@ -90,9 +105,10 @@ var clientForm = function(obj){
 
 var showModalCreateClientIfNeeded = function()
 {
-    if(jQuery("#open-modal-create-client").length > 0)
+    var hidden_filed_to_open = jQuery("#open-modal-create-client");
+    if(hidden_filed_to_open.length > 0)
     {
-        if(jQuery("#open-modal-create-client").val() == 1)
+        if(hidden_filed_to_open.val() == 1)
         {
             jQuery('.new-customer-juridical').modal('show');
         }

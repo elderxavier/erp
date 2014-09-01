@@ -95,12 +95,12 @@ class SellController extends Controller
     /**
      * Renders next step
      */
-    public function actionNextStepCreate($cid = null)
+    public function actionNextStepCreate($id = null)
     {
         /* @var $stocks Stocks[] */
         /* @var $available_stocks Stocks[] */
 
-        if($client = Clients::model()->findByPk($cid))
+        if($client = Clients::model()->findByPk($id))
         {
             $available_stocks_id = array();
             $stocks = Stocks::model()->findAll();

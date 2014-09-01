@@ -85,7 +85,7 @@ class ServicesController extends Controller
                 $client->save();
 
                 //redirect to next step
-                $this->redirect(Yii::app()->createUrl('/services/continue/',array('cid' => $client->id)));
+                $this->redirect(Yii::app()->createUrl('/services/continue/',array('id' => $client->id)));
             }
         }
 
