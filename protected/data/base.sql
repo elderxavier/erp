@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50538
 File Encoding         : 65001
 
-Date: 2014-08-29 17:42:33
+Date: 2014-09-01 13:55:41
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -116,9 +116,9 @@ CREATE TABLE `operations_in_items` (
   KEY `invoice_id` (`operation_id`),
   KEY `product_card_id` (`product_card_id`),
   KEY `stock_id` (`stock_id`),
-  CONSTRAINT `operations_in_items_ibfk_4` FOREIGN KEY (`operation_id`) REFERENCES `operations_in` (`id`),
   CONSTRAINT `operations_in_items_ibfk_2` FOREIGN KEY (`product_card_id`) REFERENCES `product_cards` (`id`),
-  CONSTRAINT `operations_in_items_ibfk_3` FOREIGN KEY (`stock_id`) REFERENCES `stocks` (`id`)
+  CONSTRAINT `operations_in_items_ibfk_3` FOREIGN KEY (`stock_id`) REFERENCES `stocks` (`id`),
+  CONSTRAINT `operations_in_items_ibfk_4` FOREIGN KEY (`operation_id`) REFERENCES `operations_in` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -153,11 +153,11 @@ CREATE TABLE `operations_out` (
   KEY `operations_out_ibfk_3` (`vat_id`),
   KEY `stock_id` (`stock_id`),
   KEY `status_id` (`status_id`),
-  CONSTRAINT `operations_out_ibfk_5` FOREIGN KEY (`status_id`) REFERENCES `operation_out_statuses` (`id`),
   CONSTRAINT `operations_out_ibfk_1` FOREIGN KEY (`client_id`) REFERENCES `clients` (`id`),
   CONSTRAINT `operations_out_ibfk_2` FOREIGN KEY (`payment_method_id`) REFERENCES `payment_methods` (`id`),
   CONSTRAINT `operations_out_ibfk_3` FOREIGN KEY (`vat_id`) REFERENCES `vat` (`id`),
-  CONSTRAINT `operations_out_ibfk_4` FOREIGN KEY (`stock_id`) REFERENCES `stocks` (`id`)
+  CONSTRAINT `operations_out_ibfk_4` FOREIGN KEY (`stock_id`) REFERENCES `stocks` (`id`),
+  CONSTRAINT `operations_out_ibfk_5` FOREIGN KEY (`status_id`) REFERENCES `operation_out_statuses` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -184,9 +184,9 @@ CREATE TABLE `operations_out_items` (
   KEY `invoice_id` (`operation_id`),
   KEY `product_card_id` (`product_card_id`),
   KEY `stock_id` (`stock_id`),
-  CONSTRAINT `operations_out_items_ibfk_4` FOREIGN KEY (`operation_id`) REFERENCES `operations_out` (`id`),
   CONSTRAINT `operations_out_items_ibfk_2` FOREIGN KEY (`product_card_id`) REFERENCES `product_cards` (`id`),
-  CONSTRAINT `operations_out_items_ibfk_3` FOREIGN KEY (`stock_id`) REFERENCES `stocks` (`id`)
+  CONSTRAINT `operations_out_items_ibfk_3` FOREIGN KEY (`stock_id`) REFERENCES `stocks` (`id`),
+  CONSTRAINT `operations_out_items_ibfk_4` FOREIGN KEY (`operation_id`) REFERENCES `operations_out` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -211,8 +211,8 @@ CREATE TABLE `operations_out_opt_items` (
   PRIMARY KEY (`id`),
   KEY `option_card_id` (`option_card_id`),
   KEY `operation_id` (`operation_id`),
-  CONSTRAINT `operations_out_opt_items_ibfk_3` FOREIGN KEY (`operation_id`) REFERENCES `operations_out` (`id`),
-  CONSTRAINT `operations_out_opt_items_ibfk_2` FOREIGN KEY (`option_card_id`) REFERENCES `option_cards` (`id`)
+  CONSTRAINT `operations_out_opt_items_ibfk_2` FOREIGN KEY (`option_card_id`) REFERENCES `option_cards` (`id`),
+  CONSTRAINT `operations_out_opt_items_ibfk_3` FOREIGN KEY (`operation_id`) REFERENCES `operations_out` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -234,8 +234,8 @@ CREATE TABLE `operations_srv_items` (
   PRIMARY KEY (`id`),
   KEY `service_process_id` (`service_process_id`),
   KEY `invoice_id` (`operaion_id`),
-  CONSTRAINT `operations_srv_items_ibfk_2` FOREIGN KEY (`operaion_id`) REFERENCES `operations_out` (`id`),
-  CONSTRAINT `operations_srv_items_ibfk_1` FOREIGN KEY (`service_process_id`) REFERENCES `service_processes` (`id`)
+  CONSTRAINT `operations_srv_items_ibfk_1` FOREIGN KEY (`service_process_id`) REFERENCES `service_processes` (`id`),
+  CONSTRAINT `operations_srv_items_ibfk_2` FOREIGN KEY (`operaion_id`) REFERENCES `operations_out` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -420,7 +420,7 @@ CREATE TABLE `rights` (
   `name` text,
   `label` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of rights
@@ -457,6 +457,9 @@ INSERT INTO `rights` VALUES ('30', 'can see services', 'services_see');
 INSERT INTO `rights` VALUES ('31', 'can edit serives', 'services_edit');
 INSERT INTO `rights` VALUES ('32', 'can add services', 'services_add');
 INSERT INTO `rights` VALUES ('33', 'can delete services', 'services_delete');
+INSERT INTO `rights` VALUES ('34', 'cas see stock', 'stock_see');
+INSERT INTO `rights` VALUES ('35', 'can edit stock', 'stock_edit');
+INSERT INTO `rights` VALUES ('36', 'can add to stock', 'stock_add');
 
 -- ----------------------------
 -- Table structure for `service_problem_types`
@@ -699,7 +702,7 @@ CREATE TABLE `user_rights` (
   KEY `user_id` (`user_id`),
   CONSTRAINT `user_rights_ibfk_1` FOREIGN KEY (`rights_id`) REFERENCES `rights` (`id`),
   CONSTRAINT `user_rights_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=369 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=372 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user_rights
@@ -746,6 +749,9 @@ INSERT INTO `user_rights` VALUES ('365', '5', '17', '1');
 INSERT INTO `user_rights` VALUES ('366', '5', '28', '1');
 INSERT INTO `user_rights` VALUES ('367', '5', '27', '1');
 INSERT INTO `user_rights` VALUES ('368', '5', '21', '1');
+INSERT INTO `user_rights` VALUES ('369', '1', '34', '1');
+INSERT INTO `user_rights` VALUES ('370', '1', '35', '1');
+INSERT INTO `user_rights` VALUES ('371', '1', '36', '1');
 
 -- ----------------------------
 -- Table structure for `vat`
