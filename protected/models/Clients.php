@@ -234,10 +234,19 @@ class Clients extends CActiveRecord
             $companyName = trim($clientName);
             $names = explode(" ",$clientName,2);
 
-
             $result = array();
-            //sql statement
 
+            //find all by default
+            if(count($names) > 1)
+            {
+                $sql = "SELECT * FROM clients WHERE company_name LIKE '%".$clientName."%' OR (`name` LIKE '%".$names[0]."%' AND `surname` LIKE '%".$names[1]."%')";
+            }
+            else
+            {
+                $sql = "SELECT * FROM clients WHERE company_name LIKE '%".$clientName."%' OR `name` LIKE '%".$clientName."%' OR `surname` LIKE '%".$clientName."%'";
+            }
+
+            //if type set
             if($type != '')
             {
                 if($type == 1){
@@ -250,12 +259,6 @@ class Clients extends CActiveRecord
                     }
                 }
             }
-            else
-            {
-                if($names)
-                $sql = "SELECT * FROM clients WHERE company_name LIKE '%".$clientName."%' OR `name` LIKE '%".$names[0]."%'";
-            }
-
 
             $con = $this->dbConnection;
 
