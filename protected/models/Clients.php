@@ -237,15 +237,26 @@ class Clients extends CActiveRecord
 
             $result = array();
             //sql statement
-            if($type == 1){
-                $sql = "SELECT * FROM clients WHERE company_name LIKE '%".$companyName."%'";
-            }else{
-                if(count($names) > 1){
-                    $sql = "SELECT * FROM clients WHERE `name` LIKE '%".$names[0]."%' AND `surname` LIKE '%".$names[1]."%'";
+
+            if($type != '')
+            {
+                if($type == 1){
+                    $sql = "SELECT * FROM clients WHERE company_name LIKE '%".$companyName."%'";
                 }else{
-                    $sql = "SELECT * FROM clients WHERE `name` LIKE '%".$names[0]."%' OR `surname` LIKE '%".$names[0]."%'";
+                    if(count($names) > 1){
+                        $sql = "SELECT * FROM clients WHERE `name` LIKE '%".$names[0]."%' AND `surname` LIKE '%".$names[1]."%'";
+                    }else{
+                        $sql = "SELECT * FROM clients WHERE `name` LIKE '%".$names[0]."%' OR `surname` LIKE '%".$names[0]."%'";
+                    }
                 }
             }
+            else
+            {
+                if($names)
+                $sql = "SELECT * FROM clients WHERE company_name LIKE '%".$clientName."%' OR `name` LIKE '%".$names[0]."%'";
+            }
+
+
             $con = $this->dbConnection;
 
             //get all data by query
