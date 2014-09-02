@@ -172,4 +172,25 @@ class OperationsOut extends CActiveRecord
 
         return $total_sum;
     }
+
+    /**
+     * Returns next number for invoice code
+     * @param string $prefix
+     * @return int
+     */
+    public function getLastInvoiceNrByPrefix($prefix = "")
+    {
+        //zero by default
+        $result = 0;
+
+        //statement (get all with this prefix)
+        $sql = "SELECT * FROM ".$this->tableName()." WHERE invoice_code LIKE '%".$prefix."%'";
+        $con = $this->dbConnection;
+        $arr=$con->createCommand($sql)->queryAll(true);
+
+        //new number - count of old + 1
+        $result = count($arr)+1;
+
+        return $result;
+    }
 }

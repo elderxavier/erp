@@ -26,4 +26,25 @@ jQuery(document).ready(function(){
         minLength: 1
     });
 
+    jQuery(".date-picker-cl").datepicker({
+        orientation: "bottom left"
+    });
+
+
+    jQuery(".gen-pdf").click(function(){
+        var href = jQuery(this).attr('href');
+        var id = jQuery(this).data().id;
+
+        jQuery.ajax({ url: href, beforeSend: function(){/*TODO: pre-loader*/}}).done(function(data)
+        {
+            var key = (JSON.parse(data)).key;
+            var link = (JSON.parse(data)).link;
+
+            jQuery('#op_id_'+id).find('.invoice-code').html(key);
+            jQuery(".file-load-frame").attr("src",link);
+        });
+
+        return false;
+    });
+
 });

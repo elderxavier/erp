@@ -87,9 +87,7 @@ class SellController extends Controller
         }
 
         //array for types-select-box
-        $types = ClientTypes::model()->findAllAsArray();
-        $types = array_merge(array('' => $this->labels['select type']), $types);
-
+        $types = array('' => $this->labels['select type']) + ClientTypes::model()->findAllAsArray();
         $this->render('first_step', array('form_mdl' => $form_clients, 'form_srv' => $form_srv, 'client_types' => $types));
     }
 
@@ -183,5 +181,39 @@ class SellController extends Controller
         }
 
         $this->redirect(Yii::app()->createUrl('/sell/invoices'));
+    }
+
+
+    /****************************************** A J A X  S E C T I O N ************************************************/
+
+    /**
+     * Generates invoice-pdf and sets code
+     * @param $id
+     * @throws CHttpException
+     */
+    public function actionGenerate($id)
+    {
+        /* @var $operation OperationsOut */
+
+        if($operation = OperationsOut::model()->findByPk($id))
+        {
+            $invoice_code = $operation->invoice_code;
+
+            if($operation->invoice_code == '')
+            {
+                $prefix = $operation->stock->location->prefix;
+                $invoice_code = $prefix.'_'.$operation->model()->getLastInvoiceNrByPrefix($prefix);
+                $operation->invoice_code = $invoice_code;
+                $operation->update();
+            }
+
+            $ret = array('key' => $invoice_code, 'link' => Yii::app()->createUrl('/pdf/invoice', array('id' => $id)));
+            echo json_encode($ret);
+        }
+        else
+        {
+            throw new CHttpException(404);
+        }
+
     }
 }
