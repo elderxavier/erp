@@ -204,8 +204,11 @@ class SellController extends Controller
 
             if($operation->invoice_code == '')
             {
-                $prefix = $operation->stock->location->prefix;
-                $invoice_code = $prefix.'_'.$operation->model()->getLastInvoiceNrByPrefix($prefix);
+                $current_stock_id = $operation->stock->id;
+                $operations_with_code_count = (int)OperationsOut::model()->countByAttributes(array('stock_id' => $current_stock_id, 'invoice_code' => $current_stock_id));
+                $current_invoice_nr = (string)($operations_with_code_count + 1);
+                $invoice_code = $operation->stock->location->prefix.'_'.str_pad($current_invoice_nr,4,'0',STR_PAD_LEFT);
+
                 $operation->invoice_code = $invoice_code;
                 $operation->invoice_date = time();
                 $operation->update();
