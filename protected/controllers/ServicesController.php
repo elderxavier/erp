@@ -112,7 +112,7 @@ class ServicesController extends Controller
         /* @var $form SrvEditForm*/
 
         //find client from list
-        $client = Clients::model()->findByPk((int)$id);
+        $client = Clients::model()->findByPk($id);
 
         //client
         if($client)

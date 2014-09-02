@@ -11,8 +11,7 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/bootstrap-editable.css')
 $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/tickets_card.css');
 
 $cs->registerScriptFile(Yii::app()->baseUrl.'/js/bootstrap-editable.js',CClientScript::POS_END);
-$cs->registerScriptFile(Yii::app()->baseUrl.'/js/service.js',CClientScript::POS_END);
-//$cs->registerScriptFile(Yii::app()->baseUrl.'/js/sales_first_step.js',CClientScript::POS_END);
+$cs->registerScriptFile(Yii::app()->baseUrl.'/js/sales_first_step.js',CClientScript::POS_END);
 ?>
 
 <?php $this->renderPartial('//partials/_sub_menu',array('links' => $this->GetSubMenu(), 'params' => array())); ?>
@@ -54,9 +53,6 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/service.js',CClientScript::POS_
                             <input type="hidden" value="0" id="open-modal-create-client">
                         <?php endif;?>
                     <?php endif;?>
-
-                    <input type="hidden" value="sell" id="next-controller">
-                    <input type="hidden" value="nextstepcreate" id="next-action">
 
                     <?php $this->renderPartial('_new_client_modal_juridical',array('form_mdl' => $form_mdl)); ?>
                     <?php $this->renderPartial('_new_client_modal_physical',array('form_mdl' => $form_mdl)); ?>

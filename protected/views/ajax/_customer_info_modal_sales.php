@@ -69,7 +69,7 @@
 
 <div class="modal-footer">
     <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->labels['close']; ?><span class="glyphicon glyphicon-thumbs-down"></span></button>
-    <a href="<?php echo Yii::app()->createUrl('/services/continue', array('id' => $client->id)); ?>">
+    <a href="<?php echo Yii::app()->createUrl('/sell/nextstepcreate', array('id' => $client->id)); ?>">
         <button type="button" class="btn btn-primary"><?php echo $this->labels['continue']; ?><span class="glyphicon glyphicon-share-alt"></span></button>
     </a>
 </div><!--/modal-footer -->

@@ -33,7 +33,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/service_continue.js',CClientScr
                         <table width="100%">
                             <tr>
                                 <td width="35%"><?php echo $this->labels['client type']; ?></td>
-                                <td width="65%"><a id="ed_Type" href="#" style="display:inline"><?php echo $this->labels[$client->getTypeName()]; ?></a></td>
+                                <td width="65%"><a id="ed_Type" href="#" style="display:inline"><?php echo $client->typeObj->name; ?></a></td>
                             </tr>
                             <tr>
                                 <td><?php echo $this->labels['name']; ?></td>

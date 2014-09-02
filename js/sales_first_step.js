@@ -56,8 +56,6 @@ $(function() {
         return false;
     });// click on body-holder
 
-
-
 }); // document ready
 
 
@@ -70,7 +68,7 @@ var modalInfo = function(link){
 
 var clientFilter = function(type,value){
     console.log(type,value);
-    $('.body-holder table tbody').load('/ajax/custfilter/',
+    $('.body-holder table tbody').load('/ajax/cusfiltersales/',
         {type: type, name : value}
     );
 };//clientFilter
