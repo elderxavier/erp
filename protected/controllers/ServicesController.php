@@ -90,9 +90,9 @@ class ServicesController extends Controller
         }
 
         //array for types-select-box
-        $start = array('' => $this->labels['select type']);
-        $end = ClientTypes::model()->findAllAsArray();
-        $types = $start + $end;
+        $types = ClientTypes::model()->findAllAsArray();
+        $emptyLabel = array('' => $this->labels['select type']);
+        $types =  $emptyLabel + $types;
 
         //render form
         $this->render('srv_create', array('client_types' => $types, 'form_mdl' => $form, 'form_cli_mdl' => $form_clients));
