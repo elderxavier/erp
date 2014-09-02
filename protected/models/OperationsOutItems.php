@@ -125,9 +125,16 @@ class OperationsOutItems extends CActiveRecord
 		return parent::model($className);
 	}
 
+
+    /**
+     * Calculates sum for all items
+     * @return int
+     */
     public function calculateSum()
     {
         $discount_p = 0;
+        $price = 0;
+
         if($this->discount_percent != '' && $this->discount_percent != null)$discount_p = $this->discount_percent;
 
         if($discount_p > 0)
@@ -136,8 +143,9 @@ class OperationsOutItems extends CActiveRecord
         }
         else
         {
-            //$price = ($this->price - ($this->price);
+            $price = ($this->price * $this->qnt);
         }
 
-    }
+        return $price;
+    }//calculateSum
 }

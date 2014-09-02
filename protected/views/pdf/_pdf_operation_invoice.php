@@ -44,16 +44,16 @@
         <td class="seller-td-bottom" align="center" height="100px" width="45%">
             <b>
                 <?php if($operation->client->type == 1): ?>
-                    <?php echo $this->labels['Ltd']; ?><?php echo $operation->client->company_name; ?><br>
+                    <?php echo $this->labels['Ltd.']; ?> <?php echo $operation->client->company_name; ?><br>
                     <?php echo $this->labels['company code']; ?> <?php echo $operation->client->company_code; ?><br>
                     <?php echo $this->labels['vat code']; ?> <?php echo $operation->client->vat_code; ?><br>
-                    <?php echo $this->labels['address']; ?> <?php echo $operation->client->street; ?><br>
+                    <?php echo $this->labels['address']; ?>:<?php echo $operation->client->street; ?><br>
                     <?php echo $operation->client->city; ?><br>
                 <?php else: ?>
                     <?php echo $operation->client->name.' '.$operation->client->surname; ?><br>
                     <?php echo $this->labels['personal code']; ?> <?php echo $operation->client->personal_code; ?><br>
                     <?php echo $this->labels['vat code']; ?> <?php echo $operation->client->vat_code; ?><br>
-                    <?php echo $this->labels['address']; ?> <?php echo $operation->client->street; ?><br>
+                    <?php echo $this->labels['address']; ?>:<?php echo $operation->client->street; ?><br>
                     <?php echo $operation->client->city; ?><br>
                 <?php endif; ?>
             </b>
@@ -80,50 +80,39 @@
             <td class="prod-td" width="10%"><?php echo $prod_item->qnt; ?></td>
             <td class="prod-td" width="15%"><?php echo $this->centsToPriceStr($prod_item->price); ?></td>
             <td class="prod-td" width="10%"><?php echo $prod_item->discount_percent; ?></td>
-            <td class="prod-td" width="15%"><?php echo '' ?></td>
+            <td class="prod-td" width="15%"><?php echo $this->centsToPriceStr($prod_item->calculateSum()); ?></td>
         </tr>
     <?php endforeach; ?>
-
-    <tr align="center">
-        <td class="prod-td" width="30%">Product</td>
-        <td class="prod-td" width="10%">PROD546</td>
-        <td class="prod-td" width="10%">Kg</td>
-        <td class="prod-td" width="10%">20</td>
-        <td class="prod-td" width="15%">30.99</td>
-        <td class="prod-td" width="10%">10</td>
-        <td class="prod-td" width="15%">1200</td>
-    </tr>
-    <tr align="center">
-        <td class="prod-td" width="30%">Product</td>
-        <td class="prod-td" width="10%">PROD546</td>
-        <td class="prod-td" width="10%">Kg</td>
-        <td class="prod-td" width="10%">20</td>
-        <td class="prod-td" width="15%">30.99</td>
-        <td class="prod-td" width="10%">10</td>
-        <td class="prod-td" width="15%">1200</td>
-    </tr>
+    <?php foreach($operation->operationsOutOptItems as $opt_item): ?>
+        <tr align="center">
+            <td colspan="4" class="prod-td" width="30%"><?php echo $opt_item->optionCard->name ?></td>
+            <td colspan="2" class="prod-td" width="15%"><?php echo $this->centsToPriceStr($opt_item->price); ?></td>
+            <td class="prod-td" width="15%"><?php echo $this->centsToPriceStr($opt_item->price); ?></td>
+        </tr>
+    <?php endforeach ?>
 
     <tr>
         <td colspan="4"></td>
-        <td class="prod-td" colspan="2">Viso:</td>
-        <td class="prod-td" align="center">1200.58</td>
+        <td class="prod-td" colspan="2"><?php echo $this->labels['total']; ?>:</td>
+        <td class="prod-td" align="center"><?php echo $this->centsToPriceStr($operation->calculateTotalPrice(false)); ?></td>
     </tr>
     <tr>
-        <td colspan="2">Apmoketi iki/ Payment due :</td>
-        <td align="center" colspan="2">14/08/2014</td>
-        <td class="prod-td" colspan="2">PVM 21%</td>
-        <td class="prod-td" align="center">1200.58</td>
+        <td colspan="2"><?php echo $this->labels['payment due']; ?>:</td>
+        <td align="center" colspan="2">99/99/9999</td>
+        <td class="prod-td" colspan="2"><?php echo $this->labels['VAT'] ?> <?php echo $operation->vat->percent; ?>%</td>
+        <td class="prod-td" align="center"><?php echo $this->centsToPriceStr($operation->calculateTotalPrice(true)-$operation->calculateTotalPrice(false)); ?></td>
     </tr>
     <tr>
         <td colspan="4"></td>
-        <td class="prod-td" colspan="2">Bendra suma su PVM</td>
-        <td class="prod-td" align="center" colspan="2">2244.20</td>
+        <td class="prod-td" colspan="2"><?php echo $this->labels['with vat']; ?></td>
+        <td class="prod-td" align="center" colspan="2"><?php echo $this->centsToPriceStr($operation->calculateTotalPrice(true)); ?></td>
     </tr>
+
 </table>
 <br>
 <table width="60%">
     <tr>
-        <td align="left" width="50%"><b>Direktorius</b></td>
+        <td align="left" width="50%"><b><?php echo $this->labels['director']; ?></b></td>
         <td align="right" width="50%"><b>Aleksandras Krispinovicius</b></td>
     </tr>
 </table>
