@@ -87,7 +87,10 @@ class SellController extends Controller
         }
 
         //array for types-select-box
-        $types = array('' => $this->labels['select type']) + ClientTypes::model()->findAllAsArray();
+        $start = array('' => $this->labels['select type']);
+        $end = ClientTypes::model()->findAllAsArray();
+        $types = $start + $end;
+
         $this->render('first_step', array('form_mdl' => $form_clients, 'form_srv' => $form_srv, 'client_types' => $types));
     }
 
@@ -214,6 +217,5 @@ class SellController extends Controller
         {
             throw new CHttpException(404);
         }
-
     }
 }
