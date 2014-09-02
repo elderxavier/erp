@@ -58,12 +58,12 @@ class PdfController extends Controller
         if($operation = OperationsOut::model()->findByPk($id))
         {
             //get html for pdf from partial
-            $html = $this->renderPartial('_pdf_warranty_invoice',null,true);
+            $html = $this->renderPartial('_pdf_operation_invoice',array('operation' => $operation),true);
 
             /* @var $pdf mPDF */
-            $pdf = new mPDF('utf-8','A4',11,'Arial',5,5,5,5,5,5,'P');
+            $pdf = new mPDF('utf-8','A4',9,'Arial',5,5,5,5,5,5,'P');
 
-            $stylesheet = file_get_contents('css/style_pdf_warranty.css');
+            $stylesheet = file_get_contents('css/style_pdf_invoice.css');
             $pdf->WriteHTML($stylesheet, 1);
 
             //convert html to pdf

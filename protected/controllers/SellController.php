@@ -207,6 +207,7 @@ class SellController extends Controller
                 $prefix = $operation->stock->location->prefix;
                 $invoice_code = $prefix.'_'.$operation->model()->getLastInvoiceNrByPrefix($prefix);
                 $operation->invoice_code = $invoice_code;
+                $operation->invoice_date = time();
                 $operation->update();
             }
 

@@ -315,177 +315,6 @@ class Clients extends CActiveRecord
 
 
     /**
-     * Takes name's surname's or company-name's start fragment, type of client and returns array of variants
-     * @param string $start
-     * @param int $type
-     * @return array
-     */
-    public function getClientsByNameParts($start,$type)
-    {
-        //declare empty array
-        $result = array();
-
-        //explode string to words
-        $words = explode(" ",$start, 2);
-
-        //if juridical client-type
-        if($type == 1)
-        {
-            $sql = "SELECT * FROM clients WHERE company_name LIKE '%".$start."%'";
-        }
-        //if physical client-type
-        else
-        {
-            //if given two words
-            if(count($words) > 1)
-            {
-                //sql statement
-                $sql = "SELECT * FROM clients WHERE (`name` LIKE '%".$words[0]."%') AND (`surname` LIKE '%".$words[1]."%')";
-            }
-            //if just one word
-            else
-            {
-                //sql statement
-                $sql = "SELECT * FROM clients WHERE name LIKE '%".$start."%'";
-            }
-        }
-
-        //connection
-        $con = Yii::app()->db;
-
-        //get all data by query
-        $data=$con->createCommand($sql)->queryAll();
-
-        //foreach row
-        foreach($data as $row)
-        {
-            //add to result array
-            $result[] = array('label' => $row['type'] == 1 ? $row['company_name']: $row['name'].' '.$row['surname'], 'id' => $row['id']);
-        }
-
-        return $result;
-    }
-
-
-    /**
-     * Takes name, code and founds in base (used for auto-complete in step 1, and for regular table)
-     * @param string $name
-     * @param string $code
-     * @param bool $auto_complete
-     * @return array
-     */
-    public function getByCodeOrName($name = "",$code = "", $auto_complete = true)
-    {
-        $result = array();
-
-        if(!empty($code) || !empty($name))
-        {
-            if(empty($code))
-            {
-                //explode string to words (name and surname probably)
-                $words = explode(" ",$name, 2);
-
-                //sql statement
-                $sql = "SELECT * FROM clients WHERE ((`name` LIKE '%".$words[0]."%' OR `surname` LIKE '%".$words[0]."%') AND (`name` LIKE '%".$words[1]."%' OR  `surname` LIKE '%".$words[1]."%')) OR (`company_name` LIKE '%".$name."%')";
-            }
-            else
-            {
-                $sql = "SELECT * FROM clients WHERE (`company_code` LIKE '%".$code."%') OR (`personal_code` LIKE '%".$code."%')";
-            }
-            //connection
-            $con = Yii::app()->db;
-            //get all data by query
-            $data=$con->createCommand($sql)->queryAll(true);
-            //if data for auto-complete
-            if($auto_complete)
-            {
-                foreach($data as $row)
-                {
-                    //if not searching by code
-                    if(empty($code))
-                    {
-                        //add to result array
-                        $result[] = array('label' => $row['type'] == 1 ? $row['company_name']: $row['name'].' '.$row['surname'], 'id' => $row['id']);
-                    }
-                    //if searching by code
-                    else
-                    {
-                        //add to result array
-                        $result[] = array('label' => $row['type'] == 1 ? $row['company_code'] : $row['personal_code'], 'id' => $row['id']);
-                    }
-                }
-            }
-            //if for regular tables
-            else
-            {
-                $result = $data;
-            }
-        }
-
-        return $result;
-    }
-
-
-    /**
-     * Takes the star-fragments of name and surname, type and returns array of clients
-     * @param string $name
-     * @param int $type
-     * @return array
-     */
-    public function findClientsByNames($name,$type)
-    {
-        //get array of separated-by-spaces words
-        $words = explode(" ",$name,2);
-
-        //if juridical client-type
-        if($type == 1)
-        {
-            $sql = "SELECT * FROM clients WHERE company_name LIKE '%".$name."%'";
-        }
-        //if physical client-type
-        else
-        {
-            //if given two words
-            if(count($words) > 1)
-            {
-                //sql statement
-                $sql = "SELECT * FROM clients WHERE (`name` LIKE '%".$words[0]."%') AND (`surname` LIKE '%".$words[1]."%')";
-            }
-            //if just one word
-            else
-            {
-                //sql statement
-                $sql = "SELECT * FROM clients WHERE name LIKE '%".$name."%'";
-            }
-        }
-
-        //connection
-        $con = Yii::app()->db;
-
-        //get rows if name was not empty by query
-        $name != '' ? $data=$con->createCommand($sql)->queryAll() : $data = array();
-
-        return $data;
-    }
-
-    /**
-     * Returns array of clients
-     * @param string $code
-     * @param int $type
-     * @return array
-     */
-    public function findClientsByCode($code,$type)
-    {
-        $type == 1 ? $sql = "SELECT * FROM clients WHERE company_code LIKE '%".$code."%'" : $sql = "SELECT * FROM clients WHERE personal_code LIKE '%".$code."%'";
-        //connection
-        $con = Yii::app()->db;
-        //get rows if parameter not empty
-        $code != '' ? $data=$con->createCommand($sql)->queryAll() : $data = array();
-
-        return $data;
-    }
-
-    /**
      * Returns one record-row from table by id
      * @param int $id
      * @return mixed
@@ -497,7 +326,7 @@ class Clients extends CActiveRecord
         $data = $con->createCommand($sql)->queryRow();
 
         return $data;
-    }
+    }//getOneRowByPk
 
     /**
      * Returns name or company name
@@ -506,7 +335,7 @@ class Clients extends CActiveRecord
     public function getFullName()
     {
         return $this->type == 1 ? $this->company_name : $this->name.' '.$this->surname;
-    }
+    }//getFullName
 
     /**
      * Returns personal or company code
@@ -515,7 +344,7 @@ class Clients extends CActiveRecord
     public function getActiveCode()
     {
         return $this->type == 1 ? $this->company_code : $this->personal_code;
-    }
+    }//getActiveCode
 
     /**
      * Returns formatted address string
@@ -534,5 +363,5 @@ class Clients extends CActiveRecord
         if(!empty($address_arr)) $address_str = implode($delimiter,$address_arr);
 
         return $address_str;
-    }
+    }//getAddressFormatted
 }
