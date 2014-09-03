@@ -1,94 +1,94 @@
 .card-holder {
-	padding-bottom:10px;}
+    padding-bottom:10px;}
 
 /*--- customer info ----*/
 .table-holder .table > tbody > tr > td {
-	font-size:12px;
-	color:#9b9292;}
-	
+    font-size:12px;
+    color:#9b9292;}
+
 .table-holder .table > tbody > tr > td:nth-child(odd) {
-	width:25%;
-	background-color:#b6b7bb;
-	font-size:12px;
-	text-transform:uppercase;
-	font-weight:400;
-	color:white;}
-	
+    width:25%;
+    background-color:#b6b7bb;
+    font-size:12px;
+    text-transform:uppercase;
+    font-weight:400;
+    color:white;}
+
 #stock-selection > label, #invoice-number > label {
-	font-size:12px;
-	text-transform:uppercase;
-	font-weight:400;
-	color:#9b9292;}
-	
+    font-size:12px;
+    text-transform:uppercase;
+    font-weight:400;
+    color:#9b9292;}
+
 #stock-selection > select, #invoice-number > input {
-	border-radius:0;
-	border:1px solid #c7c8cc;
-	max-width:60%;}	
-	
+    border-radius:0;
+    border:1px solid #c7c8cc;
+    max-width:60%;}
+
 /* --- product list section --*/
 #prod-list thead > tr > th {
-	color:white;
-	font-size:12px;
-	text-transform:uppercase;	
-	background-color:#b6b7bb;
-	font-weight:400;}
-	
+    color:white;
+    font-size:12px;
+    text-transform:uppercase;
+    background-color:#b6b7bb;
+    font-weight:400;}
+
 #prod-list tbody > tr > td {
-	color:#9b9292;
-	font-size:12px;}
-	
+    color:#9b9292;
+    font-size:12px;}
+
 .summ > td {
-	text-transform:uppercase;}
-	
+    text-transform:uppercase;}
+
 #prod-list tbody > tr > td .del-btn {
-	border-radius:0;
-	background-color: #fb8f73;}
-	
+    border-radius:0;
+    background-color: #fb8f73;}
+
 #prod-list tbody > tr > td .del-btn:hover {
     background-color: #cc5c4e;}
-	
+
 .btn-holder	 > button {
-	background-color: #fb8f73;
-	border: none;
-	border-radius: 0;
-	color: white;
-	line-height: 32px;
-	padding: 0 0 0 10px;}
-	
+    background-color: #fb8f73;
+    border: none;
+    border-radius: 0;
+    color: white;
+    line-height: 32px;
+    padding: 0 0 0 10px;}
+
 .btn-holder	 > button:hover {
     background-color: #cc5c4e;}
-	
+
 .btn-holder > button > span:last-child {
     background-color: #cc5c4e;
     display: inline-block;
     line-height: 30px;
     margin-left: 10px;
     padding: 0 7px;	}
-	
-	
+
+
 /*--- filter section ---*/
 .filter-inputs-holder {
-	margin-bottom:20px;}
+    margin-bottom:20px;}
 
 .filter-inputs-holder > input {
-	height:34px;
-	border-radius:0;
-	border:1px solid #c7c8cc;
-	margin-right:1%;
-	width:38%;}
-	
+    height:34px;
+    border-radius:0;
+    border:1px solid #c7c8cc;
+    margin-right:1%;
+    width:38%;}
+
 .filter-inputs-holder > button {
-	width:19%;
-	background-color: #fb8f73;
-	border: none;
-	border-radius: 0;
-	color: white;
-	line-height: 32px;
-	padding: 0 0 0 10px;}
-	
+    width:19%;
+    background-color: #fb8f73;
+    border: none;
+    border-radius: 0;
+    color: white;
+    line-height: 32px;
+    padding: 0 0 0 10px;}
+
 .filter-inputs-holder > button:hover {
     background-color: #cc5c4e;}
-	
+
 .filter-inputs-holder > button > span{
     background-color: #cc5c4e;
     display: block;
@@ -96,96 +96,96 @@
     line-height: 30px;
     margin-left: 10px;
     padding: 0 7px;	}
-	
-/*--- product table holder ----*/  
+
+/*--- product table holder ----*/
 .product-table-holder thead > tr > th {
-	color:white;
-	font-size:12px;
-	text-transform:uppercase;	
-	background-color:#b6b7bb;
-	font-weight:400;}
-	
+    color:white;
+    font-size:12px;
+    text-transform:uppercase;
+    background-color:#b6b7bb;
+    font-weight:400;}
+
 .product-table-holder tbody	{
-	overflow-x:scroll;
-	max-height:300px;}
-	
+    overflow-x:scroll;
+    max-height:300px;}
+
 .product-table-holder tbody > tr > td {
-	color:#9b9292;
-	font-size:12px;}
-	
+    color:#9b9292;
+    font-size:12px;}
+
 .product-table-holder tbody > tr > td .add-prod {
-	background-color: #fb8f73;
-	border: none;
-	border-radius: 0;
-	color:white;
-	text-transform:uppercase;
-	padding: 0 0 0 10px;
-	line-height:22px;}
-	
+    background-color: #fb8f73;
+    border: none;
+    border-radius: 0;
+    color:white;
+    text-transform:uppercase;
+    padding: 0 0 0 10px;
+    line-height:22px;}
+
 .product-table-holder tbody > tr > td .add-prod:hover {
     background-color: #cc5c4e;}
-	
+
 .product-table-holder tbody > tr > td .add-prod > span {
     background-color: #cc5c4e;
     display: inline-block;
-	line-height:22px;
-	padding:0 5px;
-	margin-left:5px;}
-	
-	
-.new-product-btn-holder > button {	
-	background-color: #fb8f73;
-	border: none;
-	border-radius: 0;
-	color: white;
-	line-height: 32px;
-	padding: 0 0 0 10px;}
-	
-.new-product-btn-holder > button:hover {	
+    line-height:22px;
+    padding:0 5px;
+    margin-left:5px;}
+
+
+.new-product-btn-holder > button {
+    background-color: #fb8f73;
+    border: none;
+    border-radius: 0;
+    color: white;
+    line-height: 32px;
+    padding: 0 0 0 10px;}
+
+.new-product-btn-holder > button:hover {
     background-color: #cc5c4e;}
-	
-.new-product-btn-holder > button > span {	
+
+.new-product-btn-holder > button > span {
     background-color: #cc5c4e;
     display: block;
     float: right;
     line-height: 30px;
     margin-left: 10px;
     padding: 0 7px;	}
-	
-	
-	
-	
+
+
+
+
 #prod-list td > input {
-	max-width:50px;} 
-	
+    max-width:50px;}
+
 /*-- modal window create invoive --*/
 #invoiceReady {}
 
 #invoiceReady .modal-dialog > .modal-content {
-	border-radius:0;}
-	
+    border-radius:0;}
+
 #invoiceReady .supl-header > table  tr > td:nth-child(odd) {
-	width:25%;
-	background-color:#b6b7bb;
-	font-size:12px;
-	text-transform:uppercase;
-	font-weight:400;
-	color:white;}
-	
+    width:25%;
+    background-color:#b6b7bb;
+    font-size:12px;
+    text-transform:uppercase;
+    font-weight:400;
+    color:white;}
+
 #invoiceReady .supl-header > table  tr > td {
-	font-size:12px;
-	color:#9b9292;}
-	
+    font-size:12px;
+    color:#9b9292;}
+
 #invoiceReady .modal-prod-list-holder table > thead th {
-	color:white;
-	font-size:12px;
-	text-transform:uppercase;	
-	background-color:#b6b7bb;
-	font-weight:400;}
-	
+    color:white;
+    font-size:12px;
+    text-transform:uppercase;
+    background-color:#b6b7bb;
+    font-weight:400;}
+
 #invoiceReady .modal-prod-list-holder table > tbody td {
-	font-size:12px;
-	color:#9b9292;}
+    font-size:12px;
+    color:#9b9292;}
 
 .modal-footer .btn {
     background-color: #fb8f73;
@@ -194,42 +194,42 @@
     color: white;
     line-height: 26px;
     padding: 0 0 0 10px;}
-	
+
 .modal-footer .btn:hover {
     background-color: #cc5c4e;}
-	
+
 .modal-footer .btn > span {
     background-color: #cc5c4e;
     display: inline-block;
     line-height: 26px;
     margin-left: 10px;
     padding: 0 5px;}
-	
+
 /*-- modal new product --*/
 #newProduct .modal-dialog > .modal-content {
-	border-radius:0;}
-	
+    border-radius:0;}
+
 #newProduct .modal-dialog > .modal-content label {
     color: #9b9292;
     font-size: 12px;
     font-weight: 400;
     text-transform: uppercase;
-}	
-	
+}
+
 #newProduct .modal-dialog > .modal-content input[type="text"] {
     border-radius: 0;
     max-width: 270px;}
-	
+
 #newProduct .modal-dialog > .modal-content select {
     border-radius: 0;
     color: #9b9292;
     max-width: 270px;}
-	
+
 #newProduct .modal-dialog > .modal-content fieldset {
     border: 1px solid #c7c8cc;
     max-width: 170px;
     padding: 0 10px;}
-	
+
 #newProduct .modal-dialog > .modal-content fieldset > legend {
     border: medium none;
     color: #9b9292;

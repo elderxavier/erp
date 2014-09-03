@@ -163,10 +163,11 @@ var createInvoiceFillForm = function(e)
     var inv_code = jQuery("#invoice-code").val();
     var items = jQuery(".prod-item");
     var hidden_field_container = jQuery(".make-invoice-fields");
+    var tbl_body = jQuery(".make-invoice-body");
 
     //clean all containers
     hidden_field_container.html("");
-    jQuery(".make-invoice-body").html('');
+    tbl_body.html('');
 
     //check for emptiness
     if(signer_name == '')
@@ -203,16 +204,20 @@ var createInvoiceFillForm = function(e)
         if(qnt > 0 && !isNaN(qnt))
         {
             //append html
-            jQuery(".make-invoice-body").append(html_tr_info);
-            jQuery(".make-invoice-fields").append(html_fields);
+            tbl_body.append(html_tr_info);
+            //append hidden fields
+            hidden_field_container.append(html_fields);
 
             //increase sum
             total_price += (price * qnt);
         }
 
     });
-    //append hidden fields
-    hidden_field_container.append('<input type="hidden" name="BuyForm[stock]" value="'+stock_id+'"><input type="hidden" name="BuyForm[signer_name]" value="'+signer_name+'"><input type="hidden" name="BuyForm[invoice_code]" value="'+inv_code+'">');
+    //append last hidden fields
+    hidden_field_container.append('<input type="hidden" name="BuyForm[stock]" value="'+stock_id+'">');
+    hidden_field_container.append('<input type="hidden" name="BuyForm[signer_name]" value="'+signer_name+'">');
+    hidden_field_container.append('<input type="hidden" name="BuyForm[invoice_code]" value="'+inv_code+'">');
+
     //write total price
     jQuery("#sum-invoice").html(total_price);
 

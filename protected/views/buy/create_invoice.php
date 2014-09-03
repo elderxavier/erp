@@ -24,7 +24,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/purchase.js',CClientScript::POS
                 <div class="filter-inputs-holder">
                     <input id="prod-name-input" type="text" placeholder="<?php echo $this->labels['product name']; ?>" />
                     <input id="prod-code-input" type="text" placeholder="<?php echo $this->labels['product code']; ?>" />
-                    <button class="filter-btn-do"><?php echo $this->labels['search']; ?></button>
+                    <button class="filter-btn-do"><?php echo $this->labels['search']; ?><span class="glyphicon glyphicon-search text-right"></span></button>
                 </div>
                 <div class="product-table-holder">
                     <table width="100%" class="table table-bordered table-hover">
@@ -89,7 +89,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/purchase.js',CClientScript::POS
                 <label for="stock-selector"><?php echo $this->labels['stock']; ?></label>
                 <select class="form-control" id="stock-selector">
                     <?php foreach($stocks as $stock): ?>
-                        <option value="<?php echo $stock->id; ?>"><?php echo $stock->name; ?></option>
+                        <option value="<?php echo $stock->id; ?>"><?php echo $stock->name; ?> [<?php echo $stock->location->city_name; ?>]</option>
                     <?php endforeach; ?>
                 </select>
             </div>
@@ -142,43 +142,60 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/purchase.js',CClientScript::POS
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <form method="post" action="<?php echo Yii::app()->createUrl('/buy/finishcreation'); ?>">
+
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"><?php echo $this->labels['close']; ?></span></button>
-                                <h4 class="modal-title"><?php echo $this->labels['invoice info']; ?></h4>
+                                <h4 class="modal-title"><?php echo $this->labels['new invoice']; ?></h4>
                             </div><!--/.modal-heafer -->
 
                             <div class="modal-body">
-                                <table class="table table-bordered">
-                                    <thead>
-                                    <tr>
-                                        <th><?php echo $this->labels['product name']; ?></th>
-                                        <th><?php echo $this->labels['product code']; ?></th>
-                                        <th><?php echo $this->labels['units']; ?></th>
-                                        <th><?php echo $this->labels['quantity']; ?></th>
-                                        <th><?php echo $this->labels['price']; ?> (EUR)</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody class="make-invoice-body">
+                                <div class="supl-header">
+                                    <table class="table table-bordered" width="100%">
+                                        <tr>
+                                            <td><?php echo $this->labels['company name']; ?></td>
+                                            <td><?php echo $supplier->company_name; ?></td>
+                                            <td><?php echo $this->labels['phone'] ?></td>
+                                            <td><?php echo $supplier->phone1; ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td><?php echo $this->labels['company code']; ?></td>
+                                            <td><?php echo $supplier->company_code; ?></td>
+                                            <td><?php echo $this->labels['vat code']; ?></td>
+                                            <td><?php echo $supplier->vat_code; ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td><?php echo $this->labels['address']; ?></td>
+                                            <td colspan="3"><?php echo $supplier->country.', '.$supplier->city.', '.$supplier->street; ?></td>
+                                        </tr>
+                                    </table>
+                                </div><!--/supl-header -->
+                                <div class="modal-prod-list-holder">
+                                    <table class="table table-bordered" width="100%">
+                                        <thead>
+                                        <tr>
+                                            <th><?php echo $this->labels['name']; ?></th>
+                                            <th><?php echo $this->labels['product code']; ?></th>
+                                            <th><?php echo $this->labels['units']; ?></th>
+                                            <th><?php echo $this->labels['quantity']; ?></th>
+                                            <th><?php echo $this->labels['price']; ?> (EUR)</th>
+                                        </tr>
+                                        </thead>
 
-                                    </tbody>
-                                    <tfoot>
-                                    <tr>
-                                        <td><?php echo $this->labels['total']; ?> (EUR)</td>
-                                        <td id="sum-invoice" colspan="4"></td>
-                                    </tr>
-                                    </tfoot>
-                                </table>
+                                        <tbody class="make-invoice-body">
+                                        </tbody>
 
+                                    </table>
+                                </div><!--/modal-prod-list-holder -->
                             </div><!--/modal-body -->
 
                             <div class="make-invoice-fields"></div>
 
-                            <input type="hidden" name="BuyForm[supplier_id]" value="<?php echo $supplier->id; ?>">
-
                             <div class="modal-footer">
+                                <input type="hidden" name="BuyForm[supplier_id]" value="<?php echo $supplier->id; ?>">
                                 <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->labels['close']; ?><span class="glyphicon glyphicon-thumbs-down"></span></button>
-                                <button type="submit" class="btn btn-primary"><?php echo $this->labels['save']; ?><span class="glyphicon glyphicon-share-alt"></span></button>
+                                <button type="submit" class="btn btn-primary"><?php echo $this->labels['continue']; ?><span class="glyphicon glyphicon-share-alt"></span></button>
                             </div><!--/modal-footer -->
+
                         </form>
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->
@@ -199,7 +216,6 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/purchase.js',CClientScript::POS
                         </div><!--/.modal-heafer -->
 
                         <?php if($form_mdl->hasErrors()):?><div class="opened-modal-prod"></div><?php endif; ?>
-                        <?php if($filter_by_code != ''):?><input id="filter-by-code" value="<?php echo $filter_by_code; ?>" type="hidden"><?php endif; ?>
 
                         <?php $form=$this->beginWidget('CActiveForm', array('id' =>'add-product-form','enableAjaxValidation'=>false,'htmlOptions'=>array('class'=>'clearfix', 'enctype' => 'multipart/form-data'))); ?>
                         <div class="modal-body">
