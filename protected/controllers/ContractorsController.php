@@ -73,7 +73,7 @@ class ContractorsController extends Controller
                 $client->attributes = $_POST['ClientForm'];
 
                 //set company or not
-                $client->type = $form->company;
+                $form->company == 1 ? $client->type = 1 : $client->type = 2;
 
                 //set creation parameters
                 $client->date_created = time();

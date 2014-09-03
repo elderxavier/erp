@@ -28,17 +28,53 @@ class SellController extends Controller
     /**
      * Render invoice table
      */
-    public function actionInvoices()
+    public function actionInvoices($generate = null)
     {
+        //if should generate pdf
+        if(!empty($generate))
+        {
+            /* @var $operation OperationsOut */
+            $operation = OperationsOut::model()->findByPk($generate); //get operation for code-generation
+
+            //get all operations with generated code (belonging to stock of current operation)
+            $c = new CDbCriteria();
+            $c -> addInCondition('stock_id',array($operation->stock_id));
+            $c -> addNotInCondition('invoice_code',array(''));
+            //count all ops
+            $operations_with_code_count = (int)OperationsOut::model()->count($c);
+            //current number - quantity + 1
+            $current_invoice_nr = (string)($operations_with_code_count + 1);
+            //create code
+            $invoice_code = $operation->stock->location->prefix.'_'.str_pad($current_invoice_nr,4,'0',STR_PAD_LEFT);
+
+            //update operation
+            $operation->invoice_code = $invoice_code;
+            $operation->invoice_date = time();
+            $operation->update();
+        }
+
         //get all sale-invoices
         $invoices = OperationsOut::model()->with('client')->findAll();
 
+        //arrays for select-boxes
         $types = ClientTypes::model()->findAllAsArray();
         $statuses = OperationOutStatuses::model()->findAllAsArray();
         $cities = UserCities::model()->findAllAsArray();
 
-        //render table
-        $this->render('sales_list', array('invoices' => $invoices, 'types' => $types, 'cities' => $cities, 'statuses' => $statuses));
+
+        if(!empty($generate))
+        {
+            //create link PDF generation (if need to generate)
+            $gen_pdf_link = Yii::app()->createUrl('/pdf/invoice', array('id' => $generate));
+
+            //render table
+            $this->render('sales_list', array('invoices' => $invoices, 'types' => $types, 'cities' => $cities, 'statuses' => $statuses, 'gen_link' => $gen_pdf_link));
+        }
+        else
+        {
+            //render table
+            $this->render('sales_list', array('invoices' => $invoices, 'types' => $types, 'cities' => $cities, 'statuses' => $statuses, 'gen_link' => ''));
+        }
     }
 
     /**
@@ -71,7 +107,7 @@ class SellController extends Controller
                 $client->attributes = $_POST['ClientForm'];
 
                 //set company or not
-                $client->type = $form_clients->company;
+                $form_clients->company == 1 ? $client->type = 1 : $client->type = 2;
 
                 //set creation parameters
                 $client->date_created = time();
@@ -188,11 +224,22 @@ class SellController extends Controller
                 }
             }
 
+
+            if(!isset($_POST['generate']))
+            {
+                $this->redirect(Yii::app()->createUrl('/sell/invoices'));
+            }
+            else
+            {
+                $this->redirect(Yii::app()->createUrl('/sell/invoices',array('generate' => $operation->id)));
+            }
+        }
+        else
+        {
+            throw new CHttpException(404);
         }
 
-        $this->redirect(Yii::app()->createUrl('/sell/invoices'));
     }
-
 
     /****************************************** A J A X  S E C T I O N ************************************************/
 

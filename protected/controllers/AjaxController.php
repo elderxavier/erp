@@ -323,14 +323,24 @@ class AjaxController extends Controller {
 
     /**
      * Renders table of products
-     * @param string $name
-     * @param string $code
+     * @throws CHttpException
      */
-    public function actionFindProductsModal($name='',$code='')
+    public function actionFindProductsModal()
     {
-        $rows = ProductCards::model()->findAllByNameOrCode($name,$code);
-        $this->renderPartial('_find_prod_modal',array('rows' => $rows));
-    }
+        $request = Yii::app()->request;
+        if($request->isAjaxRequest){
+
+            $name = $request->getPost('name');
+            $code = $request->getPost('code');
+
+            $rows = ProductCards::model()->findAllByNameOrCode($name,$code);
+            $this->renderPartial('_find_prod_partial',array('rows' => $rows));
+
+        }else{
+            throw new CHttpException(404);
+        }
+
+    }//FindProductsModal
 
     public function actionAutoCompleteProductsName($term = null)
     {

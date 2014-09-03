@@ -252,12 +252,10 @@ var modalInfo = function(link){
 
 var filterProds = function(name, code)
 {
-    jQuery.ajax({ url: '/ajax/FindProductsModal/name/'+name+'/code/'+code, beforeSend: function(){/*TODO: pre-loader*/}}).done(function(data)
-    {
-        jQuery('#filtered-tbl-body').html(data);
-    });
-};
-
+    jQuery('#filtered-tbl-body').load('/ajax/FindProductsModal/',
+        {name:name,code:code}
+    );
+};//filterProds
 
 var addProduct = function(objProd){
     if($('#empty-list').length > 0){

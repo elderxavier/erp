@@ -3,6 +3,7 @@
 <?php /* @var $cities array */ ?>
 <?php /* @var $types array */ ?>
 <?php /* @var $statuses array */ ?>
+<?php /* @var $gen_link string */ ?>
 
 <?php
 $cs = Yii::app()->clientScript;
@@ -88,4 +89,4 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/sales_list.js',CClientScript::P
     </div><!--/modals-holder -->
 
 </div><!--/container -->
-<iframe class="file-load-frame" style="display: none; width: 0; height: 0" src=""></iframe>
+<iframe class="file-load-frame" style="display: none; width: 0; height: 0" src="<?php echo $gen_link; ?>"></iframe>

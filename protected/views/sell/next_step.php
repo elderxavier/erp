@@ -226,7 +226,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/sales_next_step.js',CClientScri
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->labels['close']; ?><span class="glyphicon glyphicon-thumbs-down"></span></button>
-                        <button type="button" class="btn btn-primary"><?php echo $this->labels['continue']; ?><span class="glyphicon glyphicon-print"></span></button>
+                        <button type="submit" name="generate" class="btn btn-primary"><?php echo $this->labels['continue']; ?><span class="glyphicon glyphicon-print"></span></button>
                         <button type="submit" class="btn btn-primary"><?php echo $this->labels['continue']; ?><span class="glyphicon glyphicon-share-alt"></span></button>
                     </div><!--/modal-footer -->
                     </form>
