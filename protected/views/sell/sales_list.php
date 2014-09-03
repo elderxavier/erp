@@ -56,7 +56,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/sales_list.js',CClientScript::P
                 <th><?php echo $this->labels['actions']; ?></th>
             </tr>
             </thead>
-            <tbody>
+            <tbody class="op">
             <?php foreach($invoices as $nr => $operation): ?>
                 <tr id="op_id_<?php echo $operation->id;?>">
                     <td><?php echo $nr + 1; ?></td>

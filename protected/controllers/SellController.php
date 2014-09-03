@@ -148,7 +148,7 @@ class SellController extends Controller
             $operation->vat_id = $vat_id;
             $operation->invoice_code = '';
             $operation->stock_id = $stock_id;
-            $operation->status_id = 0;
+            $operation->status_id = 2; /* 2 - on the way, 1 - delivered */
             $operation->save();
 
             foreach($products as $pr_card_id => $product_item)
@@ -205,7 +205,12 @@ class SellController extends Controller
             if($operation->invoice_code == '')
             {
                 $current_stock_id = $operation->stock->id;
-                $operations_with_code_count = (int)OperationsOut::model()->countByAttributes(array('stock_id' => $current_stock_id, 'invoice_code' => $current_stock_id));
+
+                $c = new CDbCriteria();
+                $c -> addInCondition('stock_id',array($current_stock_id));
+                $c -> addNotInCondition('invoice_code',array(''));
+
+                $operations_with_code_count = (int)OperationsOut::model()->count($c);
                 $current_invoice_nr = (string)($operations_with_code_count + 1);
                 $invoice_code = $operation->stock->location->prefix.'_'.str_pad($current_invoice_nr,4,'0',STR_PAD_LEFT);
 

@@ -1,13 +1,5 @@
 jQuery(document).ready(function(){
 
-    jQuery(".info-open-lnk").click(function(){
-        var href = jQuery(this).attr('href');
-        jQuery.ajax({ url: href, beforeSend: function(){/*TODO: pre-loader*/}}).done(function(data)
-        {
-            jQuery('#modal-operation-info').html(data);
-        });
-    });
-
 
     jQuery("#client-name-inputs").autocomplete({
         source: function( request, response ) {
@@ -31,7 +23,16 @@ jQuery(document).ready(function(){
     });
 
 
-    jQuery(".gen-pdf").click(function(){
+    jQuery(document).on('click','.info-open-lnk',function(){
+        var href = jQuery(this).attr('href');
+        jQuery.ajax({ url: href, beforeSend: function(){/*TODO: pre-loader*/}}).done(function(data)
+        {
+            jQuery('#modal-operation-info').html(data);
+        });
+    });
+
+
+    jQuery(document).on('click','.gen-pdf',function(){
         var href = jQuery(this).attr('href');
         var id = jQuery(this).data().id;
 
