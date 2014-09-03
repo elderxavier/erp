@@ -28,7 +28,7 @@ class SellController extends Controller
     /**
      * Render invoice table
      */
-    public function actionInvoices($generate = null)
+    public function actionInvoices($generate = null,$page = 1)
     {
         //if should generate pdf
         if(!empty($generate))
@@ -53,8 +53,15 @@ class SellController extends Controller
             $operation->update();
         }
 
+        $countAll = $invoices = OperationsOut::model()->with('client')->count();
+        $pages = $this->calculatePageCount($countAll);
+
+        $ci = new CDbCriteria();
+        $ci -> limit = $this->on_one_page;
+        $ci -> offset = ($this->on_one_page) * ($page - 1);
+
         //get all sale-invoices
-        $invoices = OperationsOut::model()->with('client')->findAll();
+        $invoices = OperationsOut::model()->with('client')->findAll($ci);
 
         //arrays for select-boxes
         $types = ClientTypes::model()->findAllAsArray();
@@ -68,12 +75,12 @@ class SellController extends Controller
             $gen_pdf_link = Yii::app()->createUrl('/pdf/invoice', array('id' => $generate));
 
             //render table
-            $this->render('sales_list', array('invoices' => $invoices, 'types' => $types, 'cities' => $cities, 'statuses' => $statuses, 'gen_link' => $gen_pdf_link));
+            $this->render('sales_list', array('invoices' => $invoices, 'types' => $types, 'cities' => $cities, 'statuses' => $statuses, 'gen_link' => $gen_pdf_link, 'pages' => $pages, 'current_page' => $page));
         }
         else
         {
             //render table
-            $this->render('sales_list', array('invoices' => $invoices, 'types' => $types, 'cities' => $cities, 'statuses' => $statuses, 'gen_link' => ''));
+            $this->render('sales_list', array('invoices' => $invoices, 'types' => $types, 'cities' => $cities, 'statuses' => $statuses, 'gen_link' => '', 'pages' => $pages, 'current_page' => $page));
         }
     }
 
@@ -283,6 +290,24 @@ class SellController extends Controller
     }//actionGenerate
 
 
+    public function actionAjaxPages()
+    {
+        //get all params from post(or get)
+        $client_name = Yii::app()->request->getParam('cli_name', '');
+        $client_type_id = Yii::app()->request->getParam('cli_type_id',null);
+        $invoice_code = Yii::app()->request->getParam('in_code','');
+        $operation_status_id = Yii::app()->request->getParam('in_status_id','');
+        $stock_city_id = Yii::app()->request->getParam('stock_city_id','');
+        $date_from_str = Yii::app()->request->getParam('date_from_str','');
+        $date_to_str = Yii::app()->request->getParam('date_to_str','');
+
+        $c = new CDbCriteria();
+        $c = $this->addAllFilterCriterion($c,$client_name,$client_type_id,$invoice_code,$operation_status_id,$stock_city_id,$date_from_str,$date_to_str);
+        $count_all = OperationsOut::model()->count($c);
+        $pages_count = $this->calculatePageCount($count_all);
+
+        $this->renderPartial('_ajax_pages',array('pages' => $pages_count));
+    }
 
     /**
      * Filter table ajax
@@ -298,8 +323,37 @@ class SellController extends Controller
         $date_from_str = Yii::app()->request->getParam('date_from_str','');
         $date_to_str = Yii::app()->request->getParam('date_to_str','');
 
+        $page = Yii::app()->request->getParam('page',1);
+
         //new criteria for filtering
         $c = new CDbCriteria();
+        $c = $this->addAllFilterCriterion($c,$client_name,$client_type_id,$invoice_code,$operation_status_id,$stock_city_id,$date_from_str,$date_to_str);
+        $c -> limit = $this->on_one_page;
+        $c -> offset = ($this->on_one_page * ($page - 1));
+
+        //get all operations
+        $operations = OperationsOut::model()->findAll($c);
+
+        //render partial
+        $this->renderPartial('_ajax_table_filtering',array('operations' => $operations));
+
+    }//FilterTable
+
+    /**
+     * Adds all filtering params to criteria
+     * @param CDbCriteria $c
+     * @param string $client_name
+     * @param int $client_type_id
+     * @param string $invoice_code
+     * @param int $operation_status_id
+     * @param int $stock_city_id
+     * @param string $date_from_str
+     * @param string $date_to_str
+     * @return CDbCriteria
+     */
+    function addAllFilterCriterion($c,$client_name,$client_type_id,$invoice_code,$operation_status_id,$stock_city_id,$date_from_str,$date_to_str)
+    {
+        /* @var $c CDbCriteria */
 
         //if has invoice code
         if(!empty($invoice_code))
@@ -378,11 +432,6 @@ class SellController extends Controller
             $c -> addBetweenCondition('date_created',$time_from,$time_to); //search between these times
         }
 
-        //get all operations
-        $operations = OperationsOut::model()->findAll($c);
-
-        //render partial
-        $this->renderPartial('_ajax_table_filtering',array('operations' => $operations));
-
-    }//FilterTable
+        return $c;
+    }
 }

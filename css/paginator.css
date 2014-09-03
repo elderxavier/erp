@@ -1,0 +1,18 @@
+.paginator
+{
+    display: block;
+    list-style: none;
+    padding: 0;
+}
+.paginator li
+{
+    display: block;
+    float: left;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.paginator > .current-page
+{
+    font-weight: bold;
+}

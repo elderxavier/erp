@@ -4,10 +4,13 @@
 <?php /* @var $types array */ ?>
 <?php /* @var $statuses array */ ?>
 <?php /* @var $gen_link string */ ?>
+<?php /* @var $pages int */ ?>
+<?php /* @var $current_page int */ ?>
 
 <?php
 $cs = Yii::app()->clientScript;
 $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/invoice_list.css');
+$cs->registerCssFile(Yii::app()->request->baseUrl.'/css/paginator.css');
 $cs->registerScriptFile(Yii::app()->baseUrl.'/js/sales_list.js',CClientScript::POS_END);
 ?>
 
@@ -75,6 +78,14 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/sales_list.js',CClientScript::P
             </tbody>
         </table>
     </div><!--/table-holder -->
+
+    <div class="pages-holder">
+        <ul class="paginator">
+            <?php for($i = 0; $i < $pages; $i++): ?>
+                <li <?php if(($i+1) == $current_page): ?> class="current-page" <?php endif; ?>><?php echo ($i+1) ?></li>
+            <?php endfor; ?>
+        </ul>
+    </div>
 
     <div class="modals-holder">
         <div class="invoice-ready">

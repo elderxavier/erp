@@ -31,6 +31,7 @@ class Controller extends CController
     //default titles of site pages
     public $site_title = "ERP";
     public $page_title = "default";
+    public $on_one_page = 4;
 
     /**
      * Initialization of controller
@@ -93,6 +94,18 @@ class Controller extends CController
         }
 
         return $price;
+    }
+
+    /**
+     * Calculates nu,ber of pages
+     * @param $onOnePage
+     * @param int $totalRecords
+     * @return int
+     */
+    public function calculatePageCount($totalRecords,$onOnePage = null)
+    {
+        if($onOnePage === null)$onOnePage = $this->on_one_page;
+        return (int)ceil($totalRecords/$onOnePage);
     }
 
     /**
