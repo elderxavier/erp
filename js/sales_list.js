@@ -31,6 +31,11 @@ jQuery(document).ready(function(){
         });
     });
 
+    jQuery(document).on('click','.filter-button-top',function(){
+        filter();
+        return false;
+    });
+
 
     jQuery(document).on('click','.gen-pdf',function(){
         var href = jQuery(this).attr('href');
@@ -49,3 +54,31 @@ jQuery(document).ready(function(){
     });
 
 });
+
+/********************************************************************************************************************/
+
+var filter = function()
+{
+    var client_name = jQuery('#client-name-inputs').val();
+    var invoice_code = jQuery('#invoice-code-input').val();
+    var client_type = jQuery('#cli-type').val();
+    var city = jQuery('#city-selector').val();
+    var delivery_status = jQuery("#delivery-status").val();
+    var date_from = jQuery("#date-from").val();
+    var date_to = jQuery("#date-to").val();
+
+    var filter_url = jQuery(".filter-form").attr('action');
+
+    var params =
+    {
+        cli_name:client_name,
+        cli_type_id:client_type,
+        in_code:invoice_code,
+        in_status_id:delivery_status,
+        stock_city_id:city,
+        date_from_str:date_from,
+        date_to_str:date_to
+    };
+
+    jQuery(".ops-tbl-filter").load(filter_url,params);
+};

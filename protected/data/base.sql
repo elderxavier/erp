@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50538
 File Encoding         : 65001
 
-Date: 2014-09-01 16:30:14
+Date: 2014-09-03 13:19:20
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -59,9 +59,9 @@ CREATE TABLE `clients` (
   KEY `first_invoice_id` (`first_invoice_id`),
   KEY `last_invoice_id` (`last_invoice_id`),
   KEY `type` (`type`),
-  CONSTRAINT `clients_ibfk_3` FOREIGN KEY (`type`) REFERENCES `client_types` (`id`),
   CONSTRAINT `clients_ibfk_1` FOREIGN KEY (`first_invoice_id`) REFERENCES `operations_out` (`id`),
-  CONSTRAINT `clients_ibfk_2` FOREIGN KEY (`last_invoice_id`) REFERENCES `operations_out` (`id`)
+  CONSTRAINT `clients_ibfk_2` FOREIGN KEY (`last_invoice_id`) REFERENCES `operations_out` (`id`),
+  CONSTRAINT `clients_ibfk_3` FOREIGN KEY (`type`) REFERENCES `client_types` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -109,13 +109,15 @@ CREATE TABLE `operations_in` (
   KEY `payment_method_id` (`payment_method_id`),
   CONSTRAINT `operations_in_ibfk_1` FOREIGN KEY (`supplier_id`) REFERENCES `suppliers` (`id`),
   CONSTRAINT `operations_in_ibfk_2` FOREIGN KEY (`payment_method_id`) REFERENCES `payment_methods` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of operations_in
 -- ----------------------------
 INSERT INTO `operations_in` VALUES ('10', '9', 'INVCODE8974', null, null, null, null, 'Some Signer', '1408959961', '1408959961', null);
 INSERT INTO `operations_in` VALUES ('11', '10', 'INV7896465', null, null, null, null, 'Tester', '1409308831', '1409308831', null);
+INSERT INTO `operations_in` VALUES ('12', '10', 'INC5678645516', null, null, null, null, 'Igor Strelkov', '1409728901', '1409728901', null);
+INSERT INTO `operations_in` VALUES ('13', '9', 'IV486465SDF', null, null, null, null, 'Igor Strelkov', '1409728965', '1409728965', null);
 
 -- ----------------------------
 -- Table structure for `operations_in_items`
@@ -138,7 +140,7 @@ CREATE TABLE `operations_in_items` (
   CONSTRAINT `operations_in_items_ibfk_2` FOREIGN KEY (`product_card_id`) REFERENCES `product_cards` (`id`),
   CONSTRAINT `operations_in_items_ibfk_3` FOREIGN KEY (`stock_id`) REFERENCES `stocks` (`id`),
   CONSTRAINT `operations_in_items_ibfk_4` FOREIGN KEY (`operation_id`) REFERENCES `operations_in` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of operations_in_items
@@ -147,6 +149,9 @@ INSERT INTO `operations_in_items` VALUES ('2', '9', '10', '5', '1408959961', '21
 INSERT INTO `operations_in_items` VALUES ('3', '10', '10', '10', '1408959961', '15000', '1', '10', '9');
 INSERT INTO `operations_in_items` VALUES ('4', '11', '11', '2', '1409308831', '4000', '3', '2', '10');
 INSERT INTO `operations_in_items` VALUES ('5', '12', '11', '2', '1409308831', '3000', '3', '2', '10');
+INSERT INTO `operations_in_items` VALUES ('6', '11', '12', '4', '1409728901', '23000', '1', '4', '10');
+INSERT INTO `operations_in_items` VALUES ('7', '9', '13', '4', '1409728965', '20000', '1', '5', '9');
+INSERT INTO `operations_in_items` VALUES ('8', '10', '13', '4', '1409728965', '18000', '1', '9', '9');
 
 -- ----------------------------
 -- Table structure for `operations_out`
@@ -163,7 +168,7 @@ CREATE TABLE `operations_out` (
   `date_changed` int(11) DEFAULT NULL,
   `user_modified_by` int(11) DEFAULT NULL,
   `vat_id` int(11) DEFAULT NULL,
-  `document_id` int(11) DEFAULT NULL,
+  `invoice_date` int(11) DEFAULT NULL,
   `stock_id` int(11) DEFAULT NULL,
   `status_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -177,12 +182,13 @@ CREATE TABLE `operations_out` (
   CONSTRAINT `operations_out_ibfk_3` FOREIGN KEY (`vat_id`) REFERENCES `vat` (`id`),
   CONSTRAINT `operations_out_ibfk_4` FOREIGN KEY (`stock_id`) REFERENCES `stocks` (`id`),
   CONSTRAINT `operations_out_ibfk_5` FOREIGN KEY (`status_id`) REFERENCES `operation_out_statuses` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of operations_out
 -- ----------------------------
-INSERT INTO `operations_out` VALUES ('3', '', '1409314430', null, '', '13', '1409314430', '1409314430', '1', '1', null, '1', '1');
+INSERT INTO `operations_out` VALUES ('3', 'VLN_0001', '1409314430', null, '', '13', '1409314430', '1409314430', '1', '1', '1409668778', '1', '1');
+INSERT INTO `operations_out` VALUES ('5', 'VLN_0002', '1409729253', null, '', '12', '1409729253', '1409729253', '1', '1', '1409729591', '1', '2');
 
 -- ----------------------------
 -- Table structure for `operations_out_items`
@@ -206,13 +212,16 @@ CREATE TABLE `operations_out_items` (
   CONSTRAINT `operations_out_items_ibfk_2` FOREIGN KEY (`product_card_id`) REFERENCES `product_cards` (`id`),
   CONSTRAINT `operations_out_items_ibfk_3` FOREIGN KEY (`stock_id`) REFERENCES `stocks` (`id`),
   CONSTRAINT `operations_out_items_ibfk_4` FOREIGN KEY (`operation_id`) REFERENCES `operations_out` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of operations_out_items
 -- ----------------------------
 INSERT INTO `operations_out_items` VALUES ('3', '9', '3', '2', null, '45000', '1', '1', '13', '40');
 INSERT INTO `operations_out_items` VALUES ('4', '10', '3', '3', null, '35000', '1', '5', '13', '40');
+INSERT INTO `operations_out_items` VALUES ('5', '9', '5', '3', null, '30000', '1', '2', '12', '10');
+INSERT INTO `operations_out_items` VALUES ('6', '10', '5', '5', null, '28000', '1', '4', '12', '10');
+INSERT INTO `operations_out_items` VALUES ('7', '11', '5', '2', null, '45000', '1', '2', '12', '15');
 
 -- ----------------------------
 -- Table structure for `operations_out_opt_items`
@@ -232,12 +241,13 @@ CREATE TABLE `operations_out_opt_items` (
   KEY `operation_id` (`operation_id`),
   CONSTRAINT `operations_out_opt_items_ibfk_2` FOREIGN KEY (`option_card_id`) REFERENCES `option_cards` (`id`),
   CONSTRAINT `operations_out_opt_items_ibfk_3` FOREIGN KEY (`operation_id`) REFERENCES `operations_out` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of operations_out_opt_items
 -- ----------------------------
 INSERT INTO `operations_out_opt_items` VALUES ('2', '3', '1', '1', '10000', null, '13', null);
+INSERT INTO `operations_out_opt_items` VALUES ('3', '5', '1', '1', '5000', null, '12', null);
 
 -- ----------------------------
 -- Table structure for `operations_srv_items`
@@ -420,15 +430,16 @@ CREATE TABLE `product_in_stock` (
   KEY `stock_id` (`stock_id`),
   CONSTRAINT `product_in_stock_ibfk_1` FOREIGN KEY (`product_card_id`) REFERENCES `product_cards` (`id`),
   CONSTRAINT `product_in_stock_ibfk_2` FOREIGN KEY (`stock_id`) REFERENCES `stocks` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of product_in_stock
 -- ----------------------------
-INSERT INTO `product_in_stock` VALUES ('1', '1', '9', '1', '1409314430', '1408959961');
-INSERT INTO `product_in_stock` VALUES ('2', '1', '10', '5', '1409314430', '1408959961');
+INSERT INTO `product_in_stock` VALUES ('1', '1', '9', '2', '1409729253', '1408959961');
+INSERT INTO `product_in_stock` VALUES ('2', '1', '10', '4', '1409729253', '1408959961');
 INSERT INTO `product_in_stock` VALUES ('3', '3', '11', '2', '1409308831', '1409308831');
 INSERT INTO `product_in_stock` VALUES ('4', '3', '12', '2', '1409308831', '1409308831');
+INSERT INTO `product_in_stock` VALUES ('5', '1', '11', '2', '1409729253', '1409728901');
 
 -- ----------------------------
 -- Table structure for `rights`

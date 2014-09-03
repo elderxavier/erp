@@ -14,30 +14,30 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/sales_list.js',CClientScript::P
 
 <div class="container-fluid  main-content-holder content-wrapper">
     <div class="row filter-holder">
-        <form>
+        <form class="filter-form" method="get" action="<?php echo Yii::app()->createUrl('/sell/filtertable'); ?>">
             <input type="text" id="client-name-inputs" placeholder="<?php echo $this->labels['client name']; ?>">
-            <input type="text" placeholder="<?php echo $this->labels['invoice code']; ?>">
+            <input type="text" id="invoice-code-input" placeholder="<?php echo $this->labels['invoice code']; ?>">
             <select id="cli-type">
                 <option value=""><?php echo $this->labels['client type']; ?></option>
                 <?php foreach($types as $id => $type): ?>
                     <option value="<?php echo $id; ?>"><?php echo $type; ?></option>
                 <?php endforeach;?>
             </select>
-            <select>
+            <select id="city-selector">
                 <option value=""><?php echo $this->labels['city']; ?></option>
                 <?php foreach($cities as $id => $city): ?>
                     <option value="<?php echo $id; ?>"><?php echo $city; ?></option>
                 <?php endforeach;?>
             </select>
-            <input class="date-picker-cl" type="text" placeholder="<?php echo $this->labels['date from']; ?>">
-            <input class="date-picker-cl" type="text" placeholder="<?php echo $this->labels['date to']; ?>">
-            <select>
+            <input id="date-from" class="date-picker-cl" type="text" placeholder="<?php echo $this->labels['date from']; ?>">
+            <input id="date-to" class="date-picker-cl" type="text" placeholder="<?php echo $this->labels['date to']; ?>">
+            <select id="delivery-status">
                 <option value=""><?php echo $this->labels['delivery status']; ?></option>
                 <?php foreach($statuses as $id => $status): ?>
                     <option value="<?php echo $id; ?>"><?php echo $status; ?></option>
                 <?php endforeach;?>
             </select>
-            <button><?php echo $this->labels['search']; ?><span class="glyphicon glyphicon-search"></span></button>
+            <button class="filter-button-top"><?php echo $this->labels['search']; ?><span class="glyphicon glyphicon-search"></span></button>
         </form>
     </div><!--/filter-holder -->
     <div class="row table-holder">
@@ -56,7 +56,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/sales_list.js',CClientScript::P
                 <th><?php echo $this->labels['actions']; ?></th>
             </tr>
             </thead>
-            <tbody class="op">
+            <tbody class="ops-tbl-filter">
             <?php foreach($invoices as $nr => $operation): ?>
                 <tr id="op_id_<?php echo $operation->id;?>">
                     <td><?php echo $nr + 1; ?></td>

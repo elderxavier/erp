@@ -380,12 +380,18 @@ class AjaxController extends Controller {
         }
     }
 
-    public function actionFilterByStockCodeAndName($name = '',$code = '',$stock = '')
+    public function actionFilterByStockCodeAndName()
     {
-        if(Yii::app()->request->isAjaxRequest)
+        $request = Yii::app()->request;
+        if($request->isAjaxRequest)
         {
+            $name = $request->getPost('name');
+            $code = $request->getPost('code');
+            $stock = $request->getPost('stock');
+
             $result = ProductCards::model()->findAllByNameOrCodeAndStock($name,$code,$stock);
-            $this->renderPartial('_filtered_for_sales',array('items' => $result));
+            echo $this->renderPartial('_filtered_for_sales',array('items' => $result),true);
+
         }
         else
         {

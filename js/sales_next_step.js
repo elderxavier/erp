@@ -98,6 +98,7 @@ $(function(){
     });
 
     jQuery("#filter-button").click(function(){
+
         filterByNameCodeStock($("#prod-name").val(),$("#prod-code").val(),$("#stock-selector").val());
     });
 
@@ -175,10 +176,10 @@ var loadFormByAddedItems = function()
 
 var filterByNameCodeStock = function(name,code,stock)
 {
-    jQuery.ajax({ url: '/ajax/filterbystockcodeandname/name/'+name+'/code/'+code+'/stock/'+stock, beforeSend: function(){/*TODO: pre-loader*/}}).done(function(data)
-    {
-        jQuery('#filtered-body').html(data);
-    });
+    jQuery('#filtered-body').load('/ajax/filterbystockcodeandname/',
+        {name:name,code:code,stock:stock}
+    );
+
 };//filterByNameCodeStock
 
 
