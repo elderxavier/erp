@@ -288,28 +288,64 @@ class Clients extends CActiveRecord
     public function getClients($clientName = null,$type = null){
         $arrRow = array();
 
-        if(!empty($clientName)){
-
+        //if got client name
+        if(!empty($clientName))
+        {
             $companyName = trim($clientName);
             $names = explode(" ",$clientName,2);
 
-            //sql statement
-            if($type == 1){
-                $sql = "SELECT * FROM clients WHERE company_name LIKE '%".$companyName."%'";
-            }else{
-                if(count($names) > 1){
-                    $sql = "SELECT * FROM clients WHERE `name` LIKE '%".$names[0]."%' AND `surname` LIKE '%".$names[1]."%'";
-                }else{
-                    $sql = "SELECT * FROM clients WHERE `name` LIKE '%".$names[0]."%' OR `surname` LIKE '%".$names[0]."%'";
+            //find all by default(all types)
+            if(count($names) > 1)
+            {
+                $sql = "SELECT * FROM clients WHERE company_name LIKE '%".$clientName."%' OR (`name` LIKE '%".$names[0]."%' AND `surname` LIKE '%".$names[1]."%')";
+            }
+            else
+            {
+                $sql = "SELECT * FROM clients WHERE company_name LIKE '%".$clientName."%' OR `name` LIKE '%".$clientName."%' OR `surname` LIKE '%".$clientName."%'";
+            }
+
+            //if type set
+            if($type != '')
+            {
+                //fur juridical
+                if($type == 1)
+                {
+                    $sql = "SELECT * FROM clients WHERE company_name LIKE '%".$companyName."%'";
+                }
+                //for physical
+                else
+                {
+                    if(count($names) > 1)
+                    {
+                        $sql = "SELECT * FROM clients WHERE `name` LIKE '%".$names[0]."%' AND `surname` LIKE '%".$names[1]."%'";
+                    }
+                    else
+                    {
+                        $sql = "SELECT * FROM clients WHERE `name` LIKE '%".$names[0]."%' OR `surname` LIKE '%".$names[0]."%'";
+                    }
                 }
             }
-            $con = $this->dbConnection;
-
-            $data=$con->createCommand($sql)->query();
-            foreach($data as $row){
-                $arrRow[] = $row;
+        }
+        //if have not client name
+        else
+        {
+            if(!empty($type))
+            {
+                $sql = "SELECT * FROM clients WHERE type LIKE '%".$type."%'";
+            }
+            else
+            {
+                $sql = "SELECT * FROM clients";
             }
         }
+
+        $con = $this->dbConnection;
+
+        $data=$con->createCommand($sql)->query();
+        foreach($data as $row){
+            $arrRow[] = $row;
+        }
+
         return $arrRow;
     }//getClients
 

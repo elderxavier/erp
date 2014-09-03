@@ -237,7 +237,7 @@ class SellController extends Controller
     {
         //get all params from post(or get)
         $client_name = Yii::app()->request->getParam('cli_name', '');
-        $client_type_id = Yii::app()->request->getParam('client_type_id',null);
+        $client_type_id = Yii::app()->request->getParam('cli_type_id',null);
         $invoice_code = Yii::app()->request->getParam('in_code','');
         $operation_status_id = Yii::app()->request->getParam('in_status_id','');
         $stock_city_id = Yii::app()->request->getParam('stock_city_id','');
@@ -254,28 +254,19 @@ class SellController extends Controller
             $c -> addInCondition('invoice_code',array($invoice_code));
         }
 
-        //if have client-name
-        if(!empty($client_name))
+
+        //get all client-rows from base by name and type (where name, or company name like $client_name parameter)
+        $clients = Clients::model()->getClients($client_name,$client_type_id);
+        //declare empty array for client's ids
+        $found_ids = array();
+        //fill array of client ids
+        foreach($clients as $client_row)
         {
-            //get all client-rows from base by name and type (where name, or company name like $client_name parameter)
-            $clients = Clients::model()->getClients($client_name,$client_type_id);
-
-            //if found some clients
-            if(count($clients) > 0)
-            {
-                //declare empty array for client's ids
-                $found_ids = array();
-
-                //fill array of client ids
-                foreach($clients as $client_row)
-                {
-                    $found_ids[] = $client_row['id'];
-                }
-
-                //add ids to condition (search by client ids)
-                $c -> addInCondition('client_id',$found_ids);
-            }
+            $found_ids[] = $client_row['id'];
         }
+        //add ids to condition (search by client ids)
+        $c -> addInCondition('client_id',$found_ids);
+        
 
         //if operation status set
         if(!empty($operation_status_id))
