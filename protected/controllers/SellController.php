@@ -123,7 +123,7 @@ class SellController extends Controller
     }
 
 
-    public function actionFinalStep($generate = false)
+    public function actionFinalStep()
     {
         /* @var $stock Stocks */
         /* @var $client Clients */
@@ -151,36 +151,43 @@ class SellController extends Controller
             $operation->status_id = 2; /* 2 - on the way, 1 - delivered */
             $operation->save();
 
-            foreach($products as $pr_card_id => $product_item)
+            if(!empty($products))
             {
-                if($product_item['qnt'] > 0 && $product_item['price'] > 0 && is_numeric($product_item['price']))
+                foreach($products as $pr_card_id => $product_item)
                 {
-                    $item_prod = new OperationsOutItems();
-                    $item_prod -> price = $this->priceStrToCents($product_item['price']);
-                    $item_prod -> discount_percent = $product_item['discount'];
-                    $item_prod -> qnt = $product_item['qnt'];
-                    $item_prod -> product_card_id = $pr_card_id;
-                    $item_prod -> operation_id = $operation->id;
-                    $item_prod -> stock_id = $stock_id;
-                    $item_prod -> stock_qnt_after_op = Stocks::model()->removeFromStockAndGetCount($pr_card_id,$product_item['qnt'],$stock_id);
-                    $item_prod -> client_id = $client_id;
-                    $item_prod -> save();
+                    if($product_item['qnt'] > 0 && $product_item['price'] > 0 && is_numeric($product_item['price']))
+                    {
+                        $item_prod = new OperationsOutItems();
+                        $item_prod -> price = $this->priceStrToCents($product_item['price']);
+                        $item_prod -> discount_percent = $product_item['discount'];
+                        $item_prod -> qnt = $product_item['qnt'];
+                        $item_prod -> product_card_id = $pr_card_id;
+                        $item_prod -> operation_id = $operation->id;
+                        $item_prod -> stock_id = $stock_id;
+                        $item_prod -> stock_qnt_after_op = Stocks::model()->removeFromStockAndGetCount($pr_card_id,$product_item['qnt'],$stock_id);
+                        $item_prod -> client_id = $client_id;
+                        $item_prod -> save();
+                    }
                 }
             }
 
-            foreach($options as $op_card_id => $option_item)
+            if(!empty($options))
             {
-                if($option_item['price'] > 0 && is_numeric($option_item['price']))
+                foreach($options as $op_card_id => $option_item)
                 {
-                    $item_option = new OperationsOutOptItems();
-                    $item_option -> operation_id = $operation->id;
-                    $item_option ->option_card_id = $op_card_id;
-                    $item_option -> price = $this->priceStrToCents($option_item['price']);
-                    $item_option -> qnt = 1;
-                    $item_option -> client_id = $client_id;
-                    $item_option -> save();
+                    if($option_item['price'] > 0 && is_numeric($option_item['price']))
+                    {
+                        $item_option = new OperationsOutOptItems();
+                        $item_option -> operation_id = $operation->id;
+                        $item_option ->option_card_id = $op_card_id;
+                        $item_option -> price = $this->priceStrToCents($option_item['price']);
+                        $item_option -> qnt = 1;
+                        $item_option -> client_id = $client_id;
+                        $item_option -> save();
+                    }
                 }
             }
+
         }
 
         $this->redirect(Yii::app()->createUrl('/sell/invoices'));
@@ -266,7 +273,7 @@ class SellController extends Controller
         }
         //add ids to condition (search by client ids)
         $c -> addInCondition('client_id',$found_ids);
-        
+
 
         //if operation status set
         if(!empty($operation_status_id))
