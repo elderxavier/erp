@@ -148,7 +148,8 @@ class ProductCards extends CActiveRecord
         $data = array();
         $sql = "SELECT * FROM ".$this->tableName();
         if($name != '' && $code == '') $sql = "SELECT * FROM ".$this->tableName()." WHERE product_name LIKE '%".$name."%'";
-        elseif($code != '') $sql = "SELECT * FROM ".$this->tableName()." WHERE product_code LIKE '%".$code."%'";
+        elseif($code != '' && $name == '') $sql = "SELECT * FROM ".$this->tableName()." WHERE product_code LIKE '%".$code."%'";
+        elseif($code != '' && $name != '') $sql = "SELECT * FROM ".$this->tableName()." WHERE product_code LIKE '%".$code."%' AND product_name LIKE '%".$name."%'";
 
         if($name != '' || $code != '')
         {

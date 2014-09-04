@@ -426,7 +426,7 @@ class SellController extends Controller
         {
             $date_from_arr = explode('/',$date_from_str); //explode string to get numbers
             $time_from = mktime(0,0,0,(int)$date_from_arr[0],(int)$date_from_arr[1],(int)$date_from_arr[2]); // make time
-            $time_to = 9999999999; //maximal time ('date-to' not set)
+            $time_to = time();
             $c -> addBetweenCondition('date_created',$time_from,$time_to); //search between these times
         }
 
