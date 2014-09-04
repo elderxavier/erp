@@ -10,18 +10,25 @@
  * @property string $product_code
  * @property string $description
  * @property integer $default_price
- * @property string $units
+ * @property integer $measure_units_id
  * @property string $additional_params
  * @property integer $status
  * @property integer $date_created
  * @property integer $date_changed
  * @property integer $user_modified_by
+ * @property integer $weight
+ * @property integer $weight_net
+ * @property integer $height
+ * @property integer $length
+ * @property integer $width
+ * @property integer $size_units_id
  *
  * The followings are the available model relations:
  * @property OperationsInItems[] $operationsInItems
  * @property OperationsOutItems[] $operationsOutItems
- * @property OperationsOutOptItems[] $operationsOutOptItems
+ * @property SizeUnits $sizeUnits
  * @property ProductCardCategories $category
+ * @property MeasureUnits $measureUnits
  * @property ProductFiles[] $productFiles
  * @property ProductInStock[] $productInStocks
  */
@@ -43,11 +50,11 @@ class ProductCards extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('category_id, default_price, status, date_created, date_changed, user_modified_by', 'numerical', 'integerOnly'=>true),
-			array('product_name, product_code, description, units, additional_params', 'safe'),
+			array('category_id, default_price, measure_units_id, status, date_created, date_changed, user_modified_by, weight, weight_net, height, length, width, size_units_id', 'numerical', 'integerOnly'=>true),
+			array('product_name, product_code, description, additional_params', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, category_id, product_name, product_code, description, default_price, units, additional_params, status, date_created, date_changed, user_modified_by', 'safe', 'on'=>'search'),
+			array('id, category_id, product_name, product_code, description, default_price, measure_units_id, additional_params, status, date_created, date_changed, user_modified_by, weight, weight_net, height, length, width, size_units_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -61,8 +68,9 @@ class ProductCards extends CActiveRecord
 		return array(
 			'operationsInItems' => array(self::HAS_MANY, 'OperationsInItems', 'product_card_id'),
 			'operationsOutItems' => array(self::HAS_MANY, 'OperationsOutItems', 'product_card_id'),
-			'operationsOutOptItems' => array(self::HAS_MANY, 'OperationsOutOptItems', 'card_id'),
+			'sizeUnits' => array(self::BELONGS_TO, 'SizeUnits', 'size_units_id'),
 			'category' => array(self::BELONGS_TO, 'ProductCardCategories', 'category_id'),
+			'measureUnits' => array(self::BELONGS_TO, 'MeasureUnits', 'measure_units_id'),
 			'productFiles' => array(self::HAS_MANY, 'ProductFiles', 'product_card_id'),
 			'productInStocks' => array(self::HAS_MANY, 'ProductInStock', 'product_card_id'),
 		);
@@ -80,12 +88,18 @@ class ProductCards extends CActiveRecord
 			'product_code' => 'Product Code',
 			'description' => 'Description',
 			'default_price' => 'Default Price',
-			'units' => 'Units',
+			'measure_units_id' => 'Measure Units',
 			'additional_params' => 'Additional Params',
 			'status' => 'Status',
 			'date_created' => 'Date Created',
 			'date_changed' => 'Date Changed',
 			'user_modified_by' => 'User Modified By',
+			'weight' => 'Weight',
+			'weight_net' => 'Weight Net',
+			'height' => 'Height',
+			'length' => 'Length',
+			'width' => 'Width',
+			'size_units_id' => 'Size Units',
 		);
 	}
 
@@ -113,12 +127,18 @@ class ProductCards extends CActiveRecord
 		$criteria->compare('product_code',$this->product_code,true);
 		$criteria->compare('description',$this->description,true);
 		$criteria->compare('default_price',$this->default_price);
-		$criteria->compare('units',$this->units,true);
+		$criteria->compare('measure_units_id',$this->measure_units_id);
 		$criteria->compare('additional_params',$this->additional_params,true);
 		$criteria->compare('status',$this->status);
 		$criteria->compare('date_created',$this->date_created);
 		$criteria->compare('date_changed',$this->date_changed);
 		$criteria->compare('user_modified_by',$this->user_modified_by);
+		$criteria->compare('weight',$this->weight);
+		$criteria->compare('weight_net',$this->weight_net);
+		$criteria->compare('height',$this->height);
+		$criteria->compare('length',$this->length);
+		$criteria->compare('width',$this->width);
+		$criteria->compare('size_units_id',$this->size_units_id);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

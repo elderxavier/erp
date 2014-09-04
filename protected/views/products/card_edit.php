@@ -6,6 +6,9 @@
 <?php /* @var $cs CClientScript */ ?>
 <?php /* @var $file ProductFiles */ ?>
 
+<?php /* @var $s_units array */ ?>
+<?php /* @var $m_units array */ ?>
+
 <?php
 $cs = Yii::app()->clientScript;
 $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/add_product.css');
@@ -39,26 +42,50 @@ $cs->registerScriptFile(Yii::app()->request->baseUrl.'/js/prod_cards.js',CClient
             </div>
 
             <fieldset>
-                <legend><?php echo $form->label($form_mdl,'dimension_units'); ?></legend>
+                <legend><?php echo $form->label($form_mdl,'units'); ?></legend>
+
                 <div class="form-group">
-                    <div class="radio">
-                        <label>
-                            <?php echo $form->radioButton($form_mdl,'units',array('value'=>'units','uncheckValue'=>null,'checked'=>($card->units == 'units')));?>
-                            <?php echo $this->labels['units']; ?>
-                        </label>
-                    </div>
-                    <div class="radio">
-                        <label>
-                            <?php echo $form->radioButton($form_mdl,'units',array('value'=>'kg','uncheckValue'=>null,'checked'=> ($card->units == 'kg')));?>
-                            <?php echo $this->labels['kg']; ?>
-                        </label>
-                    </div>
-                    <div class="radio">
-                        <label>
-                            <?php echo $form->radioButton($form_mdl,'units',array('value'=>'liters','uncheckValue'=>null,'checked'=>($card->units == 'liters')));?>
-                            <?php echo $this->labels['liters']; ?>
-                        </label>
-                    </div>
+                    <?php echo $form->label($form_mdl,'measure_units');?>
+                    <?php echo $form->dropDownList($form_mdl,'measure_units_id',$m_units,array('class'=>'form-control','options' => array($card->measure_units_id =>array('selected'=>true))));?>
+                </div>
+
+                <div class="form-group">
+                    <?php echo $form->label($form_mdl,'weight');?>
+                    <?php echo $form->textField($form_mdl,'weight',array('class'=>'form-control', 'value' => $card->weight));?>
+                    <?php echo $form->error($form_mdl,'weight'); ?>
+                </div>
+
+                <div class="form-group">
+                    <?php echo $form->label($form_mdl,'weight_net');?>
+                    <?php echo $form->textField($form_mdl,'weight_net',array('class'=>'form-control', 'value' => $card->weight_net));?>
+                    <?php echo $form->error($form_mdl,'weight_net'); ?>
+                </div>
+            </fieldset>
+            <br>
+            <fieldset>
+                <legend><?php echo $form->label($form_mdl,'sizes'); ?></legend>
+
+                <div class="form-group">
+                    <?php echo $form->label($form_mdl,'size_units');?>
+                    <?php echo $form->dropDownList($form_mdl,'size_units_id',$s_units,array('class'=>'form-control','options' => array($card->size_units_id =>array('selected'=>true))));?>
+                </div>
+
+                <div class="form-group">
+                    <?php echo $form->label($form_mdl,'width');?>
+                    <?php echo $form->textField($form_mdl,'width',array('class'=>'form-control', 'value' => $card->width));?>
+                    <?php echo $form->error($form_mdl,'width'); ?>
+                </div>
+
+                <div class="form-group">
+                    <?php echo $form->label($form_mdl,'height');?>
+                    <?php echo $form->textField($form_mdl,'height',array('class'=>'form-control', 'value' => $card->height));?>
+                    <?php echo $form->error($form_mdl,'height'); ?>
+                </div>
+
+                <div class="form-group">
+                    <?php echo $form->label($form_mdl,'length');?>
+                    <?php echo $form->textField($form_mdl,'length',array('class'=>'form-control', 'value' => $card->length));?>
+                    <?php echo $form->error($form_mdl,'length'); ?>
                 </div>
             </fieldset>
 

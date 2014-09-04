@@ -192,6 +192,8 @@ class ProductsController extends Controller
         //create form-validator-object and card object
         $form = new ProductCardForm();
         $card = new ProductCards();
+        $measure_units = MeasureUnits::model()->findAllAsArray();
+        $size_units = SizeUnits::model()->findAllAsArray();
 
         //if set post form params
         if(isset($_POST['ProductCardForm']))
@@ -226,7 +228,7 @@ class ProductsController extends Controller
         $categories_arr = ProductCardCategories::model()->getAllAsArray();
 
         //render form
-        $this->render('card_create',array('categories_arr' => $categories_arr, 'card' => $card, 'form_mdl' => $form));
+        $this->render('card_create',array('categories_arr' => $categories_arr, 'card' => $card, 'm_units' => $measure_units, 's_units' => $size_units, 'form_mdl' => $form));
     }
 
 
@@ -241,6 +243,9 @@ class ProductsController extends Controller
 
         //try find in base
         $card = ProductCards::model()->with('productFiles')->findByPk($id);
+
+        $measure_units = MeasureUnits::model()->findAllAsArray();
+        $size_units = SizeUnits::model()->findAllAsArray();
 
         //if found
         if(!empty($card))
@@ -283,7 +288,7 @@ class ProductsController extends Controller
             $categories_arr = ProductCardCategories::model()->getAllAsArray();
 
             //render form
-            $this->render('card_edit',array('categories_arr' => $categories_arr, 'card' => $card, 'form_mdl' => $form));
+            $this->render('card_edit',array('categories_arr' => $categories_arr, 'card' => $card, 'm_units' => $measure_units, 's_units' => $size_units, 'form_mdl' => $form));
         }
         //if not found
         else

@@ -11,7 +11,14 @@ class ProductCardForm extends CBaseForm
 	public $product_name;
     public $category_id;
     public $description;
-    public $units;
+
+    public $measure_units_id;
+    public $size_units_id;
+    public $weight;
+    public $weight_net;
+    public $width;
+    public $height;
+    public $length;
 
     public $current_card_id = null;
 
@@ -23,10 +30,13 @@ class ProductCardForm extends CBaseForm
 	{
 		return array(
 			// username and password are required
-			array('product_code, product_name, category_id', 'required', 'message'=> $this->messages['fill the field'].' "{attribute}"'),
+			array('product_code, product_name, category_id, weight, weight_net, width, height, length', 'required', 'message'=> $this->messages['fill the field'].' "{attribute}"'),
 
 			// password needs to be authenticated
 			array('product_code', 'unique', 'model_class' => 'ProductCards', 'current_id' => $this->current_card_id),
+
+            //numerical field validation
+            array('weight, weight_net, height, length, width', 'numerical'),
 
             // rules for file validation
             array(
@@ -54,8 +64,9 @@ class ProductCardForm extends CBaseForm
             'product_name' => $this->labels['product name'],
             'category_id' => $this->labels['category'],
             'description' => $this->labels['description'],
-            'dimension_units' => $this->labels['dimension units'],
-            'units' => $this->labels['units'],
+            'measure_units' => $this->labels['measure units'],
+            'size_units' => $this->labels['size units'],
+            'sizes' => $this->labels['sizes'],
             'liters' => $this->labels['liters'],
             'kg' => $this->labels['kg'],
         );

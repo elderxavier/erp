@@ -7,7 +7,7 @@
         <td><?php echo $product->productCard->product_name;?></td>
         <td><?php echo $product->productCard->product_code;?></td>
         <td><?php echo $product->stock->name." [".$product->stock->location->city_name."]"; ?></td>
-        <td><?php echo $product->productCard->units; ?></td>
+        <td><?php echo $product->productCard->measureUnits->name; ?></td>
         <td><?php echo $product->qnt;?></td>
         <td>0</td>
         <td></td>

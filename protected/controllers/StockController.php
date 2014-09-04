@@ -30,6 +30,7 @@ class StockController extends Controller
     public function actionList($page = 1)
     {
         $cities = UserCities::model()->findAllAsArray();
+        $units = MeasureUnits::model()->findAllAsArray();
 
         $c = new CDbCriteria();
         $c -> limit = $this->on_one_page;
@@ -39,7 +40,7 @@ class StockController extends Controller
         $pages = $this->calculatePageCount($count);
 
         $productsObj = ProductInStock::model()->with('stock','stock.location','productCard')->findAll($c);
-        $this->render('list',array('products' => $productsObj, 'cities' => $cities, 'pages' => $pages, 'current_page' => $page));
+        $this->render('list',array('products' => $productsObj, 'cities' => $cities, 'pages' => $pages, 'current_page' => $page, 'units' => $units));
     }
 
 
@@ -170,7 +171,7 @@ class StockController extends Controller
         if(!empty($units))
         {
             //find all product-cards by measure units
-            $products = ProductCards::model()->findAllByAttributes(array('units' => $units));
+            $products = ProductCards::model()->findAllByAttributes(array('measure_units_id' => $units));
 
             //if found by units
             if(!empty($products))

@@ -1,6 +1,7 @@
 <?php /* @var $products ProductInStock[] */ ?>
 <?php /* @var $this StockController */ ?>
 <?php /* @var $cities array */ ?>
+<?php /* @var $units array */ ?>
 
 <?php /* @var $pages int */ ?>
 <?php /* @var $current_page int */ ?>
@@ -29,9 +30,9 @@ $cs->registerScriptFile(Yii::app()->request->baseUrl.'/js/stock.js',CClientScrip
                 </select>
                 <select id="measure-units">
                 	<option value=""><?php echo $this->labels['measure units']; ?></option>
-                	<option value="Units"><?php echo $this->labels['units']; ?></option>
-                	<option value="Kg"><?php echo $this->labels['kg']; ?></option>
-                    <option value="Liters"><?php echo $this->labels['liters']; ?></option>
+                    <?php foreach($units as $id => $name): ?>
+                        <option value="<?php echo $id; ?>"><?php echo $name; ?></option>
+                    <?php endforeach;?>
                 </select>
                 <button class="filter-button-top"><?php echo $this->labels['search']; ?><span class="glyphicon glyphicon-search"></span></button>
            </form> 
@@ -58,7 +59,7 @@ $cs->registerScriptFile(Yii::app()->request->baseUrl.'/js/stock.js',CClientScrip
                     	<td><?php echo $product->productCard->product_name;?></td>
                     	<td><?php echo $product->productCard->product_code;?></td>
                     	<td><?php echo $product->stock->name." [".$product->stock->location->city_name."]"; ?></td>
-                    	<td><?php echo $product->productCard->units; ?></td>
+                    	<td><?php echo $product->productCard->measureUnits->name; ?></td>
                     	<td><?php echo $product->qnt;?></td>
                         <td>0</td>
                         <td></td>

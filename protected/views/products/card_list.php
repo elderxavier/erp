@@ -67,7 +67,7 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/table.css');
                             <td><?php echo $card->product_code; ?></td>
                             <td><?php echo $card->product_name; ?></td>
                             <td><?php echo $card->category->name; ?></td>
-                            <td><?php echo $this->labels[$card->units]; ?></td>
+                            <td><?php echo $card->measureUnits->name; ?></td>
 
                             <td class="status">
                                 <div prod_id ="<?php echo $card->id; ?>" state="<?php echo $card->status; ?>" class="btn-group btn-toggle">
