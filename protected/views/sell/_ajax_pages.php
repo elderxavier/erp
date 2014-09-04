@@ -1,8 +1,14 @@
 <?php /* @var $pages int */ ?>
-<?php /* @var $current_page int */ ?>
+<?php /* @var $current int */ ?>
+<?php /* @var $filters array */ ?>
 
-<ul class="paginator">
+<?php $str_data_filters = ""; ?>
+<?php foreach($filters as $key => $value): ?>
+    <?php $str_data_filters.='data-'.$key.'="'.$value.'" '; ?>
+<?php endforeach; ?>
+
+<ul class="paginator" <?php echo $str_data_filters; ?>>
     <?php for($i = 0; $i < $pages; $i++): ?>
-        <li <?php if(($i+1) == $current_page): ?> class="current-page" <?php endif; ?>><?php echo ($i+1) ?></li>
+        <li class="<?php if(($i+1) == $current): ?>current-page<?php endif; ?> links-pages"><?php echo ($i+1) ?></li>
     <?php endfor; ?>
 </ul>

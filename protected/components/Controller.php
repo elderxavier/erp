@@ -31,7 +31,7 @@ class Controller extends CController
     //default titles of site pages
     public $site_title = "ERP";
     public $page_title = "default";
-    public $on_one_page = 4;
+    public $on_one_page = 3;
 
     /**
      * Initialization of controller

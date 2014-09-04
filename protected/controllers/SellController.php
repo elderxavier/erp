@@ -290,6 +290,9 @@ class SellController extends Controller
     }//actionGenerate
 
 
+    /**
+     * Renders pagination block, by count of filtered data
+     */
     public function actionAjaxPages()
     {
         //get all params from post(or get)
@@ -300,14 +303,28 @@ class SellController extends Controller
         $stock_city_id = Yii::app()->request->getParam('stock_city_id','');
         $date_from_str = Yii::app()->request->getParam('date_from_str','');
         $date_to_str = Yii::app()->request->getParam('date_to_str','');
+        $page = Yii::app()->request->getParam('page',1);
 
-        $c = new CDbCriteria();
-        $c = $this->addAllFilterCriterion($c,$client_name,$client_type_id,$invoice_code,$operation_status_id,$stock_city_id,$date_from_str,$date_to_str);
-        $count_all = OperationsOut::model()->count($c);
-        $pages_count = $this->calculatePageCount($count_all);
+        $c = new CDbCriteria(); //new criteria
+        $c = $this->addAllFilterCriterion($c,$client_name,$client_type_id,$invoice_code,$operation_status_id,$stock_city_id,$date_from_str,$date_to_str); //add filtering parameters
+        $count_all = OperationsOut::model()->count($c); //count all filtered records
+        $pages_count = $this->calculatePageCount($count_all); //get count of pages
 
-        $this->renderPartial('_ajax_pages',array('pages' => $pages_count));
-    }
+        //store all filter-params to array
+        $filter_params = array(
+            'cli_name' => $client_name,
+            'cli_type_id' => $client_type_id,
+            'in_code' => $invoice_code,
+            'in_status_id' => $operation_status_id,
+            'stock_city_id' => $stock_city_id,
+            'date_from_str' => $date_from_str,
+            'date_to_str' => $date_to_str
+        );
+
+        //render pagination-block
+        $this->renderPartial('_ajax_pages',array('pages' => $pages_count, 'current' => $page, 'filters' => $filter_params));
+
+    }//actionAjaxPages
 
     /**
      * Filter table ajax
@@ -322,16 +339,15 @@ class SellController extends Controller
         $stock_city_id = Yii::app()->request->getParam('stock_city_id','');
         $date_from_str = Yii::app()->request->getParam('date_from_str','');
         $date_to_str = Yii::app()->request->getParam('date_to_str','');
-
         $page = Yii::app()->request->getParam('page',1);
 
         //new criteria for filtering
         $c = new CDbCriteria();
-        $c = $this->addAllFilterCriterion($c,$client_name,$client_type_id,$invoice_code,$operation_status_id,$stock_city_id,$date_from_str,$date_to_str);
-        $c -> limit = $this->on_one_page;
-        $c -> offset = ($this->on_one_page * ($page - 1));
+        $c = $this->addAllFilterCriterion($c,$client_name,$client_type_id,$invoice_code,$operation_status_id,$stock_city_id,$date_from_str,$date_to_str); //add filtering parameters
+        $c -> limit = $this->on_one_page; //limit count of records on page
+        $c -> offset = ($this->on_one_page * ($page - 1)); //get offset
 
-        //get all operations
+        //get all filtered operations
         $operations = OperationsOut::model()->findAll($c);
 
         //render partial
@@ -339,17 +355,18 @@ class SellController extends Controller
 
     }//FilterTable
 
+
     /**
-     * Adds all filtering params to criteria
-     * @param CDbCriteria $c
-     * @param string $client_name
-     * @param int $client_type_id
-     * @param string $invoice_code
-     * @param int $operation_status_id
-     * @param int $stock_city_id
-     * @param string $date_from_str
-     * @param string $date_to_str
-     * @return CDbCriteria
+     * Adds all filtering params to criteria for filtering
+     * @param CDbCriteria $c criteria for filtration
+     * @param string $client_name filter param - client name
+     * @param int $client_type_id filter param - client type ID
+     * @param string $invoice_code filter param - invoice code
+     * @param int $operation_status_id filter param - operation status ID
+     * @param int $stock_city_id filter param - stock ID
+     * @param string $date_from_str filter param - start date
+     * @param string $date_to_str - filter param - end date
+     * @return CDbCriteria updated criteria
      */
     function addAllFilterCriterion($c,$client_name,$client_type_id,$invoice_code,$operation_status_id,$stock_city_id,$date_from_str,$date_to_str)
     {

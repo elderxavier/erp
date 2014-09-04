@@ -18,7 +18,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/sales_list.js',CClientScript::P
 
 <div class="container-fluid  main-content-holder content-wrapper">
     <div class="row filter-holder">
-        <form class="filter-form" method="get" action="<?php echo Yii::app()->createUrl('/sell/filtertable'); ?>">
+        <form class="filter-form" method="get" action="<?php echo Yii::app()->createUrl('/sell/filtertable'); ?>" data-pages="<?php echo Yii::app()->createUrl('/sell/ajaxpages'); ?>">
             <input type="text" id="client-name-inputs" placeholder="<?php echo $this->labels['client name']; ?>">
             <input type="text" id="invoice-code-input" placeholder="<?php echo $this->labels['invoice code']; ?>">
             <select id="cli-type">
@@ -82,21 +82,18 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/sales_list.js',CClientScript::P
     <div class="pages-holder">
         <ul class="paginator">
             <?php for($i = 0; $i < $pages; $i++): ?>
-                <li <?php if(($i+1) == $current_page): ?> class="current-page" <?php endif; ?>><?php echo ($i+1) ?></li>
+                <li class="<?php if(($i+1) == $current_page): ?>current-page<?php endif; ?> links-pages"><?php echo ($i+1) ?></li>
             <?php endfor; ?>
         </ul>
     </div>
 
     <div class="modals-holder">
         <div class="invoice-ready">
-
             <div class="modal fade" id="invoiceInfo" tabindex="-1" role="dialog">
                 <div id="modal-operation-info" class="modal-dialog">
                 </div><!-- /.modal-dialog -->
             </div><!-- /.modal -->
-
         </div><!--/invoice-ready -->
-
     </div><!--/modals-holder -->
 
 </div><!--/container -->
