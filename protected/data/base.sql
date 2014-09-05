@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50538
 File Encoding         : 65001
 
-Date: 2014-09-04 18:25:58
+Date: 2014-09-05 17:08:03
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -448,7 +448,7 @@ CREATE TABLE `product_cards` (
 -- ----------------------------
 INSERT INTO `product_cards` VALUES ('9', '7', 'Intel Core i7', 'PROD1234', '4 cores, 3 Ghz, 8 MB cache', null, '1', null, '1', '1408959551', '1408959568', '1', '1020', '1000', '10', '10', '10', '1');
 INSERT INTO `product_cards` VALUES ('10', '7', 'Intel Core i5', 'PROD789', '4 cores, 2.5 Ghz', null, '1', null, '1', '1408959630', '1408959630', '1', '1020', '1000', '10', '10', '10', '1');
-INSERT INTO `product_cards` VALUES ('11', '8', 'nVIDIA GTX 760 ', 'PROD456', 'Some info', null, '1', null, '1', '1408959755', '1408959755', '1', '1020', '1000', '10', '10', '10', '1');
+INSERT INTO `product_cards` VALUES ('11', '8', 'nVIDIA GTX 760 ', 'PROD456', 'Some info', null, '1', null, '1', '1408959755', '1409921554', '1', '1020', '1000', '20', '30', '10', '2');
 INSERT INTO `product_cards` VALUES ('12', '8', 'nVIDIA GTX 560', 'PROD5864', 'Some info', null, '1', null, '1', '1408965216', '1408965216', '1', '1020', '1000', '10', '10', '10', '1');
 INSERT INTO `product_cards` VALUES ('13', '7', 'AMD Atom Xtreme', 'PROD4234', 'Some info', null, '1', null, '1', '1408970273', '1408970273', '1', '1020', '1000', '10', '10', '10', '1');
 INSERT INTO `product_cards` VALUES ('14', '8', 'AMD Radeon HD 9700', 'RAD8964SDF', 'Video card', null, '1', null, '1', '1409844276', '1409844304', '1', '1200', '1000', '10', '50', '20', '2');
@@ -708,6 +708,8 @@ CREATE TABLE `stocks` (
   `date_created` int(11) DEFAULT NULL,
   `date_changed` int(11) DEFAULT NULL,
   `user_modified_by` int(11) DEFAULT NULL,
+  `address` text,
+  `post_code` text,
   PRIMARY KEY (`id`),
   KEY `location_id` (`location_id`),
   CONSTRAINT `stocks_ibfk_1` FOREIGN KEY (`location_id`) REFERENCES `user_cities` (`id`)
@@ -716,9 +718,109 @@ CREATE TABLE `stocks` (
 -- ----------------------------
 -- Records of stocks
 -- ----------------------------
-INSERT INTO `stocks` VALUES ('1', 'Superstock', '1', 'Some info', '0', '0', '1');
-INSERT INTO `stocks` VALUES ('3', 'Hyperstock', '2', 'Some info', '0', '0', '1');
-INSERT INTO `stocks` VALUES ('4', 'Terastock', '3', 'Some info', '0', '0', '1');
+INSERT INTO `stocks` VALUES ('1', 'Superstock', '1', 'Some info', '0', '0', '1', 'Perkunkemio g 7', 'LT-012345');
+INSERT INTO `stocks` VALUES ('3', 'Hyperstock', '2', 'Some info', '0', '0', '1', 'Kauno g 3', 'LT-555555');
+INSERT INTO `stocks` VALUES ('4', 'Terastock', '3', 'Some info', '0', '0', '1', 'Vytauto g 8', 'LT-252525');
+
+-- ----------------------------
+-- Table structure for `stock_movements`
+-- ----------------------------
+DROP TABLE IF EXISTS `stock_movements`;
+CREATE TABLE `stock_movements` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `src_stock_id` int(11) DEFAULT NULL,
+  `trg_stock_id` int(11) DEFAULT NULL,
+  `date` int(11) DEFAULT NULL,
+  `status_id` int(11) DEFAULT NULL,
+  `car_number` text,
+  `car_brand` text,
+  PRIMARY KEY (`id`),
+  KEY `src_stock_id` (`src_stock_id`),
+  KEY `trg_stock_id` (`trg_stock_id`),
+  KEY `status_id` (`status_id`),
+  CONSTRAINT `stock_movements_ibfk_3` FOREIGN KEY (`status_id`) REFERENCES `stock_movement_statuses` (`id`),
+  CONSTRAINT `stock_movements_ibfk_1` FOREIGN KEY (`src_stock_id`) REFERENCES `stocks` (`id`),
+  CONSTRAINT `stock_movements_ibfk_2` FOREIGN KEY (`trg_stock_id`) REFERENCES `stocks` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of stock_movements
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `stock_movement_items`
+-- ----------------------------
+DROP TABLE IF EXISTS `stock_movement_items`;
+CREATE TABLE `stock_movement_items` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `movement_id` int(11) DEFAULT NULL,
+  `product_card_id` int(11) DEFAULT NULL,
+  `qnt` int(11) DEFAULT NULL,
+  `item_weight` int(11) DEFAULT NULL,
+  `src_stock_id` int(11) DEFAULT NULL,
+  `trg_stock_id` int(11) DEFAULT NULL,
+  `in_src_stock_after_movement` int(11) DEFAULT NULL,
+  `in_trg_stock_after_movement` int(11) DEFAULT NULL,
+  `date` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `movement_id` (`movement_id`),
+  KEY `product_card_id` (`product_card_id`),
+  KEY `src_stock_id` (`src_stock_id`),
+  KEY `trg_stock_id` (`trg_stock_id`),
+  CONSTRAINT `stock_movement_items_ibfk_1` FOREIGN KEY (`movement_id`) REFERENCES `stock_movements` (`id`),
+  CONSTRAINT `stock_movement_items_ibfk_2` FOREIGN KEY (`product_card_id`) REFERENCES `product_cards` (`id`),
+  CONSTRAINT `stock_movement_items_ibfk_3` FOREIGN KEY (`src_stock_id`) REFERENCES `stocks` (`id`),
+  CONSTRAINT `stock_movement_items_ibfk_4` FOREIGN KEY (`trg_stock_id`) REFERENCES `stocks` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of stock_movement_items
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `stock_movement_stages`
+-- ----------------------------
+DROP TABLE IF EXISTS `stock_movement_stages`;
+CREATE TABLE `stock_movement_stages` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `movement_id` int(11) DEFAULT NULL,
+  `movement_status_id` int(11) DEFAULT NULL,
+  `user_operator_id` int(11) DEFAULT NULL,
+  `operator_name` text,
+  `time` int(11) DEFAULT NULL,
+  `remark` text,
+  PRIMARY KEY (`id`),
+  KEY `movement_id` (`movement_id`),
+  KEY `movement_status_id` (`movement_status_id`),
+  KEY `user_operator_id` (`user_operator_id`),
+  CONSTRAINT `stock_movement_stages_ibfk_3` FOREIGN KEY (`user_operator_id`) REFERENCES `users` (`id`),
+  CONSTRAINT `stock_movement_stages_ibfk_1` FOREIGN KEY (`movement_id`) REFERENCES `stock_movements` (`id`),
+  CONSTRAINT `stock_movement_stages_ibfk_2` FOREIGN KEY (`movement_status_id`) REFERENCES `stock_movement_statuses` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of stock_movement_stages
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `stock_movement_statuses`
+-- ----------------------------
+DROP TABLE IF EXISTS `stock_movement_statuses`;
+CREATE TABLE `stock_movement_statuses` (
+  `id` int(11) NOT NULL DEFAULT '0',
+  `name` text,
+  `description` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of stock_movement_statuses
+-- ----------------------------
+INSERT INTO `stock_movement_statuses` VALUES ('1', 'On the way', 'Sent from %src_stock_name% to %trg_stock_name%');
+INSERT INTO `stock_movement_statuses` VALUES ('2', 'Delivered', 'Delivered in stock %trg_stock_name%');
+INSERT INTO `stock_movement_statuses` VALUES ('3', 'Canceled', 'Canceled on the way from %src_stock_name% to %trg_stock_name%. Returning to %src_stock_name%');
+INSERT INTO `stock_movement_statuses` VALUES ('4', 'Stopped', 'Stopped on the way from %src_stock_name% to %trg_stock_name%.');
+INSERT INTO `stock_movement_statuses` VALUES ('5', 'Returned', 'Returned to  %src_stock_name%');
 
 -- ----------------------------
 -- Table structure for `suppliers`

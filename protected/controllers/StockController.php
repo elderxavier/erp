@@ -64,7 +64,25 @@ class StockController extends Controller
         $this->render('list_movements',array('movements' => $movements, 'pages' => $pages, 'page' => $page, 'stocks' => $stock));
     }//actionMovements
 
-    
+
+    /**
+     * Renders movement form
+     */
+    public function actionMove()
+    {
+        $stocks = Stocks::model()->findAll();
+        $this->render('add_movement',array('stocks' => $stocks));
+    }//actionMove
+
+
+    /**
+     * Finish movement - write to base
+     */
+    public function actionMoveFinish()
+    {
+        Debug::out($_POST);
+        exit();
+    }//MoveFinish
 
 
     /****************************************** A J A X  S E C T I O N ************************************************/
@@ -90,7 +108,50 @@ class StockController extends Controller
 
 
     /**
-     * Ajax filtration
+     * Auto-complete for products name and code by stock
+     * @param string $name
+     * @param string $code
+     * @param int $stock
+     * @throws CHttpException
+     */
+    public function actionAutoCompleteProductCardsByStock($name = '',$code = '',$stock = null)
+    {
+        if(Yii::app()->request->isAjaxRequest)
+        {
+            $result = json_encode(ProductCards::model()->findAllByNameOrCodeAndStock($name,$code,$stock,true));
+            echo $result;
+        }
+        else
+        {
+            throw new CHttpException(404);
+        }
+    }//actionAutoCompleteProductCardsByStock
+
+    /**
+     * Filter products by stock, code, name - for movement form and render table
+     * @throws CHttpException
+     */
+    public function actionProdFilter()
+    {
+        if(Yii::app()->request->isAjaxRequest)
+        {
+            $name = Yii::app()->request->getParam('name','');
+            $code = Yii::app()->request->getParam('code','');
+            $stock = Yii::app()->request->getParam('stock','');
+
+            $result = ProductCards::model()->findAllByNameOrCodeAndStock($name,$code,$stock);
+
+            $this->renderPartial('_ajax_products_filtering',array('products' => $result));
+        }
+        else
+        {
+            throw new CHttpException(404);
+        }
+    }//actionProdFilter
+
+
+    /**
+     * Ajax filtration for stock-products
      * @throws CHttpException
      */
     public function actionFilter()
@@ -227,9 +288,15 @@ class StockController extends Controller
         }
 
         //add ID's of product cards to conditions (if should search by name, code or units)
-        if(!empty($product_name) || !empty($product_code) || !empty($units)) $c -> addInCondition('product_card_id',$products_ids);
+        if(!empty($product_name) || !empty($product_code) || !empty($units))
+        {
+            $c -> addInCondition('product_card_id',$products_ids);
+        }
         //add ID's of stocks to condition (if should search by stock location)
-        if(!empty($stock_location_id)) $c -> addInCondition('stock_id',$stock_ids);
+        if(!empty($stock_location_id))
+        {
+            $c -> addInCondition('stock_id',$stock_ids);
+        }
 
         return $c;
     }//addAllFilterCriterion

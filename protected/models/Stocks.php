@@ -11,6 +11,8 @@
  * @property integer $date_created
  * @property integer $date_changed
  * @property integer $user_modified_by
+ * @property string $address
+ * @property string $post_code
  *
  * The followings are the available model relations:
  * @property OperationsInItems[] $operationsInItems
@@ -42,10 +44,10 @@ class Stocks extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('location_id, date_created, date_changed, user_modified_by', 'numerical', 'integerOnly'=>true),
-			array('name, description', 'safe'),
+			array('name, description, address, post_code', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, name, location_id, description, date_created, date_changed, user_modified_by', 'safe', 'on'=>'search'),
+			array('id, name, location_id, description, date_created, date_changed, user_modified_by, address, post_code', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -61,8 +63,8 @@ class Stocks extends CActiveRecord
 			'operationsOuts' => array(self::HAS_MANY, 'OperationsOut', 'stock_id'),
 			'operationsOutItems' => array(self::HAS_MANY, 'OperationsOutItems', 'stock_id'),
 			'productInStocks' => array(self::HAS_MANY, 'ProductInStock', 'stock_id'),
-			'stockMovementItems' => array(self::HAS_MANY, 'StockMovementItems', 'trg_stock_id'),
-			'stockMovementItems1' => array(self::HAS_MANY, 'StockMovementItems', 'src_stock_id'),
+			'stockMovementItems' => array(self::HAS_MANY, 'StockMovementItems', 'src_stock_id'),
+			'stockMovementItems1' => array(self::HAS_MANY, 'StockMovementItems', 'trg_stock_id'),
 			'stockMovements' => array(self::HAS_MANY, 'StockMovements', 'src_stock_id'),
 			'stockMovements1' => array(self::HAS_MANY, 'StockMovements', 'trg_stock_id'),
 			'location' => array(self::BELONGS_TO, 'UserCities', 'location_id'),
@@ -82,6 +84,8 @@ class Stocks extends CActiveRecord
 			'date_created' => 'Date Created',
 			'date_changed' => 'Date Changed',
 			'user_modified_by' => 'User Modified By',
+			'address' => 'Address',
+			'post_code' => 'Post Code',
 		);
 	}
 
@@ -110,6 +114,8 @@ class Stocks extends CActiveRecord
 		$criteria->compare('date_created',$this->date_created);
 		$criteria->compare('date_changed',$this->date_changed);
 		$criteria->compare('user_modified_by',$this->user_modified_by);
+		$criteria->compare('address',$this->address,true);
+		$criteria->compare('post_code',$this->post_code,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -126,7 +132,6 @@ class Stocks extends CActiveRecord
 	{
 		return parent::model($className);
 	}
-
 
     /**
      * Returns all stocks as pairs array
@@ -158,7 +163,7 @@ class Stocks extends CActiveRecord
         //covert to pairs (id => name) array
         foreach($all as $stock)
         {
-            $result[$stock->id] = $stock->name;
+            $result[$stock->id] = $stock->name.' ['.$stock->location->city_name.']';
         }
 
         return $result;

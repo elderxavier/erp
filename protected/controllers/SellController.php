@@ -145,7 +145,8 @@ class SellController extends Controller
         /* @var $stocks Stocks[] */
         /* @var $available_stocks Stocks[] */
 
-        if($client = Clients::model()->findByPk($id))
+        $client = Clients::model()->findByPk($id);
+        if(!empty($client))
         {
             $available_stocks_id = array();
             $stocks = Stocks::model()->findAll();
@@ -178,7 +179,9 @@ class SellController extends Controller
         $products = $form['products'];
         $options = $form['options'];
 
-        if($stock = Stocks::model()->findByPk($stock_id) && $client = Clients::model()->findByPk($client_id))
+        $stock = Stocks::model()->findByPk($stock_id);
+        $client = Clients::model()->findByPk($client_id);
+        if(!empty($stock) && !empty($client))
         {
             $operation = new OperationsOut();
             $operation->client_id = $client_id;
@@ -259,7 +262,8 @@ class SellController extends Controller
     {
         /* @var $operation OperationsOut */
 
-        if($operation = OperationsOut::model()->findByPk($id))
+        $operation = OperationsOut::model()->findByPk($id);
+        if(!empty($operation))
         {
             $invoice_code = $operation->invoice_code;
 

@@ -1,0 +1,216 @@
+.card-holder {
+	padding-top:20px;
+	padding-bottom:10px;}
+	
+	
+.left-part {
+	border-right:1px dashed #b6b7bb;}	
+	
+/*--- stock info ----*/
+.table-holder {
+	padding-top:20px;}
+
+.table-holder .table > tbody > tr > td {
+	font-size:12px;
+	color:#9b9292;}
+	
+.table-holder .table > tbody > tr > td:nth-child(odd) {
+	width:25%;
+	background-color:#b6b7bb;
+	font-size:12px;
+	text-transform:uppercase;
+	font-weight:400;
+	color:white;}
+
+.stock-select-holder > label, #transport-detail-section > div > label {
+	font-size:12px;
+	text-transform:uppercase;
+	font-weight:400;
+	color:#9b9292;}
+	
+.stock-select-holder > select {
+	border-radius:0;
+	border:1px solid #c7c8cc;
+	max-width:60%;}
+	
+#transport-detail-section > div > input{	
+	border-radius:0;
+	border:1px solid #c7c8cc;
+	max-width:80%;}
+	
+	
+/* --- product list section --*/
+.product-holder-area {
+	overflow-x:auto;}
+
+#prod-list thead > tr > th {
+	color:white;
+	font-size:12px;
+	text-transform:uppercase;	
+	background-color:#b6b7bb;
+	font-weight:400;}
+	
+#prod-list tbody > tr > td {
+	color:#9b9292;
+	font-size:12px;}
+	
+#prod-list td > input {
+	max-width:50px;} 
+	
+#prod-list tbody > tr > td .del-btn {
+	border-radius:0;
+	background-color: #fb8f73;}
+	
+#prod-list tbody > tr > td .del-btn:hover {
+    background-color: #cc5c4e;}
+	
+.btn-holder	 > button {
+	background-color: #fb8f73;
+	border: none;
+	border-radius: 0;
+	color: white;
+	line-height: 32px;
+	padding: 0 0 0 10px;}
+	
+.btn-holder	 > button:hover {
+    background-color: #cc5c4e;}
+	
+.btn-holder > button > span:last-child {
+    background-color: #cc5c4e;
+    display: inline-block;
+    line-height: 30px;
+    margin-left: 10px;
+    padding: 0 7px;	}
+	
+	/*--- filter section ---*/
+.filter-inputs-holder {
+	margin-bottom:20px;}
+
+.filter-inputs-holder > input {
+	height:34px;
+	border-radius:0;
+	border:1px solid #c7c8cc;
+	margin-right:1%;
+	width:38%;}
+	
+.filter-inputs-holder > button {
+	width:19%;
+	background-color: #fb8f73;
+	border: none;
+	border-radius: 0;
+	color: white;
+	line-height: 32px;
+	padding: 0 0 0 10px;}
+	
+.filter-inputs-holder > button:hover {
+    background-color: #cc5c4e;}
+	
+.filter-inputs-holder > button > span{
+    background-color: #cc5c4e;
+    display: block;
+    float: right;
+    line-height: 30px;
+    margin-left: 10px;
+    padding: 0 7px;	}
+	
+/*--- product table holder ----*/  
+.product-table-holder thead > tr > th {
+	color:white;
+	font-size:12px;
+	text-transform:uppercase;	
+	background-color:#b6b7bb;
+	font-weight:400;}
+	
+.product-table-holder tbody	{
+	overflow-x:scroll;
+	max-height:300px;}
+	
+.product-table-holder tbody > tr > td {
+	color:#9b9292;
+	font-size:12px;}
+	
+.product-table-holder tbody > tr > td .add-prod {
+	background-color: #fb8f73;
+	border: none;
+	border-radius: 0;
+	color:white;
+	text-transform:uppercase;
+	padding: 0 0 0 10px;
+	line-height:22px;}
+	
+.product-table-holder tbody > tr > td .add-prod:hover {
+    background-color: #cc5c4e;}
+	
+.product-table-holder tbody > tr > td .add-prod > span {
+    background-color: #cc5c4e;
+    display: inline-block;
+	line-height:22px;
+	padding:0 5px;
+	margin-left:5px;}
+	
+	
+.new-product-btn-holder > button {	
+	background-color: #fb8f73;
+	border: none;
+	border-radius: 0;
+	color: white;
+	line-height: 32px;
+	padding: 0 0 0 10px;}
+	
+.new-product-btn-holder > button:hover {	
+    background-color: #cc5c4e;}
+	
+.new-product-btn-holder > button > span {	
+    background-color: #cc5c4e;
+    display: block;
+    float: right;
+    line-height: 30px;
+    margin-left: 10px;
+    padding: 0 7px;	}
+	
+/*-- modal window create transfer --*/
+#transferInfo{}
+
+#transferInfo .modal-dialog > .modal-content {
+	border-radius:0;}
+	
+#transferInfo .supl-header > table  tr > td:nth-child(odd) {
+	width:25%;
+	background-color:#b6b7bb;
+	font-size:12px;
+	text-transform:uppercase;
+	font-weight:400;
+	color:white;}
+	
+#transferInfo .supl-header > table  tr > td {
+	font-size:12px;
+	color:#9b9292;}
+	
+#transferInfo .modal-prod-list-holder table > thead th {
+	color:white;
+	font-size:12px;
+	text-transform:uppercase;	
+	background-color:#b6b7bb;
+	font-weight:400;}
+	
+#transferInfo .modal-prod-list-holder table > tbody td {
+	font-size:12px;
+	color:#9b9292;}
+	
+.modal-footer .btn {
+    background-color: #fb8f73;
+    border: medium none;
+    border-radius: 0;
+    color: white;
+    line-height: 26px;
+    padding: 0 0 0 10px;}
+	
+.modal-footer .btn:hover {
+    background-color: #cc5c4e;}
+	
+.modal-footer .btn > span {
+    background-color: #cc5c4e;
+    display: inline-block;
+    line-height: 26px;
+    margin-left: 10px;
+    padding: 0 5px;}

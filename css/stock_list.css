@@ -49,3 +49,53 @@
 	margin-left:10px;
 	display:inline-block;
 	padding:0 5px;}
+	
+/*-- modal window create invoive --*/
+#transferInfo{}
+
+#transferInfo .modal-dialog > .modal-content {
+	border-radius:0;}
+	
+#transferInfo .supl-header > table  tr > td:nth-child(odd) {
+	width:25%;
+	background-color:#b6b7bb;
+	font-size:12px;
+	text-transform:uppercase;
+	font-weight:400;
+	color:white;}
+	
+#transferInfo .supl-header > table  tr > td {
+	font-size:12px;
+	color:#9b9292;}
+	
+#transferInfo .modal-prod-list-holder table > thead th {
+	color:white;
+	font-size:12px;
+	text-transform:uppercase;	
+	background-color:#b6b7bb;
+	font-weight:400;}
+	
+#transferInfo .modal-prod-list-holder table > tbody td {
+	font-size:12px;
+	color:#9b9292;}
+	
+.modal-footer .btn {
+    background-color: #fb8f73;
+    border: medium none;
+    border-radius: 0;
+    color: white;
+    line-height: 26px;
+    padding: 0 0 0 10px;}
+	
+.modal-footer .btn:hover {
+    background-color: #cc5c4e;}
+	
+.modal-footer .btn > span {
+    background-color: #cc5c4e;
+    display: inline-block;
+    line-height: 26px;
+    margin-left: 10px;
+    padding: 0 5px;}
+			
+	
+	

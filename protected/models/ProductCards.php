@@ -232,8 +232,7 @@ class ProductCards extends CActiveRecord
                     }
                 }
             }
-
-            if(!empty($code) && stristr($item->productCard->product_code,$code) != false)
+            elseif(!empty($code) && stristr($item->productCard->product_code,$code) != false)
             {
                 if($item->qnt > 0)
                 {
