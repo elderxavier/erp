@@ -177,9 +177,40 @@ var fill_form = function()
     //get all added product
     var added_products = jQuery(".prod-item");
 
-    //
+    var str_prods_html = '';
+    var str_fields_html = '';
+
+    //each added product
     added_products.each(function(i,obj){
 
+        var id = jQuery(obj).data().id;
+        var name = jQuery(obj).find('._name').html();
+        var code = jQuery(obj).find('._code').html();
+        var units = jQuery(obj).find('._unit').html();
+        var qnt = jQuery(obj).find('.quant').html();
+        var dimension = jQuery(obj).find('._dimension').html();
+        var sizes = jQuery(obj).find("._sizes").html();
+        var weight_net = jQuery(obj).find('.weight-net').html();
+        var weight_gross = jQuery(obj).find('.weight-gross').html();
+
+        str_prods_html +=
+            '<tr>' +
+            '<td>'+name+'</td>' +
+            '<td>'+code+'</td>' +
+            '<td>'+units+'</td>' +
+            '<td>'+qnt+'</td>' +
+            '<td>'+dimension+'</td>' +
+            '<td>'+sizes+'</td>' +
+            '<td>'+weight_net+'</td>' +
+            '<td>'+weight_gross+'</td>' +
+            '</tr>';
+
+        str_fields_html +=
+            '<input name="MovementForm[products]['+id+']" value="'+qnt+'">';
+
     });
+
+    container.html(str_prods_html);
+    container_fields.html(str_fields_html);
 
 };
