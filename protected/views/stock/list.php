@@ -19,9 +19,10 @@ $cs->registerScriptFile(Yii::app()->request->baseUrl.'/js/stock.js',CClientScrip
 	<div class="container-fluid  main-content-holder content-wrapper">
 
     	<div class="row filter-holder">
-            <form method="post" action="<?php echo Yii::app()->createUrl('/stock/filter'); ?>">
+            <form method="post" action="#">
                 <input id="prod-name" type="text" placeholder="<?php echo $this->labels['product name']; ?>">
                 <input id="prod-code" type="text" placeholder="<?php echo $this->labels['product code']; ?>">
+
                 <select id="stock-location">
                 	<option value=""><?php echo $this->labels['stock location']; ?></option>
                     <?php foreach($cities as $id => $name): ?>

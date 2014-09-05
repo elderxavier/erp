@@ -9,7 +9,8 @@ class StockController extends Controller
     {
         $arr = array(
             'products' => array('action' => 'list','visible' => $this->rights['stock_see'] ? 1 : 0 , 'class' => 'list-products'),
-            'movements' => array('action' => 'movements', 'visible' => $this->rights['stock_see'] ? 1 : 0, 'class' => 'create-product'),
+            'movements' => array('action' => 'movements', 'visible' => $this->rights['stock_see'] ? 1 : 0, 'class' => 'list-products'),
+            'move products' => array('action' => 'move', 'visible' => $this->rights['stock_see'] ? 1 : 0, 'class' => 'create-product')
         );
 
         return $arr;
@@ -24,8 +25,10 @@ class StockController extends Controller
         $this->actionList();
     }
 
+
     /**
      * List all products in stock
+     * @param int $page
      */
     public function actionList($page = 1)
     {
@@ -41,7 +44,27 @@ class StockController extends Controller
 
         $productsObj = ProductInStock::model()->with('stock','stock.location','productCard')->findAll($c);
         $this->render('list',array('products' => $productsObj, 'cities' => $cities, 'pages' => $pages, 'current_page' => $page, 'units' => $units));
-    }
+    }//actionList
+
+    /**
+     * List all movements
+     * @param int $page
+     */
+    public function actionMovements($page = 1)
+    {
+        $c = new CDbCriteria();
+        $c -> limit = $this->on_one_page;
+        $c -> offset = ($this->on_one_page * ($page - 1));
+
+        $count = ProductInStock::model()->count();
+        $pages = $this->calculatePageCount($count);
+        $stock = Stocks::model()->getAsArrayPairs();
+
+        $movements = StockMovements::model()->with('stockMovementItems','stockMovementStages','status','srcStock','trgStock')->findAll($c);
+        $this->render('list_movements',array('movements' => $movements, 'pages' => $pages, 'page' => $page, 'stocks' => $stock));
+    }//actionMovements
+
+    
 
 
     /****************************************** A J A X  S E C T I O N ************************************************/

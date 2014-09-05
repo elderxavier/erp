@@ -17,6 +17,10 @@
  * @property OperationsOut[] $operationsOuts
  * @property OperationsOutItems[] $operationsOutItems
  * @property ProductInStock[] $productInStocks
+ * @property StockMovementItems[] $stockMovementItems
+ * @property StockMovementItems[] $stockMovementItems1
+ * @property StockMovements[] $stockMovements
+ * @property StockMovements[] $stockMovements1
  * @property UserCities $location
  */
 class Stocks extends CActiveRecord
@@ -57,6 +61,10 @@ class Stocks extends CActiveRecord
 			'operationsOuts' => array(self::HAS_MANY, 'OperationsOut', 'stock_id'),
 			'operationsOutItems' => array(self::HAS_MANY, 'OperationsOutItems', 'stock_id'),
 			'productInStocks' => array(self::HAS_MANY, 'ProductInStock', 'stock_id'),
+			'stockMovementItems' => array(self::HAS_MANY, 'StockMovementItems', 'trg_stock_id'),
+			'stockMovementItems1' => array(self::HAS_MANY, 'StockMovementItems', 'src_stock_id'),
+			'stockMovements' => array(self::HAS_MANY, 'StockMovements', 'src_stock_id'),
+			'stockMovements1' => array(self::HAS_MANY, 'StockMovements', 'trg_stock_id'),
 			'location' => array(self::BELONGS_TO, 'UserCities', 'location_id'),
 		);
 	}
@@ -233,5 +241,4 @@ class Stocks extends CActiveRecord
             return 0;
         }
     }
-
 }

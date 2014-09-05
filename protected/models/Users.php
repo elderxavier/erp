@@ -26,7 +26,9 @@
  * The followings are the available model relations:
  * @property ServiceProcesses[] $serviceProcesses
  * @property ServiceProcesses[] $serviceProcesses1
+ * @property ServiceProcesses[] $serviceProcesses2
  * @property ServiceResolutions[] $serviceResolutions
+ * @property StockMovementStages[] $stockMovementStages
  * @property UserRights[] $userRights
  * @property Positions $position
  * @property UserCities $city
@@ -65,9 +67,11 @@ class Users extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'serviceProcesses' => array(self::HAS_MANY, 'ServiceProcesses', 'current_employee_id'),
-			'serviceProcesses1' => array(self::HAS_MANY, 'ServiceProcesses', 'user_modified_by'),
+			'serviceProcesses' => array(self::HAS_MANY, 'ServiceProcesses', 'user_modified_by'),
+			'serviceProcesses1' => array(self::HAS_MANY, 'ServiceProcesses', 'current_employee_id'),
+			'serviceProcesses2' => array(self::HAS_MANY, 'ServiceProcesses', 'user_created_by'),
 			'serviceResolutions' => array(self::HAS_MANY, 'ServiceResolutions', 'by_employee_id'),
+			'stockMovementStages' => array(self::HAS_MANY, 'StockMovementStages', 'user_operator_id'),
 			'userRights' => array(self::HAS_MANY, 'UserRights', 'user_id'),
 			'position' => array(self::BELONGS_TO, 'Positions', 'position_id'),
 			'city' => array(self::BELONGS_TO, 'UserCities', 'city_id'),

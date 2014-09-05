@@ -26,11 +26,12 @@
  * The followings are the available model relations:
  * @property OperationsInItems[] $operationsInItems
  * @property OperationsOutItems[] $operationsOutItems
- * @property SizeUnits $sizeUnits
  * @property ProductCardCategories $category
  * @property MeasureUnits $measureUnits
+ * @property SizeUnits $sizeUnits
  * @property ProductFiles[] $productFiles
  * @property ProductInStock[] $productInStocks
+ * @property StockMovementItems[] $stockMovementItems
  */
 class ProductCards extends CActiveRecord
 {
@@ -68,11 +69,12 @@ class ProductCards extends CActiveRecord
 		return array(
 			'operationsInItems' => array(self::HAS_MANY, 'OperationsInItems', 'product_card_id'),
 			'operationsOutItems' => array(self::HAS_MANY, 'OperationsOutItems', 'product_card_id'),
-			'sizeUnits' => array(self::BELONGS_TO, 'SizeUnits', 'size_units_id'),
 			'category' => array(self::BELONGS_TO, 'ProductCardCategories', 'category_id'),
 			'measureUnits' => array(self::BELONGS_TO, 'MeasureUnits', 'measure_units_id'),
+			'sizeUnits' => array(self::BELONGS_TO, 'SizeUnits', 'size_units_id'),
 			'productFiles' => array(self::HAS_MANY, 'ProductFiles', 'product_card_id'),
 			'productInStocks' => array(self::HAS_MANY, 'ProductInStock', 'product_card_id'),
+			'stockMovementItems' => array(self::HAS_MANY, 'StockMovementItems', 'product_card_id'),
 		);
 	}
 
@@ -155,6 +157,7 @@ class ProductCards extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
 
     /**
      * Returns array of data-items - products from database by code or name
