@@ -65,7 +65,16 @@ $(function(){
     }); //changing stock
 
     jQuery(".btn-submit").click(function(){
-        fill_form();
+        if(!stock_equal())
+        {
+            fill_form();
+        }
+        else
+        {
+            alert('Selected stocks are equal!');
+            return false;
+        }
+        return true;
     });
 
 });// end $(function())
@@ -156,6 +165,15 @@ var filter_prods = function()
     jQuery(".filtered-prods").load('/stock/prodfilter',{name:prod_name,code:prod_code, stock:stock_id});
 };
 
+
+var stock_equal = function()
+{
+    var stock_from_id = jQuery("#stock-id-src").val();
+    var stock_to_id = jQuery("#stock-id-trg").val();
+
+    return stock_from_id == stock_to_id;
+};
+
 var fill_form = function()
 {
     //get form containers for fields
@@ -163,26 +181,32 @@ var fill_form = function()
     var container_fields = jQuery(".hidden-fields");
     var con_stock_from = jQuery(".vis-stock-from");
     var con_stock_to = jQuery(".vis-stock-to");
-    var con_total_net = jQuery(".vis-total-net");
-    var con_total_gross = jQuery(".vis-total-gross");
 
-    //clean all
+    //get source stock and target stock ID's
+    var stock_from_id = jQuery("#stock-id-src").val();
+    var stock_to_id = jQuery("#stock-id-trg").val();
+
+    //get source stock and target stock names
+    var stock_from_name = jQuery('#stock-id-src').find('option:selected').html();
+    var stock_to_name = jQuery('#stock-id-trg').find('option:selected').html();
+
+    //clean all visual containers and hidden-fields containers
     container.html('');
     container_fields.html('');
-    con_stock_from.html();
-    con_stock_to.html();
-    con_total_net.html('0.000');
-    con_total_gross.html('0.000');
+    con_stock_from.html('');
+    con_stock_to.html('');
 
-    //get all added product
+    //get all added products
     var added_products = jQuery(".prod-item");
 
+    //strings for HTML
     var str_prods_html = '';
     var str_fields_html = '';
 
     //each added product
     added_products.each(function(i,obj){
 
+        //get all product info
         var id = jQuery(obj).data().id;
         var name = jQuery(obj).find('._name').html();
         var code = jQuery(obj).find('._code').html();
@@ -193,8 +217,9 @@ var fill_form = function()
         var weight_net = jQuery(obj).find('.weight-net').html();
         var weight_gross = jQuery(obj).find('.weight-gross').html();
 
+        //add table row to html
         str_prods_html +=
-            '<tr>' +
+            '<tr>'+
             '<td>'+name+'</td>' +
             '<td>'+code+'</td>' +
             '<td>'+units+'</td>' +
@@ -205,12 +230,34 @@ var fill_form = function()
             '<td>'+weight_gross+'</td>' +
             '</tr>';
 
+        //add hidden field to html
         str_fields_html +=
-            '<input name="MovementForm[products]['+id+']" value="'+qnt+'">';
+            '<input type="hidden" name="MovementForm[products]['+id+']" value="'+qnt+'">';
 
     });
 
+    str_prods_html += '' +
+        '<tr>' +
+        '<td colspan="3"></td>' +
+        '<td colspan="3">Total NET</td>' +
+        '<td colspan="2">'+jQuery('#total-net').html()+' KG</td>' +
+        '</tr>';
+
+    str_prods_html += '' +
+        '<tr>' +
+        '<td colspan="3"></td>' +
+        '<td colspan="3">Total GROSS</td>' +
+        '<td colspan="2">'+jQuery('#total-gross').html()+' KG</td>' +
+        '</tr>';
+
+    //add hidden source stock and target stock id to html
+    str_fields_html += '' +
+        '<input type="hidden" name="MovementForm[src_stock]" value="'+stock_from_id+'">' +
+        '<input type="hidden" name="MovementForm[trg_stock]" value="'+stock_to_id+'">';
+
+    //add HTML to form
     container.html(str_prods_html);
     container_fields.html(str_fields_html);
-
+    con_stock_from.html(stock_from_name);
+    con_stock_to.html(stock_to_name);
 };

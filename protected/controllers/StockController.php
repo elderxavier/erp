@@ -80,7 +80,58 @@ class StockController extends Controller
      */
     public function actionMoveFinish()
     {
-        Debug::out($_POST);
+        if(isset($_POST['MovementForm']) && !empty($_POST['MovementForm']))
+        {
+            //get form
+            $form = $_POST['MovementForm'];
+
+            //get values
+            $products = isset($form['products']) ? $form['products'] : array();
+            $src_stock_id = isset($form['src_stock']) ? $form['src_stock'] : 0;
+            $trg_stock_id = isset($form['trg_stock']) ? $form['trg_stock'] : 0;
+            $car_number = isset($form['car_number']) ? $form['car_number'] : '';
+            $car_brand =  isset($form['car_brand']) ? $form['car_number'] : '';
+            $generate_pdf = isset($form['generate_pdf']) ? true : false;
+
+            //new movement
+            $movement = new StockMovements();
+            $movement -> date = time(); //current time
+            $movement -> status_id = 1; // 1 - On the way, 2 - Delivered, 3 - Canceled, 4 - Stopped, 5 - Returned
+            $movement -> src_stock_id = $src_stock_id; //from stock
+            $movement -> trg_stock_id = $trg_stock_id; //to stock
+            $movement -> car_number = $car_number; //car number
+            $movement -> car_brand = $car_brand; //car brand
+            $movement -> save(); //save
+
+            //for-each products
+            foreach($products as $id => $qnt)
+            {
+                /* @var $card ProductCards */
+                $card = ProductCards::model()->findByPk($id);
+
+                //new movement item
+                $item = new StockMovementItems();
+                $item -> movement_id = $movement->id; //movement ID
+                $item -> product_card_id = $id; //product card
+                $item -> qnt = $qnt; //quantity
+                $item -> item_weight = $card->weight; //weight of one item (gross)
+                $item -> src_stock_id = $movement->src_stock_id; //source stock (additional field, not related, just for report-simplifying)
+                $item -> trg_stock_id = $movement->trg_stock_id; //target stock (additional field, not related, just for report-simplifying)
+                $item -> in_src_stock_after_movement = 0; //zero - because not moved yet
+                $item -> in_trg_stock_after_movement = 0; //zero - because not moved yet
+                $item -> save(); // cave
+            }
+
+            //new movement stage (as resolution in help-desk)
+            $stage = new StockMovementStages();
+            $stage -> movement_id = $movement->id; //movement ID
+            $stage -> movement_status_id = $movement->status->id; // current status of movement
+            $stage -> user_operator_id = Yii::app()->user->id; //operator(current user) ID
+            $stage -> operator_name = Yii::app()->user->getState('name').' '.Yii::app()->user->getState('surname'); //operator name (not necessary)
+            $stage -> time = time(); //current time
+            $stage -> remark = '-'; //empty remark by default
+        }
+
         exit();
     }//MoveFinish
 
@@ -164,140 +215,61 @@ class StockController extends Controller
             $units = Yii::app()->request->getParam('units','');
             $page = Yii::app()->request->getParam('page',1);
 
+            //criteria for pagination
             $c = new CDbCriteria();
-            $c = $this->addAllFilterCriterion($c,$prod_name,$prod_code,$stock_loc_id,$units);
-
             $c -> limit = $this->on_one_page;
             $c -> offset = ($this->on_one_page * ($page - 1));
 
-            $items = ProductInStock::model()->findAll($c);
+            //conditions - null by default
+            $product_con_arr = null;
+            $measure_con_arr = null;
+            $location_con_arr = null;
 
-            $this->renderPartial('_ajax_table_filtering',array('items' => $items));
+
+            //if have product name and product code
+            if(!empty($prod_name) && !empty($prod_code))
+            {
+                $product_con_arr = array('condition'=>'productCard.product_name LIKE "%'.$prod_name.'%" AND productCard.product_code LIKE "%'.$prod_code.'%"');
+            }
+            //if have just product name
+            elseif(!empty($prod_name))
+            {
+                $product_con_arr = array('condition'=>'productCard.product_name LIKE "%'.$prod_name.'%"');
+            }
+            //if have just product code
+            elseif(!empty($prod_code))
+            {
+                $product_con_arr = array('condition'=>'productCard.product_code LIKE "%'.$prod_code.'%"');
+            }
+
+            //if have units
+            if(!empty($units))
+            {
+                $measure_con_arr =  array('condition'=>'measureUnits.id= '.$units);
+            }
+
+            //if have location
+            if(!empty($stock_loc_id))
+            {
+                $location_con_arr=  array('condition'=>'location.id= '.$stock_loc_id);
+            }
+
+            //get all items by conditions
+            $items = ProductInStock::model()->with(array(
+                'productCard' => $product_con_arr,
+                'productCard.measureUnits' => $measure_con_arr,
+                'stock',
+                'stock.location' => $location_con_arr))->findAll($c);
+
+            //calculate count of pages
+            $pages = $this->calculatePageCount(count($items));
+
+            //render table and pages
+            $this->renderPartial('_ajax_table_filtering',array('items' => $items, 'pages' => $pages, 'current_page' => $page));
         }
         else
         {
             throw new CHttpException(404);
         }
     }//actionFilter
-
-
-    /**
-     * Renders pagination block
-     */
-    public function actionAjaxPages()
-    {
-        if(Yii::app()->request->isAjaxRequest)
-        {
-            $prod_name = Yii::app()->request->getParam('name','');
-            $prod_code = Yii::app()->request->getParam('code','');
-            $stock_loc_id = Yii::app()->request->getParam('location','');
-            $units = Yii::app()->request->getParam('units','');
-            $page = Yii::app()->request->getParam('page',1);
-
-            //store all filter-params to array
-            $filter_params = array(
-                'name' => $prod_name,
-                'code' => $prod_code,
-                'location' => $stock_loc_id,
-                'units' => $units,
-                'page' => $page
-            );
-
-            $c = new CDbCriteria();
-            $c = $this->addAllFilterCriterion($c,$prod_name,$prod_code,$stock_loc_id,$units);
-
-            $count = ProductInStock::model()->count($c);
-            $pages_count = $this->calculatePageCount($count);
-
-            $this->renderPartial('_ajax_pages',array('pages' => $pages_count, 'current' => $page, 'filters' => $filter_params));
-        }
-        else
-        {
-            throw new CHttpException(404);
-        }
-    }
-
-    /**
-     * Updates criteria by filter params
-     * @param CDbCriteria $c
-     * @param string $product_name
-     * @param string $product_code
-     * @param int $stock_location_id
-     * @param string $units
-     * @return CDbCriteria
-     */
-    public function addAllFilterCriterion($c,$product_name,$product_code,$stock_location_id,$units)
-    {
-        /* @var $c CDbCriteria */
-        /* @var $card ProductCards */
-
-        $products_ids = array(); //ids of product to search by
-        $stock_ids = array(); //ids of stocks to search by
-
-        //if product name set
-        if(!empty($product_name) || !empty($product_code))
-        {
-            //get all product-card rows (by SQL) from base by product name
-            $products_with_similar_name_code_rows = ProductCards::model()->findAllByNameOrCode($product_name,$product_code);
-
-            //if something found by name
-            if(!empty($products_with_similar_name_code_rows))
-            {
-                //add all ID's to array if not already added
-                foreach($products_with_similar_name_code_rows as $row)
-                {
-                    if(!in_array($row['id'],$products_ids)) $products_ids[] = $row['id'];
-                }
-            }
-        }
-
-        //if measure units set
-        if(!empty($units))
-        {
-            //find all product-cards by measure units
-            $products = ProductCards::model()->findAllByAttributes(array('measure_units_id' => $units));
-
-            //if found by units
-            if(!empty($products))
-            {
-                //add all ID's to array if not already added
-                foreach($products as $card)
-                {
-                    if(!in_array($card->id,$products_ids)) $products_ids[] = $card->id;
-                }
-            }
-        }
-
-        //if stock location set
-        if(!empty($stock_location_id))
-        {
-            /* @var $city UserCities */
-
-            //get city by id
-            $city = UserCities::model()->findByPk($stock_location_id);
-
-            //if found
-            if(!empty($city))
-            {
-                //get all stock of this city, and add their id to search-criteria array
-                foreach($city->stocks as $stock)
-                {
-                    $stock_ids[] = $stock->id;
-                }
-            }
-        }
-
-        //add ID's of product cards to conditions (if should search by name, code or units)
-        if(!empty($product_name) || !empty($product_code) || !empty($units))
-        {
-            $c -> addInCondition('product_card_id',$products_ids);
-        }
-        //add ID's of stocks to condition (if should search by stock location)
-        if(!empty($stock_location_id))
-        {
-            $c -> addInCondition('stock_id',$stock_ids);
-        }
-
-        return $c;
-    }//addAllFilterCriterion
 };

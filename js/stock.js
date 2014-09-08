@@ -38,7 +38,7 @@ jQuery(document).ready(function(){
     jQuery(document).on('click','.filter-button-top',function(){
         var params = getParamsFromInputs();
         filter(params);
-        loadPager(params);
+//        loadPager(params);
         return false;
     });
 
@@ -49,7 +49,7 @@ jQuery(document).ready(function(){
         var filters_data = jQuery('.paginator').data(); //get post-filter-params
         filters_data.page = jQuery(this).html(); //get page number
         filter(filters_data);
-        loadPager(filters_data);
+//        loadPager(filters_data);
     });
 
 });
