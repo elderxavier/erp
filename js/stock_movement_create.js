@@ -253,7 +253,9 @@ var fill_form = function()
     //add hidden source stock and target stock id to html
     str_fields_html += '' +
         '<input type="hidden" name="MovementForm[src_stock]" value="'+stock_from_id+'">' +
-        '<input type="hidden" name="MovementForm[trg_stock]" value="'+stock_to_id+'">';
+        '<input type="hidden" name="MovementForm[trg_stock]" value="'+stock_to_id+'">' +
+        '<input type="hidden" name="MovementForm[car_brand]" value="'+jQuery('#car-brand-input').val()+'">' +
+        '<input type="hidden" name="MovementForm[car_number]" value="'+jQuery('#car-number-input').val()+'">';
 
     //add HTML to form
     container.html(str_prods_html);

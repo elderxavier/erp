@@ -157,12 +157,12 @@ $cs->registerScriptFile(Yii::app()->request->baseUrl.'/js/stock_movement_create.
     <div id="transport-detail-section">
         <div class="col-xs-6">
             <label><?php echo $this->labels['transport brand']; ?></label>
-            <input type="text" class="form-control" />
+            <input id="car-brand-input" type="text" class="form-control">
         </div>
 
         <div class="col-xs-6">
             <label><?php echo $this->labels['transport number']; ?></label>
-            <input type="text" class="form-control" placeholder="VRM 623" />
+            <input id="car-number-input" type="text" class="form-control">
         </div>
 
     </div><!--/transport-detail-section -->
@@ -188,9 +188,9 @@ $cs->registerScriptFile(Yii::app()->request->baseUrl.'/js/stock_movement_create.
                             <table class="table table-bordered" width="100%">
                                 <tr>
                                     <td><?php echo $this->labels['from stock']; ?></td>
-                                    <td class="vis-stock-from">Vilnius</td>
+                                    <td class="vis-stock-from"></td>
                                     <td><?php echo $this->labels['to stock']; ?></td>
-                                    <td class="vis-stock-to">Klaipeda</td>
+                                    <td class="vis-stock-to"></td>
                                 </tr>
                             </table>
                         </div><!--/supl-header -->
@@ -209,26 +209,6 @@ $cs->registerScriptFile(Yii::app()->request->baseUrl.'/js/stock_movement_create.
                                 </tr>
                                 </thead>
                                 <tbody class="body-modal-prods">
-                                <tr>
-                                    <td>Product 1</td>
-                                    <td>prd 12345677</td>
-                                    <td>litr</td>
-                                    <td>sm</td>
-                                    <td>1</td>
-                                    <td>23x34x45</td>
-                                    <td>1.567</td>
-                                    <td>1.789</td>
-                                </tr>
-                                <tr class="total">
-                                    <td colspan="3"></td>
-                                    <td colspan="3"><?php echo $this->labels['total net']; ?>(kg):</td>
-                                    <td colspan="2"><span class="vis-total-net">0.000</span> Kg</td>
-                                </tr>
-                                <tr class="total-with-vat">
-                                    <td colspan="3"></td>
-                                    <td colspan="3"><?php echo $this->labels['total gross']; ?>(kg):</td>
-                                    <td colspan="2"><span class="vis-total-gross">0.000</span> Kg</td>
-                                </tr>
                                 </tbody>
                             </table>
                         </div><!--/modal-prod-list-holder -->

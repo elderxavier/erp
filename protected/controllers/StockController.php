@@ -77,6 +77,7 @@ class StockController extends Controller
 
     /**
      * Finish movement - write to base
+     * @throws CHttpException
      */
     public function actionMoveFinish()
     {
@@ -90,7 +91,7 @@ class StockController extends Controller
             $src_stock_id = isset($form['src_stock']) ? $form['src_stock'] : 0;
             $trg_stock_id = isset($form['trg_stock']) ? $form['trg_stock'] : 0;
             $car_number = isset($form['car_number']) ? $form['car_number'] : '';
-            $car_brand =  isset($form['car_brand']) ? $form['car_number'] : '';
+            $car_brand =  isset($form['car_brand']) ? $form['car_brand'] : '';
             $generate_pdf = isset($form['generate_pdf']) ? true : false;
 
             //new movement
@@ -119,7 +120,7 @@ class StockController extends Controller
                 $item -> trg_stock_id = $movement->trg_stock_id; //target stock (additional field, not related, just for report-simplifying)
                 $item -> in_src_stock_after_movement = 0; //zero - because not moved yet
                 $item -> in_trg_stock_after_movement = 0; //zero - because not moved yet
-                $item -> save(); // cave
+                $item -> save(); //cave
             }
 
             //new movement stage (as resolution in help-desk)
@@ -130,6 +131,13 @@ class StockController extends Controller
             $stage -> operator_name = Yii::app()->user->getState('name').' '.Yii::app()->user->getState('surname'); //operator name (not necessary)
             $stage -> time = time(); //current time
             $stage -> remark = '-'; //empty remark by default
+
+            //redirect to movement list
+            $this->redirect(Yii::app()->createUrl('/stock/movements'));
+        }
+        else
+        {
+            throw new CHttpException(404);
         }
 
         exit();
@@ -216,9 +224,7 @@ class StockController extends Controller
             $page = Yii::app()->request->getParam('page',1);
 
             //criteria for pagination
-            $c = new CDbCriteria();
-            $c -> limit = $this->on_one_page;
-            $c -> offset = ($this->on_one_page * ($page - 1));
+            $c = Pagination::getFilterCriteria(3,$page);
 
             //conditions - null by default
             $product_con_arr = null;
@@ -254,7 +260,7 @@ class StockController extends Controller
             }
 
 
-            //get all items by conditions
+            //get all items by conditions and limit them by criteria
             $items = ProductInStock::model()->with(array(
                 'productCard' => $product_con_arr,
                 'productCard.measureUnits' => $measure_con_arr,
@@ -269,7 +275,7 @@ class StockController extends Controller
                 'stock.location' => $location_con_arr))->count();
 
             //calculate count of pages
-            $pages = $this->calculatePageCount($count);
+            $pages = Pagination::calcPagesCount($count,3);
 
             //render table and pages
             $this->renderPartial('_ajax_table_filtering',array('items' => $items, 'pages' => $pages, 'current_page' => $page));
