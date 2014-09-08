@@ -225,7 +225,6 @@ class StockController extends Controller
             $measure_con_arr = null;
             $location_con_arr = null;
 
-
             //if have product name and product code
             if(!empty($prod_name) && !empty($prod_code))
             {
@@ -245,14 +244,15 @@ class StockController extends Controller
             //if have units
             if(!empty($units))
             {
-                $measure_con_arr =  array('condition'=>'measureUnits.id= '.$units);
+                $measure_con_arr = array('condition'=>'measureUnits.id= '.$units);
             }
 
             //if have location
             if(!empty($stock_loc_id))
             {
-                $location_con_arr=  array('condition'=>'location.id= '.$stock_loc_id);
+                $location_con_arr = array('condition'=>'location.id= '.$stock_loc_id);
             }
+
 
             //get all items by conditions
             $items = ProductInStock::model()->with(array(
@@ -261,8 +261,15 @@ class StockController extends Controller
                 'stock',
                 'stock.location' => $location_con_arr))->findAll($c);
 
+            //count all filtered items
+            $count = ProductInStock::model()->with(array(
+                'productCard' => $product_con_arr,
+                'productCard.measureUnits' => $measure_con_arr,
+                'stock',
+                'stock.location' => $location_con_arr))->count();
+
             //calculate count of pages
-            $pages = $this->calculatePageCount(count($items));
+            $pages = $this->calculatePageCount($count);
 
             //render table and pages
             $this->renderPartial('_ajax_table_filtering',array('items' => $items, 'pages' => $pages, 'current_page' => $page));

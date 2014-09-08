@@ -38,7 +38,6 @@ jQuery(document).ready(function(){
     jQuery(document).on('click','.filter-button-top',function(){
         var params = getParamsFromInputs();
         filter(params);
-//        loadPager(params);
         return false;
     });
 
@@ -46,10 +45,9 @@ jQuery(document).ready(function(){
      * When clicked on pagination page
      */
     jQuery(document).on('click','.links-pages',function(){
-        var filters_data = jQuery('.paginator').data(); //get post-filter-params
-        filters_data.page = jQuery(this).html(); //get page number
-        filter(filters_data);
-//        loadPager(filters_data);
+        var params = getParamsFromInputs();
+        params.page = jQuery(this).html(); //get page number
+        filter(params);
     });
 
 });
@@ -82,15 +80,5 @@ var getParamsFromInputs = function(){
 var filter = function(params)
 {
     var filter_url = '/stock/filter';
-    jQuery(".filtered-body").load(filter_url,params);
+    jQuery(".table-holder").load(filter_url,params);
 };//filter
-
-/**
- * Loads pagination by filtering params
- * @param params
- */
-var loadPager = function(params)
-{
-    var pages_url = '/stock/ajaxpages';
-    jQuery(".pages-holder").load(pages_url,params);
-};//load pager

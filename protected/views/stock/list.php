@@ -39,7 +39,7 @@ $cs->registerScriptFile(Yii::app()->request->baseUrl.'/js/stock.js',CClientScrip
            </form> 
         </div><!--/filter-holder -->
 
-        <div class="row table-holder filtered-body">
+        <div class="row table-holder">
         	<table class="table table-bordered table-striped table-hover">
             	<thead>
                 	<tr>
