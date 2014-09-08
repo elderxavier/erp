@@ -114,4 +114,18 @@ class StockMovementStages extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+    /**
+     * Get complete description of stage
+     * @return string
+     */
+    public function getDescription()
+    {
+        $status = $this->movementStatus;
+        $description_str = $status->description;
+        $description_str = str_replace('%src_stock_name%',$this->movement->srcStock->name.'('.$this->movement->srcStock->location->city_name.')',$description_str);
+        $description_str = str_replace('%trg_stock_name%',$this->movement->trgStock->name.'('.$this->movement->trgStock->location->city_name.')',$description_str);
+
+        return $description_str;
+    }
 }

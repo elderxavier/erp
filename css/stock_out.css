@@ -214,3 +214,22 @@
     line-height: 26px;
     margin-left: 10px;
     padding: 0 5px;}
+	
+/*--- add status ---*/
+#status-selection-from  > select {
+	border-radius:0;
+	border:1px solid #c7c8cc;
+	max-width:50%;}
+	
+.text-area-holder > label {
+	font-size:12px;
+	text-transform:uppercase;
+	font-weight:400;
+	color:#9b9292;}
+	
+	
+.text-area-holder > textarea  {
+	resize:none;
+	border-radius:0;
+	border:1px solid #c7c8cc;
+	max-width:80%;}

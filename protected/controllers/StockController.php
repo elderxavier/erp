@@ -107,6 +107,12 @@ class StockController extends Controller
             //for-each products
             foreach($products as $id => $qnt)
             {
+
+                /* @var $this_product_in_src_stock ProductInStock */
+                $this_product_in_src_stock = ProductInStock::model()->findAllByAttributes(array('stock_id' => $movement->src_stock_id, 'product_card_id' => $id));
+                $this_product_in_trg_stock = ProductInStock::model()->findAllByAttributes(array('stock_id' => $movement->trg_stock_id, 'product_card_id' => $id));
+
+
                 /* @var $card ProductCards */
                 $card = ProductCards::model()->findByPk($id);
 
@@ -118,7 +124,10 @@ class StockController extends Controller
                 $item -> item_weight = $card->weight; //weight of one item (gross)
                 $item -> src_stock_id = $movement->src_stock_id; //source stock (additional field, not related, just for report-simplifying)
                 $item -> trg_stock_id = $movement->trg_stock_id; //target stock (additional field, not related, just for report-simplifying)
+
+                if($this_product_in_src_stock->qnt - $qnt > 0){}
                 $item -> in_src_stock_after_movement = 0; //zero - because not moved yet
+
                 $item -> in_trg_stock_after_movement = 0; //zero - because not moved yet
                 $item -> save(); //cave
             }
@@ -131,6 +140,7 @@ class StockController extends Controller
             $stage -> operator_name = Yii::app()->user->getState('name').' '.Yii::app()->user->getState('surname'); //operator name (not necessary)
             $stage -> time = time(); //current time
             $stage -> remark = '-'; //empty remark by default
+            $stage -> save();
 
             //redirect to movement list
             $this->redirect(Yii::app()->createUrl('/stock/movements'));
@@ -142,6 +152,28 @@ class StockController extends Controller
 
         exit();
     }//MoveFinish
+
+
+
+    /**
+     * Renders movement info
+     * @param int $id
+     * @throws CHttpException
+     */
+    public function actionMovementInfo($id = null)
+    {
+        $movement = StockMovements::model()->with('stockMovementItems','stockMovementStages','status','srcStock','trgStock')->findByPk($id);
+        $statuses = StockMovementStatuses::model()->findAll();
+
+        if(!empty($movement))
+        {
+            $this->render('info_movement',array('movement' => $movement, 'statuses' => $statuses));
+        }
+        else
+        {
+            throw new CHttpException(404);
+        }
+    }
 
 
     /****************************************** A J A X  S E C T I O N ************************************************/

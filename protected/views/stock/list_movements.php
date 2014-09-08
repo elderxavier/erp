@@ -66,7 +66,7 @@ $cs->registerScriptFile(Yii::app()->request->baseUrl.'/js/stock_movements.js',CC
                     <td><?php echo $movement->car_brand.' - '.$movement->car_number; ?></td>
                     <td><?php echo date('Y.m.d',$movement->trg_stock_id); ?></td>
                     <td><?php echo $movement->status->name; ?></td>
-                    <td><a href="#"><?php echo $this->labels['change status']; ?></a></td>
+                    <td><a href="<?php echo Yii::app()->createUrl('/stock/movementinfo', array('id' => $movement->id)); ?>"><?php echo $this->labels['change status']; ?></a></td>
                 </tr>
             <?php endforeach; ?>
             </tbody>

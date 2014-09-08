@@ -118,4 +118,26 @@ class StockMovements extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+    /**
+     * Calculates total weight
+     * @param bool $net
+     * @param bool $kg
+     * @return float|int
+     */
+    public function calculateTotalWeight($net = true, $kg = false)
+    {
+        $items = $this->stockMovementItems;
+        $weight = 0;
+
+        foreach($items as $item)
+        {
+            $one_weight = $net ? $item->productCard->weight_net : $item->productCard->weight;
+            $weight += ($item->qnt * $one_weight);
+        }
+
+        if($kg){$weight = $weight/1000;}
+
+        return $weight;
+    }
 }
