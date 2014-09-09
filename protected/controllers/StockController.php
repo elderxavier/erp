@@ -46,6 +46,7 @@ class StockController extends Controller
         $this->render('list',array('products' => $productsObj, 'cities' => $cities, 'pages' => $pages, 'current_page' => $page, 'units' => $units));
     }//actionList
 
+
     /**
      * List all movements
      * @param int $page
@@ -53,15 +54,15 @@ class StockController extends Controller
     public function actionMovements($page = 1)
     {
         $c = new CDbCriteria();
-        $c -> limit = $this->on_one_page;
-        $c -> offset = ($this->on_one_page * ($page - 1));
+        $c -> limit = 3;
+        $c -> offset = Pagination::calcOffset(3,$page);
 
-        $count = ProductInStock::model()->count();
+        $count = StockMovements::model()->count();
         $pages = $this->calculatePageCount($count);
         $stock = Stocks::model()->getAsArrayPairs();
 
         $movements = StockMovements::model()->with('stockMovementItems','stockMovementStages','status','srcStock','trgStock')->findAll($c);
-        $this->render('list_movements',array('movements' => $movements, 'pages' => $pages, 'page' => $page, 'stocks' => $stock));
+        $this->render('list_movements',array('movements' => $movements, 'pages' => $pages, 'current_page' => $page, 'stocks' => $stock));
     }//actionMovements
 
 
@@ -133,7 +134,7 @@ class StockController extends Controller
                 if(!empty($this_product_in_src_stock) && ($this_product_in_src_stock->qnt > $qnt))
                 {
                     $this_product_in_src_stock->qnt -= $qnt;
-                    $this_product_in_trg_stock->date_changed = time();
+                    $this_product_in_src_stock->date_changed = time();
                     $this_product_in_src_stock -> update();
                     $qnt_src_left = $this_product_in_src_stock->qnt;
                 }
@@ -142,7 +143,7 @@ class StockController extends Controller
                 //if found this kind of item in target stock
                 if(!empty($this_product_in_trg_stock))
                 {
-                    $qnt_trg_left = $this_product_in_src_stock->qnt;
+                    $qnt_trg_left = $this_product_in_trg_stock->qnt;
                 }
                 $item -> in_trg_stock_after_movement = $qnt_trg_left; //in target stock quantity not changed, because not moved yet
                 $item -> save(); //save
@@ -167,7 +168,7 @@ class StockController extends Controller
         }
 
         exit();
-    }//MoveFinish
+    }//actionMoveFinish
 
 
 
@@ -189,10 +190,12 @@ class StockController extends Controller
         {
             throw new CHttpException(404);
         }
-    }
+    }//actionMovementInfo
+
 
     /**
      * Applying status
+     * @throws CHttpException
      */
     public function actionApplyStatus()
     {
@@ -316,7 +319,7 @@ class StockController extends Controller
             //404 error
             throw new CHttpException(404);
         }
-    }//ApplyStatus
+    }//actionApplyStatus
 
 
     /******************************************************* A J A X  S E C T I O N *****************************************************************/
@@ -460,4 +463,62 @@ class StockController extends Controller
             throw new CHttpException(404);
         }
     }//actionFilter
+
+
+    public function actionMovementFilter()
+    {
+        if(Yii::app()->request->isAjaxRequest)
+        {
+            //get filter-params
+            $movement_id = Yii::app()->request->getParam('movement_id',null);
+            $src_stock_id = Yii::app()->request->getParam('src_stock_id',null);
+            $trg_stock_id = Yii::app()->request->getParam('trg_stock_id',null);
+            $date_from_str = Yii::app()->request->getParam('date_from_str','00/00/00');
+            $date_to_str = Yii::app()->request->getParam('date_to_str','00/00/00');
+            $page = Yii::app()->request->getParam('page',1);
+
+            //pagination criteria
+            $c = new CDbCriteria();
+
+            //default time range
+            $time_from = 0; //beginning of the times
+            $time_to = time()+(60*60*24); //current time + one day
+
+            //if given dates
+            if(!empty($date_from_str))
+            {
+                $date_from_arr = explode('/',$date_from_str); //explode string to get numbers
+                $time_from = mktime(0,0,0,(int)$date_from_arr[0],(int)$date_from_arr[1],(int)$date_from_arr[2]); // make time
+            }
+            if(!empty($date_to_str))
+            {
+                $date_to_arr = explode('/',$date_to_str); //explode string to get numbers
+                $time_to = mktime(0,0,0,(int)$date_to_arr[0],(int)$date_to_arr[1],(int)$date_to_arr[2]); // make time
+                $time_to += (60*60*24); //add one day
+            }
+
+            //filtration by date
+            $c -> addBetweenCondition('date',$time_from,$time_to);
+
+            $conditions = array();
+            !empty($movement_id) ? $conditions['id'] = $movement_id : false;
+            !empty($src_stock_id) ? $conditions['src_stock_id'] = $src_stock_id : false;
+            !empty($trg_stock_id) ? $conditions['trg_stock_id'] = $trg_stock_id : false;
+
+            //get all items
+            $c_pages = Pagination::getFilterCriteria(3,$page,$c);
+            $items = StockMovements::model()->findAllByAttributes($conditions,$c_pages);
+
+            //get count of all items
+            $count = StockMovements::model()->countByAttributes($conditions,$c);
+            $pages = Pagination::calcPagesCount($count,3);
+
+            //render partial
+            $this->renderPartial('_ajax_movement_filtering',array('items' => $items, 'pages' => $pages, 'current_page' => $page));
+        }
+        else
+        {
+            throw new CHttpException(404);
+        }
+    }
 };
