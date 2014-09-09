@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50538
 File Encoding         : 65001
 
-Date: 2014-09-05 17:08:03
+Date: 2014-09-09 12:31:48
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -515,10 +515,10 @@ CREATE TABLE `product_in_stock` (
 -- ----------------------------
 INSERT INTO `product_in_stock` VALUES ('1', '1', '9', '21', '1409752385', '1408959961');
 INSERT INTO `product_in_stock` VALUES ('2', '1', '10', '22', '1409752385', '1408959961');
-INSERT INTO `product_in_stock` VALUES ('3', '3', '11', '2', '1409308831', '1409308831');
-INSERT INTO `product_in_stock` VALUES ('4', '3', '12', '2', '1409308831', '1409308831');
-INSERT INTO `product_in_stock` VALUES ('5', '1', '11', '11', '1409752385', '1409728901');
-INSERT INTO `product_in_stock` VALUES ('6', '1', '12', '12', '1409752385', '1409743571');
+INSERT INTO `product_in_stock` VALUES ('3', '3', '11', '3', '1410255040', '1409308831');
+INSERT INTO `product_in_stock` VALUES ('4', '3', '12', '4', '1410255040', '1409308831');
+INSERT INTO `product_in_stock` VALUES ('5', '1', '11', '10', '1410254310', '1409728901');
+INSERT INTO `product_in_stock` VALUES ('6', '1', '12', '10', '1410254310', '1409743571');
 
 -- ----------------------------
 -- Table structure for `rights`
@@ -738,14 +738,16 @@ CREATE TABLE `stock_movements` (
   KEY `src_stock_id` (`src_stock_id`),
   KEY `trg_stock_id` (`trg_stock_id`),
   KEY `status_id` (`status_id`),
-  CONSTRAINT `stock_movements_ibfk_3` FOREIGN KEY (`status_id`) REFERENCES `stock_movement_statuses` (`id`),
   CONSTRAINT `stock_movements_ibfk_1` FOREIGN KEY (`src_stock_id`) REFERENCES `stocks` (`id`),
-  CONSTRAINT `stock_movements_ibfk_2` FOREIGN KEY (`trg_stock_id`) REFERENCES `stocks` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  CONSTRAINT `stock_movements_ibfk_2` FOREIGN KEY (`trg_stock_id`) REFERENCES `stocks` (`id`),
+  CONSTRAINT `stock_movements_ibfk_3` FOREIGN KEY (`status_id`) REFERENCES `stock_movement_statuses` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of stock_movements
 -- ----------------------------
+INSERT INTO `stock_movements` VALUES ('15', '1', '3', '1410250127', '5', 'PVH 264', 'Audi 80');
+INSERT INTO `stock_movements` VALUES ('16', '1', '3', '1410254961', '2', 'LCR 569', 'Subaru Forester');
 
 -- ----------------------------
 -- Table structure for `stock_movement_items`
@@ -771,11 +773,15 @@ CREATE TABLE `stock_movement_items` (
   CONSTRAINT `stock_movement_items_ibfk_2` FOREIGN KEY (`product_card_id`) REFERENCES `product_cards` (`id`),
   CONSTRAINT `stock_movement_items_ibfk_3` FOREIGN KEY (`src_stock_id`) REFERENCES `stocks` (`id`),
   CONSTRAINT `stock_movement_items_ibfk_4` FOREIGN KEY (`trg_stock_id`) REFERENCES `stocks` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of stock_movement_items
 -- ----------------------------
+INSERT INTO `stock_movement_items` VALUES ('13', '15', '11', '1', '1020', '1', '3', '11', '10', null);
+INSERT INTO `stock_movement_items` VALUES ('14', '15', '12', '2', '1020', '1', '3', '12', '10', null);
+INSERT INTO `stock_movement_items` VALUES ('15', '16', '11', '1', '1020', '1', '3', '10', '3', null);
+INSERT INTO `stock_movement_items` VALUES ('16', '16', '12', '2', '1020', '1', '3', '10', '4', null);
 
 -- ----------------------------
 -- Table structure for `stock_movement_stages`
@@ -793,14 +799,23 @@ CREATE TABLE `stock_movement_stages` (
   KEY `movement_id` (`movement_id`),
   KEY `movement_status_id` (`movement_status_id`),
   KEY `user_operator_id` (`user_operator_id`),
-  CONSTRAINT `stock_movement_stages_ibfk_3` FOREIGN KEY (`user_operator_id`) REFERENCES `users` (`id`),
   CONSTRAINT `stock_movement_stages_ibfk_1` FOREIGN KEY (`movement_id`) REFERENCES `stock_movements` (`id`),
-  CONSTRAINT `stock_movement_stages_ibfk_2` FOREIGN KEY (`movement_status_id`) REFERENCES `stock_movement_statuses` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  CONSTRAINT `stock_movement_stages_ibfk_2` FOREIGN KEY (`movement_status_id`) REFERENCES `stock_movement_statuses` (`id`),
+  CONSTRAINT `stock_movement_stages_ibfk_3` FOREIGN KEY (`user_operator_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of stock_movement_stages
 -- ----------------------------
+INSERT INTO `stock_movement_stages` VALUES ('6', '15', '1', '1', 'Valery Gatalsky', '1410250127', '-');
+INSERT INTO `stock_movement_stages` VALUES ('7', '15', '4', '1', 'Valery Gatalsky', '1410253961', 'Машина упала в канализационный люк!!');
+INSERT INTO `stock_movement_stages` VALUES ('8', '15', '1', '1', 'Valery Gatalsky', '1410254141', 'Ох тыж черт, Колян вытащил ее!! Едем дальше...');
+INSERT INTO `stock_movement_stages` VALUES ('9', '15', '3', '1', 'Valery Gatalsky', '1410254186', 'Но мы чото передумали, поехали назад... к черту эти склады...');
+INSERT INTO `stock_movement_stages` VALUES ('10', '15', '5', '1', 'Valery Gatalsky', '1410254310', 'Забирайте свои видеокарты, наша машина раздолбана, больше мы не поедем по этой дороге усеянной открытыми канализационными люками!');
+INSERT INTO `stock_movement_stages` VALUES ('11', '16', '1', '1', 'Valery Gatalsky', '1410254961', '-');
+INSERT INTO `stock_movement_stages` VALUES ('12', '16', '4', '1', 'Valery Gatalsky', '1410255004', 'Снова эти гребанные люки!');
+INSERT INTO `stock_movement_stages` VALUES ('13', '16', '1', '1', 'Valery Gatalsky', '1410255016', 'Ура, выбрались');
+INSERT INTO `stock_movement_stages` VALUES ('14', '16', '2', '1', 'Valery Gatalsky', '1410255040', 'Доаствлено');
 
 -- ----------------------------
 -- Table structure for `stock_movement_statuses`

@@ -63,7 +63,7 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/stock_out.css');
                             <td><?php echo $item->productCard->measureUnits->name; ?></td>
                             <td><?php echo $item->qnt; ?></td>
                             <td><?php echo $item->productCard->sizeUnits->name;?></td>
-                            <td><?php echo $item->productCard->weight.'x'.$item->productCard->height.'x'.$item->productCard->length; ?></td>
+                            <td><?php echo $item->productCard->width.'x'.$item->productCard->height.'x'.$item->productCard->length; ?></td>
                             <td><?php echo number_format($item->productCard->weight_net/1000,3); ?></td>
                             <td><?php echo number_format($item->productCard->weight/1000,3); ?></td>
                         </tr>
@@ -134,39 +134,45 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/stock_out.css');
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
                         <?php foreach($movement->stockMovementStages as $nr => $stage): ?>
+                        <tr>
                             <td><?php echo $nr + 1; ?></td>
-                            <td><?php echo $movement->status->name; ?></td>
+                            <td><?php echo $stage->movementStatus->name; ?></td>
                             <td><?php echo $stage->getDescription(); ?></td>
                             <td><?php echo $stage->remark; ?></td>
                             <td><?php echo date('Y.m.d H:i');?></td>
                             <td><?php echo $stage->userOperator->name.' '.$stage->userOperator->surname; ?></td>
+                        </tr>
                         <?php endforeach; ?>
-                    </tr>
                     </tbody>
                 </table>
             </div><!--/product-holder-area -->
-            <form method="post" action="#">
-                <h4><?php echo $this->labels['change status']; ?></h4>
-                <div id="status-selection-from" class="form-horizontal stock-select-holder">
-                    <label><?php echo $this->labels['select']; ?></label>
-                    <select class="form-control">
-                        <?php foreach($statuses as $status): ?>
-                            <option value="<?php echo $status->id; ?>"><?php echo $status->name; ?></option>
-                        <?php endforeach;?>
-                    </select>
-                </div><!--/stock-selection -->
-                <div class="text-area-holder">
-                    <label><?php echo $this->labels['remark']; ?></label>
-                    <textarea class="form-control"></textarea>
-                </div><!--text-area-holder-->
+            <?php /*1 - On the way, 2 - Delivered, 3 - Canceled, 4 - Stopped, 5 - Returned*/ ?>
+            <?php /* if not delivered and not returned - view form */ ?>
+            <?php if($movement->status_id != 2 && $movement->status_id != 5): ?>
+                <form method="post" action="<?php echo Yii::app()->createUrl('/stock/applystatus/'); ?>">
+                    <h4><?php echo $this->labels['change status']; ?></h4>
+                    <div id="status-selection-from" class="form-horizontal stock-select-holder">
+                        <label><?php echo $this->labels['select']; ?></label>
+                        <select name="MovementInfoForm[status_id]" class="form-control">
+                            <?php foreach($statuses as $status): ?>
+                                <option value="<?php echo $status->id; ?>"><?php echo $status->name; ?></option>
+                            <?php endforeach;?>
+                        </select>
+                    </div><!--/stock-selection -->
+                    <div class="text-area-holder">
+                        <label><?php echo $this->labels['remark']; ?></label>
+                        <textarea name="MovementInfoForm[remark]" class="form-control"></textarea>
+                    </div><!--text-area-holder-->
 
-                <div class="btn-holder col-sm-12 clearfix text-right">
-                    <button class="btn-submit"><span><?php echo $this->labels['save']; ?> </span><span class="glyphicon glyphicon-chevron-right"></span></button>
-                </div><!--/btn-holder -->
-            </form>
+                    <div class="btn-holder col-sm-12 clearfix text-right">
+                        <input type="hidden" name="MovementInfoForm[movement_id]" value="<?php echo $movement->id; ?>">
+                        <button type="submit" class="btn-submit"><span><?php echo $this->labels['save']; ?> </span><span class="glyphicon glyphicon-chevron-right"></span></button>
+                    </div><!--/btn-holder -->
+                </form>
+            <?php endif; ?>
         </div><!--/product-section -->
+
 
 
 

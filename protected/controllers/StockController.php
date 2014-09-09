@@ -109,8 +109,12 @@ class StockController extends Controller
             {
 
                 /* @var $this_product_in_src_stock ProductInStock */
-                $this_product_in_src_stock = ProductInStock::model()->findAllByAttributes(array('stock_id' => $movement->src_stock_id, 'product_card_id' => $id));
-                $this_product_in_trg_stock = ProductInStock::model()->findAllByAttributes(array('stock_id' => $movement->trg_stock_id, 'product_card_id' => $id));
+                /* @var $this_product_in_trg_stock ProductInStock */
+
+                $qnt_src_left = 0;
+                $this_product_in_src_stock = ProductInStock::model()->findByAttributes(array('stock_id' => $movement->src_stock_id, 'product_card_id' => $id));
+                $qnt_trg_left = 0;
+                $this_product_in_trg_stock = ProductInStock::model()->findByAttributes(array('stock_id' => $movement->trg_stock_id, 'product_card_id' => $id));
 
 
                 /* @var $card ProductCards */
@@ -125,11 +129,23 @@ class StockController extends Controller
                 $item -> src_stock_id = $movement->src_stock_id; //source stock (additional field, not related, just for report-simplifying)
                 $item -> trg_stock_id = $movement->trg_stock_id; //target stock (additional field, not related, just for report-simplifying)
 
-                if($this_product_in_src_stock->qnt - $qnt > 0){}
-                $item -> in_src_stock_after_movement = 0; //zero - because not moved yet
+                //if enough product in stock
+                if(!empty($this_product_in_src_stock) && ($this_product_in_src_stock->qnt > $qnt))
+                {
+                    $this_product_in_src_stock->qnt -= $qnt;
+                    $this_product_in_trg_stock->date_changed = time();
+                    $this_product_in_src_stock -> update();
+                    $qnt_src_left = $this_product_in_src_stock->qnt;
+                }
+                $item -> in_src_stock_after_movement = $qnt_src_left; //left in stock after operation
 
-                $item -> in_trg_stock_after_movement = 0; //zero - because not moved yet
-                $item -> save(); //cave
+                //if found this kind of item in target stock
+                if(!empty($this_product_in_trg_stock))
+                {
+                    $qnt_trg_left = $this_product_in_src_stock->qnt;
+                }
+                $item -> in_trg_stock_after_movement = $qnt_trg_left; //in target stock quantity not changed, because not moved yet
+                $item -> save(); //save
             }
 
             //new movement stage (as resolution in help-desk)
@@ -175,8 +191,135 @@ class StockController extends Controller
         }
     }
 
+    /**
+     * Applying status
+     */
+    public function actionApplyStatus()
+    {
+        /* @var $movement StockMovements */
+        /* @var $in_target_stock ProductInStock */
+        /* @var $in_source_stock ProductInStock */
 
-    /****************************************** A J A X  S E C T I O N ************************************************/
+        //if got POST form
+        if($_POST['MovementInfoForm'])
+        {
+            //get parameters
+            $form = $_POST['MovementInfoForm'];
+            $remark = $form['remark'];
+            $status_id = $form['status_id'];
+            $movement_id = $form['movement_id'];
+
+            //try find movement by pk
+            $movement = StockMovements::model()->findByPk($movement_id);
+
+            //if found
+            if(!empty($movement))
+            {
+                // 1 - On the way, 2 - Delivered, 3 - Canceled, 4 - Stopped, 5 - Returned
+                switch($status_id)
+                {
+                    //DELIVERED
+                    case 2:
+                        foreach($movement->stockMovementItems as $item)
+                        {
+                            //try find in target stock this kind of item
+                            $in_target_stock = ProductInStock::model()->findByAttributes(array('stock_id' => $movement->trg_stock_id, 'product_card_id' => $item->product_card_id));
+
+                            //if found in target stock
+                            if(!empty($in_target_stock))
+                            {
+                                //increase quantity
+                                $in_target_stock ->qnt += $item->qnt;
+                                $in_target_stock -> date_changed = time();
+                                $in_target_stock -> update();
+
+                                //save qnt to item (after stock updating) for reports
+                                $item -> in_trg_stock_after_movement = $in_target_stock->qnt;
+                                $item -> save();
+                            }
+                            //if not found this kind of product in target stock
+                            else
+                            {
+                                //create new item in stock and set quantity
+                                $in_target_stock = new ProductInStock();
+                                $in_target_stock -> stock_id = $movement->trg_stock_id;
+                                $in_target_stock -> product_card_id = $item->product_card_id;
+                                $in_target_stock -> date_changed = time();
+                                $in_target_stock -> date_created = time();
+                                $in_target_stock -> save();
+                            }
+                        }
+                        break;
+
+                    //RETURNED BACK
+                    case 5:
+                        foreach($movement->stockMovementItems as $item)
+                        {
+                            //try find in source stock this kind of item
+                            $in_source_stock = ProductInStock::model()->findByAttributes(array('stock_id' => $movement->src_stock_id, 'product_card_id' => $item->product_card_id));
+
+                            //if found in source stock
+                            if(!empty($in_source_stock))
+                            {
+                                //increase quantity
+                                $in_source_stock ->qnt += $item->qnt;
+                                $in_source_stock -> date_changed = time();
+                                $in_source_stock -> update();
+
+                                //save qnt to item (after stock updating) for reports
+                                $item -> in_src_stock_after_movement = $in_source_stock->qnt;
+                                $item -> save();
+                            }
+                            //if not found this kind of product in source stock
+                            else
+                            {
+                                //create new item in stock and set quantity
+                                $in_source_stock = new ProductInStock();
+                                $in_source_stock -> stock_id = $movement->src_stock_id;
+                                $in_source_stock -> product_card_id = $item->product_card_id;
+                                $in_source_stock -> date_changed = time();
+                                $in_source_stock -> date_created = time();
+                                $in_source_stock -> save();
+                            }
+                        }
+                        break;
+                }
+
+                //update movement status
+                $movement -> status_id = $status_id;
+                $movement -> update();
+
+                //create movement stage
+                $stage = new StockMovementStages();
+                $stage -> movement_id = $movement->id; //relation with movement
+                $stage -> movement_status_id = $status_id; //current movement status
+                $stage -> remark = $remark; //operator's comment
+                $stage -> user_operator_id = Yii::app()->user->id; //relation with operator
+                $stage -> operator_name = Yii::app()->user->getState('name').' '.Yii::app()->user->getState('surname'); //operator's name
+                $stage -> time = time(); // time
+                $stage -> save(); //save
+
+                //redirect to movement list
+                $this->redirect(Yii::app()->createUrl('/stock/movements'));
+            }
+            //if not found
+            else
+            {
+                //404 error
+                throw new CHttpException(404);
+            }
+
+        }
+        //if not got POST
+        else
+        {
+            //404 error
+            throw new CHttpException(404);
+        }
+    }//ApplyStatus
+
+
+    /******************************************************* A J A X  S E C T I O N *****************************************************************/
 
     /**
      * Auto-complete for products name and code
