@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50538
 File Encoding         : 65001
 
-Date: 2014-09-09 12:31:48
+Date: 2014-09-09 16:58:32
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -194,7 +194,7 @@ CREATE TABLE `operations_out` (
   `payment_method_id` int(11) DEFAULT NULL,
   `signer_name` text,
   `client_id` int(11) DEFAULT NULL,
-  `date_created` int(11) DEFAULT NULL,
+  `date_created_ops` int(11) DEFAULT NULL,
   `date_changed` int(11) DEFAULT NULL,
   `user_modified_by` int(11) DEFAULT NULL,
   `vat_id` int(11) DEFAULT NULL,
@@ -508,17 +508,21 @@ CREATE TABLE `product_in_stock` (
   KEY `stock_id` (`stock_id`),
   CONSTRAINT `product_in_stock_ibfk_1` FOREIGN KEY (`product_card_id`) REFERENCES `product_cards` (`id`),
   CONSTRAINT `product_in_stock_ibfk_2` FOREIGN KEY (`stock_id`) REFERENCES `stocks` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of product_in_stock
 -- ----------------------------
-INSERT INTO `product_in_stock` VALUES ('1', '1', '9', '21', '1409752385', '1408959961');
-INSERT INTO `product_in_stock` VALUES ('2', '1', '10', '22', '1409752385', '1408959961');
+INSERT INTO `product_in_stock` VALUES ('1', '1', '9', '15', '1410260107', '1408959961');
+INSERT INTO `product_in_stock` VALUES ('2', '1', '10', '20', '1410259807', '1408959961');
 INSERT INTO `product_in_stock` VALUES ('3', '3', '11', '3', '1410255040', '1409308831');
 INSERT INTO `product_in_stock` VALUES ('4', '3', '12', '4', '1410255040', '1409308831');
-INSERT INTO `product_in_stock` VALUES ('5', '1', '11', '10', '1410254310', '1409728901');
-INSERT INTO `product_in_stock` VALUES ('6', '1', '12', '10', '1410254310', '1409743571');
+INSERT INTO `product_in_stock` VALUES ('5', '1', '11', '7', '1410260227', '1409728901');
+INSERT INTO `product_in_stock` VALUES ('6', '1', '12', '7', '1410260227', '1409743571');
+INSERT INTO `product_in_stock` VALUES ('7', '4', '9', null, '1410260123', '1410260123');
+INSERT INTO `product_in_stock` VALUES ('8', '4', '10', null, '1410260123', '1410260123');
+INSERT INTO `product_in_stock` VALUES ('9', '4', '11', '1', '1410260438', '1410260123');
+INSERT INTO `product_in_stock` VALUES ('10', '4', '12', '2', '1410260394', '1410260123');
 
 -- ----------------------------
 -- Table structure for `rights`
@@ -741,13 +745,15 @@ CREATE TABLE `stock_movements` (
   CONSTRAINT `stock_movements_ibfk_1` FOREIGN KEY (`src_stock_id`) REFERENCES `stocks` (`id`),
   CONSTRAINT `stock_movements_ibfk_2` FOREIGN KEY (`trg_stock_id`) REFERENCES `stocks` (`id`),
   CONSTRAINT `stock_movements_ibfk_3` FOREIGN KEY (`status_id`) REFERENCES `stock_movement_statuses` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of stock_movements
 -- ----------------------------
-INSERT INTO `stock_movements` VALUES ('15', '1', '3', '1410250127', '5', 'PVH 264', 'Audi 80');
-INSERT INTO `stock_movements` VALUES ('16', '1', '3', '1410254961', '2', 'LCR 569', 'Subaru Forester');
+INSERT INTO `stock_movements` VALUES ('18', '1', '4', '1410259807', '2', 'PVH 264', 'Audi 100');
+INSERT INTO `stock_movements` VALUES ('19', '1', '3', '1410260107', '4', 'LGR 865', 'Subaru Forester');
+INSERT INTO `stock_movements` VALUES ('20', '1', '4', '1410260227', '2', 'RGH 783', 'Жигуль Девятка');
+INSERT INTO `stock_movements` VALUES ('21', '4', '3', '1410260438', '1', 'PLS 486', 'Audi 80');
 
 -- ----------------------------
 -- Table structure for `stock_movement_items`
@@ -773,15 +779,19 @@ CREATE TABLE `stock_movement_items` (
   CONSTRAINT `stock_movement_items_ibfk_2` FOREIGN KEY (`product_card_id`) REFERENCES `product_cards` (`id`),
   CONSTRAINT `stock_movement_items_ibfk_3` FOREIGN KEY (`src_stock_id`) REFERENCES `stocks` (`id`),
   CONSTRAINT `stock_movement_items_ibfk_4` FOREIGN KEY (`trg_stock_id`) REFERENCES `stocks` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of stock_movement_items
 -- ----------------------------
-INSERT INTO `stock_movement_items` VALUES ('13', '15', '11', '1', '1020', '1', '3', '11', '10', null);
-INSERT INTO `stock_movement_items` VALUES ('14', '15', '12', '2', '1020', '1', '3', '12', '10', null);
-INSERT INTO `stock_movement_items` VALUES ('15', '16', '11', '1', '1020', '1', '3', '10', '3', null);
-INSERT INTO `stock_movement_items` VALUES ('16', '16', '12', '2', '1020', '1', '3', '10', '4', null);
+INSERT INTO `stock_movement_items` VALUES ('17', '18', '9', '1', '1020', '1', '4', '20', '0', null);
+INSERT INTO `stock_movement_items` VALUES ('18', '18', '10', '2', '1020', '1', '4', '20', '0', null);
+INSERT INTO `stock_movement_items` VALUES ('19', '18', '11', '1', '1020', '1', '4', '9', '0', null);
+INSERT INTO `stock_movement_items` VALUES ('20', '18', '12', '1', '1020', '1', '4', '9', '0', null);
+INSERT INTO `stock_movement_items` VALUES ('21', '19', '9', '5', '1020', '1', '3', '15', '0', null);
+INSERT INTO `stock_movement_items` VALUES ('22', '20', '11', '2', '1020', '1', '4', '7', '2', null);
+INSERT INTO `stock_movement_items` VALUES ('23', '20', '12', '2', '1020', '1', '4', '7', '2', null);
+INSERT INTO `stock_movement_items` VALUES ('24', '21', '11', '1', '1020', '4', '3', '1', '3', null);
 
 -- ----------------------------
 -- Table structure for `stock_movement_stages`
@@ -802,20 +812,18 @@ CREATE TABLE `stock_movement_stages` (
   CONSTRAINT `stock_movement_stages_ibfk_1` FOREIGN KEY (`movement_id`) REFERENCES `stock_movements` (`id`),
   CONSTRAINT `stock_movement_stages_ibfk_2` FOREIGN KEY (`movement_status_id`) REFERENCES `stock_movement_statuses` (`id`),
   CONSTRAINT `stock_movement_stages_ibfk_3` FOREIGN KEY (`user_operator_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of stock_movement_stages
 -- ----------------------------
-INSERT INTO `stock_movement_stages` VALUES ('6', '15', '1', '1', 'Valery Gatalsky', '1410250127', '-');
-INSERT INTO `stock_movement_stages` VALUES ('7', '15', '4', '1', 'Valery Gatalsky', '1410253961', 'Машина упала в канализационный люк!!');
-INSERT INTO `stock_movement_stages` VALUES ('8', '15', '1', '1', 'Valery Gatalsky', '1410254141', 'Ох тыж черт, Колян вытащил ее!! Едем дальше...');
-INSERT INTO `stock_movement_stages` VALUES ('9', '15', '3', '1', 'Valery Gatalsky', '1410254186', 'Но мы чото передумали, поехали назад... к черту эти склады...');
-INSERT INTO `stock_movement_stages` VALUES ('10', '15', '5', '1', 'Valery Gatalsky', '1410254310', 'Забирайте свои видеокарты, наша машина раздолбана, больше мы не поедем по этой дороге усеянной открытыми канализационными люками!');
-INSERT INTO `stock_movement_stages` VALUES ('11', '16', '1', '1', 'Valery Gatalsky', '1410254961', '-');
-INSERT INTO `stock_movement_stages` VALUES ('12', '16', '4', '1', 'Valery Gatalsky', '1410255004', 'Снова эти гребанные люки!');
-INSERT INTO `stock_movement_stages` VALUES ('13', '16', '1', '1', 'Valery Gatalsky', '1410255016', 'Ура, выбрались');
-INSERT INTO `stock_movement_stages` VALUES ('14', '16', '2', '1', 'Valery Gatalsky', '1410255040', 'Доаствлено');
+INSERT INTO `stock_movement_stages` VALUES ('15', '18', '1', '1', 'Valery Gatalsky', '1410259807', '-');
+INSERT INTO `stock_movement_stages` VALUES ('16', '19', '1', '1', 'Valery Gatalsky', '1410260107', '-');
+INSERT INTO `stock_movement_stages` VALUES ('17', '18', '2', '1', 'Valery Gatalsky', '1410260123', 'Приехали наконец');
+INSERT INTO `stock_movement_stages` VALUES ('18', '20', '1', '1', 'Valery Gatalsky', '1410260227', '-');
+INSERT INTO `stock_movement_stages` VALUES ('19', '19', '4', '1', 'Valery Gatalsky', '1410260308', 'Завязли в каком-то болоте....');
+INSERT INTO `stock_movement_stages` VALUES ('20', '20', '2', '1', 'Valery Gatalsky', '1410260394', 'Доставлено!');
+INSERT INTO `stock_movement_stages` VALUES ('21', '21', '1', '1', 'Valery Gatalsky', '1410260438', '-');
 
 -- ----------------------------
 -- Table structure for `stock_movement_statuses`
