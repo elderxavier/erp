@@ -293,43 +293,6 @@ class SellController extends Controller
         }
     }//actionGenerate
 
-
-    /**
-     * Renders pagination block, by count of filtered data
-     */
-    public function actionAjaxPages()
-    {
-        //get all params from post(or get)
-        $client_name = Yii::app()->request->getParam('cli_name', '');
-        $client_type_id = Yii::app()->request->getParam('cli_type_id',null);
-        $invoice_code = Yii::app()->request->getParam('in_code','');
-        $operation_status_id = Yii::app()->request->getParam('in_status_id','');
-        $stock_city_id = Yii::app()->request->getParam('stock_city_id','');
-        $date_from_str = Yii::app()->request->getParam('date_from_str','');
-        $date_to_str = Yii::app()->request->getParam('date_to_str','');
-        $page = Yii::app()->request->getParam('page',1);
-
-        $c = new CDbCriteria(); //new criteria
-        $c = $this->addAllFilterCriterion($c,$client_name,$client_type_id,$invoice_code,$operation_status_id,$stock_city_id,$date_from_str,$date_to_str); //add filtering parameters
-        $count_all = OperationsOut::model()->count($c); //count all filtered records
-        $pages_count = $this->calculatePageCount($count_all); //get count of pages
-
-        //store all filter-params to array
-        $filter_params = array(
-            'cli_name' => $client_name,
-            'cli_type_id' => $client_type_id,
-            'in_code' => $invoice_code,
-            'in_status_id' => $operation_status_id,
-            'stock_city_id' => $stock_city_id,
-            'date_from_str' => $date_from_str,
-            'date_to_str' => $date_to_str
-        );
-
-        //render pagination-block
-        $this->renderPartial('_ajax_pages',array('pages' => $pages_count, 'current' => $page, 'filters' => $filter_params));
-
-    }//actionAjaxPages
-
     /**
      * Filter table ajax
      */
@@ -345,17 +308,115 @@ class SellController extends Controller
         $date_to_str = Yii::app()->request->getParam('date_to_str','');
         $page = Yii::app()->request->getParam('page',1);
 
-        //new criteria for filtering
-        $c = new CDbCriteria();
-        $c = $this->addAllFilterCriterion($c,$client_name,$client_type_id,$invoice_code,$operation_status_id,$stock_city_id,$date_from_str,$date_to_str); //add filtering parameters
-        $c -> limit = $this->on_one_page; //limit count of records on page
-        $c -> offset = ($this->on_one_page * ($page - 1)); //get offset
 
-        //get all filtered operations
-        $operations = OperationsOut::model()->findAll($c);
+        //conditions - null by default
+        $client_con_arr = null;
+        $stock_con_arr = null;
+        $date_condition = null;
+
+        //date range by default
+        $time_from = 0;
+        $time_to = time() + (60 * 60 * 24);
+
+        //attr condition
+        $attr_conditions = array();
+
+        //if client name not empty
+        if(!empty($client_name))
+        {
+            if(!empty($client_type_id))
+            {
+                //if not company (physical person)
+                if($client_type_id != 1)
+                {
+                    $names = explode(" ",$client_name,2);
+                    if(count($names) > 1)
+                    {
+                        $client_con_arr = array('condition' => 'client.name LIKE "%'.$names[0].'%" AND client.surname LIKE "%'.$names[1].'%"');
+                    }
+                    else
+                    {
+                        $client_con_arr = array('condition' => 'client.name LIKE "%'.$client_name.'%"');
+                    }
+                }
+
+                //if company
+                else
+                {
+                    $client_con_arr = array('condition' => 'client.company_name LIKE "%'.$client_name.'%"');
+                }
+            }
+            else
+            {
+
+                $names = explode(" ",$client_name,2);
+                if(count($names) > 1)
+                {
+                    $client_con_arr = array('condition' => 'client.name LIKE "%'.$names[0].'%" AND client.surname LIKE "%'.$names[1].'%" OR client.company_name LIKE "%'.$client_name.'%"');
+                }
+                else
+                {
+                    $client_con_arr = array('condition' => 'client.name LIKE "%'.$client_name.'%" OR client.company_name LIKE "%'.$client_name.'%"');
+                }
+            }
+        }
+        elseif(!empty($client_type_id))
+        {
+            $client_con_arr = array('condition' => 'client.type = '.$client_type_id.'');
+        }
+
+        if(!empty($stock_city_id))
+        {
+            $stock_con_arr = array('condition' => 'stock.location_id = '.$stock_city_id.'');
+        }
+
+        //if given dates
+        if(!empty($date_from_str))
+        {
+            $date_from_arr = explode('/',$date_from_str); //explode string to get numbers
+            $time_from = mktime(0,0,0,(int)$date_from_arr[0],(int)$date_from_arr[1],(int)$date_from_arr[2]); // make time
+        }
+        if(!empty($date_to_str))
+        {
+            $date_to_arr = explode('/',$date_to_str); //explode string to get numbers
+            $time_to = mktime(0,0,0,(int)$date_to_arr[0],(int)$date_to_arr[1],(int)$date_to_arr[2]); // make time
+            $time_to += (60*60*24); //add one day
+        }
+
+        if(!empty($invoice_code))
+        {
+            $attr_conditions['invoice_code'] = $invoice_code;
+        }
+
+        if(!empty($operation_status_id))
+        {
+            $attr_conditions['status_id'] = $operation_status_id;
+        }
+
+
+
+
+        //set limiting-count criteria
+//        $c_time = new CDbCriteria();
+//        $c_time -> addBetweenCondition('date_created',$time_from,$time_to);
+        $c_lim = Pagination::getFilterCriteria(3,$page);
+
+        //count all filtered items
+        $count = OperationsOut::model()->with(array(
+            'client' => $client_con_arr,
+            'stock.location' => $stock_con_arr))->countByAttributes($attr_conditions);
+
+        //calculate count of pages
+        $pages = Pagination::calcPagesCount($count,3);
+
+        //get all items by conditions and limit them by criteria
+        $operations = OperationsOut::model()->with(array(
+            'client' => $client_con_arr,
+            'stock.location' => $stock_con_arr))->findAllByAttributes($attr_conditions,$c_lim);
 
         //render partial
-        $this->renderPartial('_ajax_table_filtering',array('operations' => $operations));
+        $this->renderPartial('_ajax_table_filtering',array('operations' => $operations, 'current_page' => $page, 'pages' => $pages));
+
 
     }//FilterTable
 

@@ -39,13 +39,6 @@ jQuery(document).ready(function(){
         });
     });
 
-    /**
-     * When clicked on 'filter' button
-     */
-    jQuery(document).on('click','.filter-button-top',function(){
-        filter();
-        return false;
-    });
 
     /**
      * When clicked on 'generate pdf'
@@ -67,46 +60,34 @@ jQuery(document).ready(function(){
     });
 
     /**
+     * When clicked on 'filter' button
+     */
+    jQuery(document).on('click','.filter-button-top',function(){
+        var params = getParamsFromInputs();
+        filter(params);
+        return false;
+    });
+
+    /**
      * When clicked on pagination page
      */
     jQuery(document).on('click','.links-pages',function(){
-        var filters_data = jQuery('.paginator').data(); //get post-filter-params
-        var current_page = jQuery(this).html(); //get page nuber
-        reFilterByPage(current_page,filters_data); //filter and reload pager
+        var params = getParamsFromInputs();
+        params.page = jQuery(this).html(); //get page number
+        filter(params);
+        return false;
     });
 
 });
 
 /********************************************************************************************************************/
 
-
 /**
- * Filter table by page (uses page nu,ber, and filter parameters) loads filtered table and paginator
- * @param page
- * @param filterData
+ * Returns parameters from inputs for ajax request (POST parameters)
+ * @returns {{cli_name: *, cli_type_id: *, in_code: *, in_status_id: *, stock_city_id: *, date_from_str: *, date_to_str: *}}
  */
-var reFilterByPage = function(page,filterData)
-{
-    filterData.page = page; //set page to post-params
+var getParamsFromInputs = function(){
 
-    var form = jQuery(".filter-form"); //get form
-
-    var filter_url = form.attr('action'); // get filter-table load url
-    //var filter_url = '/sell/filtertable';
-    var pages_url = form.data().pages; //get paginator load url
-    //var pages_url = '/sell/ajaxpages'
-
-    jQuery(".ops-tbl-filter").load(filter_url,filterData); //load table
-    loadPager(filterData); //load pagintaor
-
-};//reFilterByPage
-
-
-/**
- * Filter by params and load table
- */
-var filter = function()
-{
     //get all params from inputs
     var client_name = jQuery('#client-name-inputs').val();
     var invoice_code = jQuery('#invoice-code-input').val();
@@ -116,13 +97,7 @@ var filter = function()
     var date_from = jQuery("#date-from").val();
     var date_to = jQuery("#date-to").val();
 
-    //get filter-ajax url
-    var filter_url = jQuery(".filter-form").attr('action');
-    //var filter_url = '/sell/filtertable';
-
-    //post-params for filtering
-    var params =
-    {
+    return {
         cli_name:client_name,
         cli_type_id:client_type,
         in_code:invoice_code,
@@ -131,20 +106,13 @@ var filter = function()
         date_from_str:date_from,
         date_to_str:date_to
     };
-
-    //load table
-    jQuery(".ops-tbl-filter").load(filter_url,params);
-    //load pages
-    loadPager(params);
-};//filter
-
+};
 
 /**
- * Load pages by filtering-params (count of pages depends on count of records in filtered table)
- * @param params
+ * Filter by params and load table
  */
-var loadPager = function(params)
+var filter = function(params)
 {
-    var pages_url = jQuery(".filter-form").data().pages;
-    jQuery(".pages-holder").load(pages_url,params);
-};//load pager
+    var filter_url = '/sell/filtertable';
+    jQuery(".table-holder").load(filter_url,params);
+};//filter

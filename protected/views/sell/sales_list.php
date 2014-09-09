@@ -77,15 +77,17 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/sales_list.js',CClientScript::P
             <?php endforeach;?>
             </tbody>
         </table>
+
+        <div class="pages-holder">
+            <ul class="paginator">
+                <?php for($i = 0; $i < $pages; $i++): ?>
+                    <li class="<?php if(($i+1) == $current_page): ?>current-page<?php endif; ?> links-pages"><?php echo ($i+1) ?></li>
+                <?php endfor; ?>
+            </ul>
+        </div>
     </div><!--/table-holder -->
 
-    <div class="pages-holder">
-        <ul class="paginator">
-            <?php for($i = 0; $i < $pages; $i++): ?>
-                <li class="<?php if(($i+1) == $current_page): ?>current-page<?php endif; ?> links-pages"><?php echo ($i+1) ?></li>
-            <?php endfor; ?>
-        </ul>
-    </div>
+
 
     <div class="modals-holder">
         <div class="invoice-ready">
