@@ -187,7 +187,7 @@ class SellController extends Controller
             $operation->client_id = $client_id;
             $operation->signer_name = "";
 //            $operation->payment_method_id = 0;
-            $operation->date_created = time();
+            $operation->date_created_ops = time();
             $operation->date_changed = time();
             $operation->warranty_start_date = time();
             $operation->user_modified_by = Yii::app()->user->id;
@@ -373,38 +373,40 @@ class SellController extends Controller
         //if given dates
         if(!empty($date_from_str))
         {
-            $date_from_arr = explode('/',$date_from_str); //explode string to get numbers
-            $time_from = mktime(0,0,0,(int)$date_from_arr[0],(int)$date_from_arr[1],(int)$date_from_arr[2]); // make time
+            $dt = DateTime::createFromFormat('m/d/Y',$date_from_str);
+            $time_from = $dt->getTimestamp();
         }
         if(!empty($date_to_str))
         {
-            $date_to_arr = explode('/',$date_to_str); //explode string to get numbers
-            $time_to = mktime(0,0,0,(int)$date_to_arr[0],(int)$date_to_arr[1],(int)$date_to_arr[2]); // make time
+            $dt = DateTime::createFromFormat('m/d/Y',$date_to_str);
+            $time_to = $dt->getTimestamp();
             $time_to += (60*60*24); //add one day
         }
 
+        //if invoice code set
         if(!empty($invoice_code))
         {
             $attr_conditions['invoice_code'] = $invoice_code;
         }
 
+        //if operation status set
         if(!empty($operation_status_id))
         {
             $attr_conditions['status_id'] = $operation_status_id;
         }
 
 
+        //set time-range criteria
+        $c_time = new CDbCriteria();
+        $c_time -> addBetweenCondition('date_created_ops',$time_from,$time_to);
 
-
-        //set limiting-count criteria
-//        $c_time = new CDbCriteria();
-//        $c_time -> addBetweenCondition('date_created',$time_from,$time_to);
-        $c_lim = Pagination::getFilterCriteria(3,$page);
+        //create new criteria by time-range, for limit count of record
+        $c_lim = Pagination::getFilterCriteria(3,$page,$c_time);
 
         //count all filtered items
         $count = OperationsOut::model()->with(array(
             'client' => $client_con_arr,
-            'stock.location' => $stock_con_arr))->countByAttributes($attr_conditions);
+            'stock.location' => $stock_con_arr))->countByAttributes($attr_conditions,$c_time);
 
         //calculate count of pages
         $pages = Pagination::calcPagesCount($count,3);
@@ -417,103 +419,5 @@ class SellController extends Controller
         //render partial
         $this->renderPartial('_ajax_table_filtering',array('operations' => $operations, 'current_page' => $page, 'pages' => $pages));
 
-
-    }//FilterTable
-
-
-    /**
-     * Adds all filtering params to criteria for filtering
-     * @param CDbCriteria $c criteria for filtration
-     * @param string $client_name filter param - client name
-     * @param int $client_type_id filter param - client type ID
-     * @param string $invoice_code filter param - invoice code
-     * @param int $operation_status_id filter param - operation status ID
-     * @param int $stock_city_id filter param - stock ID
-     * @param string $date_from_str filter param - start date
-     * @param string $date_to_str - filter param - end date
-     * @return CDbCriteria updated criteria
-     */
-    function addAllFilterCriterion($c,$client_name,$client_type_id,$invoice_code,$operation_status_id,$stock_city_id,$date_from_str,$date_to_str)
-    {
-        /* @var $c CDbCriteria */
-
-        //if has invoice code
-        if(!empty($invoice_code))
-        {
-            //add to condition (search by invoice code)
-            $c -> addInCondition('invoice_code',array($invoice_code));
-        }
-
-
-        //get all client-rows from base by name and type (where name, or company name like $client_name parameter)
-        $clients = Clients::model()->getClients($client_name,$client_type_id);
-        //declare empty array for client's ids
-        $found_ids = array();
-        //fill array of client ids
-        foreach($clients as $client_row)
-        {
-            $found_ids[] = $client_row['id'];
-        }
-        //add ids to condition (search by client ids)
-        $c -> addInCondition('client_id',$found_ids);
-
-
-        //if operation status set
-        if(!empty($operation_status_id))
-        {
-            //search by status
-            $c -> addInCondition('status_id',array($operation_status_id));
-        }
-
-        //if city_id not empty
-        if(!empty($stock_city_id))
-        {
-            /* @var $city UserCities */
-
-            //get city by id
-            $city = UserCities::model()->findByPk($stock_city_id);
-
-            //get stocks by city
-            $stocks = $city->stocks;
-
-            //if found some stocks
-            if(count($stocks) > 0)
-            {
-                //get first stock (usually city has only one stock)
-                $stock = $stocks[0];
-                //find by stock id
-                $c -> addInCondition('stock_id',array($stock->id));
-            }
-        }
-
-        //if 'date-from' not empty but 'date-to' empty
-        if(!empty($date_from_str) && empty($date_to_str))
-        {
-            $date_from_arr = explode('/',$date_from_str); //explode string to get numbers
-            $time_from = mktime(0,0,0,(int)$date_from_arr[0],(int)$date_from_arr[1],(int)$date_from_arr[2]); // make time
-            $time_to = time();
-            $c -> addBetweenCondition('date_created',$time_from,$time_to); //search between these times
-        }
-
-        //if 'date-to' not empty but 'date-from' empty
-        if(!empty($date_to_str) && empty($date_from_str))
-        {
-            $date_to_arr = explode('/',$date_to_str); //explode string to get numbers
-            $time_from = 0; //beginning of time ('date-from' not set)
-            $time_to = mktime(0,0,0,(int)$date_to_arr[0],(int)$date_to_arr[1],(int)$date_to_arr[2]); // make time
-            $c -> addBetweenCondition('date_created',$time_from,$time_to); //search between these times
-        }
-
-        //if 'date-to' and 'date-from' not empty
-        if(!empty($date_from_str) && !empty($date_to_str))
-        {
-            $date_from_arr = explode('/',$date_from_str); //explode string to get numbers
-            $time_from = mktime(0,0,0,(int)$date_from_arr[0],(int)$date_from_arr[1],(int)$date_from_arr[2]); // make time
-            $date_to_arr = explode('/',$date_to_str); //explode string to get numbers
-            $time_to = mktime(0,0,0,(int)$date_to_arr[0],(int)$date_to_arr[1],(int)$date_to_arr[2]); // make time
-            $c -> addBetweenCondition('date_created',$time_from,$time_to); //search between these times
-        }
-
-        return $c;
-    }
+    }//actionFilterTable
 }

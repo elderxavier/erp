@@ -68,7 +68,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/sales_list.js',CClientScript::P
                     <td><?php echo $operation->client->getFullName(); ?></td>
                     <td><?php echo $operation->client->typeObj->name; ?></td>
                     <td><?php echo $operation->stock->location->city_name; ?></td>
-                    <td><?php echo date('Y.m.d G:i',$operation->date_created); ?></td>
+                    <td><?php echo date('Y.m.d G:i',$operation->date_created_ops); ?></td>
                     <td class="invoice-code"><?php echo $operation->invoice_code; ?></td>
                     <td><a class="gen-pdf" data-id="<?php echo $operation->id; ?>" href="<?php echo Yii::app()->createUrl('sell/generate',array('id' => $operation->id)); ?>"><?php echo $this->labels['generate pdf']; ?></a></td>
                     <td><?php echo $operation->status->name; ?></td>

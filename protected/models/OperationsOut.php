@@ -10,7 +10,7 @@
  * @property integer $payment_method_id
  * @property string $signer_name
  * @property integer $client_id
- * @property integer $date_created
+ * @property integer $date_created_ops
  * @property integer $date_changed
  * @property integer $user_modified_by
  * @property integer $vat_id
@@ -48,11 +48,11 @@ class OperationsOut extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('warranty_start_date, payment_method_id, client_id, date_created, date_changed, user_modified_by, vat_id, invoice_date, stock_id, status_id', 'numerical', 'integerOnly'=>true),
+			array('warranty_start_date, payment_method_id, client_id, date_created_ops, date_changed, user_modified_by, vat_id, invoice_date, stock_id, status_id', 'numerical', 'integerOnly'=>true),
 			array('invoice_code, signer_name', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, invoice_code, warranty_start_date, payment_method_id, signer_name, client_id, date_created, date_changed, user_modified_by, vat_id, invoice_date, stock_id, status_id', 'safe', 'on'=>'search'),
+			array('id, invoice_code, warranty_start_date, payment_method_id, signer_name, client_id, date_created_ops, date_changed, user_modified_by, vat_id, invoice_date, stock_id, status_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -89,7 +89,7 @@ class OperationsOut extends CActiveRecord
 			'payment_method_id' => 'Payment Method',
 			'signer_name' => 'Signer Name',
 			'client_id' => 'Client',
-			'date_created' => 'Date Created',
+			'date_created_ops' => 'Date Created Ops',
 			'date_changed' => 'Date Changed',
 			'user_modified_by' => 'User Modified By',
 			'vat_id' => 'Vat',
@@ -123,7 +123,7 @@ class OperationsOut extends CActiveRecord
 		$criteria->compare('payment_method_id',$this->payment_method_id);
 		$criteria->compare('signer_name',$this->signer_name,true);
 		$criteria->compare('client_id',$this->client_id);
-		$criteria->compare('date_created',$this->date_created);
+		$criteria->compare('date_created_ops',$this->date_created_ops);
 		$criteria->compare('date_changed',$this->date_changed);
 		$criteria->compare('user_modified_by',$this->user_modified_by);
 		$criteria->compare('vat_id',$this->vat_id);
