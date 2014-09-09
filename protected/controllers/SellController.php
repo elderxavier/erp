@@ -348,7 +348,6 @@ class SellController extends Controller
             }
             else
             {
-
                 $names = explode(" ",$client_name,2);
                 if(count($names) > 1)
                 {

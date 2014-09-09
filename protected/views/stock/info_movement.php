@@ -140,7 +140,7 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/stock_out.css');
                             <td><?php echo $stage->movementStatus->name; ?></td>
                             <td><?php echo $stage->getDescription(); ?></td>
                             <td><?php echo $stage->remark; ?></td>
-                            <td><?php echo date('Y.m.d H:i');?></td>
+                            <td><?php echo date('Y.m.d H:i',$stage->time);?></td>
                             <td><?php echo $stage->userOperator->name.' '.$stage->userOperator->surname; ?></td>
                         </tr>
                         <?php endforeach; ?>

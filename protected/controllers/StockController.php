@@ -473,8 +473,8 @@ class StockController extends Controller
             $movement_id = Yii::app()->request->getParam('movement_id',null);
             $src_stock_id = Yii::app()->request->getParam('src_stock_id',null);
             $trg_stock_id = Yii::app()->request->getParam('trg_stock_id',null);
-            $date_from_str = Yii::app()->request->getParam('date_from_str','00/00/00');
-            $date_to_str = Yii::app()->request->getParam('date_to_str','00/00/00');
+            $date_from_str = Yii::app()->request->getParam('date_from_str','');
+            $date_to_str = Yii::app()->request->getParam('date_to_str','');
             $page = Yii::app()->request->getParam('page',1);
 
             //pagination criteria
@@ -487,13 +487,13 @@ class StockController extends Controller
             //if given dates
             if(!empty($date_from_str))
             {
-                $date_from_arr = explode('/',$date_from_str); //explode string to get numbers
-                $time_from = mktime(0,0,0,(int)$date_from_arr[0],(int)$date_from_arr[1],(int)$date_from_arr[2]); // make time
+                $dt = DateTime::createFromFormat('m/d/Y',$date_from_str);
+                $time_from = $dt->getTimestamp();
             }
             if(!empty($date_to_str))
             {
-                $date_to_arr = explode('/',$date_to_str); //explode string to get numbers
-                $time_to = mktime(0,0,0,(int)$date_to_arr[0],(int)$date_to_arr[1],(int)$date_to_arr[2]); // make time
+                $dt = DateTime::createFromFormat('m/d/Y',$date_to_str);
+                $time_to = $dt->getTimestamp();
                 $time_to += (60*60*24); //add one day
             }
 
@@ -501,9 +501,18 @@ class StockController extends Controller
             $c -> addBetweenCondition('date',$time_from,$time_to);
 
             $conditions = array();
-            !empty($movement_id) ? $conditions['id'] = $movement_id : false;
-            !empty($src_stock_id) ? $conditions['src_stock_id'] = $src_stock_id : false;
-            !empty($trg_stock_id) ? $conditions['trg_stock_id'] = $trg_stock_id : false;
+            if(!empty($movement_id))
+            {
+                $conditions['id'] = $movement_id;
+            }
+            if(!empty($src_stock_id))
+            {
+                $conditions['src_stock_id'] = $src_stock_id;
+            }
+            if(!empty($trg_stock_id))
+            {
+                $conditions['trg_stock_id'] = $trg_stock_id;
+            }
 
             //get all items
             $c_pages = Pagination::getFilterCriteria(3,$page,$c);
