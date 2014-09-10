@@ -46,6 +46,14 @@ jQuery(document).ready(function(){
         filter(params);
     });
 
+    /**
+     * When clicked on invoice-code in table
+     */
+    jQuery(document).on('click','.open-info-lnk',function(){
+        var href = jQuery(this).attr('href');
+        jQuery(".modal-content").load(href);
+    });
+
 });
 
 /***********************************************************************************************************************/

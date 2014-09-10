@@ -126,4 +126,21 @@ class OperationsIn extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+
+    /**
+     * Calculates total price of all items
+     * @return int
+     */
+    public function calculateTotalPrice()
+    {
+        $total_sum = 0;
+
+        foreach($this->operationsInItems as $prod_item)
+        {
+            $total_sum += ($prod_item->price*$prod_item->qnt);
+        }
+
+        return $total_sum;
+    }
 }

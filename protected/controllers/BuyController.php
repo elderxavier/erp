@@ -28,24 +28,23 @@ class BuyController extends Controller
     /**
      * List all invoices
      */
-    public function actionInvoices()
+    public function actionInvoices($page = 1, $on_page = 3)
     {
         //get all invoices
         $invoices = OperationsIn::model()->with('supplier')->findAll();
-        $page = Yii::app()->request->getParam('page',1);
-        $on_page = Yii::app()->request->getParam('on_page',3);
+
+        //pagination stuff
+        $pagination = new CPagerComponent($invoices,$on_page);
+        $invoices = $pagination->getPreparedArray($page);
+
         //render table
-
-        $count = count($invoices);
-        $pages = Pagination::calcPagesCount($count,$on_page);
-        $offset = Pagination::calcOffset($on_page,$page);
-        $invoices = array_slice($invoices,$offset,$on_page);
-
-        $this->render('purchases_list', array('invoices' => $invoices, 'current_page' => $page, 'pages' => $pages));
+        $this->render('purchases_list', array('invoices' => $invoices, 'pager' => $pagination));
     }
-    
-    
-    
+
+
+    /**
+     * Creation - step 1
+     */
     public function actionCreateStep1(){
 
         $form = new SupplierForm();
@@ -279,5 +278,30 @@ class BuyController extends Controller
         {
             throw new CHttpException(404);
         }
-    }
+    }//actionAjaxFilter
+
+    /**
+     * Renders partial info of purchase
+     * @param int $id
+     * @throws CHttpException
+     */
+    public function actionAjaxInfo($id = 0)
+    {
+        if(Yii::app()->request->isAjaxRequest)
+        {
+            $purchase = OperationsIn::model()->with('supplier','operationsInItems')->findByPk($id);
+            if(!empty($purchase))
+            {
+                $this->renderPartial('_ajax_buy_info',array('purchase' => $purchase));
+            }
+            else
+            {
+                throw new CHttpException(404);
+            }
+        }
+        else
+        {
+            throw new CHttpException(404);
+        }
+    }//actionAjaxInfo
 }
