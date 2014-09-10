@@ -415,7 +415,7 @@ class UsersController extends Controller
 
     /************************************************* A J A X  S E C T I O N *********************************************************************/
 
-    public function actionFilter($page = 1, $on_page = 3)
+    public function actionFilter()
     {
         if(Yii::app()->request->isAjaxRequest)
         {
@@ -423,6 +423,33 @@ class UsersController extends Controller
             $surname = Yii::app()->request->getParam('surname','');
             $position_id = Yii::app()->request->getParam('position_id', '');
             $city_id = Yii::app()->request->getParam('city_id','');
+            $page = Yii::app()->request->getParam('page',1);
+            $on_page = Yii::app()->request->getParam('on_page',3);
+
+            $c = new CDbCriteria();
+            if(!empty($name))
+            {
+                $c -> addCondition('name LIKE "%'.$name.'%"');
+            }
+            if(!empty($surname))
+            {
+                $c -> addCondition('surname LIKE "%'.$surname.'%"');
+            }
+            if(!empty($position_id))
+            {
+                $c -> addInCondition('position_id',array($position_id));
+            }
+            if(!empty($city_id))
+            {
+                $c -> addInCondition('city_id',array($city_id));
+            }
+
+            //get all filtered items
+            $items = Users::model()->findAll($c);
+
+            //pagination, get all items for page
+            $pager = new CPagerComponent($items,$on_page,$page);
+            $this->renderPartial('_filtered_table',array('pager' => $pager));
         }
         else
         {

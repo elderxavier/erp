@@ -5,7 +5,7 @@
 
 <?php
 $cs = Yii::app()->clientScript;
-$cs->registerScriptFile(Yii::app()->request->baseUrl.'/js/user_list.js');
+$cs->registerScriptFile(Yii::app()->request->baseUrl.'/js/user_list.js',CClientScript::POS_END);
 $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/table.css');
 $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/paginator.css');
 ?>
