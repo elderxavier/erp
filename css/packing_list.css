@@ -1,0 +1,15 @@
+*
+{
+    font-family: Arial;
+}
+.tbl
+{
+    border-left: 1px solid #000000;
+    border-top: 1px solid #000000;
+}
+.tbl td
+{
+    border-right: 1px solid #000000;
+    border-bottom: 1px solid #000000;
+    padding: 2px;
+}

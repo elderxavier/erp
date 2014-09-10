@@ -96,6 +96,54 @@ class PdfController extends Controller
 
     }
 
+    public function actionPackingList($id = null)
+    {
+        //include mpdf library
+        Yii::import('application.extensions.mpdf.mpdf',true);
+
+        $stock_movement = StockMovements::model()->findByPk($id);
+        if(!empty($stock_movement))
+        {
+            //get html for pdf from partial
+            $html = $this->renderPartial('_pdf_packing_list',array('movement' => $stock_movement),true);
+
+            /* @var $pdf mPDF */
+            $pdf = new mPDF('utf-8','A4-L',9,'Arial',5,5,5,5,5,5,'L');
+            $pdf -> displayDefaultOrientation = 'L';
+
+            $stylesheet = file_get_contents('css/packing_list.css');
+            $pdf->WriteHTML($stylesheet, 1);
+
+            //convert html to pdf
+            $pdf->WriteHTML($html,2);
+
+            //if dir not exist
+            if(!file_exists('pdf'))
+            {
+                //create
+                mkdir('pdf');
+            }
+
+            //filename
+            $file_name = 'testpacking.pdf';
+
+            //if dir created
+            if(file_exists('pdf'))
+            {
+                //save file
+                $pdf->Output('pdf/'.$file_name, 'F');
+            }
+
+            $this->ForceDownload('pdf/'.$file_name);
+        }
+        else
+        {
+            throw new CHttpException(404);
+        }
+    }
+
+
+
 
     /**
      * Starts force download of file
@@ -122,5 +170,7 @@ class PdfController extends Controller
             exit;
         }
     }
+
+
 
 }

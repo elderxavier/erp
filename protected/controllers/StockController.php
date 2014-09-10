@@ -242,6 +242,7 @@ class StockController extends Controller
                                 $in_target_stock -> product_card_id = $item->product_card_id;
                                 $in_target_stock -> date_changed = time();
                                 $in_target_stock -> date_created = time();
+                                $in_source_stock -> qnt = $item->qnt;
                                 $in_target_stock -> save();
                             }
                         }
@@ -275,6 +276,7 @@ class StockController extends Controller
                                 $in_source_stock -> product_card_id = $item->product_card_id;
                                 $in_source_stock -> date_changed = time();
                                 $in_source_stock -> date_created = time();
+                                $in_source_stock -> qnt = $item->qnt;
                                 $in_source_stock -> save();
                             }
                         }
