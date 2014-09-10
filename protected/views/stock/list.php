@@ -2,9 +2,7 @@
 <?php /* @var $this StockController */ ?>
 <?php /* @var $cities array */ ?>
 <?php /* @var $units array */ ?>
-
-<?php /* @var $pages int */ ?>
-<?php /* @var $current_page int */ ?>
+<?php /* @var $pager CPagerComponent */ ?>
 
 
 <?php
@@ -68,20 +66,11 @@ $cs->registerScriptFile(Yii::app()->request->baseUrl.'/js/stock.js',CClientScrip
                    <?php endforeach;?>
                 </tbody>
             </table>
-
-            <div class="pages-holder">
-                <ul class="paginator">
-                    <?php for($i = 0; $i < $pages; $i++): ?>
-                        <li class="<?php if(($i+1) == $current_page): ?>current-page<?php endif; ?> links-pages"><?php echo ($i+1) ?></li>
-                    <?php endfor; ?>
-                </ul>
-            </div>
+            <?php $pager->renderPages(); ?>
         </div><!--/table-holder -->
 
 
         <div class="modals-holder">
         <!--/ modal area -->
-            
         </div><!--/modals-holder -->
-        
     </div><!--/container -->

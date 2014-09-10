@@ -29,40 +29,35 @@ class StockController extends Controller
     /**
      * List all products in stock
      * @param int $page
+     * @param int $on_page
      */
-    public function actionList($page = 1)
+    public function actionList($page = 1, $on_page = 3)
     {
         $cities = UserCities::model()->findAllAsArray();
         $units = MeasureUnits::model()->findAllAsArray();
+        $productsObj = ProductInStock::model()->with('stock','stock.location','productCard')->findAll();
 
-        $c = new CDbCriteria();
-        $c -> limit = $this->on_one_page;
-        $c -> offset = ($this->on_one_page * ($page - 1));
+        $pagination = new CPagerComponent($productsObj,$on_page);
+        $products_on_page = $pagination->getPreparedArray($page);
 
-        $count = ProductInStock::model()->count();
-        $pages = $this->calculatePageCount($count);
-
-        $productsObj = ProductInStock::model()->with('stock','stock.location','productCard')->findAll($c);
-        $this->render('list',array('products' => $productsObj, 'cities' => $cities, 'pages' => $pages, 'current_page' => $page, 'units' => $units));
+        $this->render('list',array('products' => $products_on_page, 'cities' => $cities, 'units' => $units, 'pager' => $pagination));
     }//actionList
 
 
     /**
      * List all movements
      * @param int $page
+     * @param int $on_page
      */
-    public function actionMovements($page = 1)
+    public function actionMovements($page = 1, $on_page = 3)
     {
-        $c = new CDbCriteria();
-        $c -> limit = 3;
-        $c -> offset = Pagination::calcOffset(3,$page);
-
-        $count = StockMovements::model()->count();
-        $pages = $this->calculatePageCount($count);
         $stock = Stocks::model()->getAsArrayPairs();
+        $movements = StockMovements::model()->with('stockMovementItems','stockMovementStages','status','srcStock','trgStock')->findAll();
 
-        $movements = StockMovements::model()->with('stockMovementItems','stockMovementStages','status','srcStock','trgStock')->findAll($c);
-        $this->render('list_movements',array('movements' => $movements, 'pages' => $pages, 'current_page' => $page, 'stocks' => $stock));
+        $pagination = new CPagerComponent($movements,$on_page);
+        $movements_on_page = $pagination->getPreparedArray($page);
+
+        $this->render('list_movements',array('movements' => $movements_on_page, 'stocks' => $stock, 'pager' => $pagination));
     }//actionMovements
 
 
@@ -452,14 +447,12 @@ class StockController extends Controller
                 'stock.location'))->findAll($c);
 
 
-            $count = count($items);
-            $pages = Pagination::calcPagesCount($count,$on_page);
-            $offset = Pagination::calcOffset($on_page,$page);
-            $items = array_slice($items,$offset,$on_page);
+            $pagination = new CPagerComponent($items,$on_page);
+            $sliced_items  = $pagination->getPreparedArray($page);
 
 
             //render table and pages
-            $this->renderPartial('_ajax_table_filtering',array('items' => $items, 'pages' => $pages, 'current_page' => $page));
+            $this->renderPartial('_ajax_table_filtering',array('items' => $sliced_items, 'pager' => $pagination));
         }
         else
         {
@@ -522,14 +515,11 @@ class StockController extends Controller
             $items = StockMovements::model()->findAll($c);
 
             //pagination stuff
-            $count = count($items);
-            $pages = Pagination::calcPagesCount($count,$on_page);
-            $offset = Pagination::calcOffset($on_page,$page);
-            $items = array_slice($items,$offset,$on_page);
-
+            $pagination = new CPagerComponent($items,$on_page);
+            $sliced_items = $pagination->getPreparedArray($page);
 
             //render partial
-            $this->renderPartial('_ajax_movement_filtering',array('items' => $items, 'pages' => $pages, 'current_page' => $page));
+            $this->renderPartial('_ajax_movement_filtering',array('items' => $sliced_items, 'pager' => $pagination));
         }
         else
         {

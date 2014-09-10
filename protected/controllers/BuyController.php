@@ -269,14 +269,11 @@ class BuyController extends Controller
             //items
             $items = OperationsIn::model()->with(array('supplier'))->findAll($c);
 
-            $count = count($items);
-            $pages = Pagination::calcPagesCount($count,$on_page);
-            $offset = Pagination::calcOffset($on_page,$page);
-
-            $items = array_slice($items,$offset,$on_page);
+            $pagination = new CPagerComponent($items,$on_page);
+            $sliced_items  = $pagination->getPreparedArray($page);
 
             //render partial
-            $this->renderPartial('_operations_filtering',array('items' => $items, 'current_page' => $page, 'pages' => $pages));
+            $this->renderPartial('_operations_filtering',array('items' => $sliced_items, 'pager' => $pagination));
         }
         else
         {

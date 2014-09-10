@@ -28,7 +28,7 @@ class SellController extends Controller
     /**
      * Render invoice table
      */
-    public function actionInvoices($generate = null,$page = 1)
+    public function actionInvoices($generate = null,$page = 1, $on_page = 3)
     {
         //if should generate pdf
         if(!empty($generate))
@@ -53,21 +53,17 @@ class SellController extends Controller
             $operation->update();
         }
 
-        $countAll = $invoices = OperationsOut::model()->with('client')->count();
-        $pages = $this->calculatePageCount($countAll);
-
-        $ci = new CDbCriteria();
-        $ci -> limit = $this->on_one_page;
-        $ci -> offset = ($this->on_one_page) * ($page - 1);
 
         //get all sale-invoices
-        $invoices = OperationsOut::model()->with('client')->findAll($ci);
+        $invoices = OperationsOut::model()->with('client')->findAll();
 
         //arrays for select-boxes
         $types = ClientTypes::model()->findAllAsArray();
         $statuses = OperationOutStatuses::model()->findAllAsArray();
         $cities = UserCities::model()->findAllAsArray();
 
+        $pager = new CPagerComponent($invoices,$on_page);
+        $invoices_on_page = $pager->getPreparedArray($page);
 
         if(!empty($generate))
         {
@@ -75,12 +71,12 @@ class SellController extends Controller
             $gen_pdf_link = Yii::app()->createUrl('/pdf/invoice', array('id' => $generate));
 
             //render table
-            $this->render('sales_list', array('invoices' => $invoices, 'types' => $types, 'cities' => $cities, 'statuses' => $statuses, 'gen_link' => $gen_pdf_link, 'pages' => $pages, 'current_page' => $page));
+            $this->render('sales_list', array('invoices' => $invoices_on_page, 'types' => $types, 'cities' => $cities, 'statuses' => $statuses, 'gen_link' => $gen_pdf_link, 'pager' => $pager));
         }
         else
         {
             //render table
-            $this->render('sales_list', array('invoices' => $invoices, 'types' => $types, 'cities' => $cities, 'statuses' => $statuses, 'gen_link' => '', 'pages' => $pages, 'current_page' => $page));
+            $this->render('sales_list', array('invoices' => $invoices_on_page, 'types' => $types, 'cities' => $cities, 'statuses' => $statuses, 'gen_link' => '', 'pager' => $pager));
         }
     }
 
@@ -307,19 +303,14 @@ class SellController extends Controller
         $date_from_str = Yii::app()->request->getParam('date_from_str','');
         $date_to_str = Yii::app()->request->getParam('date_to_str','');
         $page = Yii::app()->request->getParam('page',1);
-
-
-        //conditions - null by default
-        $client_con_arr = null;
-        $stock_con_arr = null;
-        $date_condition = null;
+        $on_page = Yii::app()->request->getParam('on_page',3);
 
         //date range by default
         $time_from = 0;
         $time_to = time() + (60 * 60 * 24);
 
-        //attr condition
-        $attr_conditions = array();
+        //criteria
+        $c = new CDbCriteria();
 
         //if client name not empty
         if(!empty($client_name))
@@ -332,18 +323,18 @@ class SellController extends Controller
                     $names = explode(" ",$client_name,2);
                     if(count($names) > 1)
                     {
-                        $client_con_arr = array('condition' => 'client.name LIKE "%'.$names[0].'%" AND client.surname LIKE "%'.$names[1].'%"');
+                        $c -> addCondition('client.name LIKE "%'.$names[0].'%" AND client.surname LIKE "%'.$names[1].'%"');
                     }
                     else
                     {
-                        $client_con_arr = array('condition' => 'client.name LIKE "%'.$client_name.'%"');
+                        $c -> addCondition('client.name LIKE "%'.$client_name.'%"');
                     }
                 }
 
                 //if company
                 else
                 {
-                    $client_con_arr = array('condition' => 'client.company_name LIKE "%'.$client_name.'%"');
+                    $c -> addCondition('client.company_name LIKE "%'.$client_name.'%"');
                 }
             }
             else
@@ -351,22 +342,22 @@ class SellController extends Controller
                 $names = explode(" ",$client_name,2);
                 if(count($names) > 1)
                 {
-                    $client_con_arr = array('condition' => 'client.name LIKE "%'.$names[0].'%" AND client.surname LIKE "%'.$names[1].'%" OR client.company_name LIKE "%'.$client_name.'%"');
+                    $c -> addCondition('client.name LIKE "%'.$names[0].'%" AND client.surname LIKE "%'.$names[1].'%" OR client.company_name LIKE "%'.$client_name.'%"');
                 }
                 else
                 {
-                    $client_con_arr = array('condition' => 'client.name LIKE "%'.$client_name.'%" OR client.company_name LIKE "%'.$client_name.'%"');
+                    $c -> addCondition('client.name LIKE "%'.$client_name.'%" OR client.company_name LIKE "%'.$client_name.'%"');
                 }
             }
         }
         elseif(!empty($client_type_id))
         {
-            $client_con_arr = array('condition' => 'client.type = '.$client_type_id.'');
+            $c -> addCondition('client.type = '.$client_type_id.'');
         }
 
         if(!empty($stock_city_id))
         {
-            $stock_con_arr = array('condition' => 'stock.location_id = '.$stock_city_id.'');
+            $c -> addCondition('stock.location_id = '.$stock_city_id.'');
         }
 
         //if given dates
@@ -385,38 +376,26 @@ class SellController extends Controller
         //if invoice code set
         if(!empty($invoice_code))
         {
-            $attr_conditions['invoice_code'] = $invoice_code;
+            $c -> addInCondition('invoice_code',array($invoice_code));
         }
 
         //if operation status set
         if(!empty($operation_status_id))
         {
-            $attr_conditions['status_id'] = $operation_status_id;
+            $c -> addInCondition('status_id',array($operation_status_id));
         }
 
-
-        //set time-range criteria
-        $c_time = new CDbCriteria();
-        $c_time -> addBetweenCondition('date_created_ops',$time_from,$time_to);
-
-        //create new criteria by time-range, for limit count of record
-        $c_lim = Pagination::getFilterCriteria(3,$page,$c_time);
-
-        //count all filtered items
-        $count = OperationsOut::model()->with(array(
-            'client' => $client_con_arr,
-            'stock.location' => $stock_con_arr))->countByAttributes($attr_conditions,$c_time);
-
-        //calculate count of pages
-        $pages = Pagination::calcPagesCount($count,3);
+        //search between times
+        $c -> addBetweenCondition('date_created_ops',$time_from,$time_to);
 
         //get all items by conditions and limit them by criteria
-        $operations = OperationsOut::model()->with(array(
-            'client' => $client_con_arr,
-            'stock.location' => $stock_con_arr))->findAllByAttributes($attr_conditions,$c_lim);
+        $operations = OperationsOut::model()->with(array('client','stock.location'))->findAll($c);
+
+        $pagination = new CPagerComponent($operations,$on_page);
+        $operations_on_page = $pagination->getPreparedArray($page);
 
         //render partial
-        $this->renderPartial('_ajax_table_filtering',array('operations' => $operations, 'current_page' => $page, 'pages' => $pages));
+        $this->renderPartial('_ajax_table_filtering',array('operations' => $operations_on_page, 'pager' => $pagination));
 
     }//actionFilterTable
 }
