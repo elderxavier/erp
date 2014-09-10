@@ -51,7 +51,7 @@ $(function(){
     $('.by-name').autocomplete({
         source: function( request, response ) {
             $.ajax({
-                url: "/ajax/sellers",
+                url: "/buy/sellers",
                 dataType: "json",
                 data: {
                     term: request.term
@@ -68,7 +68,7 @@ $(function(){
     $('.by-number').autocomplete({
         source: function( request, response ) {
             $.ajax({
-                url: "/ajax/sellers",
+                url: "/buy/sellers",
                 dataType: "json",
                 data: {
                     code: request.term

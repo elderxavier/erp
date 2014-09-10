@@ -400,9 +400,10 @@ class StockController extends Controller
             $stock_loc_id = Yii::app()->request->getParam('location','');
             $units = Yii::app()->request->getParam('units','');
             $page = Yii::app()->request->getParam('page',1);
+            $on_page = Yii::app()->request->getParam('on_page',3);
 
             //criteria for pagination
-            $c = Pagination::getFilterCriteria(3,$page);
+            $c = new CDbCriteria();
 
             //conditions - null by default
             $product_con_arr = null;
@@ -412,48 +413,50 @@ class StockController extends Controller
             //if have product name and product code
             if(!empty($prod_name) && !empty($prod_code))
             {
-                $product_con_arr = array('condition'=>'productCard.product_name LIKE "%'.$prod_name.'%" AND productCard.product_code LIKE "%'.$prod_code.'%"');
+                $c -> addCondition('productCard.product_name LIKE "%'.$prod_name.'%" AND productCard.product_code LIKE "%'.$prod_code.'%"');
+//                $product_con_arr = array('condition'=>'productCard.product_name LIKE "%'.$prod_name.'%" AND productCard.product_code LIKE "%'.$prod_code.'%"');
             }
             //if have just product name
             elseif(!empty($prod_name))
             {
-                $product_con_arr = array('condition'=>'productCard.product_name LIKE "%'.$prod_name.'%"');
+                $c -> addCondition('productCard.product_name LIKE "%'.$prod_name.'%"');
+//                $product_con_arr = array('condition'=>'productCard.product_name LIKE "%'.$prod_name.'%"');
             }
             //if have just product code
             elseif(!empty($prod_code))
             {
-                $product_con_arr = array('condition'=>'productCard.product_code LIKE "%'.$prod_code.'%"');
+                $c -> addCondition('productCard.product_code LIKE "%'.$prod_code.'%"');
+//                $product_con_arr = array('condition'=>'productCard.product_code LIKE "%'.$prod_code.'%"');
             }
 
             //if have units
             if(!empty($units))
             {
-                $measure_con_arr = array('condition'=>'measureUnits.id= '.$units);
+                $c -> addCondition('measureUnits.id= '.$units);
+//                $measure_con_arr = array('condition'=>'measureUnits.id= '.$units);
             }
 
             //if have location
             if(!empty($stock_loc_id))
             {
-                $location_con_arr = array('condition'=>'location.id= '.$stock_loc_id);
+                $c -> addCondition('location.id= '.$stock_loc_id);
+//                $location_con_arr = array('condition'=>'location.id= '.$stock_loc_id);
             }
 
 
             //get all items by conditions and limit them by criteria
             $items = ProductInStock::model()->with(array(
-                'productCard' => $product_con_arr,
-                'productCard.measureUnits' => $measure_con_arr,
+                'productCard',
+                'productCard.measureUnits',
                 'stock',
-                'stock.location' => $location_con_arr))->findAll($c);
+                'stock.location'))->findAll($c);
 
-            //count all filtered items
-            $count = ProductInStock::model()->with(array(
-                'productCard' => $product_con_arr,
-                'productCard.measureUnits' => $measure_con_arr,
-                'stock',
-                'stock.location' => $location_con_arr))->count();
 
-            //calculate count of pages
-            $pages = Pagination::calcPagesCount($count,3);
+            $count = count($items);
+            $pages = Pagination::calcPagesCount($count,$on_page);
+            $offset = Pagination::calcOffset($on_page,$page);
+            $items = array_slice($items,$offset,$on_page);
+
 
             //render table and pages
             $this->renderPartial('_ajax_table_filtering',array('items' => $items, 'pages' => $pages, 'current_page' => $page));
@@ -476,6 +479,7 @@ class StockController extends Controller
             $date_from_str = Yii::app()->request->getParam('date_from_str','');
             $date_to_str = Yii::app()->request->getParam('date_to_str','');
             $page = Yii::app()->request->getParam('page',1);
+            $on_page = Yii::app()->request->getParam('on_page',3);
 
             //pagination criteria
             $c = new CDbCriteria();
@@ -500,27 +504,29 @@ class StockController extends Controller
             //filtration by date
             $c -> addBetweenCondition('date',$time_from,$time_to);
 
-            $conditions = array();
+            //filtration by movement id
             if(!empty($movement_id))
             {
-                $conditions['id'] = $movement_id;
+                $c -> addInCondition('id',array($movement_id));
             }
             if(!empty($src_stock_id))
             {
-                $conditions['src_stock_id'] = $src_stock_id;
+                $c -> addInCondition('src_stock_id',array($src_stock_id));
             }
             if(!empty($trg_stock_id))
             {
-                $conditions['trg_stock_id'] = $trg_stock_id;
+                $c -> addInCondition('trg_stock_id',array($trg_stock_id));
             }
 
             //get all items
-            $c_pages = Pagination::getFilterCriteria(3,$page,$c);
-            $items = StockMovements::model()->findAllByAttributes($conditions,$c_pages);
+            $items = StockMovements::model()->findAll($c);
 
-            //get count of all items
-            $count = StockMovements::model()->countByAttributes($conditions,$c);
-            $pages = Pagination::calcPagesCount($count,3);
+            //pagination stuff
+            $count = count($items);
+            $pages = Pagination::calcPagesCount($count,$on_page);
+            $offset = Pagination::calcOffset($on_page,$page);
+            $items = array_slice($items,$offset,$on_page);
+
 
             //render partial
             $this->renderPartial('_ajax_movement_filtering',array('items' => $items, 'pages' => $pages, 'current_page' => $page));

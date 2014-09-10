@@ -1,24 +1,26 @@
-<?php /* @var $invoices Array */ ?>
-<?php /* @var $invoice OperationsIn */ ?>
+<?php /* @var $invoices OperationsIn[] */ ?>
 <?php /* @var $this BuyController */ ?>
+
+<?php /* @var $pages int */ ?>
+<?php /* @var $current_page int */ ?>
 
 <?php
 $cs = Yii::app()->clientScript;
 $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/invoice_list.css');
-//$cs->registerScriptFile(Yii::app()->baseUrl.'/js/buy-ops.js',CClientScript::POS_END);
+$cs->registerCssFile(Yii::app()->request->baseUrl.'/css/paginator.css');
+$cs->registerScriptFile(Yii::app()->baseUrl.'/js/buy_list.js',CClientScript::POS_END);
 ?>
 
 <?php $this->renderPartial('//partials/_sub_menu',array('links' => $this->GetSubMenu(), 'params' => array())); ?>
 
-
 <div class="container-fluid  main-content-holder content-wrapper">
     <div class="row filter-holder">
         <form>
-            <input type="text" placeholder="invoice number">
-            <input type="text" placeholder="Cust.name">
-            <input type="text" placeholder="Date from">
-            <input type="text" placeholder="Date to">
-            <button><?php echo $this->labels['search']; ?><span class="glyphicon glyphicon-search"></span></button>
+            <input id="invoice-nr" type="text" placeholder="<?php echo $this->labels['invoice code']; ?>">
+            <input id="supplier-name" type="text" placeholder="<?php echo $this->labels['supplier name']; ?>">
+            <input class="date-picker-cl" id="date-from" type="text" placeholder="<?php echo $this->labels['date from']; ?>">
+            <input class="date-picker-cl" id="date-to" type="text" placeholder="<?php echo $this->labels['date to']; ?>">
+            <button id="search-btn"><?php echo $this->labels['search']; ?><span class="glyphicon glyphicon-search"></span></button>
         </form>
     </div><!--/filter-holder -->
     <div class="row table-holder">
@@ -39,16 +41,18 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/invoice_list.css');
                     <td><a href="#" data-toggle="modal" data-target="#invoiceInfo"><?php echo $invoice->invoice_code; ?></a></td>
                     <td><?php echo $invoice->supplier->company_name;?></td>
                     <td><?php echo date('Y.m.d',$invoice->date_created); ?></td>
-
-                    <td>
-                        <?php if($this->rights['purchases_see']): ?>
-                            <?php echo CHtml::link('view','/ajax/viewinvoicein/id/'.$invoice->id,array('class' => 'actions action-edit modal-link-opener')); ?>
-                        <?php endif; ?>
-                    </td>
+                    <td><a href="#"><?php echo $this->labels['edit']; ?></a></td>
                 </tr>
             <?php endforeach; ?>
             </tbody>
         </table>
+        <div class="pages-holder">
+            <ul class="paginator">
+                <?php for($i = 0; $i < $pages; $i++): ?>
+                    <li class="<?php if(($i+1) == $current_page): ?>current-page<?php endif; ?> links-pages"><?php echo ($i+1) ?></li>
+                <?php endfor; ?>
+            </ul>
+        </div>
     </div><!--/table-holder -->
 
     <div class="modals-holder">

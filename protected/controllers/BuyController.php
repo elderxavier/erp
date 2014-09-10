@@ -32,9 +32,16 @@ class BuyController extends Controller
     {
         //get all invoices
         $invoices = OperationsIn::model()->with('supplier')->findAll();
-
+        $page = Yii::app()->request->getParam('page',1);
+        $on_page = Yii::app()->request->getParam('on_page',3);
         //render table
-        $this->render('purchases_list', array('invoices' => $invoices));
+
+        $count = count($invoices);
+        $pages = Pagination::calcPagesCount($count,$on_page);
+        $offset = Pagination::calcOffset($on_page,$page);
+        $invoices = array_slice($invoices,$offset,$on_page);
+
+        $this->render('purchases_list', array('invoices' => $invoices, 'current_page' => $page, 'pages' => $pages));
     }
     
     
@@ -174,6 +181,102 @@ class BuyController extends Controller
             {
                 throw new CHttpException(404);
             }
+        }
+        else
+        {
+            throw new CHttpException(404);
+        }
+    }
+
+
+    /**************************************************** A J A X  S E C T I O N ********************************************************************/
+
+    /**
+     * auto-complete for purchase step1
+     */
+    public function actionSellers($term = '',$code = '')
+    {
+        if(Yii::app()->request->isAjaxRequest)
+        {
+            $result = Suppliers::model()->getAllClientsJson($term,$code);
+            echo $result;
+        }
+        else
+        {
+            throw new CHttpException(404);
+        }
+    }//actionSellers
+
+
+    /**
+     * Ajax filter
+     * @throws CHttpException
+     */
+    public function actionAjaxFilter()
+    {
+        if(Yii::app()->request->isAjaxRequest)
+        {
+            //params from post
+            $invoice_code = Yii::app()->request->getParam('invoice_code','');
+            $supplier_name = Yii::app()->request->getParam('supplier_name','');
+            $date_from_str = Yii::app()->request->getParam('date_from_str','');
+            $date_to_str = Yii::app()->request->getParam('date_to_str','');
+            $page = Yii::app()->request->getParam('page',1);
+            $on_page = Yii::app()->request->getParam('on_page',3);
+
+            //default time range
+            $time_from = 0;
+            $time_to = time()+(60*60*24);
+
+            //conditions
+            $supp_name_condition = null;
+            $inv_code_condition = null;
+
+            //attribute conditions
+            $attr_conditions = array();
+
+            //if given dates
+            if(!empty($date_from_str))
+            {
+                $dt = DateTime::createFromFormat('m/d/Y',$date_from_str);
+                $time_from = $dt->getTimestamp();
+            }
+            if(!empty($date_to_str))
+            {
+                $dt = DateTime::createFromFormat('m/d/Y',$date_to_str);
+                $time_to = $dt->getTimestamp();
+                $time_to += (60*60*24); //add one day
+            }
+
+            $c = new CDbCriteria();
+
+
+            //if invoice code set
+            if(!empty($supplier_name))
+            {
+                $c ->addCondition('supplier.company_name LIKE "%'.$supplier_name.'%"');
+            }
+
+            //if invoice code set
+            if(!empty($invoice_code))
+            {
+                $c -> addCondition('invoice_code LIKE "%'.$invoice_code.'%"');
+            }
+
+            //add between
+            $c -> addBetweenCondition(OperationsIn::model()->tableAlias.'.date_created',$time_from,$time_to);
+
+            //items
+            $items = OperationsIn::model()->with(array('supplier'))->findAll($c);
+
+            $count = count($items);
+            $pages = Pagination::calcPagesCount($count,$on_page);
+            $offset = Pagination::calcOffset($on_page,$page);
+
+            $items = array_slice($items,$offset,$on_page);
+
+            //render partial
+            $this->renderPartial('_operations_filtering',array('items' => $items, 'current_page' => $page, 'pages' => $pages));
         }
         else
         {

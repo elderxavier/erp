@@ -270,23 +270,6 @@ class AjaxController extends Controller {
         }
     }
 
-
-    /**
-     * auto-complete for purchase step1
-     */
-    public function actionSellers($term = '',$code = '')
-    {
-        if(Yii::app()->request->isAjaxRequest)
-        {
-            $result = Suppliers::model()->getAllClientsJson($term,$code);
-            echo $result;
-
-        }else{
-            throw new CHttpException(404);
-        }
-    }//actionSellers
-
-
     public function actionSellfilter()
     {
         $request = Yii::app()->request;
