@@ -62,8 +62,7 @@ class SellController extends Controller
         $statuses = OperationOutStatuses::model()->findAllAsArray();
         $cities = UserCities::model()->findAllAsArray();
 
-        $pager = new CPagerComponent($invoices,$on_page);
-        $invoices_on_page = $pager->getPreparedArray($page);
+        $pager = new CPagerComponent($invoices,$on_page,$page);
 
         if(!empty($generate))
         {
@@ -71,12 +70,12 @@ class SellController extends Controller
             $gen_pdf_link = Yii::app()->createUrl('/pdf/invoice', array('id' => $generate));
 
             //render table
-            $this->render('sales_list', array('invoices' => $invoices_on_page, 'types' => $types, 'cities' => $cities, 'statuses' => $statuses, 'gen_link' => $gen_pdf_link, 'pager' => $pager));
+            $this->render('sales_list', array('types' => $types, 'cities' => $cities, 'statuses' => $statuses, 'gen_link' => $gen_pdf_link, 'pager' => $pager));
         }
         else
         {
             //render table
-            $this->render('sales_list', array('invoices' => $invoices_on_page, 'types' => $types, 'cities' => $cities, 'statuses' => $statuses, 'gen_link' => '', 'pager' => $pager));
+            $this->render('sales_list', array('types' => $types, 'cities' => $cities, 'statuses' => $statuses, 'gen_link' => '', 'pager' => $pager));
         }
     }
 
@@ -391,11 +390,10 @@ class SellController extends Controller
         //get all items by conditions and limit them by criteria
         $operations = OperationsOut::model()->with(array('client','stock.location'))->findAll($c);
 
-        $pagination = new CPagerComponent($operations,$on_page);
-        $operations_on_page = $pagination->getPreparedArray($page);
+        $pagination = new CPagerComponent($operations,$on_page,$page);
 
         //render partial
-        $this->renderPartial('_ajax_table_filtering',array('operations' => $operations_on_page, 'pager' => $pagination));
+        $this->renderPartial('_ajax_table_filtering',array('pager' => $pagination));
 
     }//actionFilterTable
 }

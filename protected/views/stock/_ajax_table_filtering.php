@@ -17,7 +17,7 @@
     </tr>
     </thead>
     <tbody>
-    <?php foreach($items as $nr => $product): ?>
+    <?php foreach($pager->formatted_array as $nr => $product): ?>
         <tr>
             <td><?php echo $nr; ?></td>
             <td><?php echo $product->productCard->product_name;?></td>

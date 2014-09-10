@@ -55,7 +55,7 @@ $cs->registerScriptFile(Yii::app()->request->baseUrl.'/js/stock_movements.js',CC
             </tr>
             </thead>
             <tbody>
-            <?php foreach($movements as $nr => $movement): ?>
+            <?php foreach($pager->formatted_array as $nr => $movement): ?>
                 <tr>
                     <td><?php echo $nr+1; ?></td>
                     <td><?php echo $movement->id; ?></td>

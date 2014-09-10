@@ -33,7 +33,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/buy_list.js',CClientScript::POS
             </tr>
             </thead>
             <tbody>
-            <?php foreach($invoices as $invoice): ?>
+            <?php foreach($pager->formatted_array as $invoice): ?>
                 <tr>
                     <td><?php echo $invoice->id; ?></td>
                     <td><a class="open-info-lnk" href="<?php echo Yii::app()->createUrl('/buy/ajaxinfo',array('id' => $invoice->id)); ?>" data-toggle="modal" data-target="#invoiceInfo"><?php echo $invoice->invoice_code; ?></a></td>

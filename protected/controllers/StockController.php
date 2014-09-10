@@ -37,10 +37,9 @@ class StockController extends Controller
         $units = MeasureUnits::model()->findAllAsArray();
         $productsObj = ProductInStock::model()->with('stock','stock.location','productCard')->findAll();
 
-        $pagination = new CPagerComponent($productsObj,$on_page);
-        $products_on_page = $pagination->getPreparedArray($page);
+        $pagination = new CPagerComponent($productsObj,$on_page,$page);
 
-        $this->render('list',array('products' => $products_on_page, 'cities' => $cities, 'units' => $units, 'pager' => $pagination));
+        $this->render('list',array('cities' => $cities, 'units' => $units, 'pager' => $pagination));
     }//actionList
 
 
@@ -54,10 +53,9 @@ class StockController extends Controller
         $stock = Stocks::model()->getAsArrayPairs();
         $movements = StockMovements::model()->with('stockMovementItems','stockMovementStages','status','srcStock','trgStock')->findAll();
 
-        $pagination = new CPagerComponent($movements,$on_page);
-        $movements_on_page = $pagination->getPreparedArray($page);
+        $pagination = new CPagerComponent($movements,$on_page,$page);
 
-        $this->render('list_movements',array('movements' => $movements_on_page, 'stocks' => $stock, 'pager' => $pagination));
+        $this->render('list_movements',array('stocks' => $stock, 'pager' => $pagination));
     }//actionMovements
 
 
@@ -447,12 +445,10 @@ class StockController extends Controller
                 'stock.location'))->findAll($c);
 
 
-            $pagination = new CPagerComponent($items,$on_page);
-            $sliced_items  = $pagination->getPreparedArray($page);
-
+            $pagination = new CPagerComponent($items,$on_page,$page);
 
             //render table and pages
-            $this->renderPartial('_ajax_table_filtering',array('items' => $sliced_items, 'pager' => $pagination));
+            $this->renderPartial('_ajax_table_filtering',array('pager' => $pagination));
         }
         else
         {
@@ -515,11 +511,10 @@ class StockController extends Controller
             $items = StockMovements::model()->findAll($c);
 
             //pagination stuff
-            $pagination = new CPagerComponent($items,$on_page);
-            $sliced_items = $pagination->getPreparedArray($page);
+            $pagination = new CPagerComponent($items,$on_page,$page);
 
             //render partial
-            $this->renderPartial('_ajax_movement_filtering',array('items' => $sliced_items, 'pager' => $pagination));
+            $this->renderPartial('_ajax_movement_filtering',array('pager' => $pagination));
         }
         else
         {

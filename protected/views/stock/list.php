@@ -52,7 +52,7 @@ $cs->registerScriptFile(Yii::app()->request->baseUrl.'/js/stock.js',CClientScrip
                     </tr>
                 </thead>
                 <tbody>
-                <?php foreach($products as $nr => $product):?>
+                <?php foreach($pager->formatted_array as $nr => $product):?>
                 	<tr>
                     	<td><?php echo $nr; ?></td>
                     	<td><?php echo $product->productCard->product_name;?></td>

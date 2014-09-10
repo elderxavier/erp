@@ -84,7 +84,7 @@ class UsersController extends Controller
     /**
      *List
      */
-    public function actionList()
+    public function actionList($page = 1, $on_page = 3)
     {
         //users - empty array
         $users = array();
@@ -102,8 +102,10 @@ class UsersController extends Controller
             $users = Users::model()->findAllByAttributes(array('role' => 0));
         }
 
+        $pager = new CPagerComponent($users,$on_page,$page);
+
         //render list
-        $this->render('user_list', array('users' => $users));
+        $this->render('user_list', array('pager' => $pager));
     }
 
 
@@ -409,6 +411,23 @@ class UsersController extends Controller
             }
         }
 
+    }
+
+    /************************************************* A J A X  S E C T I O N *********************************************************************/
+
+    public function actionFilter($page = 1, $on_page = 3)
+    {
+        if(Yii::app()->request->isAjaxRequest)
+        {
+            $name = Yii::app()->request->getParam('name','');
+            $surname = Yii::app()->request->getParam('surname','');
+            $position_id = Yii::app()->request->getParam('position_id', '');
+            $city_id = Yii::app()->request->getParam('city_id','');
+        }
+        else
+        {
+            throw new CHttpException(404);
+        }
     }
 
 }

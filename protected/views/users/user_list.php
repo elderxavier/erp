@@ -1,10 +1,13 @@
 <?php /* @var $user Users */?>
 <?php /* @var $users Array */ ?>
 <?php /* @var $this UsersController */ ?>
+<?php /* @var $pager CPagerComponent */ ?>
 
 <?php
 $cs = Yii::app()->clientScript;
+$cs->registerScriptFile(Yii::app()->request->baseUrl.'/js/user_list.js');
 $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/table.css');
+$cs->registerCssFile(Yii::app()->request->baseUrl.'/css/paginator.css');
 ?>
 
 <?php $this->renderPartial('//partials/_sub_menu',array('links' => $this->GetSubMenu(), 'params' => array())); ?>
@@ -27,7 +30,7 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/table.css');
                     </thead>
                     <tbody>
 
-                    <?php foreach($users as $user): ?>
+                    <?php foreach($pager->formatted_array as $user): ?>
                         <tr>
                             <td><?php echo $user->id; ?></td>
                             <td><?php echo $user->name; ?></td>
@@ -46,6 +49,7 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/table.css');
                     <?php endforeach; ?>
                     </tbody>
                 </table>
+                <?php $pager->renderPages();?>
             </div><!--/table-holder -->
         </div>
     </div>

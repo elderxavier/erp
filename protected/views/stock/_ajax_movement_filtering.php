@@ -17,7 +17,7 @@
     </tr>
     </thead>
     <tbody>
-    <?php foreach($items as $nr => $movement): ?>
+    <?php foreach($pager->formatted_array as $nr => $movement): ?>
         <tr>
             <td><?php echo $nr+1; ?></td>
             <td><?php echo $movement->id; ?></td>

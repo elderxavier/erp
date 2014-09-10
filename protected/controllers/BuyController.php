@@ -34,11 +34,10 @@ class BuyController extends Controller
         $invoices = OperationsIn::model()->with('supplier')->findAll();
 
         //pagination stuff
-        $pagination = new CPagerComponent($invoices,$on_page);
-        $invoices = $pagination->getPreparedArray($page);
+        $pagination = new CPagerComponent($invoices,$on_page,$page);
 
         //render table
-        $this->render('purchases_list', array('invoices' => $invoices, 'pager' => $pagination));
+        $this->render('purchases_list', array('pager' => $pagination));
     }
 
 
@@ -268,11 +267,10 @@ class BuyController extends Controller
             //items
             $items = OperationsIn::model()->with(array('supplier'))->findAll($c);
 
-            $pagination = new CPagerComponent($items,$on_page);
-            $sliced_items  = $pagination->getPreparedArray($page);
+            $pagination = new CPagerComponent($items,$on_page,$page);
 
             //render partial
-            $this->renderPartial('_operations_filtering',array('items' => $sliced_items, 'pager' => $pagination));
+            $this->renderPartial('_operations_filtering',array('pager' => $pagination));
         }
         else
         {

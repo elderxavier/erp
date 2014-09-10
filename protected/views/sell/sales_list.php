@@ -60,7 +60,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/sales_list.js',CClientScript::P
             </tr>
             </thead>
             <tbody class="ops-tbl-filter">
-            <?php foreach($invoices as $nr => $operation): ?>
+            <?php foreach($pager->formatted_array as $nr => $operation): ?>
                 <tr id="op_id_<?php echo $operation->id;?>">
                     <td><?php echo $nr + 1; ?></td>
                     <td><a class="info-open-lnk" href="<?php echo Yii::app()->createUrl('/ajax/operationoutinfo',array('id' => $operation->id)); ?>" data-toggle="modal" data-id="<?php echo $operation->id; ?>" data-target="#invoiceInfo"><?php echo $operation->id; ?></a></td>
