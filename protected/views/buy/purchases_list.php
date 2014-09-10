@@ -49,17 +49,13 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/buy_list.js',CClientScript::POS
 
     <div class="modals-holder">
         <div class="invoice-ready">
-
             <div class="modal fade" id="invoiceInfo" tabindex="-1" role="dialog">
                 <div class="modal-dialog">
                     <div class="modal-content">
-
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->
             </div><!-- /.modal -->
-
         </div><!--/invoice-ready -->
-
     </div><!--/modals-holder -->
 
 </div><!--/container -->

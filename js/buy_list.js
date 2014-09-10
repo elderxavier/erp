@@ -51,7 +51,9 @@ jQuery(document).ready(function(){
      */
     jQuery(document).on('click','.open-info-lnk',function(){
         var href = jQuery(this).attr('href');
-        jQuery(".modal-content").load(href);
+        var modal = jQuery(".modal-content");
+        modal.html('');
+        modal.load(href);
     });
 
 });
