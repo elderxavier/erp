@@ -209,13 +209,20 @@ class ProductsController extends Controller
     /**
      * List cards
      */
-    public function actionCards()
+    public function actionCards($page = 1, $on_page = 3)
     {
         //get all cards
         $cards = ProductCards::model()->with('category')->findAll();
+
+        //for select boxes
         $categories = ProductCardCategories::model()->getAllAsArray();
+        $measures = MeasureUnits::model()->findAllAsArray();
+
+        //pager object with all items on this page
+        $pager = new CPagerComponent($cards,$on_page,$page);
+
         //render list
-        $this->render('card_list',array('cards' => $cards, 'categories' => $categories));
+        $this->render('card_list',array('pager' => $pager, 'categories' => $categories, 'measures' => $measures));
     }
 
 
@@ -369,6 +376,69 @@ class ProductsController extends Controller
             throw new CHttpException(404,$this->labels['item not found in base']);
         }
 
+    }
+
+    /****************************************************** A J A X  S E C T I O N ******************************************************************/
+
+    /**
+     * @throws CHttpException
+     */
+    public function actionFilterProducts()
+    {
+        if(Yii::app()->request->isAjaxRequest)
+        {
+            //pagination params
+            $page = Yii::app()->request->getParam('page',1);
+            $on_page = Yii::app()->request->getParam('on_page',3);
+
+            //filter params
+            $code = Yii::app()->request->getParam('code','');
+            $name = Yii::app()->request->getParam('name','');
+            $category_id = Yii::app()->request->getParam('category_id','');
+            $measure_id = Yii::app()->request->getParam('measure_id','');
+            $status = Yii::app()->request->getParam('status','');
+
+            //criteria for filtration
+            $c = new CDbCriteria();
+
+            if(!empty($code))
+            {
+                $c -> addCondition("product_code LIKE '%".$code."%'");
+            }
+
+            if(!empty($name))
+            {
+                $c -> addCondition("product_name LIKE '%".$name."%'");
+            }
+
+            if(!empty($category_id))
+            {
+                $c -> addInCondition('category_id',array($category_id));
+            }
+
+            if(!empty($measure_id))
+            {
+                $c -> addInCondition('measure_units_id',array($measure_id));
+            }
+
+            if(!empty($status))
+            {
+                $c -> addInCondition('status',array($status));
+            }
+
+            //all filtered items
+            $cards = ProductCards::model()->findAll($c);
+
+            //get all for this page
+            $pager = new CPagerComponent($cards,$on_page,$page);
+
+            //render table
+            $this->renderPartial('_cards_filtered',array('pager' => $pager));
+        }
+        else
+        {
+            throw new CHttpException(404);
+        }
     }
 
 }

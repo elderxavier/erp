@@ -1,13 +1,16 @@
 <?php /* @var $categories array */ ?>
-<?php /* @var $category ProductCardCategories */ ?>
+<?php /* @var $measures array */ ?>
+<?php /* @var $pager CPagerComponent */ ?>
+
 <?php /* @var $rights UserRights */ ?>
 <?php /* @var $this ProductsController */ ?>
-<?php /* @var $cards array */?>
 <?php /* @var $card ProductCards */ ?>
 
 <?php
 $cs = Yii::app()->clientScript;
-$cs->registerCssFile(Yii::app()->request->baseUrl.'/css/table.css');
+$cs->registerCssFile(Yii::app()->request->baseUrl.'/css/invoice_list.css');
+$cs->registerCssFile(Yii::app()->request->baseUrl.'/css/paginator.css');
+$cs->registerScriptFile(Yii::app()->request->baseUrl.'/js/product_list.js',CClientScript::POS_END);
 ?>
 
 <?php $this->renderPartial('//partials/_sub_menu',array('links' => $this->GetSubMenu(), 'params' => array())); ?>
@@ -16,37 +19,33 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/table.css');
     <div class="row">
         <div class="col-lg-12">
 
-            <div class="filters clearfix">
-                <form class="form-inline clearfix" action="#" method="post">
-                    <div class="filter filter1">
-                        <div>
-                            <label><?php echo $this->labels['product code']; ?> :</label>
-                            <input name="cod" type="text" />
-                        </div>
-                    </div><!--/filter1 -->
-
-                    <div class="filter filter1">
-                        <div>
-
-                            <?php echo CHtml::dropDownList('category','',$categories,array('class'=> 'form-control','id'=>'filter-select'))?>
-                        </div>
-                    </div><!--/filter1 -->
-
-
-                    <div class="filter filter2">
-                        <div>
-                            <label><?php echo $this->labels['name']; ?> :</label>
-                            <input name="nam" type="text" />
-                        </div>
-                        <div>
-                            <button type="submit"><span class="hidden-xs"><?php echo $this->labels['filter']; ?></span><span><img src="/images/filters_arrow.png" height="36" width="36" /></span></button>
-                        </div>
-                    </div><!--/filter1 -->
+            <div class="row filter-holder">
+                <form>
+                    <input id="sel_code" type="text" placeholder="<?php echo $this->labels['product code']; ?>">
+                    <input id="sel_name" type="text" placeholder="<?php echo $this->labels['name']; ?>" />
+                    <select id="sel_category">
+                        <option value=""><?php echo $this->labels['select category']; ?></option>
+                        <?php foreach($categories as $id => $name): ?>
+                            <option value="<?php echo $id; ?>"><?php echo $name; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                    <select id="sel_units">
+                        <option value=""><?php echo $this->labels['select measure']; ?></option>
+                        <?php foreach($measures as $id => $name): ?>
+                            <option value="<?php echo $id; ?>"><?php echo $name; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                    <select id="sel_status">
+                        <option value=""><?php echo $this->labels['select status']; ?></option>
+                        <option value="0"><?php echo $this->labels['on']; ?></option>
+                        <option value="1"><?php echo $this->labels['off']; ?></option>
+                    </select>
+                    <button class="filter-button-top"><?php echo $this->labels['search']; ?><span class="glyphicon glyphicon-search"></span></button>
                 </form>
-            </div><!--/filters -->
+            </div><!--/filter-holder -->
 
 
-            <div class="table-holder">
+            <div class="row table-holder">
                 <table class="table table-bordered table-striped table-hover">
                     <thead>
                     <tr>
@@ -61,7 +60,7 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/table.css');
                     </thead>
                     <tbody>
 
-                    <?php foreach($cards as $card): ?>
+                    <?php foreach($pager->formatted_array as $card): ?>
                         <tr>
                             <td><?php echo $card->id; ?></td>
                             <td><?php echo $card->product_code; ?></td>
@@ -88,6 +87,7 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/table.css');
                     <?php endforeach; ?>
                     </tbody>
                 </table>
+                <?php $pager->renderPages(); ?>
             </div><!--/table-holder -->
         </div>
     </div>

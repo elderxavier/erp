@@ -98,3 +98,31 @@
     line-height: 26px;
     margin-left: 10px;
     padding: 0 5px;}
+	
+/*--- edit , on , off actions  ----*/
+.table td.status  .btn {
+	border-radius:1px;
+	font-size:12px;
+	padding:3px;}
+	
+.table td.status .btn-primary {
+	background-color:#7db222;}
+	
+.table-holder {
+	overflow-x:auto;}
+	
+td > .actions {	
+	display:inline-block;
+	width:11px;
+	line-height:12px;
+	text-indent:-9999px;
+	margin-right:10px;}
+	
+td > a.actions:hover {
+	background-position:bottom center;}	
+	
+td > .action-edit {
+	background:url(../images/edit_bg.png) top center no-repeat }
+	
+td > .action-delete{
+	background:url(../images/delete_bg.png) top center no-repeat}	
