@@ -33,13 +33,20 @@ class ContractorsController extends Controller
     /**
      * List clients
      */
-    public function actionClients()
+    public function actionClients($page = 1, $on_page = 3)
     {
         //get all clients and service which client waits
         $clients = Clients::model()->with('firstInvoice')->findAll();
 
+        //pagination obj with all items on this page
+        $pager = new CPagerComponent($clients,$on_page,$page);
+
+        //types ans cities for select boxes
+        $types = ClientTypes::model()->findAllAsArray();
+        $cities = array('Vilnius','Kaunas','Panevezys');
+
         //render
-        $this->render('client_list', array('clients' => $clients));
+        $this->render('client_list', array('pager' => $pager, 'types' => $types, 'cities' => $cities));
     }
 
     /**
@@ -192,6 +199,97 @@ class ContractorsController extends Controller
             throw new CHttpException(404,$this->labels['item not found in base']);
         }
 
+    }
+
+
+    /****************************************** A J A X  S E C T I O N *********************************************/
+    public function actionFilterClients()
+    {
+        //filter params
+        $code = Yii::app()->request->getParam('code','');
+        $name = Yii::app()->request->getParam('name','');
+        $email = Yii::app()->request->getParam('email','');
+        $type_id = Yii::app()->request->getParam('type_id','');
+        $city_name = Yii::app()->request->getParam('city_name','');
+
+        //pagination params
+        $page = Yii::app()->request->getParam('page',1);
+        $on_page = Yii::app()->request->getParam('on_page',3);
+
+        //filtration criteria
+        $c = new CDbCriteria();
+
+        //if type set
+        if(!empty($type_id))
+        {
+            //search by type
+            $c->addInCondition('type',array($type_id));
+        }
+        //if city name set
+        if(!empty($city_name))
+        {
+            //search by city name
+            $c->addCondition("city LIKE '%".$city_name."%'");
+        }
+
+        //if email set
+        if(!empty($email))
+        {
+            //search by two emails
+            $c->addCondition("email1 LIKE '%".$email."%' OR email2 LIKE '%".$email."%'");
+        }
+
+        //if code set
+        if(!empty($code))
+        {
+            //if client-type set
+            if(!empty($type_id))
+            {
+                //if not company
+                if($type_id == 2)
+                {
+                    //search all not-companies
+                    $c -> addCondition("personal_code LIKE '%".$code."%'");
+                }
+                //if company
+                if($type_id == 1)
+                {
+                    //search all companies
+                    $c -> addCondition("company_code LIKE '%".$code."%'");
+                }
+            }
+            //if type not set
+            else
+            {
+                //search all companies and not-companies
+                $c -> addCondition("personal_code LIKE '%".$code."%' OR company_code LIKE '%".$code."%'");
+            }
+        }
+
+        //if name set
+        if(!empty($name))
+        {
+            //explode name by space
+            $words = explode(' ',$name,2);
+
+            if(count($words) > 1)
+            {
+                $c -> addCondition("(name LIKE '%".$words[0]."%' AND surname LIKE '%".$words[1]."%') OR (company_name LIKE '%".$name."%')");
+            }
+            else
+            {
+                $c -> addCondition("name LIKE '%".$name."%' OR surname LIKE '%".$name."%' OR company_name LIKE '%".$name."%'");
+            }
+        }
+
+        //filtered clients
+        $clients = Clients::model()->findAll($c);
+
+        //on one page
+        $pager = new CPagerComponent($clients,$on_page,$page);
+
+        //render
+        $this->renderPartial('_client_filtered',array('pager' => $pager));
     }
 
 

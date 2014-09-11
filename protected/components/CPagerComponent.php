@@ -12,7 +12,7 @@ class CPagerComponent extends Controller
 
     /**
      * Constructor for pager
-     * @param string $arr
+     * @param array $arr
      * @param null $on_page
      * @param int $current_page
      */
