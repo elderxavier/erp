@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50538
 File Encoding         : 65001
 
-Date: 2014-09-09 16:58:32
+Date: 2014-09-11 18:24:12
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -62,7 +62,7 @@ CREATE TABLE `clients` (
   CONSTRAINT `clients_ibfk_1` FOREIGN KEY (`first_invoice_id`) REFERENCES `operations_out` (`id`),
   CONSTRAINT `clients_ibfk_2` FOREIGN KEY (`last_invoice_id`) REFERENCES `operations_out` (`id`),
   CONSTRAINT `clients_ibfk_3` FOREIGN KEY (`type`) REFERENCES `client_types` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of clients
@@ -70,7 +70,7 @@ CREATE TABLE `clients` (
 INSERT INTO `clients` VALUES ('11', 'Viqtor', '', 'Creed', 'PER789456', '', 'VAT789789', null, null, null, '123456', '321654', null, 'test@test.com', 'mail@mail.com', 'Some info', 'Some info', null, null, null, null, '2', '1408958172', '1408958172', '1', null, null, null, 'Lithuania', 'Vilnius', 'Kalvariju g', '15 b', null);
 INSERT INTO `clients` VALUES ('12', '', 'Senukai', '', 'PER78463', 'COCODE5646', 'VAT64893', null, null, null, '123456', '321654', null, 'em@ail.com', 'test@test.test', 'Some info', 'Some info', null, null, null, null, '1', '1408958292', '1408958292', '1', null, null, null, 'Lithuania', 'Vilnius', 'Kalvariju g', '89 g', null);
 INSERT INTO `clients` VALUES ('13', 'Anatolij', '', 'Krupnov', 'PER9865', '', 'VAT54964', null, null, null, '123465', '', null, 'test@test.com', '', 'Some info', 'Some info', null, null, null, null, '2', '1409046662', '1409046662', '1', null, null, null, 'Lithuania', 'Panevezys', 'Krupnovo', '89 f', null);
-INSERT INTO `clients` VALUES ('15', 'Igor', '', 'Strelkov', 'PER548964', '', 'VAT456DSF', null, null, null, '123456', '123456', null, 'test@test.com', 'test@test.com', 'Some info', 'Some info', null, null, null, null, '2', '1409747114', '1409747114', '1', null, null, null, 'Ukraine', 'Lugansk', 'Strelkov\'s', '89', null);
+INSERT INTO `clients` VALUES ('14', '', 'D.W.CORP', '', 'PER87SDF', 'DWCDF75SF7', 'VAT68DSFD', null, null, null, '123456', '123456', null, 'test@test.com', 'test@test.com', 'Some info', 'Some info', null, null, null, null, '1', '1410429848', '1410429848', '1', null, null, null, 'Croatia', 'Zagreb', 'Some street', '897 L', null);
 
 -- ----------------------------
 -- Table structure for `client_types`
@@ -223,7 +223,6 @@ INSERT INTO `operations_out` VALUES ('6', 'VLN_0004', '1409743000', null, '', '1
 INSERT INTO `operations_out` VALUES ('7', 'VLN_0003', '1409743767', null, '', '11', '1409743767', '1409743767', '1', '1', '1409743773', '1', '2');
 INSERT INTO `operations_out` VALUES ('8', 'VLN_0006', '1409745246', null, '', '12', '1409745246', '1409745246', '1', '1', '1409746760', '1', '2');
 INSERT INTO `operations_out` VALUES ('9', 'VLN_0005', '1409745403', null, '', '12', '1409745403', '1409745403', '1', '1', '1409746686', '1', '2');
-INSERT INTO `operations_out` VALUES ('10', 'VLN_0009', '1409747202', null, '', '15', '1409747202', '1409747202', '1', '1', '1409748911', '1', '2');
 INSERT INTO `operations_out` VALUES ('11', 'VLN_0010', '1409747262', null, '', '12', '1409747262', '1409747262', '1', '1', '1409748918', '1', '2');
 INSERT INTO `operations_out` VALUES ('12', 'VLN_0007', '1409747464', null, '', '12', '1409747464', '1409747464', '1', '1', '1409747464', '1', '2');
 INSERT INTO `operations_out` VALUES ('13', 'VLN_0008', '1409748882', null, '', '12', '1409748882', '1409748882', '1', '1', '1409748882', '1', '2');
@@ -262,7 +261,6 @@ INSERT INTO `operations_out_items` VALUES ('6', '10', '5', '5', null, '28000', '
 INSERT INTO `operations_out_items` VALUES ('7', '11', '5', '2', null, '45000', '1', '2', '12', '15');
 INSERT INTO `operations_out_items` VALUES ('8', '10', '6', '2', null, '18000', '1', '2', '11', '10');
 INSERT INTO `operations_out_items` VALUES ('9', '9', '6', '2', null, '20000', '1', '0', '11', '20');
-INSERT INTO `operations_out_items` VALUES ('10', '11', '6', '2', null, '23000', '1', '0', '11', '15');
 INSERT INTO `operations_out_items` VALUES ('11', '10', '7', '2', null, '5000', '1', '10', '11', '20');
 INSERT INTO `operations_out_items` VALUES ('12', '9', '7', '2', null, '4000', '1', '8', '11', '10');
 INSERT INTO `operations_out_items` VALUES ('13', '11', '7', '3', null, '12000', '1', '7', '11', '12');
@@ -275,9 +273,6 @@ INSERT INTO `operations_out_items` VALUES ('19', '10', '9', '2', null, '30000', 
 INSERT INTO `operations_out_items` VALUES ('20', '11', '9', '1', null, '30000', '1', '4', '12', '10');
 INSERT INTO `operations_out_items` VALUES ('21', '12', '9', '2', null, '30000', '1', '5', '12', '10');
 INSERT INTO `operations_out_items` VALUES ('22', '9', '9', '2', null, '30000', '1', '4', '12', '10');
-INSERT INTO `operations_out_items` VALUES ('23', '9', '10', '1', null, '25000', '1', '3', '15', '10');
-INSERT INTO `operations_out_items` VALUES ('24', '10', '10', '2', null, '20000', '1', '4', '15', '10');
-INSERT INTO `operations_out_items` VALUES ('25', '11', '10', '2', null, '35000', '1', '2', '15', '10');
 INSERT INTO `operations_out_items` VALUES ('26', '9', '11', '1', null, '50000', '1', '2', '12', '20');
 INSERT INTO `operations_out_items` VALUES ('27', '10', '11', '1', null, '50000', '1', '3', '12', '20');
 INSERT INTO `operations_out_items` VALUES ('28', '12', '11', '2', null, '50000', '1', '3', '12', '20');
@@ -312,7 +307,6 @@ CREATE TABLE `operations_out_opt_items` (
 INSERT INTO `operations_out_opt_items` VALUES ('2', '3', '1', '1', '10000', null, '13', null);
 INSERT INTO `operations_out_opt_items` VALUES ('3', '5', '1', '1', '5000', null, '12', null);
 INSERT INTO `operations_out_opt_items` VALUES ('4', '8', '1', '1', '2000', null, '12', null);
-INSERT INTO `operations_out_opt_items` VALUES ('5', '10', '2', '1', '2000', null, '15', null);
 INSERT INTO `operations_out_opt_items` VALUES ('6', '11', '2', '1', '3000', null, '12', null);
 INSERT INTO `operations_out_opt_items` VALUES ('7', '13', '1', '1', '1000', null, '12', null);
 
@@ -441,7 +435,7 @@ CREATE TABLE `product_cards` (
   CONSTRAINT `product_cards_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `product_card_categories` (`id`),
   CONSTRAINT `product_cards_ibfk_2` FOREIGN KEY (`measure_units_id`) REFERENCES `measure_units` (`id`),
   CONSTRAINT `product_cards_ibfk_3` FOREIGN KEY (`size_units_id`) REFERENCES `size_units` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of product_cards
@@ -452,6 +446,7 @@ INSERT INTO `product_cards` VALUES ('11', '8', 'nVIDIA GTX 760 ', 'PROD456', 'So
 INSERT INTO `product_cards` VALUES ('12', '8', 'nVIDIA GTX 560', 'PROD5864', 'Some info', null, '1', null, '1', '1408965216', '1408965216', '1', '1020', '1000', '10', '10', '10', '1');
 INSERT INTO `product_cards` VALUES ('13', '7', 'AMD Atom Xtreme', 'PROD4234', 'Some info', null, '1', null, '1', '1408970273', '1408970273', '1', '1020', '1000', '10', '10', '10', '1');
 INSERT INTO `product_cards` VALUES ('14', '8', 'AMD Radeon HD 9700', 'RAD8964SDF', 'Video card', null, '1', null, '1', '1409844276', '1409844304', '1', '1200', '1000', '10', '50', '20', '2');
+INSERT INTO `product_cards` VALUES ('15', '7', 'Elbrus C4', 'PROD67SF', '8-core 2 1.5 Ghz Elbrus architecture processor', null, '1', null, '1', '1410430131', '1410430131', '1', '320', '300', '1', '10', '10', '2');
 
 -- ----------------------------
 -- Table structure for `product_card_categories`
@@ -466,13 +461,16 @@ CREATE TABLE `product_card_categories` (
   `date_changed` int(11) DEFAULT NULL,
   `user_modified_by` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of product_card_categories
 -- ----------------------------
 INSERT INTO `product_card_categories` VALUES ('7', 'Processors', 'Some info', null, '1408959409', '1408959409', '1');
 INSERT INTO `product_card_categories` VALUES ('8', 'Video cards', 'Some info', null, '1408959459', '1408959805', '1');
+INSERT INTO `product_card_categories` VALUES ('9', 'Micro-Controllers', 'Some info', null, '1410442259', '1410442259', '1');
+INSERT INTO `product_card_categories` VALUES ('10', 'Mother-boards', 'Some info', null, '1410442283', '1410442283', '1');
+INSERT INTO `product_card_categories` VALUES ('11', 'Mobile phones', 'Some info', null, '1410442316', '1410442316', '1');
 
 -- ----------------------------
 -- Table structure for `product_files`
@@ -508,21 +506,23 @@ CREATE TABLE `product_in_stock` (
   KEY `stock_id` (`stock_id`),
   CONSTRAINT `product_in_stock_ibfk_1` FOREIGN KEY (`product_card_id`) REFERENCES `product_cards` (`id`),
   CONSTRAINT `product_in_stock_ibfk_2` FOREIGN KEY (`stock_id`) REFERENCES `stocks` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of product_in_stock
 -- ----------------------------
-INSERT INTO `product_in_stock` VALUES ('1', '1', '9', '15', '1410260107', '1408959961');
-INSERT INTO `product_in_stock` VALUES ('2', '1', '10', '20', '1410259807', '1408959961');
-INSERT INTO `product_in_stock` VALUES ('3', '3', '11', '3', '1410255040', '1409308831');
-INSERT INTO `product_in_stock` VALUES ('4', '3', '12', '4', '1410255040', '1409308831');
-INSERT INTO `product_in_stock` VALUES ('5', '1', '11', '7', '1410260227', '1409728901');
-INSERT INTO `product_in_stock` VALUES ('6', '1', '12', '7', '1410260227', '1409743571');
-INSERT INTO `product_in_stock` VALUES ('7', '4', '9', null, '1410260123', '1410260123');
-INSERT INTO `product_in_stock` VALUES ('8', '4', '10', null, '1410260123', '1410260123');
-INSERT INTO `product_in_stock` VALUES ('9', '4', '11', '1', '1410260438', '1410260123');
-INSERT INTO `product_in_stock` VALUES ('10', '4', '12', '2', '1410260394', '1410260123');
+INSERT INTO `product_in_stock` VALUES ('1', '1', '9', '10', '1410424256', '1408959961');
+INSERT INTO `product_in_stock` VALUES ('2', '1', '10', '11', '1410424256', '1408959961');
+INSERT INTO `product_in_stock` VALUES ('3', '3', '11', '4', '1410355464', '1409308831');
+INSERT INTO `product_in_stock` VALUES ('4', '3', '12', '5', '1410355464', '1409308831');
+INSERT INTO `product_in_stock` VALUES ('5', '1', '11', '5', '1410424256', '1409728901');
+INSERT INTO `product_in_stock` VALUES ('6', '1', '12', '4', '1410424256', '1409743571');
+INSERT INTO `product_in_stock` VALUES ('7', '4', '9', '10', '1410424356', '1410260123');
+INSERT INTO `product_in_stock` VALUES ('8', '4', '10', '10', '1410424356', '1410260123');
+INSERT INTO `product_in_stock` VALUES ('9', '4', '11', '2', '1410424356', '1410260123');
+INSERT INTO `product_in_stock` VALUES ('10', '4', '12', '4', '1410424356', '1410260123');
+INSERT INTO `product_in_stock` VALUES ('11', '3', '9', '1', '1410355464', '1410272026');
+INSERT INTO `product_in_stock` VALUES ('12', '3', '10', '6', '1410355464', '1410355464');
 
 -- ----------------------------
 -- Table structure for `rights`
@@ -745,15 +745,17 @@ CREATE TABLE `stock_movements` (
   CONSTRAINT `stock_movements_ibfk_1` FOREIGN KEY (`src_stock_id`) REFERENCES `stocks` (`id`),
   CONSTRAINT `stock_movements_ibfk_2` FOREIGN KEY (`trg_stock_id`) REFERENCES `stocks` (`id`),
   CONSTRAINT `stock_movements_ibfk_3` FOREIGN KEY (`status_id`) REFERENCES `stock_movement_statuses` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of stock_movements
 -- ----------------------------
 INSERT INTO `stock_movements` VALUES ('18', '1', '4', '1410259807', '2', 'PVH 264', 'Audi 100');
-INSERT INTO `stock_movements` VALUES ('19', '1', '3', '1410260107', '4', 'LGR 865', 'Subaru Forester');
+INSERT INTO `stock_movements` VALUES ('19', '1', '3', '1410260107', '2', 'LGR 865', 'Subaru Forester');
 INSERT INTO `stock_movements` VALUES ('20', '1', '4', '1410260227', '2', 'RGH 783', 'Жигуль Девятка');
 INSERT INTO `stock_movements` VALUES ('21', '4', '3', '1410260438', '1', 'PLS 486', 'Audi 80');
+INSERT INTO `stock_movements` VALUES ('22', '1', '3', '1410355299', '2', 'LRE 898', 'Ferrari');
+INSERT INTO `stock_movements` VALUES ('23', '1', '4', '1410424256', '2', 'SRT 896', 'Lambargini');
 
 -- ----------------------------
 -- Table structure for `stock_movement_items`
@@ -779,7 +781,7 @@ CREATE TABLE `stock_movement_items` (
   CONSTRAINT `stock_movement_items_ibfk_2` FOREIGN KEY (`product_card_id`) REFERENCES `product_cards` (`id`),
   CONSTRAINT `stock_movement_items_ibfk_3` FOREIGN KEY (`src_stock_id`) REFERENCES `stocks` (`id`),
   CONSTRAINT `stock_movement_items_ibfk_4` FOREIGN KEY (`trg_stock_id`) REFERENCES `stocks` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of stock_movement_items
@@ -792,6 +794,14 @@ INSERT INTO `stock_movement_items` VALUES ('21', '19', '9', '5', '1020', '1', '3
 INSERT INTO `stock_movement_items` VALUES ('22', '20', '11', '2', '1020', '1', '4', '7', '2', null);
 INSERT INTO `stock_movement_items` VALUES ('23', '20', '12', '2', '1020', '1', '4', '7', '2', null);
 INSERT INTO `stock_movement_items` VALUES ('24', '21', '11', '1', '1020', '4', '3', '1', '3', null);
+INSERT INTO `stock_movement_items` VALUES ('25', '22', '10', '5', '1020', '1', '3', '15', '0', null);
+INSERT INTO `stock_movement_items` VALUES ('26', '22', '11', '1', '1020', '1', '3', '6', '4', null);
+INSERT INTO `stock_movement_items` VALUES ('27', '22', '12', '1', '1020', '1', '3', '6', '5', null);
+INSERT INTO `stock_movement_items` VALUES ('28', '22', '9', '1', '1020', '1', '3', '14', '1', null);
+INSERT INTO `stock_movement_items` VALUES ('29', '23', '9', '4', '1020', '1', '4', '10', '10', null);
+INSERT INTO `stock_movement_items` VALUES ('30', '23', '10', '4', '1020', '1', '4', '11', '10', null);
+INSERT INTO `stock_movement_items` VALUES ('31', '23', '11', '1', '1020', '1', '4', '5', '2', null);
+INSERT INTO `stock_movement_items` VALUES ('32', '23', '12', '2', '1020', '1', '4', '4', '4', null);
 
 -- ----------------------------
 -- Table structure for `stock_movement_stages`
@@ -812,7 +822,7 @@ CREATE TABLE `stock_movement_stages` (
   CONSTRAINT `stock_movement_stages_ibfk_1` FOREIGN KEY (`movement_id`) REFERENCES `stock_movements` (`id`),
   CONSTRAINT `stock_movement_stages_ibfk_2` FOREIGN KEY (`movement_status_id`) REFERENCES `stock_movement_statuses` (`id`),
   CONSTRAINT `stock_movement_stages_ibfk_3` FOREIGN KEY (`user_operator_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of stock_movement_stages
@@ -824,6 +834,19 @@ INSERT INTO `stock_movement_stages` VALUES ('18', '20', '1', '1', 'Valery Gatals
 INSERT INTO `stock_movement_stages` VALUES ('19', '19', '4', '1', 'Valery Gatalsky', '1410260308', 'Завязли в каком-то болоте....');
 INSERT INTO `stock_movement_stages` VALUES ('20', '20', '2', '1', 'Valery Gatalsky', '1410260394', 'Доставлено!');
 INSERT INTO `stock_movement_stages` VALUES ('21', '21', '1', '1', 'Valery Gatalsky', '1410260438', '-');
+INSERT INTO `stock_movement_stages` VALUES ('22', '19', '1', '1', 'Valery Gatalsky', '1410271637', 'Наконец выбрались');
+INSERT INTO `stock_movement_stages` VALUES ('23', '19', '4', '1', 'Valery Gatalsky', '1410271718', 'Машина свалилась в канаву');
+INSERT INTO `stock_movement_stages` VALUES ('24', '19', '1', '1', 'Valery Gatalsky', '1410271767', 'Ура, выбрались из канавы');
+INSERT INTO `stock_movement_stages` VALUES ('25', '19', '3', '1', 'Valery Gatalsky', '1410271805', 'Они отменили ее...');
+INSERT INTO `stock_movement_stages` VALUES ('26', '19', '4', '1', 'Valery Gatalsky', '1410271839', 'Снова попали в канаву!!!');
+INSERT INTO `stock_movement_stages` VALUES ('27', '19', '1', '1', 'Valery Gatalsky', '1410271983', 'Что ?? Снова доставляем!');
+INSERT INTO `stock_movement_stages` VALUES ('28', '19', '2', '1', 'Valery Gatalsky', '1410272026', 'Наконец доставили');
+INSERT INTO `stock_movement_stages` VALUES ('29', '22', '1', '1', 'Valery Gatalsky', '1410355299', '-');
+INSERT INTO `stock_movement_stages` VALUES ('30', '22', '4', '1', 'Valery Gatalsky', '1410355415', 'Машина разбилась об пешехода! Не знаю, поедет ли дальше...');
+INSERT INTO `stock_movement_stages` VALUES ('31', '22', '1', '1', 'Valery Gatalsky', '1410355437', 'Она завелась! Ура!');
+INSERT INTO `stock_movement_stages` VALUES ('32', '22', '2', '1', 'Valery Gatalsky', '1410355464', 'Доставили!');
+INSERT INTO `stock_movement_stages` VALUES ('33', '23', '1', '1', 'Valery Gatalsky', '1410424256', '-');
+INSERT INTO `stock_movement_stages` VALUES ('34', '23', '2', '1', 'Valery Gatalsky', '1410424356', 'Delivered');
 
 -- ----------------------------
 -- Table structure for `stock_movement_statuses`
@@ -872,7 +895,7 @@ CREATE TABLE `suppliers` (
   `building_nr` varchar(255) DEFAULT NULL,
   `contract_number` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of suppliers
@@ -880,6 +903,7 @@ CREATE TABLE `suppliers` (
 INSERT INTO `suppliers` VALUES ('8', 'AMD', 'COCODE8797', 'VAT568854', null, '123456', '632145', null, 'email@mail.com', 'test@test.com', 'Some info', '1408958395', '1408958395', '1', null, null, 'USA', 'New York', 'Some Street', '56', null);
 INSERT INTO `suppliers` VALUES ('9', 'Intel', 'COCODE8757', 'VAT568354', null, '123456', '321654', null, 'email@mail.com', 'test@test.com', 'Some info', '1408958465', '1408958465', '1', null, null, 'USA', 'Washington', 'Some street', '89', null);
 INSERT INTO `suppliers` VALUES ('10', 'nVidia', 'COCODE8357', 'VAT568324', null, '1123456', '321654', null, 'email@mail.com', 'test@test.com', 'Some info', '1408958540', '1408958540', '1', null, null, 'China', 'Pekin', 'Some street', '56', null);
+INSERT INTO `suppliers` VALUES ('11', 'MCST', 'MSD68445867', 'VAT6547DDF5', null, '123456', '123456', null, 'email@mail.com', 'email@mail.com', 'Some info', '1410429995', '1410429995', '1', null, null, 'Russia', 'Zelenograd', 'Novodrischensko', '89 A', null);
 
 -- ----------------------------
 -- Table structure for `users`
