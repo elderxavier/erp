@@ -6,11 +6,11 @@ jQuery(document).ready(function(){
     jQuery('#name').autocomplete({
         source: function( request, response ) {
             $.ajax({
-                url: "/ajax/clients",
+                url: "/buy/sellers",
                 dataType: "json",
                 data: {
-                    term: request.term,
-                    type: jQuery('#type_id').val()
+                    term: request.term
+
                 },
                 success: function( data ) {
                     response( data );
@@ -53,14 +53,12 @@ var getParamsFromInputs = function(){
     var code = jQuery('#code').val();
     var name = jQuery('#name').val();
     var email = jQuery('#email').val();
-    var type_id = jQuery('#type_id').val();
     var city_name = jQuery('#city_name').val();
 
     return {
         code : code,
         email: email,
         name : name,
-        type_id: type_id,
         city_name : city_name
     };
 };
@@ -71,6 +69,6 @@ var getParamsFromInputs = function(){
  */
 var filter = function(params)
 {
-    var filter_url = '/contractors/filterclients';
+    var filter_url = '/contractors/filtersuppliers';
     jQuery(".table-holder").load(filter_url,params);
 };//filter

@@ -154,6 +154,12 @@ class Suppliers extends CActiveRecord
 		return parent::model($className);
 	}
 
+    /**
+     * For auto-complete
+     * @param string $suppName
+     * @param string $code
+     * @return string
+     */
     public function getAllClientsJson($suppName = '', $code = '')
     {
         if(!empty($suppName) || !empty($code)){
@@ -179,6 +185,12 @@ class Suppliers extends CActiveRecord
     }//getAllClientsJson
 
 
+    /**
+     * Returns array of suppliers
+     * @param string $name
+     * @param string $code
+     * @return array
+     */
     public function getSeller($name = '', $code = '')
     {
         $companyName = trim($name);
@@ -199,5 +211,24 @@ class Suppliers extends CActiveRecord
         }
 
         return $data;
-    }//getClients
+    }//getSeller
+
+    /**
+     * Returns formatted address string
+     * @param string $delimiter
+     * @return string
+     */
+    public function getAddressFormatted($delimiter = ',')
+    {
+        $address_arr = array();
+        $address_str = '';
+
+        if(!empty($this->country)) $address_arr[] = $this->country;
+        if(!empty($this->city)) $address_arr[] = $this->city;
+        if(!empty($this->street)) $address_arr[] = $this->street;
+        if(!empty($this->building_nr)) $address_arr[] = $this->building_nr;
+        if(!empty($address_arr)) $address_str = implode($delimiter,$address_arr);
+
+        return $address_str;
+    }//getAddressFormatted
 }

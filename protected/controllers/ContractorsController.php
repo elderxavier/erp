@@ -300,13 +300,18 @@ class ContractorsController extends Controller
     /**
      * List all suppliers
      */
-    public function actionSuppliers()
+    public function actionSuppliers($page = 1, $on_page = 3)
     {
         //get all clients and service which client waits
         $suppliers = Suppliers::model()->findAll();
 
+        //cities for select-boxes
+        $cities = array('Vilnius','Kaunas','Panevezys');
+
+        $pager = new CPagerComponent($suppliers,$on_page,$page);
+
         //render
-        $this->render('supplier_list', array('suppliers' => $suppliers));
+        $this->render('supplier_list', array('pager' => $pager, 'cities' => $cities));
     }
 
     /**
@@ -435,6 +440,79 @@ class ContractorsController extends Controller
             //exception
             throw new CHttpException(404,$this->labels['item not found in base']);
         }
+    }
+
+
+    /****************************************************** A J A X  S E C T I O N ******************************************************************/
+
+
+    /**
+     * auto-complete for purchase step1
+     */
+    public function actionSellers($term = '',$code = '')
+    {
+        if(Yii::app()->request->isAjaxRequest)
+        {
+            $result = Suppliers::model()->getAllClientsJson($term,$code);
+            echo $result;
+        }
+        else
+        {
+            throw new CHttpException(404);
+        }
+    }//actionSellers
+
+
+    public function actionFilterSuppliers()
+    {
+        //filter params
+        $code = Yii::app()->request->getParam('code','');
+        $name = Yii::app()->request->getParam('name','');
+        $email = Yii::app()->request->getParam('email','');
+        $city_name = Yii::app()->request->getParam('city_name','');
+
+        //pagination params
+        $page = Yii::app()->request->getParam('page',1);
+        $on_page = Yii::app()->request->getParam('on_page',3);
+
+        //filtration criteria
+        $c = new CDbCriteria();
+
+        //if city name set
+        if(!empty($city_name))
+        {
+            //search by city name
+            $c->addCondition("city LIKE '%".$city_name."%'");
+        }
+
+        //if email set
+        if(!empty($email))
+        {
+            //search by two emails
+            $c->addCondition("email1 LIKE '%".$email."%' OR email2 LIKE '%".$email."%'");
+        }
+
+        //if code set
+        if(!empty($code))
+        {
+            //search all companies
+            $c -> addCondition("company_code LIKE '%".$code."%'");
+        }
+
+        //if name set
+        if(!empty($name))
+        {
+            $c -> addCondition("company_name LIKE '%".$name."%'");
+        }
+
+        //filtered clients
+        $clients = Suppliers::model()->findAll($c);
+
+        //on one page
+        $pager = new CPagerComponent($clients,$on_page,$page);
+
+        //render
+        $this->renderPartial('_supplier_filtered',array('pager' => $pager));
     }
 
 
