@@ -34,13 +34,16 @@ class ProductsController extends Controller
     /**
      * List all categories
      */
-    public function actionCategories()
+    public function actionCategories($page = 1, $on_page = 3)
     {
         //get all categories from database
         $categories = ProductCardCategories::model()->findAll();
 
+        //pagination object with all elements on this page
+        $pager = new CPagerComponent($categories,$on_page,$page);
+
         //render list
-        $this->render('category_list',array('categories' => $categories));
+        $this->render('category_list',array('pager' => $pager));
     }
 
 
@@ -164,6 +167,38 @@ class ProductsController extends Controller
         else
         {
             throw new CHttpException(404,$this->labels['item not found in base']);
+        }
+    }
+
+    /***************************************** A J A X  S E C T I O N ***********************************************/
+
+    public function actionFilterCategories()
+    {
+        if(Yii::app()->request->isAjaxRequest)
+        {
+            //filter param
+            $name = Yii::app()->request->getParam('name','');
+
+            //pagination params
+            $page = Yii::app()->request->getParam('page',1);
+            $on_page = Yii::app()->request->getParam('on_page',3);
+
+            //filter criteria
+            $c = new CDbCriteria();
+
+            if(!empty($name))
+            {
+                $c -> addCondition("name LIKE '%".$name."%'");
+            }
+
+            $items = ProductCardCategories::model()->findAll($c);
+            $pager = new CPagerComponent($items,$on_page,$page);
+
+            $this->renderPartial('_categories_filtered',array('pager' => $pager));
+        }
+        else
+        {
+            throw new CHttpException(404);
         }
     }
 

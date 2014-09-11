@@ -1,11 +1,13 @@
-<?php /* @var $categories array */ ?>
 <?php /* @var $category ProductCardCategories */ ?>
 <?php /* @var $rights UserRights */ ?>
 <?php /* @var $this ProductsController */ ?>
+<?php /* @var $pager CPagerComponent */ ?>
 
 <?php
 $cs = Yii::app()->clientScript;
-$cs->registerCssFile(Yii::app()->request->baseUrl.'/css/table.css');
+$cs->registerCssFile(Yii::app()->request->baseUrl.'/css/invoice_list.css');
+$cs->registerCssFile(Yii::app()->request->baseUrl.'/css/paginator.css');
+$cs->registerScriptFile(Yii::app()->request->baseUrl.'/js/category_list.js',CClientScript::POS_END);
 ?>
 
 <?php $this->renderPartial('//partials/_sub_menu',array('links' => $this->GetSubMenu(), 'params' => array())); ?>
@@ -14,23 +16,28 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/table.css');
     <div class="row">
         <div class="col-lg-12">
 
-            <div class="table-holder">
+            <div class="row filter-holder">
+                <form>
+                    <input id="name" type="text" placeholder="<?php echo $this->labels['name']; ?>">
+                    <button class="filter-button-top"><?php echo $this->labels['search']; ?><span class="glyphicon glyphicon-search"></span></button>
+                </form>
+            </div><!--/filter-holder -->
+
+            <div class="row table-holder">
                 <table class="table table-bordered table-striped table-hover">
                     <thead>
                     <tr>
                         <th>#</th>
                         <th><?php echo $this->labels['name']; ?></th>
-                        <th><?php echo $this->labels['date']; ?></th>
                         <th><?php echo $this->labels['actions'] ?></th>
                     </tr>
                     </thead>
                     <tbody>
 
-                    <?php foreach($categories as $category): ?>
+                    <?php foreach($pager->formatted_array as $category): ?>
                         <tr>
                             <td><?php echo $category->id; ?></td>
                             <td><?php echo $category->name; ?></td>
-                            <td><?php echo date('Y.m.d',$category->date_created); ?></td>
 
                             <td>
                                 <?php if($this->rights['products_edit']): ?>
@@ -44,6 +51,7 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/table.css');
                     <?php endforeach; ?>
                     </tbody>
                 </table>
+                <?php $pager->renderPages(); ?>
             </div><!--/table-holder -->
         </div>
     </div>
