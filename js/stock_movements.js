@@ -25,6 +25,15 @@ jQuery(document).ready(function(){
         filter(params);
         return false;
     });
+
+    /**
+     * When clicked on generate pdf
+     */
+    jQuery(document).on('click','.pdf-gen-link',function(){
+        var href = jQuery(this).attr('href');
+        jQuery(".file-load-frame").attr('src',href);
+        return false;
+    });
 });
 
 /***************************************************************************************************************************************************/

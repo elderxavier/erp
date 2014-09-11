@@ -26,7 +26,10 @@
             <td><?php echo $movement->car_brand.' - '.$movement->car_number; ?></td>
             <td><?php echo date('Y.m.d H:i',$movement->date); ?></td>
             <td><?php echo $movement->status->name; ?></td>
-            <td><a href="<?php echo Yii::app()->createUrl('/stock/movementinfo', array('id' => $movement->id)); ?>"><?php echo ($movement->status_id != 2 && $movement->status_id != 5) ? $this->labels['change status'] : $this->labels['view info']; ?></a></td>
+            <td>
+                <a href="<?php echo Yii::app()->createUrl('/stock/movementinfo', array('id' => $movement->id)); ?>"><?php echo ($movement->status_id != 2 && $movement->status_id != 5) ? $this->labels['change status'] : $this->labels['view info']; ?></a>
+                <a class="pdf-gen-link" href="<?php echo Yii::app()->createUrl('/pdf/packinglist',array('id' => $movement->id)); ?>"><?php echo $this->labels['generate pdf']; ?></a>
+            </td>
         </tr>
     <?php endforeach; ?>
     </tbody>

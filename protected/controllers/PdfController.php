@@ -125,7 +125,7 @@ class PdfController extends Controller
             }
 
             //filename
-            $file_name = 'testpacking.pdf';
+            $file_name = 'packing_'.$id.'.pdf';
 
             //if dir created
             if(file_exists('pdf'))
