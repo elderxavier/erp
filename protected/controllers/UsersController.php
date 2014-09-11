@@ -102,10 +102,15 @@ class UsersController extends Controller
             $users = Users::model()->findAllByAttributes(array('role' => 0));
         }
 
+        //arrays for select-boxes
+        $positions = Positions::model()->getAllAsArray();
+        $cities = UserCities::model()->findAllAsArray();
+
+        //pagination object (contains all items on page)
         $pager = new CPagerComponent($users,$on_page,$page);
 
         //render list
-        $this->render('user_list', array('pager' => $pager));
+        $this->render('user_list', array('pager' => $pager, 'positions' => $positions, 'cities' => $cities));
     }
 
 
@@ -415,25 +420,47 @@ class UsersController extends Controller
 
     /************************************************* A J A X  S E C T I O N *********************************************************************/
 
+    /**
+     * Auto-complete handler for name-surname in filtration template (usages : user_list.js, user_list.php)
+     * @param $term
+     * @param int $lim
+     */
+    public function actionAutoComplete($term,$lim = 5)
+    {
+        $arr = Users::model()->getAllByNameSurname($term);
+        $arr = array_slice($arr,0,$lim);
+        echo json_encode($arr);
+    }//actionAutoComplete
+
+
+    /**
+     * Ajax filtration (usages : user_list.js, user_list.php)
+     * @throws CHttpException
+     */
     public function actionFilter()
     {
         if(Yii::app()->request->isAjaxRequest)
         {
-            $name = Yii::app()->request->getParam('name','');
-            $surname = Yii::app()->request->getParam('surname','');
+            $name_surname = Yii::app()->request->getParam('name_surname','');
             $position_id = Yii::app()->request->getParam('position_id', '');
             $city_id = Yii::app()->request->getParam('city_id','');
+
             $page = Yii::app()->request->getParam('page',1);
             $on_page = Yii::app()->request->getParam('on_page',3);
 
             $c = new CDbCriteria();
-            if(!empty($name))
+            if(!empty($name_surname))
             {
-                $c -> addCondition('name LIKE "%'.$name.'%"');
-            }
-            if(!empty($surname))
-            {
-                $c -> addCondition('surname LIKE "%'.$surname.'%"');
+                $words = explode(' ',$name_surname,2);
+
+                if(count($words) > 1)
+                {
+                    $c -> addCondition("name LIKE '%".$words[0]."%' AND surname LIKE '%".$words[1]."%'");
+                }
+                else
+                {
+                    $c -> addCondition("name LIKE '%".$name_surname."%' OR surname LIKE '%".$name_surname."%'");
+                }
             }
             if(!empty($position_id))
             {
@@ -455,6 +482,6 @@ class UsersController extends Controller
         {
             throw new CHttpException(404);
         }
-    }
+    }//actionFilter
 
 }

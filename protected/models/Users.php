@@ -157,4 +157,50 @@ class Users extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+
+    /**
+     * Returns JSON encoded array found by name(surname too) users
+     * @param string $name
+     * @param bool $auto_complete
+     * @return array|Users[]
+     */
+    public function getAllByNameSurname($name = '',$auto_complete = true)
+    {
+        /* @var $users self[] */
+
+        $sql = "SELECT * FROM ".$this->tableName()."";
+        $result = array();
+
+        $name = trim($name);
+        $names = explode(" ",$name,2);
+
+        if(!empty($name))
+        {
+            if(count($names) > 1)
+            {
+                $sql = "SELECT * FROM ".$this->tableName()." WHERE name LIKE '%".$names[0]."%' AND surname LIKE '%".$names[1]."%'";
+            }
+            else
+            {
+                $sql = "SELECT * FROM ".$this->tableName()." WHERE name LIKE '%".$name."%' OR surname LIKE '%".$name."%'";
+            }
+        }
+
+        $users = Users::model()->findAllBySql($sql);
+
+        if($auto_complete)
+        {
+            foreach($users as $user)
+            {
+                $result[] = array('label' => $user->name.' '.$user->surname, 'id' => $user->id);
+            }
+        }
+        else
+        {
+            $result = $users;
+        }
+
+        return $result;
+    }
 }

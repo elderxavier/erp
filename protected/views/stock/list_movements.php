@@ -2,6 +2,7 @@
 <?php /* @var $this StockController */ ?>
 <?php /* @var $stocks array */ ?>
 <?php /* @var $pager CPagerComponent */ ?>
+<?php /* @var $pdf_url string */ ?>
 
 
 <?php
@@ -79,4 +80,4 @@ $cs->registerScriptFile(Yii::app()->request->baseUrl.'/js/stock_movements.js',CC
     </div><!--/modals-holder -->
 
 </div><!--/container -->
-<iframe class="file-load-frame" style="display: none; width: 0; height: 0" src=""></iframe>
+<iframe class="file-load-frame" style="display: none; width: 0; height: 0" src="<?php echo $pdf_url; ?>"></iframe>

@@ -47,15 +47,32 @@ class StockController extends Controller
      * List all movements
      * @param int $page
      * @param int $on_page
+     * @param null $pdf
      */
-    public function actionMovements($page = 1, $on_page = 3)
+    public function actionMovements($page = 1, $on_page = 3, $pdf = null)
     {
-        $stock = Stocks::model()->getAsArrayPairs();
+        //get array of stocks fot select-box
+        $stocks = Stocks::model()->getAsArrayPairs();
+
+        //all movements
         $movements = StockMovements::model()->with('stockMovementItems','stockMovementStages','status','srcStock','trgStock')->findAll();
 
+        //pagination stuff
         $pagination = new CPagerComponent($movements,$on_page,$page);
 
-        $this->render('list_movements',array('stocks' => $stock, 'pager' => $pagination));
+        //generate-pdf - empty URL by default
+        $pdf_generate_url = '';
+
+        //if given ID of movement
+        if(!empty($pdf))
+        {
+            //get generate-pdf URL
+            $pdf_generate_url = Yii::app()->createUrl('/pdf/packinglist',array('id' => $pdf));
+        }
+
+        //render list
+        $this->render('list_movements',array('stocks' => $stocks, 'pager' => $pagination, 'pdf_url' => $pdf_generate_url));
+
     }//actionMovements
 
 
@@ -152,8 +169,19 @@ class StockController extends Controller
             $stage -> remark = '-'; //empty remark by default
             $stage -> save();
 
-            //redirect to movement list
-            $this->redirect(Yii::app()->createUrl('/stock/movements'));
+            //if should not generate pdf
+            if(!$generate_pdf)
+            {
+                //redirect to movement list
+                $this->redirect(Yii::app()->createUrl('/stock/movements'));
+            }
+            //if needs to generate
+            else
+            {
+                //redirect to list with current(completed) movement ID
+                $this->redirect(Yii::app()->createUrl('/stock/movements',array('pdf' => $movement->id)));
+            }
+
         }
         else
         {

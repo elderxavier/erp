@@ -29,7 +29,9 @@
 	
 .main_container .filter-holder > form > * {
 	margin-right:10px;
-	height:32px;}
+	height:32px;
+	border-radius:0;
+	border:1px solid #b6b7bb;}
 	
 .main_container .filter-holder > form > button {
 	padding:0;

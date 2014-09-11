@@ -3,10 +3,13 @@
 <?php /* @var $this UsersController */ ?>
 <?php /* @var $pager CPagerComponent */ ?>
 
+<?php /* @var $cities Array */ ?>
+<?php /* @var $positions Array */ ?>
+
 <?php
 $cs = Yii::app()->clientScript;
 $cs->registerScriptFile(Yii::app()->request->baseUrl.'/js/user_list.js',CClientScript::POS_END);
-$cs->registerCssFile(Yii::app()->request->baseUrl.'/css/table.css');
+$cs->registerCssFile(Yii::app()->request->baseUrl.'/css/invoice_list.css');
 $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/paginator.css');
 ?>
 
@@ -15,7 +18,24 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/paginator.css');
 <div class="container content-wrapper">
     <div class="row">
         <div class="col-lg-12">
-
+            <div class="row filter-holder">
+                <form>
+                    <input id="name-surname" type="text" placeholder="<?php echo $this->labels['name or surname']; ?>">
+                    <select id="position_id">
+                        <option value=""><?php echo $this->labels['select position']; ?></option>
+                        <?php foreach($positions as $id => $name): ?>
+                            <option value="<?php echo $id; ?>"><?php echo $name; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                    <select id="city_id">
+                        <option value=""><?php echo $this->labels['select city']; ?></option>
+                        <?php foreach($cities as $id => $name): ?>
+                            <option value="<?php echo $id; ?>"><?php echo $name; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                    <button id="search-btn"><?php echo $this->labels['search']; ?><span class="glyphicon glyphicon-search"></span></button>
+                </form>
+            </div><!--/filter-holder -->
             <div class="table-holder">
                 <table class="table table-bordered table-striped table-hover">
                     <thead>
