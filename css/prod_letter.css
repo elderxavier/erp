@@ -1,0 +1,209 @@
+.card-holder {
+	padding-bottom:10px;}
+
+/*--- product info ----*/
+.table-holder .table > tbody > tr > td {
+	font-size:12px;
+	color:#9b9292;}
+	
+.table-holder .table > tbody > tr > td:nth-child(odd) {
+	width:25%;
+	background-color:#b6b7bb;
+	font-size:12px;
+	text-transform:uppercase;
+	font-weight:400;
+	color:white;}
+	
+/*--- filter section ---*/
+.filter-inputs-holder {
+	margin-bottom:20px;}
+
+.filter-inputs-holder > input {
+	height:34px;
+	border-radius:0;
+	border:1px solid #c7c8cc;
+	margin-right:1%;
+	width:38%;}
+	
+.filter-inputs-holder > button {
+	width:19%;
+	background-color: #fb8f73;
+	border: none;
+	border-radius: 0;
+	color: white;
+	line-height: 32px;
+	padding: 0 0 0 10px;}
+	
+.filter-inputs-holder > button:hover {
+    background-color: #cc5c4e;}
+	
+.filter-inputs-holder > button > span{
+    background-color: #cc5c4e;
+    display: block;
+    float: right;
+    line-height: 30px;
+    margin-left: 10px;
+    padding: 0 7px;	}
+	
+/*--- product table holder ----*/  
+.product-table-holder thead > tr > th {
+	color:white;
+	font-size:12px;
+	text-transform:uppercase;	
+	background-color:#b6b7bb;
+	font-weight:400;}
+	
+.product-table-holder tbody	{
+	overflow-x:scroll;
+	max-height:300px;}
+	
+.product-table-holder tbody > tr > td {
+	color:#9b9292;
+	font-size:12px;}
+	
+.product-table-holder tbody > tr > td .add-prod {
+	background-color: #fb8f73;
+	border: none;
+	border-radius: 0;
+	color:white;
+	text-transform:uppercase;
+	padding: 0 0 0 10px;
+	line-height:22px;}
+	
+.product-table-holder tbody > tr > td .add-prod:hover {
+    background-color: #cc5c4e;}
+	
+.product-table-holder tbody > tr > td .add-prod > span {
+    background-color: #cc5c4e;
+    display: inline-block;
+	line-height:22px;
+	padding:0 5px;
+	margin-left:5px;}
+	
+/*--- transport options ----*/
+.transport-option-holder thead >tr > th {
+	color:white;
+	font-size:12px;
+	text-transform:uppercase;	
+	background-color:#b6b7bb;
+	font-weight:400;}
+
+.transport-option-holder tbody > tr > td {
+	color:#9b9292;
+	font-size:12px;}
+	
+.transport-option-holder tbody > tr > td .add-option {
+	background-color: #fb8f73;
+	border: none;
+	border-radius: 0;
+	color:white;
+	text-transform:uppercase;
+	padding: 0 0 0 10px;
+	line-height:22px;}
+	
+.transport-option-holder tbody > tr > td .add-option:hover {
+    background-color: #cc5c4e;}
+	
+.transport-option-holder tbody > tr > td .add-option > span {
+    background-color: #cc5c4e;
+    display: inline-block;
+	line-height:22px;
+	padding:0 5px;
+	margin-left:5px;}
+	
+#prod-list tbody > tr > td .del-btn-opt {
+	border-radius:0;
+	background-color: #fb8f73;}
+	
+#prod-list tbody > tr > td .del-btn-opt:hover {
+    background-color: #cc5c4e;}
+	
+/*-- bottom ---*/
+.btn-holder	 > button {
+	background-color: #fb8f73;
+	border: none;
+	border-radius: 0;
+	color: white;
+	line-height: 32px;
+	padding: 0 0 0 10px;}
+
+.btn-holder	 > button:hover {
+    background-color: #cc5c4e;}
+	
+.btn-holder > button > span:last-child {
+    background-color: #cc5c4e;
+    display: inline-block;
+    line-height: 30px;
+    margin-left: 10px;
+    padding: 0 7px;	}
+	
+/*---- letter options ---*/
+#address-to-section {
+	min-height:30px;
+	border:1px solid #c7c8cc;
+	margin-bottom:10px;}
+	
+#text-holder-area > textarea {
+	border:1px solid #c7c8cc;
+	width:100%;
+	min-height:200px;}
+	
+#files-section {}
+	
+#files-section > ul {
+	padding:10px;
+	list-style:none;
+	width:100%;
+	border:1px solid #c7c8cc;}
+	
+#files-section > ul > li {
+	float:left;
+	margin-right:20px;}
+	
+#files-section > ul > li > * {
+	display:inline-block;
+	color:#9b9292;
+	vertical-align:top;	}
+	
+#files-section > ul > li > span {
+	margin-left:5px;
+	font-size:13px;}
+	
+#address-to-section {
+	padding:5px;}	
+	
+#emails-to-holder {
+	width:100%;
+	padding:0px;
+	list-style:none;}
+	
+	
+#emails-to-holder > li {
+	display:block;
+	padding:2px 5px;
+	border-radius:3px;
+	background-color: #fb8f73;
+	float:left;
+	margin-right:10px;}
+	
+#emails-to-holder > li#empty-list {
+	background-color:transparent;
+	width:100%;
+	text-align:center;
+	color:#9b9292;}
+	
+#emails-to-holder > li > * {
+	display:inline-block;}
+	
+#emails-to-holder > li > a:first-child {
+	text-decoration:none;
+	font-size:12px;
+	color:white;}
+	
+#emails-to-holder > li > a:last-child {
+	margin-left:10px;
+	color:white;}
+	
+#emails-to-holder > li > a:hover {
+    color: #cc5c4e;}
+	

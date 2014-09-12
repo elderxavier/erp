@@ -490,4 +490,44 @@ class ProductsController extends Controller
         }
     }//actionAutoCompleteProducts
 
+    /**
+     * Renders filtered table of clients
+     */
+    public function actionRenderFilteredPartForLetters()
+    {
+        $client_name = YiiBase::app()->request->getParam('name','');
+        $client_code = YiiBase::app()->request->getParam('code','');
+
+        $clients = Clients::model()->findClientsByNameAndCode($client_name,$client_code,false);
+        $this->renderPartial('_filtered_client_part_for_letters',array('clients' => $clients));
+    }
+
+    /**
+     * Auto-complete for filtration
+     * @param string $name
+     * @param string $code
+     */
+    public function actionAutoCompleteForFiltration($name = '', $code = '')
+    {
+        $arr = Clients::model()->findClientsByNameAndCode($name,$code,true);
+        $arr = array_slice($arr,0,5);
+        echo json_encode($arr);
+    }
+
+    /***********************************************************************************************************************************************/
+
+    /**
+     * @param null $id
+     */
+    public function actionSendOffer($id = null)
+    {
+        $product_card = ProductCards::model()->with('productFiles','measureUnits','sizeUnits')->findByPk($id);
+        $mail_templates = MailTemplates::model()->findAll();
+
+        if(!empty($product_card))
+        {
+            $this->render('send_offer',array('card' => $product_card, 'templates' => $mail_templates));
+        }
+    }//actionAutoCompleteProducts
+
 }

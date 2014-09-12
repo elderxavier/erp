@@ -223,6 +223,66 @@ class Clients extends CActiveRecord
 
 
     /**
+     * Searches clients by name and code, can be used for auto-complete
+     * @param string $name
+     * @param string $code
+     * @param bool $auto_complete
+     * @return array|Clients[]
+     */
+    public function findClientsByNameAndCode($name = '', $code = '', $auto_complete = false)
+    {
+        /* @var $clients self[] */
+
+        $c = new CDbCriteria();
+        $result = array();
+
+        if(!empty($name))
+        {
+            $words = explode(' ',$name,2);
+            if(count($words) > 1)
+            {
+                $c -> addCondition("(name LIKE '%".$words[0]."%' AND surname LIKE '%".$words[1]."%') OR (company_name LIKE '%".$name."%')");
+            }
+            else
+            {
+                $c -> addCondition("name LIKE '%".$name."%' OR surname LIKE '%".$name."%' OR company_name LIKE '%".$name."%'");
+            }
+
+        }
+
+        if(!empty($code))
+        {
+            $c -> addCondition("personal_code LIKE '%".$code."%' OR company_code LIKE '%".$code."%'");
+        }
+
+        $clients = Clients::model()->findAll($c);
+
+        if(!empty($clients))
+        {
+            if(!$auto_complete)
+            {
+                $result = $clients;
+            }
+            else
+            {
+                foreach($clients as $client)
+                {
+                    if(empty($code))
+                    {
+                        $result[] = array('id' => $client->id, 'label' => $client->type == 1 ? $client->company_name : $client->name.' '.$client->surname);
+                    }
+                    else
+                    {
+                        $result[] = array('id' => $client->id, 'label' => $client->type == 1 ? $client->company_code : $client->personal_code);
+                    }
+                }
+            }
+        }
+
+        return $result;
+    }//findClientsByNameAndCode
+
+    /**
      * Return json array for auto-complete
      * @param null $clientName
      * @param null $type

@@ -77,11 +77,14 @@ $cs->registerScriptFile(Yii::app()->request->baseUrl.'/js/product_list.js',CClie
 
                             <td>
                                 <?php if($this->rights['products_edit']): ?>
-                                    <?php echo CHtml::link($this->labels['edit'],'/'.$this->id.'/editcard/id/'.$card->id,array('class' => 'actions action-edit')); ?>
+                                    <?php echo CHtml::link($this->labels['edit'],'/products/editcard/id/'.$card->id,array('class' => 'actions action-edit')); ?>
                                 <?php endif; ?>
                                 <?php if($this->rights['products_delete']): ?>
-                                    <?php echo CHtml::link($this->labels['delete'],'/'.$this->id.'/deletecard/id/'.$card->id,array('class' => 'actions action-delete')); ?>
+                                    <?php echo CHtml::link($this->labels['delete'],'/products/deletecard/id/'.$card->id,array('class' => 'actions action-delete')); ?>
                                 <?php endif; ?>
+                                <?php if($this->rights['products_edit']): ?>
+                                    <?php echo CHtml::link($this->labels['send offer'],'/products/sendoffer/id/'.$card->id); ?>
+                                <?php endif;?>
                             </td>
                         </tr>
                     <?php endforeach; ?>
