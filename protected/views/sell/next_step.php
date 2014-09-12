@@ -112,7 +112,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/sales_next_step.js',CClientScri
 
         <div id="vat-section">
             <label><?php echo $this->labels['select VAT']; ?> %</label>
-            <select id="vat">
+            <select class="form-control" id="vat">
                 <?php foreach($vats as $vat): ?>
                     <option value="<?php echo $vat->id; ?>"><?php echo $vat->percent; ?></option>
                 <?php endforeach; ?>

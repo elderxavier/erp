@@ -25,6 +25,65 @@
 	border:1px solid #c7c8cc;
 	max-width:60%;}
 	
+#vat-section > label {
+	font-size:12px;
+	text-transform:uppercase;
+	font-weight:400;
+	color:#9b9292;}
+	
+#vat {
+	font-size:12px;
+	border-radius:0;
+	max-width:100px;
+	height:32px;}
+	
+/*-- modal window create invoive --*/
+#invoiceReady {}
+
+#invoiceReady .modal-dialog > .modal-content {
+	border-radius:0;}
+	
+#invoiceReady .supl-header > table  tr > td:nth-child(odd) {
+	width:25%;
+	background-color:#b6b7bb;
+	font-size:12px;
+	text-transform:uppercase;
+	font-weight:400;
+	color:white;}
+	
+#invoiceReady .supl-header > table  tr > td {
+	font-size:12px;
+	color:#9b9292;}
+	
+#invoiceReady .modal-prod-list-holder table > thead th {
+	color:white;
+	font-size:12px;
+	text-transform:uppercase;	
+	background-color:#b6b7bb;
+	font-weight:400;}
+	
+#invoiceReady .modal-prod-list-holder table > tbody td {
+	font-size:12px;
+	color:#9b9292;}
+	
+.modal-footer .btn {
+    background-color: #fb8f73;
+    border: medium none;
+    border-radius: 0;
+    color: white;
+    line-height: 26px;
+    padding: 0 0 0 10px;}
+	
+.modal-footer .btn:hover {
+    background-color: #cc5c4e;}
+	
+.modal-footer .btn > span {
+    background-color: #cc5c4e;
+    display: inline-block;
+    line-height: 26px;
+    margin-left: 10px;
+    padding: 0 5px;}
+	
 /* --- product list section --*/
 #prod-list thead > tr > th {
 	color:white;
