@@ -135,5 +135,38 @@ class ProductCardCategories extends CActiveRecord
 
         //return array
         return $arr;
-    }
+    }//getAllAsArray
+
+
+    /**
+     * Get all categories by name (can be used for auto-complete)
+     * @param string $name
+     * @param bool $auto_complete
+     * @return array|ProductCardCategories[]
+     */
+    public function findAllByName($name = '',$auto_complete = true)
+    {
+        /* @var $items self[] */
+
+        $result = array();
+
+        if(!empty($name))
+        {
+            $sql = "SELECT * FROM ".$this->tableName()." WHERE name LIKE '%".$name."%'";
+            $items = $this->findAllBySql($sql);
+
+            if($auto_complete)
+            {
+                foreach($items as $item)
+                {
+                    $result[] = array('id' => $item->id, 'label' => $item->name);
+                }
+            }
+            else
+            {
+                $result = $items;
+            }
+        }
+        return $result;
+    }//findAllByName
 }

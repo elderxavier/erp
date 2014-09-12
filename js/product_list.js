@@ -1,5 +1,55 @@
 jQuery(document).ready(function(){
 
+
+    /**
+     * Auto-complete form product-names
+     */
+    jQuery('#sel_name').autocomplete({
+        source: function( request, response ) {
+            $.ajax({
+                url: "/products/autocompleteproducts",
+                dataType: "json",
+                data: {
+                    name: request.term
+
+                },
+                success: function( data ) {
+                    response( data );
+                }
+            });
+        },
+        minLength: 1
+    });
+
+
+    /**
+     * Auto-complete form product-codes
+     */
+    jQuery('#sel_code').autocomplete({
+        source: function( request, response ) {
+            $.ajax({
+                url: "/products/autocompleteproducts",
+                dataType: "json",
+                data: {
+                    code: request.term
+
+                },
+                success: function( data ) {
+                    response( data );
+                }
+            });
+        },
+        minLength: 1
+    });
+
+    /**
+     * Filter on change
+     */
+    jQuery('#sel_category, #sel_units, #sel_status').change(function(){
+        var params = getParamsFromInputs();
+        filter(params);
+    });
+
     /**
      * When clicked on 'filter' button
      */

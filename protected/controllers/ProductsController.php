@@ -172,6 +172,30 @@ class ProductsController extends Controller
 
     /***************************************** A J A X  S E C T I O N ***********************************************/
 
+    /**
+     * Auto-complete for categories
+     * @param string $term
+     * @throws CHttpException
+     */
+    public function actionAutoCompleteCategories($term = '')
+    {
+        if(Yii::app()->request->isAjaxRequest)
+        {
+            $arr = ProductCardCategories::model()->findAllByName($term);
+            $arr = array_slice($arr,0,5);
+            echo json_encode($arr);
+        }
+        else
+        {
+            throw new CHttpException(404);
+        }
+    }//actionAutoCompleteCategories(
+
+
+    /**
+     * Filtration for categories
+     * @throws CHttpException
+     */
     public function actionFilterCategories()
     {
         if(Yii::app()->request->isAjaxRequest)
@@ -200,14 +224,17 @@ class ProductsController extends Controller
         {
             throw new CHttpException(404);
         }
-    }
+    }//actionFilterCategories
 
     /****************************************************************************************************************
      ****************************************** P R O D U C T  C A R D S ********************************************
      ***************************************************************************************************************/
 
+
     /**
      * List cards
+     * @param int $page
+     * @param int $on_page
      */
     public function actionCards($page = 1, $on_page = 3)
     {
@@ -223,7 +250,7 @@ class ProductsController extends Controller
 
         //render list
         $this->render('card_list',array('pager' => $pager, 'categories' => $categories, 'measures' => $measures));
-    }
+    }//actionCards
 
 
     /**
@@ -271,7 +298,7 @@ class ProductsController extends Controller
 
         //render form
         $this->render('card_create',array('categories_arr' => $categories_arr, 'card' => $card, 'm_units' => $measure_units, 's_units' => $size_units, 'form_mdl' => $form));
-    }
+    }//actionAddCard
 
 
     /**
@@ -338,7 +365,7 @@ class ProductsController extends Controller
             //throw exception
             throw new CHttpException(404,$this->labels['item not found in base']);
         }
-    }
+    }//actionEditCard
 
 
     /**
@@ -376,7 +403,7 @@ class ProductsController extends Controller
             throw new CHttpException(404,$this->labels['item not found in base']);
         }
 
-    }
+    }//actionDeleteCard
 
     /****************************************************** A J A X  S E C T I O N ******************************************************************/
 
@@ -421,7 +448,7 @@ class ProductsController extends Controller
                 $c -> addInCondition('measure_units_id',array($measure_id));
             }
 
-            if(!empty($status))
+            if($status != '')
             {
                 $c -> addInCondition('status',array($status));
             }
@@ -439,6 +466,28 @@ class ProductsController extends Controller
         {
             throw new CHttpException(404);
         }
-    }
+    }//actionFilterProducts
+
+    /**
+     * Auto-complete for product's input
+     * @param string $name
+     * @param string $code
+     * @throws CHttpException
+     */
+    public function actionAutoCompleteProducts($name = '',$code = '')
+    {
+        //if this is ajax
+        if(Yii::app()->request->isAjaxRequest)
+        {
+            $arr = ProductCards::model()->findAllByNameOrCode($name,$code,true);
+            $arr = array_slice($arr,0,5);
+            echo json_encode($arr);
+        }
+        //if not ajax
+        else
+        {
+            throw new CHttpException(404);
+        }
+    }//actionAutoCompleteProducts
 
 }

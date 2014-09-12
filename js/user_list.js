@@ -9,6 +9,15 @@ jQuery(document).ready(function(){
         return false;
     });
 
+
+    /**
+     * Filter on change
+     */
+    jQuery('#position_id, #city_id').change(function(){
+        var params = getParamsFromInputs();
+        filter(params);
+    });
+
     /**
      * When clicked on pagination page
      */

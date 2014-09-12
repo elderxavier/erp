@@ -37,8 +37,8 @@ $cs->registerScriptFile(Yii::app()->request->baseUrl.'/js/product_list.js',CClie
                     </select>
                     <select id="sel_status">
                         <option value=""><?php echo $this->labels['select status']; ?></option>
-                        <option value="0"><?php echo $this->labels['on']; ?></option>
-                        <option value="1"><?php echo $this->labels['off']; ?></option>
+                        <option value="1"><?php echo $this->labels['on']; ?></option>
+                        <option value="0"><?php echo $this->labels['off']; ?></option>
                     </select>
                     <button class="filter-button-top"><?php echo $this->labels['search']; ?><span class="glyphicon glyphicon-search"></span></button>
                 </form>

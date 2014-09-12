@@ -22,6 +22,14 @@ jQuery(document).ready(function(){
 
 
     /**
+     * Filter on change
+     */
+    jQuery('#city_name').change(function(){
+        var params = getParamsFromInputs();
+        filter(params);
+    });
+
+    /**
      * When clicked on 'filter' button
      */
     jQuery(document).on('click','.filter-button-top',function(){

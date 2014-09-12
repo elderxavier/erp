@@ -17,6 +17,14 @@ jQuery(document).ready(function(){
     });
 
     /**
+     * Filter on change
+     */
+    jQuery('#from-stock, #to-stock').change(function(){
+        var params = getParamsFromInputs();
+        filter(params);
+    });
+
+    /**
      * When clicked on pagination page
      */
     jQuery(document).on('click','.links-pages',function(){
