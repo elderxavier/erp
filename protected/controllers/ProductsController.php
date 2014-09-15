@@ -617,18 +617,14 @@ class ProductsController extends Controller
             if(!empty($recipients_ids))
             {
                 //find em all
-                $c = new CDbCriteria();
-                $c -> addInCondition('id',$recipients_ids);
-                $recipients = Clients::model()->findAll($c);
+                $recipients = Clients::model()->findAllByPk($recipients_ids);
             }
 
             //if not empty file id's
             if(!empty($files_ids))
             {
                 //find em all
-                $c = new CDbCriteria();
-                $c -> addInCondition('id',$files_ids);
-                $files = ProductFiles::model()->findAll($c);
+                $files = ProductFiles::model()->findAllByPk($files_ids);
             }
 
             //render partial
@@ -668,18 +664,14 @@ class ProductsController extends Controller
         if(!empty($recipients_ids))
         {
             //find em all
-            $c = new CDbCriteria();
-            $c -> addInCondition('id',$recipients_ids);
-            $recipients = Clients::model()->findAll($c);
+            $recipients = Clients::model()->findAllByPk($recipients_ids);
         }
 
         //if not empty file id's
         if(!empty($files_ids))
         {
             //find em all
-            $c = new CDbCriteria();
-            $c -> addInCondition('id',$files_ids);
-            $files = ProductFiles::model()->findAll($c);
+            $files = ProductFiles::model()->findAllByPk($files_ids);
         }
 
         //create array of emails
@@ -690,10 +682,10 @@ class ProductsController extends Controller
         }
 
         //email settings
-        $transport = Swift_SmtpTransport::newInstance('localhost',15025);
+        $transport = Swift_SmtpTransport::newInstance('smtp.yandex.ru',587);
 //        $transport->setEncryption('ssl');
-        $transport->setUsername('admin');
-        $transport->setPassword('1234');
+        $transport->setUsername('olivia.erp@yandex.ru');
+        $transport->setPassword('olivia_password!');
         $mailer = Swift_Mailer::newInstance($transport);
 
         //message settings
