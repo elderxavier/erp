@@ -45,6 +45,7 @@ class UserIdentity extends CUserIdentity
                 $this->setState('role', $user_record->role);
                 $this->setState('status',$user_record->status);
                 $this->setState('avatar',$user_record->avatar);
+                $this->setState('position', strtolower($user_record->position->name));
 
                 //get all rights
                 $rights = array();

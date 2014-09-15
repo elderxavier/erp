@@ -51,7 +51,7 @@ $cs->registerScriptFile(Yii::app()->request->baseUrl.'/js/prod-letter.js',CClien
                         <tr>
                             <td><?php echo $template->name; ?></td>
                             <td>
-                                <a data-name="option1"  data-unit="vnt" data-id="1" class="btn btn-default btn-sm add-option" href="#">
+                                <a data-name="<?php echo $template->name; ?>" data-id="<?php echo $template->id; ?>" class="btn btn-default btn-sm add-option" href="#">
                                     <?php echo $this->labels['add to list']; ?>&nbsp;<span class="glyphicon glyphicon-share"></span>
                                 </a>
                             </td>
@@ -73,144 +73,84 @@ $cs->registerScriptFile(Yii::app()->request->baseUrl.'/js/prod-letter.js',CClien
                 <tr>
                     <td><?php echo $this->labels['product name']; ?></td>
                     <td><?php echo $card->product_name; ?></td>
-                    <td><?php echo $this->labels['product_code']; ?></td>
+                    <td><?php echo $this->labels['product code']; ?></td>
                     <td><?php echo $card->product_code; ?></td>
                 </tr>
 
                 <tr>
-                    <td>measure units</td>
-                    <td>kg</td>
-                    <td>gabaritai dim</td>
-                    <td>cm</td>
+                    <td><?php echo $this->labels['measure']; ?></td>
+                    <td><?php echo $card->measureUnits->name; ?></td>
+                    <td><?php echo $this->labels['size units']; ?></td>
+                    <td><?php echo $card->sizeUnits->name; ?></td>
                 </tr>
                 <tr>
-                    <td>Netto  (kg)</td>
-                    <td>1.234</td>
-                    <td>Brutto (kg)</td>
-                    <td>1.456</td>
+                    <td><?php echo $this->labels['weight net'] ?> (Kg)</td>
+                    <td><?php echo $card->weight_net/1000; ?></td>
+                    <td><?php echo $this->labels['weight gross']; ?> (Kg)</td>
+                    <td><?php echo $card->weight/1000; ?></td>
                 </tr>
                 <tr>
-                    <td>Gabaritai height x weight x length</td>
-                    <td colspan="3">2244 x 23424 323</td>
+                    <td><?php echo $this->labels['sizes'].' ('.$card->sizeUnits->name.')'; ?></td>
+                    <td colspan="3"><?php echo $card->weight.'x'.$card->height.'x'.$card->length; ?></td>
                 </tr>
                 </tbody>
             </table>
+            <input type="hidden" id="prod-hidden-id" value="<?php echo $card->id; ?>">
         </div><!--/table-holder -->
 
 
         <div id="email-create-section">
-            <h4>To:</h4>
+            <h4><?php echo $this->labels['to']; ?>:</h4>
             <div id="address-to-section" class="clearfix">
                 <ul id="emails-to-holder">
-                    <li id="empty-list">Put here user emails</li>
+                    <li id="empty-list"><?php echo $this->labels['put here user emails']; ?></li>
                 </ul><!--emails-to-holder -->
             </div>
             <div id="text-holder-area">
-                <textarea></textarea>
+                <textarea class="template-text-area"></textarea>
             </div><!--/product-holder-area -->
+
             <div id="files-section">
-                <h5>Aviable files</h5>
+                <h5><?php echo $this->labels['available files']; ?></h5>
                 <ul class="clearfix">
-                    <li> <input type="checkbox"> <span>file1 file1 file1 file1</span></li>
-                    <li> <input type="checkbox"> <span>file2</span></li>
-                    <li> <input type="checkbox"> <span>file3</span></li>
-                    <li> <input type="checkbox"> <span>file4</span></li>
+                    <?php foreach($card->productFiles as $file): ?>
+                        <li> <input class="files" data-id="<?php echo $file->id; ?>" name="files[<?php echo $file->id; ?>]" type="checkbox"> <span><?php echo $file->label; ?></span></li>
+                    <?php endforeach; ?>
                 </ul>
             </div><!--/files-section -->
         </div><!--/email-create-section -->
 
     </div><!--/left -->
     <div class="btn-holder col-sm-12 clearfix text-right">
-        <button class="btn-submit"   data-toggle="modal" data-target="#invoiceReady"><span>Creare letter</span><span class="glyphicon glyphicon-chevron-right"></span></button>
+        <button class="btn-submit" data-toggle="modal" data-target="#letterReady"><span><?php echo $this->labels['create letter']; ?></span><span class="glyphicon glyphicon-chevron-right"></span></button>
     </div><!--/btn-holder -->
 </div><!--row -->
 <div class="modals-holder">
-    <div class="invoice-ready">
+    <div class="letter-ready">
 
-        <div class="modal fade" id="invoiceReady" tabindex="-1" role="dialog">
+        <div class="modal fade" id="letterReady" tabindex="-1" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        <h4 class="modal-title">Invoice : 213232323</h4>
-                    </div><!--/.modal-heafer -->
+                    <form method="post" action="<?php echo Yii::app()->createUrl('/products/sendletter'); ?>">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"><?php echo $this->labels['close']; ?></span></button>
+                            <h4 class="modal-title"><?php echo $this->labels['letter']; ?></h4>
+                        </div><!--/.modal-heafer -->
 
-                    <div class="modal-body">
-                        <div class="supl-header">
-                            <table class="table table-bordered" width="100%">
-                                <tr>
-                                    <td>company</td>
-                                    <td>inclusion</td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>compaany code</td>
-                                    <td>2324234</td>
-                                    <td>Vat code </td>
-                                    <td>fdghhfdhg</td>
-                                </tr>
-                                <tr>
-                                    <td>Adress</td>
-                                    <td colspan="3">Vilnius, kapsu g 8, LT-21345</td>
-                                </tr>
-                            </table>
-                        </div><!--/supl-header -->
-                        <div class="modal-prod-list-holder">
-                            <table class="table table-bordered" width="100%">
-                                <thead>
-                                <tr>
-                                    <th>product name</th>
-                                    <th>prod code</th>
-                                    <th>units</th>
-                                    <th>quant</th>
-                                    <th>price (EUR)</th>
-                                    <th>discount %</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>Product 1</td>
-                                    <td>prd 12345677</td>
-                                    <td>litr</td>
-                                    <td>123</td>
-                                    <td>213321</td>
-                                    <td>10</td>
-                                </tr>
+                        <div class="modal-body">
+                            Some text here
+                        </div><!--/modal-body -->
 
-                                <tr>
-                                    <td>Product 1</td>
-                                    <td>prd 12345677</td>
-                                    <td>litr</td>
-                                    <td>123</td>
-                                    <td>213321</td>
-                                    <td>5</td>
-                                </tr>
-                                <tr class="total">
-                                    <td colspan="3"></td>
-                                    <td colspan="2">Total :</td>
-                                    <td>700 EUR</td>
-                                </tr>
-                                <tr class="total-with-vat">
-                                    <td colspan="3"></td>
-                                    <td colspan="2">Total 21% VAT :</td>
-                                    <td>700 EUR</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div><!--/modal-prod-list-holder -->
-                    </div><!--/modal-body -->
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close<span class="glyphicon glyphicon-thumbs-down"></span></button>
-                        <button type="button" class="btn btn-primary">Continue<span class="glyphicon glyphicon-print"></span></button>
-                        <button type="button" class="btn btn-primary">Continue<span class="glyphicon glyphicon-share-alt"></span></button>
-                    </div><!--/modal-footer -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->labels['close']; ?><span class="glyphicon glyphicon-thumbs-down"></span></button>
+                            <button type="submit" class="btn btn-primary"><?php echo $this->labels['send'];  ?><span class="glyphicon glyphicon-share-alt"></span></button>
+                        </div><!--/modal-footer -->
+                    </form>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
 
-    </div><!--/invoice-ready -->
+    </div><!--/letter-ready -->
 
 </div><!--/modals-holder -->
 </div><!--/container -->

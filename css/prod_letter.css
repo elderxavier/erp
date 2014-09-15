@@ -207,3 +207,48 @@
 #emails-to-holder > li > a:hover {
     color: #cc5c4e;}
 	
+/*-- modal window letter ready --*/
+#letterReady {}
+
+#letterReady .modal-dialog > .modal-content {
+	border-radius:0;}
+	
+	
+.modal-footer .btn {
+    background-color: #fb8f73;
+    border: medium none;
+    border-radius: 0;
+    color: white;
+    line-height: 26px;
+    padding: 0 0 0 10px;}
+	
+.modal-footer .btn:hover {
+    background-color: #cc5c4e;}
+	
+.modal-footer .btn > span {
+    background-color: #cc5c4e;
+    display: inline-block;
+    line-height: 26px;
+    margin-left: 10px;
+    padding: 0 5px;}
+
+#letterReady ul >li {
+	float:left;
+	margin-right:10px;
+	margin-bottom:5px;
+	font-size:12px;
+	color:#9b9292;}
+	
+.modal-textarea-holder > textarea {
+	width:100%;
+	font-size:13px;
+	min-height:200px;}	
+	
+.address-holder > ul, .modal-files-holder > ul {
+	padding:10px;
+	list-style:none;
+	width:100%;
+	border:1px solid #c7c8cc;}
+	
+	
+			
