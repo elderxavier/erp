@@ -420,6 +420,104 @@ class UsersController extends Controller
 
     /************************************************* A J A X  S E C T I O N *********************************************************************/
 
+
+    public function actionResetPassword($id = 0)
+    {
+        //if ajax
+        if(Yii::app()->request->isAjaxRequest)
+        {
+            //including swift mailer
+            spl_autoload_unregister(array('YiiBase','autoload'));
+            Yii::import('application.extensions.swift.swift_required', true);
+            spl_autoload_register(array('YiiBase','autoload'));
+
+            /* @var $user Users */
+            $user = Users::model()->findByPk($id);
+
+            //if found user
+            if(!empty($user))
+            {
+                //try create new password
+                try
+                {
+                    //create new random password
+                    $new_password = uniqid();
+                    $user->password = md5($new_password);
+                    $user->update();
+                }
+                //if failed
+                catch(CDbException $e)
+                {
+                    $response = array();
+                    $response['code'] = 'CREATE_ERROR';
+                    exit (json_encode($response));
+                }
+
+
+                //send it to email
+                $recipients = array($user->email => $user->username.' '.$user->surname);
+
+                //email settings
+                $transport = Swift_SmtpTransport::newInstance('smtp.gmail.com',465);
+                $transport->setEncryption('ssl');
+                $transport->setUsername('erp.olivia@gmail.com');
+                $transport->setPassword('olivia_password!');
+                $mailer = Swift_Mailer::newInstance($transport);
+
+
+                //message settings
+                $message = Swift_Message::newInstance();
+                $message->setSubject('Password reset');
+                $message->setFrom(array('erp.olivia@gmail.com' => 'Ilux ERP System'));
+
+
+                try
+                {
+                    $message->setTo($recipients);
+                }
+                catch(Swift_RfcComplianceException $e)
+                {
+                    $response = array();
+                    $response['code'] = 'SEND_ERROR';
+                    $response['password'] = $new_password;
+                    exit (json_encode($response));
+                }
+
+
+                //set text
+                $message->setBody($this->labels['your new password'].' - '.$new_password.'. '.$this->labels['you can change it in settings'], 'text/html');
+
+                //try send to user
+                try
+                {
+                    $mailer->send($message);
+                    $response = array();
+                    $response['code'] = 'OK';
+                    exit (json_encode($response));
+                }
+                //if failed
+                catch(Exception $e)
+                {
+                    $response = array();
+                    $response['code'] = 'SEND_ERROR';
+                    $response['password'] = $new_password;
+                    exit (json_encode($response));
+                }
+
+            }
+            //if user not found
+            else
+            {
+                throw new CHttpException(404);
+            }
+        }
+        //if not ajax
+        else
+        {
+            throw new CHttpException(404);
+        }
+    }
+
     /**
      * Auto-complete handler for name-surname in filtration template (usages : user_list.js, user_list.php)
      * @param $term

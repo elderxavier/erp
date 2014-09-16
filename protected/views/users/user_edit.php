@@ -10,6 +10,7 @@
 
 <?php
 $cs = Yii::app()->clientScript;
+$cs->registerScriptFile(Yii::app()->request->baseUrl.'/js/user_edit.js',CClientScript::POS_END);
 $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/add_user.css');
 ?>
 
@@ -26,12 +27,25 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/add_user.css');
                     <?php echo $form->error($form_mdl,'username'); ?>
                 </div>
 
-                <div class="form-group">
-                    <button user_id="<?php echo $user->id; ?>" class="reset-pass-button" type="button">
-                        <span><?php echo $this->labels['reset password'] ?></span>
-                        <span class="glyphicon glyphicon-minus"></span>
-                    </button>
+
+                <div class="form-group pre-loader-holder hidden">
+                    <img style="height: 34px; margin-top: 20px;" src="/img/preloader.gif">
                 </div>
+
+
+                <div class="form-group button-reset-holder">
+                    <button data-id="<?php echo $user->id; ?>" class="reset-pass-button" type="button">
+                        <span style="width: 122px; height: 34px;">
+                            <?php echo $this->labels['reset password'] ?>
+                        </span>
+                        <span class="glyphicon glyphicon-upload"></span>
+                    </button>
+                    <br>
+                    <label style="color: #52bc63" class="success-message hidden"><?php echo $this->labels['password successfully reset. new password sent to email']; ?></label>
+                    <label style="color: red" class="create-err hidden"><?php echo $this->labels['error, password not reset']; ?></label>
+                    <label style="color: red" class="send-err hidden"><?php echo $this->labels['error, password reset but not sent. new password is']; ?> - <span style="text-transform: none;" class="pass-new"></span></label>
+                </div>
+
 
                 <div class="form-group">
                     <?php echo $form->label($form_mdl,'email');?>
