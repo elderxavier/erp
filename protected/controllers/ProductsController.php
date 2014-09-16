@@ -682,16 +682,16 @@ class ProductsController extends Controller
         }
 
         //email settings
-        $transport = Swift_SmtpTransport::newInstance('smtp.yandex.ru',587);
-//        $transport->setEncryption('ssl');
-        $transport->setUsername('olivia.erp@yandex.ru');
+        $transport = Swift_SmtpTransport::newInstance('smtp.gmail.com',465);
+        $transport->setEncryption('ssl');
+        $transport->setUsername('erp.olivia@gmail.com');
         $transport->setPassword('olivia_password!');
         $mailer = Swift_Mailer::newInstance($transport);
 
         //message settings
         $message = Swift_Message::newInstance();
         $message->setSubject('Offer');
-        $message->setFrom(array('olivia.erp@yandex.ru' => 'Ilux ERP System'));
+        $message->setFrom(array('erp.olivia@gmail.com' => 'Ilux ERP System'));
         $message->setTo($array_emails);
 
 
