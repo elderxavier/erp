@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50538
 File Encoding         : 65001
 
-Date: 2014-09-11 18:24:12
+Date: 2014-09-16 13:30:55
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -69,8 +69,8 @@ CREATE TABLE `clients` (
 -- ----------------------------
 INSERT INTO `clients` VALUES ('11', 'Viqtor', '', 'Creed', 'PER789456', '', 'VAT789789', null, null, null, '123456', '321654', null, 'test@test.com', 'mail@mail.com', 'Some info', 'Some info', null, null, null, null, '2', '1408958172', '1408958172', '1', null, null, null, 'Lithuania', 'Vilnius', 'Kalvariju g', '15 b', null);
 INSERT INTO `clients` VALUES ('12', '', 'Senukai', '', 'PER78463', 'COCODE5646', 'VAT64893', null, null, null, '123456', '321654', null, 'em@ail.com', 'test@test.test', 'Some info', 'Some info', null, null, null, null, '1', '1408958292', '1408958292', '1', null, null, null, 'Lithuania', 'Vilnius', 'Kalvariju g', '89 g', null);
-INSERT INTO `clients` VALUES ('13', 'Anatolij', '', 'Krupnov', 'PER9865', '', 'VAT54964', null, null, null, '123465', '', null, 'test@test.com', '', 'Some info', 'Some info', null, null, null, null, '2', '1409046662', '1409046662', '1', null, null, null, 'Lithuania', 'Panevezys', 'Krupnovo', '89 f', null);
-INSERT INTO `clients` VALUES ('14', '', 'D.W.CORP', '', 'PER87SDF', 'DWCDF75SF7', 'VAT68DSFD', null, null, null, '123456', '123456', null, 'test@test.com', 'test@test.com', 'Some info', 'Some info', null, null, null, null, '1', '1410429848', '1410429848', '1', null, null, null, 'Croatia', 'Zagreb', 'Some street', '897 L', null);
+INSERT INTO `clients` VALUES ('13', 'Anatolij', '', 'Krupnov', 'PER9865', '', 'VAT54964', null, null, null, '123465', '', null, 'darkoffalex@yandex.ru', '', 'Some info', 'Some info', null, null, null, null, '2', '1409046662', '1410783351', '1', null, null, null, 'Lithuania', 'Panevezys', 'Krupnovo', '89 f', null);
+INSERT INTO `clients` VALUES ('14', '', 'D.W.CORP', '', 'PER87SDF', 'DWCDF75SF7', 'VAT68DSFD', null, null, null, '123456', '123456', null, 'darkoffalex@gmail.com', '', 'Some info', 'Some info', null, null, null, null, '1', '1410429848', '1410788862', '1', null, null, null, 'Croatia', 'Zagreb', 'Some street', '897 L', null);
 
 -- ----------------------------
 -- Table structure for `client_types`
@@ -87,6 +87,24 @@ CREATE TABLE `client_types` (
 -- ----------------------------
 INSERT INTO `client_types` VALUES ('1', 'Juridical');
 INSERT INTO `client_types` VALUES ('2', 'Physical');
+
+-- ----------------------------
+-- Table structure for `mail_templates`
+-- ----------------------------
+DROP TABLE IF EXISTS `mail_templates`;
+CREATE TABLE `mail_templates` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` text,
+  `content` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of mail_templates
+-- ----------------------------
+INSERT INTO `mail_templates` VALUES ('1', 'Lorem ipsum dolor sit amet', 'Lorem ipsum dolor sit amet\r\n\r\nconsectetur adipiscing elit. Suspendisse semper eros et mauris feugiat scelerisque. In vulputate feugiat suscipit. Suspendisse tincidunt nisi eu nulla bibendum viverra. Donec in dapibus leo. Donec quis vestibulum arcu.\r\n\r\nProin tempor, urna in viverra pulvinar, ipsum est vehicula erat, et malesuada enim neque ac neque. Fusce dignissim odio ut placerat venenatis. Aenean rhoncus dui luctus');
+INSERT INTO `mail_templates` VALUES ('2', 'Proin consequat', 'Proin consequat nisl vel mauris\r\n\r\ncondimentum mattis. Quisque vel risus iaculis, cursus ipsum ac, finibus lectus. Cras ac tincidunt dui, a condimentum nibh. Nulla id eros facilisis, pretium odio non, volutpat nulla. \r\n\r\nVivamus eget tempus nisi, a placerat nunc. Cras neque tortor, ultrices pretium velit in, pulvinar consectetur elit. Morbi quis purus mollis');
+INSERT INTO `mail_templates` VALUES ('3', 'Nunc id nisl sit amet nibh', 'ullamcorper sollicitudin ut lobortis augue. \r\n\r\nNullam congue orci massa, et consectetur erat lacinia sollicitudin. In et pharetra lectus, sit amet facilisis sapien. Curabitur suscipit nisi vel tincidunt placerat. Mauris placerat felis viverra, vestibulum metus vel, tristique enim. Vivamus porta justo quis nisl rutrum, nec faucibus quam dignissim. Mauris cursus eleifend vehicula. Aenean ut posuere tortor.');
 
 -- ----------------------------
 -- Table structure for `measure_units`
@@ -136,9 +154,9 @@ CREATE TABLE `operations_in` (
 -- ----------------------------
 INSERT INTO `operations_in` VALUES ('10', '9', 'INVCODE8974', null, null, null, null, 'Some Signer', '1408959961', '1408959961', null);
 INSERT INTO `operations_in` VALUES ('11', '10', 'INV7896465', null, null, null, null, 'Tester', '1409308831', '1409308831', null);
-INSERT INTO `operations_in` VALUES ('12', '10', 'INC5678645516', null, null, null, null, 'Igor Strelkov', '1409728901', '1409728901', null);
-INSERT INTO `operations_in` VALUES ('13', '9', 'IV486465SDF', null, null, null, null, 'Igor Strelkov', '1409728965', '1409728965', null);
-INSERT INTO `operations_in` VALUES ('14', '9', 'STREL5685FDS', null, null, null, null, 'Igor Strelkov', '1409743571', '1409743571', null);
+INSERT INTO `operations_in` VALUES ('12', '10', 'INC5678645516', null, null, null, null, 'Vladimir Holstinin', '1409728901', '1409728901', null);
+INSERT INTO `operations_in` VALUES ('13', '9', 'IV486465SDF', null, null, null, null, 'Vladimir Holstinin', '1409728965', '1409728965', null);
+INSERT INTO `operations_in` VALUES ('14', '9', 'STREL5685FDS', null, null, null, null, 'Vladimir Holstinin', '1409743571', '1409743571', null);
 INSERT INTO `operations_in` VALUES ('15', '10', 'MAV456DSF', null, null, null, null, 'Sergey Mavrin', '1409752385', '1409752385', null);
 
 -- ----------------------------
@@ -440,7 +458,7 @@ CREATE TABLE `product_cards` (
 -- ----------------------------
 -- Records of product_cards
 -- ----------------------------
-INSERT INTO `product_cards` VALUES ('9', '7', 'Intel Core i7', 'PROD1234', '4 cores, 3 Ghz, 8 MB cache', null, '1', null, '1', '1408959551', '1408959568', '1', '1020', '1000', '10', '10', '10', '1');
+INSERT INTO `product_cards` VALUES ('9', '7', 'Intel Core i7', 'PROD1234', '4 cores, 3 Ghz, 8 MB cache', null, '1', null, '1', '1408959551', '1410768554', '1', '1020', '1000', '10', '10', '10', '1');
 INSERT INTO `product_cards` VALUES ('10', '7', 'Intel Core i5', 'PROD789', '4 cores, 2.5 Ghz', null, '1', null, '1', '1408959630', '1408959630', '1', '1020', '1000', '10', '10', '10', '1');
 INSERT INTO `product_cards` VALUES ('11', '8', 'nVIDIA GTX 760 ', 'PROD456', 'Some info', null, '1', null, '1', '1408959755', '1409921554', '1', '1020', '1000', '20', '30', '10', '2');
 INSERT INTO `product_cards` VALUES ('12', '8', 'nVIDIA GTX 560', 'PROD5864', 'Some info', null, '1', null, '1', '1408965216', '1408965216', '1', '1020', '1000', '10', '10', '10', '1');
@@ -484,11 +502,13 @@ CREATE TABLE `product_files` (
   PRIMARY KEY (`id`),
   KEY `product_card_id` (`product_card_id`),
   CONSTRAINT `product_files_ibfk_1` FOREIGN KEY (`product_card_id`) REFERENCES `product_cards` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of product_files
 -- ----------------------------
+INSERT INTO `product_files` VALUES ('1', '9', 'pr_54169eaadf025.jpg', 'intel.jpg');
+INSERT INTO `product_files` VALUES ('2', '9', 'pr_54169eaae03ad.jpg', 'intel2.jpg');
 
 -- ----------------------------
 -- Table structure for `product_in_stock`
@@ -938,8 +958,8 @@ CREATE TABLE `users` (
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES ('1', 'admin', '81dc9bdb52d04dc20036dbd8313ed055', 'darkoffalex@yandex.ru', 'Valery', 'Gatalsky', '123456', 'test', 'test', null, '1', '1', '1405511917', '1406644184', '1', '4eyKD9En.jpg', '1', '1');
-INSERT INTO `users` VALUES ('3', 'test', '81dc9bdb52d04dc20036dbd8313ed055', 'email@test.com', 'Vasia', 'Pupkin', '5468514', 'Test', 'Remark', null, '0', '1', '1405511917', '1406644178', '1', 'HBTbtBrY.jpg', '2', '2');
+INSERT INTO `users` VALUES ('1', 'admin', '81dc9bdb52d04dc20036dbd8313ed055', 'darkoffalexz@yandex.ru', 'Valery', 'Gatalsky', '123456', 'test', 'test', null, '1', '1', '1405511917', '1410852725', '1', '4eyKD9En.jpg', '1', '1');
+INSERT INTO `users` VALUES ('3', 'pupkin', '0471ad09fbeb30589faddda299680943', 'darkoffalex@yandex.ru', 'Vasia', 'Pupkin', '5468514', 'Test', 'Remark', null, '0', '1', '1405511917', '1410862624', '1', 'HBTbtBrY.jpg', '2', '2');
 INSERT INTO `users` VALUES ('4', 'rest', '81dc9bdb52d04dc20036dbd8313ed055', 'darkoffalegz@yandex.ru', 'Pinislav', 'Kuriskin', '5489465', '', '', null, '0', '1', '1405511917', '1406644172', '1', 'HBTbtBrY.jpg', '2', '3');
 INSERT INTO `users` VALUES ('5', 'vovan', '81dc9bdb52d04dc20036dbd8313ed055', 'vovan@vovnet.com', 'Vovan', 'Limonov', '54646', 'test', 'test', null, '0', null, '1406117121', '1406644633', '1', 'av_53d7b199d9ac7.jpg', '2', '1');
 
@@ -977,46 +997,11 @@ CREATE TABLE `user_rights` (
   KEY `user_id` (`user_id`),
   CONSTRAINT `user_rights_ibfk_1` FOREIGN KEY (`rights_id`) REFERENCES `rights` (`id`),
   CONSTRAINT `user_rights_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=372 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=449 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user_rights
 -- ----------------------------
-INSERT INTO `user_rights` VALUES ('327', '3', '1', '1');
-INSERT INTO `user_rights` VALUES ('328', '3', '7', '1');
-INSERT INTO `user_rights` VALUES ('329', '3', '2', '1');
-INSERT INTO `user_rights` VALUES ('330', '3', '13', '1');
-INSERT INTO `user_rights` VALUES ('331', '3', '17', '1');
-INSERT INTO `user_rights` VALUES ('332', '3', '28', '1');
-INSERT INTO `user_rights` VALUES ('333', '3', '27', '1');
-INSERT INTO `user_rights` VALUES ('334', '1', '6', '1');
-INSERT INTO `user_rights` VALUES ('335', '1', '5', '1');
-INSERT INTO `user_rights` VALUES ('336', '1', '8', '1');
-INSERT INTO `user_rights` VALUES ('337', '1', '1', '1');
-INSERT INTO `user_rights` VALUES ('338', '1', '4', '1');
-INSERT INTO `user_rights` VALUES ('339', '1', '3', '1');
-INSERT INTO `user_rights` VALUES ('340', '1', '7', '1');
-INSERT INTO `user_rights` VALUES ('341', '1', '2', '1');
-INSERT INTO `user_rights` VALUES ('342', '1', '15', '1');
-INSERT INTO `user_rights` VALUES ('343', '1', '14', '1');
-INSERT INTO `user_rights` VALUES ('344', '1', '16', '1');
-INSERT INTO `user_rights` VALUES ('345', '1', '13', '1');
-INSERT INTO `user_rights` VALUES ('346', '1', '20', '1');
-INSERT INTO `user_rights` VALUES ('347', '1', '18', '1');
-INSERT INTO `user_rights` VALUES ('348', '1', '19', '1');
-INSERT INTO `user_rights` VALUES ('349', '1', '17', '1');
-INSERT INTO `user_rights` VALUES ('350', '1', '29', '1');
-INSERT INTO `user_rights` VALUES ('351', '1', '28', '1');
-INSERT INTO `user_rights` VALUES ('352', '1', '26', '1');
-INSERT INTO `user_rights` VALUES ('353', '1', '27', '1');
-INSERT INTO `user_rights` VALUES ('354', '1', '33', '1');
-INSERT INTO `user_rights` VALUES ('355', '1', '31', '1');
-INSERT INTO `user_rights` VALUES ('356', '1', '32', '1');
-INSERT INTO `user_rights` VALUES ('357', '1', '30', '1');
-INSERT INTO `user_rights` VALUES ('358', '1', '25', '1');
-INSERT INTO `user_rights` VALUES ('359', '1', '24', '1');
-INSERT INTO `user_rights` VALUES ('360', '1', '22', '1');
-INSERT INTO `user_rights` VALUES ('361', '1', '21', '1');
 INSERT INTO `user_rights` VALUES ('362', '5', '1', '1');
 INSERT INTO `user_rights` VALUES ('363', '5', '2', '1');
 INSERT INTO `user_rights` VALUES ('364', '5', '13', '1');
@@ -1024,9 +1009,41 @@ INSERT INTO `user_rights` VALUES ('365', '5', '17', '1');
 INSERT INTO `user_rights` VALUES ('366', '5', '28', '1');
 INSERT INTO `user_rights` VALUES ('367', '5', '27', '1');
 INSERT INTO `user_rights` VALUES ('368', '5', '21', '1');
-INSERT INTO `user_rights` VALUES ('369', '1', '34', '1');
-INSERT INTO `user_rights` VALUES ('370', '1', '35', '1');
-INSERT INTO `user_rights` VALUES ('371', '1', '36', '1');
+INSERT INTO `user_rights` VALUES ('372', '1', '6', '1');
+INSERT INTO `user_rights` VALUES ('373', '1', '5', '1');
+INSERT INTO `user_rights` VALUES ('374', '1', '8', '1');
+INSERT INTO `user_rights` VALUES ('375', '1', '1', '1');
+INSERT INTO `user_rights` VALUES ('376', '1', '4', '1');
+INSERT INTO `user_rights` VALUES ('377', '1', '3', '1');
+INSERT INTO `user_rights` VALUES ('378', '1', '7', '1');
+INSERT INTO `user_rights` VALUES ('379', '1', '2', '1');
+INSERT INTO `user_rights` VALUES ('380', '1', '15', '1');
+INSERT INTO `user_rights` VALUES ('381', '1', '14', '1');
+INSERT INTO `user_rights` VALUES ('382', '1', '16', '1');
+INSERT INTO `user_rights` VALUES ('383', '1', '13', '1');
+INSERT INTO `user_rights` VALUES ('384', '1', '20', '1');
+INSERT INTO `user_rights` VALUES ('385', '1', '18', '1');
+INSERT INTO `user_rights` VALUES ('386', '1', '19', '1');
+INSERT INTO `user_rights` VALUES ('387', '1', '17', '1');
+INSERT INTO `user_rights` VALUES ('388', '1', '29', '1');
+INSERT INTO `user_rights` VALUES ('389', '1', '28', '1');
+INSERT INTO `user_rights` VALUES ('390', '1', '26', '1');
+INSERT INTO `user_rights` VALUES ('391', '1', '27', '1');
+INSERT INTO `user_rights` VALUES ('392', '1', '33', '1');
+INSERT INTO `user_rights` VALUES ('393', '1', '31', '1');
+INSERT INTO `user_rights` VALUES ('394', '1', '32', '1');
+INSERT INTO `user_rights` VALUES ('395', '1', '30', '1');
+INSERT INTO `user_rights` VALUES ('396', '1', '25', '1');
+INSERT INTO `user_rights` VALUES ('397', '1', '24', '1');
+INSERT INTO `user_rights` VALUES ('398', '1', '22', '1');
+INSERT INTO `user_rights` VALUES ('399', '1', '21', '1');
+INSERT INTO `user_rights` VALUES ('442', '3', '1', '1');
+INSERT INTO `user_rights` VALUES ('443', '3', '7', '1');
+INSERT INTO `user_rights` VALUES ('444', '3', '2', '1');
+INSERT INTO `user_rights` VALUES ('445', '3', '13', '1');
+INSERT INTO `user_rights` VALUES ('446', '3', '17', '1');
+INSERT INTO `user_rights` VALUES ('447', '3', '28', '1');
+INSERT INTO `user_rights` VALUES ('448', '3', '27', '1');
 
 -- ----------------------------
 -- Table structure for `vat`
