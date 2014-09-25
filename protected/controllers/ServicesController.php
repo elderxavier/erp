@@ -29,8 +29,18 @@ class ServicesController extends Controller
      */
     public function actionList()
     {
-        //get all processes
-        $processes = ServiceProcesses::model()->with('problemType','operation', 'serviceResolutions')->findAll();
+        //if manager
+        if(Yii::app()->user->getState('position_id') == 1)
+        {
+            //get all services
+            $processes = ServiceProcesses::model()->with('problemType','operation', 'serviceResolutions')->findAll();
+        }
+        //if worker
+        else
+        {
+            //get just related with current user services
+            $processes = ServiceProcesses::model()->with('problemType','operation','serviceResolutions')->findAllByAttributes(array('current_employee_id' => Yii::app()->user->id));
+        }
 
         //render table
         $this->render('srv_list',array('services' => $processes));
@@ -152,6 +162,7 @@ class ServicesController extends Controller
                     $process->date_changed = time();
                     $process->user_modified_by = Yii::app()->user->id;
                     $process->user_created_by = Yii::app()->user->id;
+                    $process->read_by_employee = 0;
                     //save process
                     $process->save();
 
@@ -190,6 +201,7 @@ class ServicesController extends Controller
     {
         /* @var $worker_position Positions */
         /* @var $service_process ServiceProcesses */
+        /* @var $srv_process ServiceProcesses */
         /* @var $form SrvEditForm*/
 
         //create service-editing-form
@@ -204,6 +216,14 @@ class ServicesController extends Controller
 
         //find service-process
         $srv_process = ServiceProcesses::model()->with('client','problemType','currentEmployee','serviceResolutions','status')->findByPk($id);
+
+        //read if current employee - target
+        if($srv_process->current_employee_id == Yii::app()->user->id)
+        {
+            $srv_process->read_by_employee = 1;
+            $srv_process->update();
+        }
+
 
         //if get post from form
         if($_POST['SrvEditForm'])
@@ -258,5 +278,16 @@ class ServicesController extends Controller
 
         //render form
         $this->render('srv_edit',array('service' => $srv_process, 'problem_types' => $problem_types, 'cities' => $cities, 'workers' => $workers, 'form_mdl' => $form, 'statuses' => $statuses));
+    }
+
+    /******************************************************** A J A X  S E C T I O N ****************************************************************/
+
+    public function actionAjaxTaskChecker()
+    {
+        //get just related with current user services
+        $count = ServiceProcesses::model()->countByAttributes(array('current_employee_id' => Yii::app()->user->id, 'read_by_employee' => 0));
+
+        //render active tasks
+        $this->renderPartial('_active_tasks_ajax',array('count' => $count));
     }
 }

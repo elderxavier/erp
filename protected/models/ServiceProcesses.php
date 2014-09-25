@@ -19,16 +19,17 @@
  * @property integer $user_modified_by
  * @property string $priority
  * @property integer $current_employee_id
+ * @property integer $read_by_employee
  *
  * The followings are the available model relations:
- * @property OperationsSrv[] $operationsSrvs
- * @property ServiceProcessStatuses $status
+ * @property OperationsSrvItems[] $operationsSrvItems
  * @property Clients $client
- * @property OperationsOut $operation
+ * @property OperationsOutItems $operation
  * @property ServiceProblemTypes $problemType
  * @property Users $userModifiedBy
  * @property Users $currentEmployee
  * @property Users $userCreatedBy
+ * @property ServiceProcessStatuses $status
  * @property ServiceResolutions[] $serviceResolutions
  */
 class ServiceProcesses extends CActiveRecord
@@ -49,11 +50,11 @@ class ServiceProcesses extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('start_date, close_date, client_id, status_id, operation_id, problem_type_id, date_created, date_changed, user_created_by, user_modified_by, current_employee_id', 'numerical', 'integerOnly'=>true),
+			array('start_date, close_date, client_id, status_id, operation_id, problem_type_id, date_created, date_changed, user_created_by, user_modified_by, current_employee_id, read_by_employee', 'numerical', 'integerOnly'=>true),
 			array('label, remark, priority', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, label, remark, start_date, close_date, client_id, status_id, operation_id, problem_type_id, date_created, date_changed, user_created_by, user_modified_by, priority, current_employee_id', 'safe', 'on'=>'search'),
+			array('id, label, remark, start_date, close_date, client_id, status_id, operation_id, problem_type_id, date_created, date_changed, user_created_by, user_modified_by, priority, current_employee_id, read_by_employee', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -65,14 +66,14 @@ class ServiceProcesses extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'operationsSrvs' => array(self::HAS_MANY, 'OperationsSrv', 'service_process_id'),
-			'status' => array(self::BELONGS_TO, 'ServiceProcessStatuses', 'status_id'),
+			'operationsSrvItems' => array(self::HAS_MANY, 'OperationsSrvItems', 'service_process_id'),
 			'client' => array(self::BELONGS_TO, 'Clients', 'client_id'),
-			'operation' => array(self::BELONGS_TO, 'OperationsOut', 'operation_id'),
+			'operation' => array(self::BELONGS_TO, 'OperationsOutItems', 'operation_id'),
 			'problemType' => array(self::BELONGS_TO, 'ServiceProblemTypes', 'problem_type_id'),
 			'userModifiedBy' => array(self::BELONGS_TO, 'Users', 'user_modified_by'),
 			'currentEmployee' => array(self::BELONGS_TO, 'Users', 'current_employee_id'),
 			'userCreatedBy' => array(self::BELONGS_TO, 'Users', 'user_created_by'),
+			'status' => array(self::BELONGS_TO, 'ServiceProcessStatuses', 'status_id'),
 			'serviceResolutions' => array(self::HAS_MANY, 'ServiceResolutions', 'service_process_id'),
 		);
 	}
@@ -98,6 +99,7 @@ class ServiceProcesses extends CActiveRecord
 			'user_modified_by' => 'User Modified By',
 			'priority' => 'Priority',
 			'current_employee_id' => 'Current Employee',
+			'read_by_employee' => 'Read By Employee',
 		);
 	}
 
@@ -134,6 +136,7 @@ class ServiceProcesses extends CActiveRecord
 		$criteria->compare('user_modified_by',$this->user_modified_by);
 		$criteria->compare('priority',$this->priority,true);
 		$criteria->compare('current_employee_id',$this->current_employee_id);
+		$criteria->compare('read_by_employee',$this->read_by_employee);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
