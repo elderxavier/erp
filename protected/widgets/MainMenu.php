@@ -19,6 +19,7 @@ class MainMenu extends Widget {
             'sales' => array('controller' => 'sell', 'image' => 'sell.png', 'visible' => $this->rights['sales_see'] ? 1 : 0),
             'services' => array('controller' => 'services', 'image' => 'services.png', 'visible' => $this->rights['services_see'] ? 1 : 0),
             'stock' => array('controller' => 'stock', 'image' => 'stock.png', 'visible' => $this->rights['stock_see'] ? 1 : 0),
+            'reports' => array('controller' => 'reports', 'image' => 'stock.png', 'visible' => $this->rights['stock_see'] ? 1 : 0)
         );
 
         $this->render('main_menu',array('links' => $main_menu, 'curr_controller' => $curr_controller));
