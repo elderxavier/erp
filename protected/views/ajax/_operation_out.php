@@ -47,7 +47,7 @@
                     <tr>
                         <td><?php echo $item_pr->productCard->product_name; ?></td>
                         <td><?php echo $item_pr->productCard->product_code; ?></td>
-                        <td><?php echo $item_pr->productCard->units; ?></td>
+                        <td><?php echo $item_pr->productCard->measureUnits->name; ?></td>
                         <td><?php echo $item_pr->qnt; ?></td>
                         <td><?php echo $this->centsToPriceStr($item_pr->price); ?></td>
                         <td><?php echo $item_pr->discount_percent; ?></td>

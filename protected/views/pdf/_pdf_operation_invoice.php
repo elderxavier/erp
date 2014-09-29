@@ -76,7 +76,7 @@
         <tr align="center">
             <td class="prod-td" width="30%"><?php echo $prod_item->productCard->product_name; ?></td>
             <td class="prod-td" width="10%"><?php echo $prod_item->productCard->product_code; ?></td>
-            <td class="prod-td" width="10%"><?php echo $prod_item->productCard->units; ?></td>
+            <td class="prod-td" width="10%"><?php echo $prod_item->productCard->measureUnits->name; ?></td>
             <td class="prod-td" width="10%"><?php echo $prod_item->qnt; ?></td>
             <td class="prod-td" width="15%"><?php echo $this->centsToPriceStr($prod_item->price); ?></td>
             <td class="prod-td" width="10%"><?php echo $prod_item->discount_percent; ?></td>
