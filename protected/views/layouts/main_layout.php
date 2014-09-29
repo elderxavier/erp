@@ -73,34 +73,6 @@
 <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/bootstrap.js"></script>
 <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/common.js"></script>
 <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/task_checker.js"></script>
-<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.flot.js"></script>
-
-<script type="text/javascript">
-    $(function() {
-        var d2 = rndGen(20,5,15);
-        var d3 = rndGen(40,-5,10);
-        var d4 = rndGen(25,10,20);
-        var d5 = rndGen(25,20,30);
-        $.plot(".graph_1",[d2],{grid: {backgroundColor: { colors: [ "#77CAF0", "#eee" ] }}});
-        $.plot(".graph_2",[d3],{grid: {backgroundColor: { colors: [ "#BDE9FF", "#eee" ] }}});
-        $.plot(".graph_3",[d4],{grid: {backgroundColor: { colors: [ "#FFC6A5", "#eee" ] }}});
-        $.plot(".graph_4",[d5,d4],{grid: {backgroundColor: { colors: [ "#FB8F73", "#eee" ] }}});
-    });
-
-    var rndGen = function(point_count,min,max)
-    {
-        var points = [];
-        var x = 0;
-        for(i=0;i < point_count; i++)
-        {
-            x += 10;
-            y = Math.random() * (max - min) + min;
-            points[i] = [x,y];
-        }
-
-        return points;
-    };
-</script>
 
 </body>
 </html>
