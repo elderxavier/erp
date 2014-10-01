@@ -233,3 +233,18 @@
 	border-radius:0;
 	border:1px solid #c7c8cc;
 	max-width:80%;}
+	
+	
+@media (min-width:768px){
+	.filter-inputs-holder > input {width:25%;}
+	.filter-inputs-holder > input:first-child {width:35%;}
+	.filter-inputs-holder > button { width: 20%;}
+	.filter-inputs-holder > button  { padding: 0 0 0 5px;}
+}
+	
+@media (min-width:992px) {
+	.filter-inputs-holder > button > span { margin-left:0}
+	.filter-inputs-holder > button  { padding: 0 0 0 10px;}
+	.filter-inputs-holder > input {width:40%;}
+	.filter-inputs-holder > input:first-child {width:35%;}
+}
