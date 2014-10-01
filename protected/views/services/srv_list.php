@@ -44,7 +44,7 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/tickets_list.css');
 
 
                             <td>
-                                <?php if($service->currentEmployee->id == Yii::app()->user->id && $service->read_by_employee != 1): ?>
+                                <?php if($service->read_by_employee != 1): ?>
                                     <b><?php echo $service->problemType->label; ?></b>
                                 <?php else: ?>
                                     <?php echo $service->problemType->label; ?>
