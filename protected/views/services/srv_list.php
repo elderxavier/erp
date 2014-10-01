@@ -42,7 +42,6 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/tickets_list.css');
                             <td><?php echo $service->id; ?></td>
                             <td><?php echo $service->priority; ?></td>
 
-
                             <td>
                                 <?php if($service->read_by_employee != 1): ?>
                                     <b><?php echo $service->problemType->label; ?></b>
