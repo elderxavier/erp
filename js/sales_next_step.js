@@ -65,7 +65,7 @@ $(function(){
     jQuery("#prod-name").autocomplete({
         source: function( request, response ) {
             $.ajax({
-                url: "/ajax/AutoCompleteFromStockByName",
+                url: "/sell/AutoCompleteFromStockByName",
                 dataType: "json",
                 data: {
                     term: request.term,
@@ -83,7 +83,7 @@ $(function(){
     jQuery("#prod-code").autocomplete({
         source: function( request, response ) {
             $.ajax({
-                url: "/ajax/AutoCompleteFromStockByCode",
+                url: "/sell/AutoCompleteFromStockByCode",
                 dataType: "json",
                 data: {
                     term: request.term,
@@ -176,7 +176,7 @@ var loadFormByAddedItems = function()
 
 var filterByNameCodeStock = function(name,code,stock)
 {
-    jQuery('#filtered-body').load('/ajax/filterbystockcodeandname/',
+    jQuery('#filtered-body').load('/sell/filterbystockcodeandname/',
         {name:name,code:code,stock:stock}
     );
 

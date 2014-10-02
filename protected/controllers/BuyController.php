@@ -189,6 +189,82 @@ class BuyController extends Controller
 
     /**************************************************** A J A X  S E C T I O N ********************************************************************/
 
+
+    public function actionAutoCompleteProductsCode($term = null)
+    {
+        if(Yii::app()->request->isAjaxRequest)
+        {
+            $result = json_encode(ProductCards::model()->findAllByNameOrCode('',$term,true));
+            echo $result;
+        }else{
+            throw new CHttpException(404);
+        }
+    }
+
+    public function actionAutoCompleteProductsName($term = null)
+    {
+        if(Yii::app()->request->isAjaxRequest)
+        {
+            $result = json_encode(ProductCards::model()->findAllByNameOrCode($term,'',true));
+            echo $result;
+        }else{
+            throw new CHttpException(404);
+        }
+    }
+
+    public function actionFindProductsModal()
+    {
+        $request = Yii::app()->request;
+        if($request->isAjaxRequest){
+
+            $name = $request->getPost('name');
+            $code = $request->getPost('code');
+
+            $rows = ProductCards::model()->findAllByNameOrCode($name,$code);
+            $this->renderPartial('_find_prod_partial',array('rows' => $rows));
+
+        }else{
+            throw new CHttpException(404);
+        }
+
+    }//FindProductsModal
+
+
+    public function actionSellInfo($id = null)
+    {
+        $id = (int)$id;
+        $request = Yii::app()->request;
+        if($request->isAjaxRequest){
+            $data = Suppliers::model()->findByPk($id);
+            $modal = $this->renderPartial('supp_info_modal',array('data' => $data,),true);
+            echo $modal;
+        }else{
+            throw new CHttpException(404);
+        }
+    }//sellInfo
+
+
+
+    public function actionSellFilter()
+    {
+        $request = Yii::app()->request;
+        if($request->isAjaxRequest){
+            $name = $request->getPost('name', '');
+            $code = $request->getPost('code', '');
+
+            $data = Suppliers::model()->getSeller($name,$code);
+
+            if(!empty($data)){
+                echo $this->renderPartial('_filterSuppTable',array('data'=>$data),true);
+            }else{
+                echo $this->renderPartial('_emptyTable',array(),true);
+            }
+
+        }else{
+            throw new CHttpException(404);
+        }
+    }// sellFilter
+
     /**
      * auto-complete for purchase step1
      */

@@ -6,7 +6,7 @@ jQuery(document).ready(function(){
     jQuery('#name').autocomplete({
         source: function( request, response ) {
             $.ajax({
-                url: "/ajax/clients",
+                url: "/contractors/ajaxClients",
                 dataType: "json",
                 data: {
                     term: request.term,

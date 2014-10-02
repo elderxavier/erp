@@ -85,7 +85,7 @@ $(function(){
     $('#prod-name-input').autocomplete({
         source: function( request, response ) {
             $.ajax({
-                url: "/ajax/autocompleteproductsname",
+                url: "/buy/autocompleteproductsname",
                 dataType: "json",
                 data: {
                     term: request.term
@@ -107,7 +107,7 @@ $(function(){
     $('#prod-code-input').autocomplete({
         source: function( request, response ) {
             $.ajax({
-                url: "/ajax/AutoCompleteProductsCode",
+                url: "/buy/AutoCompleteProductsCode",
                 dataType: "json",
                 data: {
                     term: request.term
@@ -243,7 +243,7 @@ var checkSimbols = function(e){
 */
 
 var clientFilter = function(value,code_v){
-	$('.body-holder table tbody').load('/ajax/sellfilter/',
+	$('.body-holder table tbody').load('/buy/sellfilter/',
 		{ name : value, code: code_v}
 	);	
 };//clientFilter
@@ -257,7 +257,7 @@ var modalInfo = function(link){
 
 var filterProds = function(name, code)
 {
-    jQuery('#filtered-tbl-body').load('/ajax/FindProductsModal/',
+    jQuery('#filtered-tbl-body').load('/buy/FindProductsModal/',
         {name:name,code:code}
     );
 };//filterProds

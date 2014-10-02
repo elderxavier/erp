@@ -512,6 +512,75 @@ class ProductsController extends Controller
     /******************************************************* A J A X  S E C T I O N *****************************************************************/
 
     /**
+     * Delete file item from db by ajax
+     * @param int $id
+     */
+    public function actionDelFile($id = 0)
+    {
+        /* @var $file ProductFiles */
+
+        //find file
+        $file = ProductFiles::model()->findByPk($id);
+
+        //if found
+        if($file)
+        {
+            //delete file
+            @unlink('uploaded/product_file/'.$file->filename);
+
+            //delete record from db
+            $file->delete();
+
+            //print success status
+            echo "SUCCESS";
+        }
+        //if not found
+        else
+        {
+            //print fail status
+            echo "FAILED";
+        }
+    }
+
+    /**
+     * Changes status of product by ajax
+     * @param null $id
+     */
+
+    public function actionChangeProductStatus($id = null)
+    {
+        /* @var $object ProductCards */
+
+        //if this is ajax
+        if(Yii::app()->request->isAjaxRequest)
+        {
+            //try find
+            $object =  ProductCards::model()->findByPk($id);
+
+            //if found
+            if($object)
+            {
+                if($object->status == 1){
+                    $object->status = 0;
+                }else{
+                    $object->status = 1;
+                }
+                //update
+                $object->update();
+
+                //out success message
+                exit('SUCCESS');
+            }
+            //if not found
+            else
+            {
+                //out fail message
+                exit('FAILED');
+            }
+        }
+    }
+
+    /**
      * Renders filtered table of clients
      */
     public function actionRenderFilteredPartForLetters()

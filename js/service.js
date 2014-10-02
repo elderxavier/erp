@@ -21,7 +21,7 @@ $(function() {
         $('.by-name').autocomplete({
             source: function( request, response ) {
                 $.ajax({
-                    url: "/ajax/clients",
+                    url: "/contractors/ajaxClients",
                     dataType: "json",
                     data: {
                         term: request.term,
@@ -70,14 +70,14 @@ var modalInfo = function(link){
 
 var clientFilter = function(type,value){
     console.log(type,value);
-    $('.body-holder table tbody').load('/ajax/custfilter/',
+    $('.body-holder table tbody').load('/contractors/custfilter/',
         {type: type, name : value}
     );
 };//clientFilter
 
 
 var changeFilter = function(val){
-    $(".filter-wrapper").load('/ajax/fselector/'+val);
+    $(".filter-wrapper").load('/contractors/fselector/'+val);
 };//changeFilter
 
 

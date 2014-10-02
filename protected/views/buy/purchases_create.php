@@ -11,7 +11,7 @@
 $cs = Yii::app()->clientScript;
 $cs->registerCssFile(Yii::app()->baseUrl.'/css/buy-ops.css');
 $cs->registerScriptFile(Yii::app()->baseUrl.'/js/jqueryui-touch-punch/jquery.ui.touch-punch.min.js',CClientScript::POS_END);
-$cs->registerScriptFile(Yii::app()->baseUrl.'/js/buy-ops.js',CClientScript::POS_END);
+//$cs->registerScriptFile(Yii::app()->baseUrl.'/js/buy-ops.js',CClientScript::POS_END);
 ?>
 
 <?php $this->renderPartial('//partials/_sub_menu',array('links' => $this->GetSubMenu(), 'params' => array())); ?>
@@ -75,7 +75,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/buy-ops.js',CClientScript::POS_
                     <hr>
                     <div class="form-group">
 
-                        <label class="col-lg-2 col-md-2 control-label">Products</label>
+                        <label class="col-lg-2 col-md-2 control-label"><?php echo $this->labels['products']; ?></label>
                         <div class="col-lg-10 col-md-10 col-sm-12 droppable" id="inputProduct">
 
                         <table class="table-prods inactive-tbl">

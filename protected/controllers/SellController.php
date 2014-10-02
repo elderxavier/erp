@@ -248,6 +248,63 @@ class SellController extends Controller
 
     /****************************************** A J A X  S E C T I O N ************************************************/
 
+    public function actionOperationOutInfo($id = null)
+    {
+        if($operation = OperationsOut::model()->findByPk($id))
+        {
+            $this->renderPartial('_operation_out',array('operation' => $operation));
+        }
+        else
+        {
+            throw new CHttpException(404);
+        }
+    }
+
+    public function actionFilterByStockCodeAndName()
+    {
+        $request = Yii::app()->request;
+        if($request->isAjaxRequest)
+        {
+            $name = $request->getPost('name');
+            $code = $request->getPost('code');
+            $stock = $request->getPost('stock');
+
+            $result = ProductCards::model()->findAllByNameOrCodeAndStock($name,$code,$stock);
+            echo $this->renderPartial('_filtered_for_sales',array('items' => $result),true);
+
+        }
+        else
+        {
+            throw new CHttpException(404);
+        }
+    }
+
+    public function actionAutoCompleteFromStockByName($term = null, $stock = null)
+    {
+        if(Yii::app()->request->isAjaxRequest)
+        {
+            $result = json_encode(ProductCards::model()->findAllByNameOrCodeAndStock($term,'',$stock,true));
+            echo $result;
+        }
+        else
+        {
+            throw new CHttpException(404);
+        }
+    }
+
+    public function actionAutoCompleteFromStockByCode($term = null, $stock = null)
+    {
+        if(Yii::app()->request->isAjaxRequest)
+        {
+            $result = json_encode(ProductCards::model()->findAllByNameOrCodeAndStock('',$term,$stock,true));
+            echo $result;
+        }
+        else
+        {
+            throw new CHttpException(404);
+        }
+    }
+
     /**
      * Generates invoice-pdf and sets code
      * @param $id

@@ -170,7 +170,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl.'/js/ticket_info.js',CClientScript::
                                 <td><?php echo date('Y.m.d',$resolution->date_created);?></td>
                                 <td><?php echo date('Y.m.d',$resolution->date_changed);?></td>
                                 <td>
-                                    <?php echo CHtml::link($this->labels['view'],'/ajax/resolutionview/id/'.$resolution->id,array('class' => 'actions action-edit modal-link-opener', 'title' => $this->labels['information'])); ?>
+                                    <?php echo CHtml::link($this->labels['view'],'/services/resolutionview/id/'.$resolution->id,array('class' => 'actions action-edit modal-link-opener', 'title' => $this->labels['information'])); ?>
                                 </td>
                             </tr>
                             <?php endforeach;?>

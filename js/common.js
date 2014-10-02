@@ -29,7 +29,7 @@ $(document).ready(function(e) {
  */
 var ChangeStatus = function(obj)
 {
-    var url_path = '/ajax/changeproductstatus/'+ (obj).attr('prod_id');
+    var url_path = '/products/changeproductstatus/'+ (obj).attr('prod_id');
     //ajax load data
     jQuery.ajax({ url: url_path,beforeSend: function(){/*TODO: pre-loader*/}}).done(function(data){});
 };
@@ -39,6 +39,7 @@ var ChangeStatus = function(obj)
  * @param category
  * @returns {boolean}
  */
+/*
 var ajaxFilter = function(category){
     $('.table tbody').load('/ajax/product',
         {
@@ -48,3 +49,4 @@ var ajaxFilter = function(category){
     );
     return false;
 };
+*/

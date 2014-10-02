@@ -63,7 +63,7 @@ return array(
         ),
 
         'labels'=>array(
-            'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/labels_en.db',
+            'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/labels_lt.db',
             'class' => 'CDbConnection'
         ),
 
