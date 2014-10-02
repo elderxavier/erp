@@ -1,6 +1,6 @@
 <?php
 
-class ProductsController extends Controller
+class MainController extends Controller
 {
     /**
      * Returns sub-menu settings
@@ -122,8 +122,8 @@ class ProductsController extends Controller
                     //redirect to list
                     $this->redirect('/'.$this->id.'/categories');
                 }
-            }
 
+            }
             //render form
             $this->render('category_edit', array('category' => $category, 'form_mdl' => $form));
         }

@@ -20,7 +20,16 @@ return array(
     ),
 
     'modules'=>array(
-        // uncomment the following to enable the Gii tool
+        'buy',
+        'contractors',
+        'main',
+        'pdf',
+        'products',
+        'reports',
+        'sell',
+        'services',
+        'stock',
+        'users',
 
         'gii'=>array(
             'class'=>'system.gii.GiiModule',
@@ -53,12 +62,22 @@ return array(
 //                '<language:\w{2}>/<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 //                '<language:\w{2}>/<controller:\w+>/<action:\w+>/*'=>'<controller>/<action>',
 
-                '<controller:\w+>'=>'<controller>/index',
-                '<controller:\w+>/<id:\d+>'=>'<controller>/view',
-                '<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
-                '<controller:\w+>/<action:\w+>/*'=>'<controller>/<action>',
+//                '<controller:\w+>'=>'<controller>/index',
+//                '<controller:\w+>/<id:\d+>'=>'<controller>/view',
+//                '<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
+//                '<controller:\w+>/<action:\w+>/*'=>'<controller>/<action>',
 
-                '/' => 'main/index',
+                '<module:\w+>/ajax'=>'<module>/ajax/index',
+                '<module:\w+>/ajax/<id:\d+>'=>'<module>/ajax/view',
+                '<module:\w+>/ajax/<action:\w+>/<id:\d+>'=>'<module>/ajax/<action>',
+                '<module:\w+>/ajax/<action:\w+>/*'=>'<module>/ajax/<action>',
+
+                '<module:\w+>'=>'<module>/main/index',
+                '<module:\w+>/<id:\d+>'=>'<module>/main/view',
+                '<module:\w+>/<action:\w+>/<id:\d+>'=>'<module>/main/<action>',
+                '<module:\w+>/<action:\w+>/*'=>'<module>/main/<action>',
+
+                '/' => 'main/main/index',
             ),
         ),
 
@@ -79,7 +98,7 @@ return array(
 
         'errorHandler'=>array(
             // use 'site/error' action to display errors
-            'errorAction'=>'site/error',
+//            'errorAction'=>'site/error',
         ),
         'log'=>array(
             'class'=>'CLogRouter',

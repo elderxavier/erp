@@ -1,6 +1,6 @@
 <?php
 
-class ContractorsController extends Controller
+class MainController extends Controller
 {
     /**
      * Returns sub-menu for controller

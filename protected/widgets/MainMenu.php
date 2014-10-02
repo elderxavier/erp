@@ -8,7 +8,8 @@ class MainMenu extends Widget {
         /* @var $rights UserRights */
 
         //get user rights
-        $curr_controller = Yii::app()->controller->id;
+//        $curr_controller = Yii::app()->controller->id;
+        $curr_controller = Yii::app()->controller->module->id;
 
         //array of menu-links
         $main_menu = array(

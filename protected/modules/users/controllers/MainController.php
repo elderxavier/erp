@@ -1,6 +1,6 @@
 <?php
 
-class UsersController extends Controller
+class MainController extends Controller
 {
     /**
      * Returns sub-menu settings
@@ -445,7 +445,7 @@ class UsersController extends Controller
                     $user->password = md5($new_password);
                     $user->update();
                 }
-                //if failed
+                    //if failed
                 catch(CDbException $e)
                 {
                     $response = array();
@@ -495,7 +495,7 @@ class UsersController extends Controller
                     $response['code'] = 'OK';
                     exit (json_encode($response));
                 }
-                //if failed
+                    //if failed
                 catch(Exception $e)
                 {
                     $response = array();

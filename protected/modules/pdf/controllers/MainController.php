@@ -1,5 +1,5 @@
 <?php
-class PdfController extends Controller
+class MainController extends Controller
 {
     /**
      * Makes warranty-pdf for product

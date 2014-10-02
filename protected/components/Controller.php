@@ -116,7 +116,7 @@ class Controller extends CController
     protected function beforeAction($action) {
 
         //if current action - not login
-        if (Yii::app()->controller->action->id!=='login' && Yii::app()->controller->id!=='gateway')
+        if (Yii::app()->controller->action->id!=='login')
         {
             //if user not logged in
             if (Yii::app()->user->isGuest)

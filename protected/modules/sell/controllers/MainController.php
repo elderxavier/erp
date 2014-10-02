@@ -1,6 +1,6 @@
 <?php
 
-class SellController extends Controller
+class MainController extends Controller
 {
     /**
      * @return array

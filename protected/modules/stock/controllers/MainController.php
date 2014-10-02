@@ -1,6 +1,6 @@
 <?php
 
-class StockController extends Controller
+class MainController extends Controller
 {
     /**
      * @return array

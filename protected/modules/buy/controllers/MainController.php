@@ -1,6 +1,6 @@
 <?php
 
-class BuyController extends Controller
+class MainController extends Controller
 {
     /**
      * Returns sub-menu for controller

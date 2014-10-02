@@ -1,6 +1,6 @@
 <?php
 
-class ServicesController extends Controller
+class MainController extends Controller
 {
     /**
      * @return array
