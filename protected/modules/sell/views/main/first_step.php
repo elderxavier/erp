@@ -1,4 +1,4 @@
-<?php /* @var $this ServicesController */ ?>
+<?php /* @var $this MainController */ ?>
 <?php /* @var $cs CClientScript */ ?>
 
 <?php /* @var $client_types array */ ?>

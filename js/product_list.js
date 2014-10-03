@@ -7,7 +7,7 @@ jQuery(document).ready(function(){
     jQuery('#sel_name').autocomplete({
         source: function( request, response ) {
             $.ajax({
-                url: "/products/autocompleteproducts",
+                url: "/products/ajax/autocompleteproducts",
                 dataType: "json",
                 data: {
                     name: request.term
@@ -28,7 +28,7 @@ jQuery(document).ready(function(){
     jQuery('#sel_code').autocomplete({
         source: function( request, response ) {
             $.ajax({
-                url: "/products/autocompleteproducts",
+                url: "/products/ajax/autocompleteproducts",
                 dataType: "json",
                 data: {
                     code: request.term
@@ -100,6 +100,6 @@ var getParamsFromInputs = function(){
  */
 var filter = function(params)
 {
-    var filter_url = '/products/filterproducts';
+    var filter_url = '/products/ajax/filterproducts';
     jQuery(".table-holder").load(filter_url,params);
 };//filter

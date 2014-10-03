@@ -29,7 +29,7 @@ $(document).ready(function(e) {
  */
 var ChangeStatus = function(obj)
 {
-    var url_path = '/products/changeproductstatus/'+ (obj).attr('prod_id');
+    var url_path = '/products/ajax/changeproductstatus/'+ (obj).attr('prod_id');
     //ajax load data
     jQuery.ajax({ url: url_path,beforeSend: function(){/*TODO: pre-loader*/}}).done(function(data){});
 };

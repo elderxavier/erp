@@ -7,7 +7,7 @@
 <?php if($type == 1):?>
     <?php foreach($data as $row): ?>
         <tr>
-            <td><a href="#" class="cust-link" data-link='<?php echo Yii::app()->createUrl('/contractors/cusinfosales',array('id' => $row['id'])); ?>'><?php echo $row['company_name'] ?></a></td>
+            <td><a href="#" class="cust-link" data-link='<?php echo Yii::app()->createUrl('/contractors/ajax/custinfo',array('id' => $row['id'])); ?>'><?php echo $row['company_name'] ?></a></td>
             <td><?php echo $row['company_code']?></td>
             <td><?php echo implode(', ',array($row['country'],$row['city'],$row['street'])); ?></td>
         </tr>
@@ -15,7 +15,7 @@
 <?php else:?>
     <?php foreach($data as $row): ?>
         <tr>
-            <td><a href="#" class="cust-link" data-link='<?php echo Yii::app()->createUrl('/contractors/cusinfosales',array('id' => $row['id'])); ?>' ><?php echo $row['name'].' '.$row['surname']?></a></td>
+            <td><a href="#" class="cust-link" data-link='<?php echo Yii::app()->createUrl('/contractors/ajax/custinfo',array('id' => $row['id'])); ?>' ><?php echo $row['name'].' '.$row['surname']?></a></td>
             <td><?php echo $row['personal_code']?></td>
             <td><?php echo implode(', ',array($row['country'],$row['city'],$row['street'])); ?></td>
         </tr>

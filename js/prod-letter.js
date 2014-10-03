@@ -36,7 +36,7 @@ $(document).ready(function(e) {
     jQuery('#cli-name').autocomplete({
         source: function( request, response ) {
             $.ajax({
-                url: "/products/autocompleteforfiltration",
+                url: "/products/ajax/autocompleteforfiltration",
                 dataType: "json",
                 data: {
                     name: request.term
@@ -56,7 +56,7 @@ $(document).ready(function(e) {
     jQuery('#cli-code').autocomplete({
         source: function( request, response ) {
             $.ajax({
-                url: "/products/autocompleteforfiltration",
+                url: "/products/ajax/autocompleteforfiltration",
                 dataType: "json",
                 data: {
                     code: request.term
@@ -105,7 +105,7 @@ function addTemplate(objTemplate)
 {
     var text = '';
     var id = objTemplate.id;
-    var _url = '/products/LoadTemplate/'+id;
+    var _url = '/products/ajax/LoadTemplate/'+id;
     jQuery.ajax({ url: _url, beforeSend: function(){/*TODO: pre-loader*/}}).done(function(data)
     {
         jQuery(".template-text-area").val(data);
@@ -130,7 +130,7 @@ function delSender(objSender){
  */
 function filterTable(name,code)
 {
-    var url = '/products/renderfilteredpartforletters';
+    var url = '/products/ajax/renderfilteredpartforletters';
     $(".filtered-body").load(url,{name:name,code:code});
 }
 
@@ -158,6 +158,6 @@ function createDataForPost()
 
 function createLetterAndLoad(data)
 {
-    var url = '/products/createletter';
+    var url = '/products/ajax/createletter';
     $(".modal-body").load(url,data);
 }

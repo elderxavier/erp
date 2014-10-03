@@ -34,7 +34,7 @@ jQuery(document).ready(function(){
     jQuery("#name-surname").autocomplete({
         source: function( request, response ) {
             $.ajax({
-                url: "/users/autocomplete",
+                url: "/users/ajax/autocomplete",
                 dataType: "json",
                 data: {
                     term: request.term
@@ -66,6 +66,6 @@ var getParamsFromInputs = function()
 
 var filter = function(params)
 {
-    var filter_url = '/users/filter';
+    var filter_url = '/users/ajax/filter';
     jQuery(".table-holder").load(filter_url,params);
 };

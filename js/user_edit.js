@@ -27,7 +27,7 @@ var showButtonHidePreLoader = function()
 
 var resetPass = function(id){
 
-    jQuery.ajax({ url: '/users/resetpassword/'+id, beforeSend: function(){
+    jQuery.ajax({ url: '/users/ajax/resetpassword/'+id, beforeSend: function(){
         showPreLoaderHideButton();
     }}).done(function(data)
     {

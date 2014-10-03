@@ -69,6 +69,6 @@ var getParamsFromInputs = function(){
 
 var filter = function(params)
 {
-    var filter_url = '/stock/movementfilter';
+    var filter_url = '/stock/ajax/movementfilter';
     jQuery(".table-holder").load(filter_url,params);
 };

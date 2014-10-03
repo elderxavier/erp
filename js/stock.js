@@ -3,7 +3,7 @@ jQuery(document).ready(function(){
     jQuery('#prod-name').autocomplete({
         source: function( request, response ) {
             $.ajax({
-                url: "/stock/autocompleteproductcards",
+                url: "/stock/ajax/autocompleteproductcards",
                 dataType: "json",
                 data: {
                     name: request.term
@@ -19,7 +19,7 @@ jQuery(document).ready(function(){
     jQuery('#prod-code').autocomplete({
         source: function( request, response ) {
             $.ajax({
-                url: "/stock/autocompleteproductcards",
+                url: "/stock/ajax/autocompleteproductcards",
                 dataType: "json",
                 data: {
                     code: request.term
@@ -87,6 +87,6 @@ var getParamsFromInputs = function(){
  */
 var filter = function(params)
 {
-    var filter_url = '/stock/filter';
+    var filter_url = '/stock/ajax/filter';
     jQuery(".table-holder").load(filter_url,params);
 };//filter

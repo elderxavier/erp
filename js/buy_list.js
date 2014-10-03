@@ -14,7 +14,7 @@ jQuery(document).ready(function(){
     jQuery("#supplier-name").autocomplete({
         source: function( request, response ) {
             $.ajax({
-                url: "/buy/sellers",
+                url: "/buy/ajax/sellers",
                 dataType: "json",
                 data: {
                     term: request.term
@@ -77,6 +77,6 @@ var getParamsFromInputs = function()
 
 var filter = function(params)
 {
-    var filter_url = '/buy/ajaxfilter';
+    var filter_url = '/buy/ajax/ajaxfilter';
     jQuery(".table-holder").load(filter_url,params);
 };

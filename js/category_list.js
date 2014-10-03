@@ -6,7 +6,7 @@ jQuery(document).ready(function(){
     jQuery('#name').autocomplete({
         source: function( request, response ) {
             $.ajax({
-                url: "/products/autocompletecategories",
+                url: "/products/ajax/autocompletecategories",
                 dataType: "json",
                 data: {
                     term: request.term
@@ -63,6 +63,6 @@ var getParamsFromInputs = function(){
  */
 var filter = function(params)
 {
-    var filter_url = '/products/filtercategories';
+    var filter_url = '/products/ajax/filtercategories';
     jQuery(".table-holder").load(filter_url,params);
 };//filter

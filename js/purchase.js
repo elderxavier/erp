@@ -51,7 +51,7 @@ $(function(){
     $('.by-name').autocomplete({
         source: function( request, response ) {
             $.ajax({
-                url: "/buy/sellers",
+                url: "/buy/ajax/sellers",
                 dataType: "json",
                 data: {
                     term: request.term
@@ -68,7 +68,7 @@ $(function(){
     $('.by-number').autocomplete({
         source: function( request, response ) {
             $.ajax({
-                url: "/buy/sellers",
+                url: "/buy/ajax/sellers",
                 dataType: "json",
                 data: {
                     code: request.term
@@ -85,7 +85,7 @@ $(function(){
     $('#prod-name-input').autocomplete({
         source: function( request, response ) {
             $.ajax({
-                url: "/buy/autocompleteproductsname",
+                url: "/buy/ajax/autocompleteproductsname",
                 dataType: "json",
                 data: {
                     term: request.term
@@ -107,7 +107,7 @@ $(function(){
     $('#prod-code-input').autocomplete({
         source: function( request, response ) {
             $.ajax({
-                url: "/buy/AutoCompleteProductsCode",
+                url: "/buy/ajax/AutoCompleteProductsCode",
                 dataType: "json",
                 data: {
                     term: request.term
@@ -243,7 +243,7 @@ var checkSimbols = function(e){
 */
 
 var clientFilter = function(value,code_v){
-	$('.body-holder table tbody').load('/buy/sellfilter/',
+	$('.body-holder table tbody').load('/buy/ajax/sellfilter/',
 		{ name : value, code: code_v}
 	);	
 };//clientFilter
@@ -257,7 +257,7 @@ var modalInfo = function(link){
 
 var filterProds = function(name, code)
 {
-    jQuery('#filtered-tbl-body').load('/buy/FindProductsModal/',
+    jQuery('#filtered-tbl-body').load('/buy/ajax/FindProductsModal/',
         {name:name,code:code}
     );
 };//filterProds

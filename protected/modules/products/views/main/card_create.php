@@ -2,7 +2,7 @@
 <?php /* @var $form_mdl ProductCardForm */ ?>
 <?php /* @var $categories_arr Array */ ?>
 <?php /* @var $card ProductCards */ ?>
-<?php /* @var $this ProductsController */ ?>
+<?php /* @var $this MainController */ ?>
 
 <?php /* @var $s_units array */ ?>
 <?php /* @var $m_units array */ ?>

@@ -20,7 +20,7 @@ $(function(){
     jQuery('#prod-name-src').autocomplete({
         source: function( request, response ) {
             $.ajax({
-                url: "/stock/autocompleteproductcardsbystock",
+                url: "/stock/ajax/autocompleteproductcardsbystock",
                 dataType: "json",
                 data: {
                     name: request.term,
@@ -37,7 +37,7 @@ $(function(){
     jQuery('#prod-code-src').autocomplete({
         source: function( request, response ) {
             $.ajax({
-                url: "/stock/autocompleteproductcardsbystock",
+                url: "/stock/ajax/autocompleteproductcardsbystock",
                 dataType: "json",
                 data: {
                     code: request.term,
@@ -162,7 +162,7 @@ var filter_prods = function()
     var prod_code = jQuery("#prod-code-src").val();
     var stock_id = jQuery("#stock-id-src").val();
 
-    jQuery(".filtered-prods").load('/stock/prodfilter',{name:prod_name,code:prod_code, stock:stock_id});
+    jQuery(".filtered-prods").load('/stock/ajax/prodfilter',{name:prod_name,code:prod_code, stock:stock_id});
 };
 
 

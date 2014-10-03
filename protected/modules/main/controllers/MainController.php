@@ -49,7 +49,7 @@ class MainController extends Controller
             // validate user input and redirect to the previous page if valid
             if($validation->validate() && $validation->login())
             {
-                $this->redirect('index');
+                $this->redirect('/main/index');
             }
         }
 
