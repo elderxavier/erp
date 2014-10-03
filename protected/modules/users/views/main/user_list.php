@@ -1,6 +1,6 @@
 <?php /* @var $user Users */?>
 <?php /* @var $users Array */ ?>
-<?php /* @var $this UsersController */ ?>
+<?php /* @var $this MainController */ ?>
 <?php /* @var $pager CPagerComponent */ ?>
 
 <?php /* @var $cities Array */ ?>
@@ -59,10 +59,10 @@ $cs->registerCssFile(Yii::app()->request->baseUrl.'/css/paginator.css');
                             <td><?php echo $user->city ? $user->city->city_name : '-'; ?></td>
                             <td>
                                 <?php if($this->rights['users_edit']): ?>
-                                    <?php echo CHtml::link($this->labels['edit'],'/'.$this->id.'/edit/id/'.$user->id,array('class' => 'actions action-edit')); ?>
+                                    <?php echo CHtml::link($this->labels['edit'],'/users/edit/id/'.$user->id,array('class' => 'actions action-edit')); ?>
                                 <?php endif; ?>
                                 <?php if($this->rights['users_delete']): ?>
-                                    <?php echo CHtml::link($this->labels['delete'],'/'.$this->id.'/delete/id/'.$user->id,array('class' => 'actions action-delete')); ?>
+                                    <?php echo CHtml::link($this->labels['delete'],'/users/delete/id/'.$user->id,array('class' => 'actions action-delete')); ?>
                                 <?php endif; ?>
                             </td>
                         </tr>

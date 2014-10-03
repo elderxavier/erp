@@ -1,7 +1,7 @@
 <?php
 /* @var $form_mdl ProductCardForm */
 /* @var $form CActiveForm */
-/* @var $this BuyController */
+/* @var $this MainController */
 /* @var $cs CClientScript */
 /* @var $supplier Suppliers */
 /* @var $stocks Stocks[] */

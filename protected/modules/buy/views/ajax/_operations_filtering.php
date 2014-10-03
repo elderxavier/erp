@@ -15,7 +15,7 @@
     <?php foreach($pager->formatted_array as $invoice): ?>
         <tr>
             <td><?php echo $invoice->id;?></td>
-            <td><a class="open-info-lnk" href="<?php echo Yii::app()->createUrl('/buy/ajaxinfo',array('id' => $invoice->id)); ?>" data-toggle="modal" data-target="#invoiceInfo"><?php echo $invoice->invoice_code; ?></a></td>
+            <td><a class="open-info-lnk" href="<?php echo Yii::app()->createUrl('/buy/ajax/ajaxinfo',array('id' => $invoice->id)); ?>" data-toggle="modal" data-target="#invoiceInfo"><?php echo $invoice->invoice_code; ?></a></td>
             <td><?php echo $invoice->supplier->company_name;?></td>
             <td><?php echo date('Y.m.d',$invoice->date_created); ?></td>
             <td><a href="#"><?php echo $this->labels['edit']; ?></a></td>

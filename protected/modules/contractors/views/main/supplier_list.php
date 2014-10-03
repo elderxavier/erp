@@ -1,7 +1,7 @@
 <?php /* @var $pager CPagerComponent */ ?>
 <?php /* @var $supplier Suppliers */ ?>
 <?php /* @var $rights UserRights */ ?>
-<?php /* @var $this ContractorsController */ ?>
+<?php /* @var $this MainController */ ?>
 <?php /* @var $table_actions array */ ?>
 <?php /* @var $cities array */ ?>
 
@@ -58,10 +58,10 @@ $cs->registerScriptFile(Yii::app()->request->baseUrl.'/js/supplier_list.js',CCli
                             <td><?php echo $supplier->getAddressFormatted(', ') ?></td>
                             <td>
                                 <?php if($this->rights['suppliers_edit']): ?>
-                                    <?php echo CHtml::link($this->labels['edit'],'/'.$this->id.'/editsupp/id/'.$supplier->id,array('class' => 'actions action-edit')); ?>
+                                    <?php echo CHtml::link($this->labels['edit'],'/contractors/editsupp/id/'.$supplier->id,array('class' => 'actions action-edit')); ?>
                                 <?php endif; ?>
                                 <?php if($this->rights['suppliers_delete']): ?>
-                                    <?php echo CHtml::link($this->labels['delete'],'/'.$this->id.'/deletesupp/id/'.$supplier->id,array('class' => 'actions action-delete')); ?>
+                                    <?php echo CHtml::link($this->labels['delete'],'/contractors/deletesupp/id/'.$supplier->id,array('class' => 'actions action-delete')); ?>
                                 <?php endif; ?>
                             </td>
                         </tr>

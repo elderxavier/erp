@@ -1,6 +1,6 @@
 <?php
 /* @var $cs CClientScript */
-/* @var $this SellController */
+/* @var $this MainController */
 /* @var $form CActiveForm */
 /* @var $form_mdl ClientForm */
 ?>

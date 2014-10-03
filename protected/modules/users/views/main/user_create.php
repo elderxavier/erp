@@ -1,6 +1,6 @@
 <?php /* @var $form CActiveForm */ ?>
 <?php /* @var $form_mdl UserForm */ ?>
-<?php /* @var $this UsersController */ ?>
+<?php /* @var $this MainController */ ?>
 <?php /* @var $user Users */ ?>
 <?php /* @var $positions Array */ ?>
 <?php /* @var $roles Array */ ?>

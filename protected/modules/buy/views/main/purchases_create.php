@@ -4,7 +4,7 @@
 <?php /* @var $products Array */ ?>
 <?php /* @var $stocks Array */ ?>
 <?php /* @var $stock Stocks */ ?>
-<?php /* @var $this BuyController */ ?>
+<?php /* @var $this MainController */ ?>
 
 <?php
 /* @var $cs CClientScript */

@@ -25,10 +25,10 @@
             <td><?php echo $supplier->getAddressFormatted(', ') ?></td>
             <td>
                 <?php if($this->rights['suppliers_edit']): ?>
-                    <?php echo CHtml::link($this->labels['edit'],'/'.$this->id.'/editsupp/id/'.$supplier->id,array('class' => 'actions action-edit')); ?>
+                    <?php echo CHtml::link($this->labels['edit'],'/contractors/editsupp/id/'.$supplier->id,array('class' => 'actions action-edit')); ?>
                 <?php endif; ?>
                 <?php if($this->rights['suppliers_delete']): ?>
-                    <?php echo CHtml::link($this->labels['delete'],'/'.$this->id.'/deletesupp/id/'.$supplier->id,array('class' => 'actions action-delete')); ?>
+                    <?php echo CHtml::link($this->labels['delete'],'/cpntractors/deletesupp/id/'.$supplier->id,array('class' => 'actions action-delete')); ?>
                 <?php endif; ?>
             </td>
         </tr>

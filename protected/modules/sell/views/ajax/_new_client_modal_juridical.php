@@ -1,7 +1,7 @@
 <?php
 
 /* @var $cs CClientScript */
-/* @var $this SellController */
+/* @var $this AjaxController */
 /* @var $form CActiveForm */
 /* @var $form_mdl ClientForm */
 ?>

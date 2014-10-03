@@ -1,4 +1,4 @@
-<?php /* @var $this SellController */ ?>
+<?php /* @var $this AjaxController */ ?>
 <?php /* @var $operations OperationsOut[] */ ?>
 <?php /* @var $pager CPagerComponent */ ?>
 
@@ -21,7 +21,7 @@
     <?php foreach($pager->formatted_array as $nr => $operation): ?>
         <tr id="op_id_<?php echo $operation->id;?>">
             <td><?php echo $nr + 1; ?></td>
-            <td><a class="info-open-lnk" href="<?php echo Yii::app()->createUrl('/sell/operationoutinfo',array('id' => $operation->id)); ?>" data-toggle="modal" data-id="<?php echo $operation->id; ?>" data-target="#invoiceInfo"><?php echo $operation->id; ?></a></td>
+            <td><a class="info-open-lnk" href="<?php echo Yii::app()->createUrl('/sell/ajax/operationoutinfo',array('id' => $operation->id)); ?>" data-toggle="modal" data-id="<?php echo $operation->id; ?>" data-target="#invoiceInfo"><?php echo $operation->id; ?></a></td>
             <td><?php echo $operation->client->getFullName(); ?></td>
             <td><?php echo $operation->client->typeObj->name; ?></td>
             <td><?php echo $operation->stock->location->city_name; ?></td>

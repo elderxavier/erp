@@ -1,6 +1,6 @@
 <?php /* @var $service ServiceProcesses */ ?>
 <?php /* @var $services array */ ?>
-<?php /* @var $this ServicesController */ ?>
+<?php /* @var $this MainController */ ?>
 <?php /* @var $cs CClientScript */ ?>
 
 <?php

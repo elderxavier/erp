@@ -1,6 +1,6 @@
 <?php /* @var $client Clients */ ?>
 <?php /* @var $rights UserRights */ ?>
-<?php /* @var $this ContractorsController */ ?>
+<?php /* @var $this MainController */ ?>
 <?php /* @var $pager CPagerComponent */ ?>
 
 <?php /* @var $types array */ ?>
@@ -67,10 +67,10 @@ $cs->registerScriptFile(Yii::app()->request->baseUrl.'/js/client_list.js',CClien
                             <td><?php echo $client->getAddressFormatted(', '); ?></td>
                             <td>
                                 <?php if($this->rights['clients_edit']): ?>
-                                    <?php echo CHtml::link($this->labels['edit'],'/'.$this->id.'/editclient/id/'.$client->id,array('class' => 'actions action-edit')); ?>
+                                    <?php echo CHtml::link($this->labels['edit'],'/contractors/editclient/id/'.$client->id,array('class' => 'actions action-edit')); ?>
                                 <?php endif; ?>
                                 <?php if($this->rights['clients_delete']): ?>
-                                    <?php echo CHtml::link($this->labels['delete'],'/'.$this->id.'/deleteclient/id/'.$client->id,array('class' => 'actions action-delete')); ?>
+                                    <?php echo CHtml::link($this->labels['delete'],'/contractors/deleteclient/id/'.$client->id,array('class' => 'actions action-delete')); ?>
                                 <?php endif; ?>
                             </td>
                         </tr>

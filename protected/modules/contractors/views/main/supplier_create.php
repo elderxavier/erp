@@ -1,5 +1,5 @@
 <?php /* @var $form CActiveForm */ ?>
-<?php /* @var $this ContractorsController */ ?>
+<?php /* @var $this MainController */ ?>
 <?php /* @var $form_mdl SupplierForm */ ?>
 
 

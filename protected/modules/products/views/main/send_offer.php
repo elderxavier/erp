@@ -1,6 +1,6 @@
 <?php /* @var $card ProductCards */ ?>
 <?php /* @var $templates MailTemplates[] */ ?>
-<?php /* @var $this ProductsController */ ?>
+<?php /* @var $this MainController */ ?>
 
 <?php
 $cs = Yii::app()->clientScript;
